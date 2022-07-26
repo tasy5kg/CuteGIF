@@ -1,0 +1,44 @@
+<resources>
+
+    <style name="Theme.CuteGif" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:colorBackground">@color/light</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:textColorHighlight">@color/green_light</item>
+        <item name="android:textColorLink">@color/green_dark</item>
+        <item name="colorPrimary">@color/green_light</item>
+        <item name="colorOnPrimary">@color/dark</item>
+        <item name="colorSecondary">@color/green_light</item>
+        <item name="colorOnSecondary">@color/dark</item>
+        <item name="colorOnSurface">@color/dark</item>
+        <item name="colorOutline">@color/dark</item>
+        <item name="iconTint">@color/dark</item>
+    </style>
+
+    <style name="DialogActivity" parent="Theme.Material3.Light.Dialog.MinWidth">
+        <item name="android:colorBackground">@color/light</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:textColorHighlight">@color/green_light</item>
+        <item name="android:textColorLink">@color/green_dark</item>
+        <item name="colorPrimary">@color/green_light</item>
+        <item name="colorOnPrimary">@color/dark</item>
+        <item name="colorSecondary">@color/green_light</item>
+        <item name="colorOnSecondary">@color/dark</item>
+        <item name="colorOnSurface">@color/dark</item>
+        <item name="colorOutline">@color/dark</item>
+        <item name="iconTint">@color/dark</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MTVCustomMenuItem" parent="Theme.CuteGif">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
+    </style>
+</resources>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CustomMenuItemView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    tools:context=".AboutActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        android:paddingVertical="20dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtv_version_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Version X (yyyyMMdd)"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:textColor="@color/grey"
+                    tools:ignore="HardcodedText,TextContrastCheck" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="24dp"
+            android:text="@string/convert_video_to_gif_simple_and_fast"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="24dp"
+            android:text="@string/privacy_statement"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llc_visible_for_not_first_start"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <include layout="@layout/view_divider_horizontal" />
+
+            <me.tasy5kg.cutegif.CustomMenuItemView
+                android:id="@+id/cmiv_join_qq_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                CustomMenuItemView:selectedKey="@string/share_gifs_send_feedback"
+                CustomMenuItemView:title="@string/join_qq_group" />
+
+            <include layout="@layout/view_divider_horizontal" />
+
+
+            <me.tasy5kg.cutegif.CustomMenuItemView
+                android:id="@+id/cmiv_get_latest_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                CustomMenuItemView:title="@string/get_latest_version" />
+
+            <include layout="@layout/view_divider_horizontal" />
+
+            <me.tasy5kg.cutegif.CustomMenuItemView
+                android:id="@+id/cmiv_cn_browse_help_documentation_or_send_email_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                CustomMenuItemView:title="@string/cn_browse_help_documentation_or_send_email_feedback" />
+
+            <include layout="@layout/view_divider_horizontal" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llc_more_options_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:minHeight="54dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtv_debug_info"
+                        style="@style/MTVCustomMenuItem"
+                        android:text="@string/debug_info" />
+
+                    <include layout="@layout/view_divider_vertical" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtv_open_source_repo"
+                        style="@style/MTVCustomMenuItem"
+                        android:text="@string/open_source_repo" />
+
+                    <include layout="@layout/view_divider_vertical" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtv_open_source_license"
+                        style="@style/MTVCustomMenuItem"
+                        android:text="@string/open_source_license" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <me.tasy5kg.cutegif.CustomMenuItemView
+                android:id="@+id/cmiv_more_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                CustomMenuItemView:title="@string/more_options" />
+
+            <include layout="@layout/view_divider_horizontal" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mtv_developer_email_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="54dp"
+                android:paddingHorizontal="24dp"
+                android:text="@string/developer_email_address"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="@color/grey" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_start"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="@string/start_using"
+            android:textColor="?attr/colorOnSurface" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

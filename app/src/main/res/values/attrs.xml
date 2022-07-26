@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomMenuItemView">
+        <attr name="title" format="string" />
+        <attr name="subTitle" format="string" />
+        <attr name="selectedKey" format="string" />
+    </declare-styleable>
+</resources>
