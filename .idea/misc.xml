@@ -25,9 +25,12 @@
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/selector_button_in_toggle_group.xml" value="0.1" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_about.xml" value="0.25" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_complete.xml" value="0.335" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_gif.xml" value="0.25349794238683127" />
+        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_crop.xml" value="0.25181701581872595" />
+        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_gif.xml" value="0.24862811312790206" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_legal.xml" value="0.2026315789473684" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_main.xml" value="0.23262279888785914" />
+        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_playground.xml" value="0.24862811312790206" />
+        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_settings.xml" value="0.25" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_shortcut_guide.xml" value="0.25" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_custom_menu_item.xml" value="0.165" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_divider_horizonta2l.xml" value="0.1" />
@@ -42,6 +45,7 @@
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_config_speed.xml" value="0.5" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_debug_info.xml" value="0.26336041043180847" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_open_source_licenses.xml" value="0.25181701581872595" />
+        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_toolbar.xml" value="0.1" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/menu/toolbar_gif.xml" value="0.1527777777777778" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/menu/toolbar_main.xml" value="0.10740740740740741" />
         <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.25" />

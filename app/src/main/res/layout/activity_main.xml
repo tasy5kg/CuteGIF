@@ -7,80 +7,80 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/material_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:title="@string/app_name"
-        app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-        app:titleTextColor="@color/dark" />
+  <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/material_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      app:title="@string/app_name"
+      app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+      app:titleTextColor="@color/dark" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llc_select_a_video"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:orientation="vertical">
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/llc_select_a_video"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:gravity="center"
+      android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            app:srcCompat="@drawable/ic_baseline_video_library_24"
-            app:tint="@color/grey" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        app:srcCompat="@drawable/ic_baseline_video_library_24"
+        app:tint="@color/grey" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/convert_video_to_gif"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/tap_anywhere_to_select_a_video"
-            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="@color/grey" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <include
-        layout="@layout/view_divider_horizontal"
-        android:visibility="gone" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llc_guide_shortcut"
-        android:layout_width="match_parent"
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="24dp"
-        android:visibility="gone">
+        android:layout_marginTop="16dp"
+        android:text="@string/convert_video_to_gif"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="12dp"
-            app:srcCompat="@drawable/ic_baseline_assistant_24"
-            app:tint="@color/dark" />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tap_anywhere_to_select_a_video"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/grey" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/with_cutegif_you_can_convert"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <include
+      layout="@layout/view_divider_horizontal"
+      android:visibility="gone" />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/llc_guide_shortcut"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clickable="false"
+      android:focusable="false"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingHorizontal="16dp"
+      android:paddingTop="20dp"
+      android:paddingBottom="24dp"
+      android:visibility="gone">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        app:srcCompat="@drawable/ic_baseline_assistant_24"
+        app:tint="@color/dark" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/with_cutegif_you_can_convert"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

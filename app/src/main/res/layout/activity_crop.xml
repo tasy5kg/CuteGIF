@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".CropActivity">
+
+  <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/material_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:animateLayoutChanges="true"
+      android:background="?attr/colorPrimary"
+      app:subtitle="@string/crop_and_rotate"
+      app:subtitleTextAppearance="@style/TextAppearance.Material3.LabelLarge"
+      app:subtitleTextColor="@color/dark"
+      app:title="@string/app_name"
+      app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+      app:titleTextColor="@color/dark" />
+
+  <com.canhub.cropper.CropImageView
+      android:id="@+id/crop_image_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/video_background"
+      tools:visibility="gone" />
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingHorizontal="8dp"
+      android:paddingVertical="8dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_rotate"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rotate"
+        android:textColor="?attr/colorOnSurface" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_done"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/done"
+        android:textColor="?attr/colorOnSurface" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -7,53 +7,53 @@
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+    <me.tasy5kg.cutegif.CustomMenuItemView
+        android:id="@+id/cmiv_view_3rd_party_oss_licenses"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        CustomMenuItemView:title="@string/tap_to_view_3rd_party_oss_licenses" />
 
-        <me.tasy5kg.cutegif.CustomMenuItemView
-            android:id="@+id/cmiv_view_3rd_party_oss_licenses"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            CustomMenuItemView:title="@string/tap_to_view_3rd_party_oss_licenses" />
+    <include layout="@layout/view_divider_horizontal" />
 
-        <include layout="@layout/view_divider_horizontal" />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:gravity="bottom"
+        android:text="@string/the_following_terms_apply_to_cutegif_"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="12dp"
-            android:gravity="bottom"
-            android:text="@string/the_following_terms_apply_to_cutegif_"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+      <com.google.android.material.textview.MaterialTextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:autoLink="all"
+          android:paddingHorizontal="24dp"
+          android:paddingVertical="12dp"
+          android:text="@string/open_source_license_cute_gif"
+          android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+          android:typeface="monospace" />
+    </HorizontalScrollView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoLink="all"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="12dp"
-                android:text="@string/open_source_license_cute_gif"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:typeface="monospace" />
-        </HorizontalScrollView>
+    <include layout="@layout/view_divider_horizontal" />
 
-        <include layout="@layout/view_divider_horizontal" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/mb_close"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
-            android:text="@string/close"
-            android:textColor="?attr/colorOnSurface" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_close"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="8dp"
+        android:text="@string/close"
+        android:textColor="?attr/colorOnSurface" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>

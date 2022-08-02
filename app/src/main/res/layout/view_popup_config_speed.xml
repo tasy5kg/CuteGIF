@@ -6,33 +6,33 @@
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="8dp"
+        android:stepSize="1"
+        android:valueFrom="0"
+        android:valueTo="99"
+        app:labelBehavior="visible"
+        app:tickColor="@color/green_dark"
+        app:trackColorActive="@color/green_light"
+        app:trackColorInactive="@color/light" />
 
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:stepSize="1"
-            android:valueFrom="0"
-            android:valueTo="99"
-            app:labelBehavior="visible"
-            app:tickColor="@color/green_dark"
-            app:trackColorActive="@color/green_light"
-            app:trackColorInactive="@color/light" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:paddingHorizontal="16dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        android:textColor="@color/grey"
+        android:visibility="gone" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_guide"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:paddingHorizontal="16dp"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textColor="@color/grey"
-            android:visibility="gone" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+  </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>

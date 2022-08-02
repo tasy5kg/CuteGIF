@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CustomMenuItemView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".SettingsActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/material_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:animateLayoutChanges="true"
+        android:background="?attr/colorPrimary"
+        app:subtitle="@string/settings"
+        app:subtitleTextAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:subtitleTextColor="@color/dark"
+        app:title="@string/app_name"
+        app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+        app:titleTextColor="@color/dark" />
+
+
+    <me.tasy5kg.cutegif.CustomMenuItemView
+        android:id="@+id/cmiv_remember_gif_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        CustomMenuItemView:selectedKey="@string/disabled"
+        CustomMenuItemView:title="@string/remember_last_selected_option" />
+
+    <include layout="@layout/view_divider_horizontal" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_done"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="8dp"
+        android:text="@string/done"
+        android:textColor="?attr/colorOnSurface" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

@@ -8,226 +8,241 @@
     android:animateLayoutChanges="true"
     tools:context=".GifActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <com.google.android.material.appbar.MaterialToolbar
+          android:id="@+id/material_toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:animateLayoutChanges="true"
+          android:background="?attr/colorPrimary"
+          app:subtitle="..."
+          app:subtitleTextAppearance="@style/TextAppearance.Material3.LabelLarge"
+          app:subtitleTextColor="@color/dark"
+          app:title="@string/app_name"
+          app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+          app:titleTextColor="@color/dark" />
+
+      <com.google.android.material.progressindicator.LinearProgressIndicator
+          android:id="@+id/linear_progress_indicator"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:indeterminate="true"
+          android:visibility="invisible"
+          app:indicatorColor="@color/green_dark" />
+    </RelativeLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:animateLayoutChanges="true">
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/material_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:animateLayoutChanges="true"
-                android:background="?attr/colorPrimary"
-                app:subtitleTextAppearance="@style/TextAppearance.Material3.LabelLarge"
-                app:subtitleTextColor="@color/dark"
-                app:title="@string/app_name"
-                app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-                app:titleTextColor="@color/dark" />
+          <androidx.appcompat.widget.AppCompatImageView
+              android:id="@+id/aciv"
+              android:layout_width="match_parent"
+              android:layout_height="192dp"
+              android:adjustViewBounds="true"
+              android:animateLayoutChanges="true"
+              android:background="@color/video_background" />
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/linear_progress_indicator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:indeterminate="true"
-                android:visibility="invisible"
-                app:indicatorColor="@color/green_dark" />
+          <com.google.android.material.chip.Chip
+              android:id="@+id/chip_crop"
+              style="@style/Widget.Material3.Chip.Assist"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_alignParentBottom="true"
+              android:layout_marginEnd="8dp"
+              android:alpha="0.8"
+              android:text="@string/crop"
+              android:textColor="?attr/colorOnSurface" />
+
         </RelativeLayout>
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:id="@+id/frame_layout_gone_when_finished"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+          <androidx.appcompat.widget.LinearLayoutCompat
+              android:id="@+id/llc_options_group"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:animateLayoutChanges="true"
+              android:orientation="vertical">
+
+            <include layout="@layout/view_divider_horizontal" />
+
+            <me.tasy5kg.cutegif.CustomMenuItemView
+                android:id="@+id/cmiv_speed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                CustomMenuItemView:selectedKey="@string/_2_x"
+                CustomMenuItemView:title="@string/playback_speed" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <include layout="@layout/view_divider_horizontal" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/aciv"
-                        android:layout_width="match_parent"
-                        android:layout_height="192dp"
-                        android:adjustViewBounds="true"
-                        android:animateLayoutChanges="true"
-                        android:background="@color/video_background" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llc_more_options_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
+              <me.tasy5kg.cutegif.CustomMenuItemView
+                  android:id="@+id/cmiv_resolution"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  CustomMenuItemView:selectedKey="@string/_240p"
+                  CustomMenuItemView:title="@string/resolution" />
 
-                </FrameLayout>
+              <include layout="@layout/view_divider_horizontal" />
 
-                <FrameLayout
-                    android:id="@+id/frame_layout_gone_when_finished"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true">
+              <me.tasy5kg.cutegif.CustomMenuItemView
+                  android:id="@+id/cmiv_frame_rate"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  CustomMenuItemView:selectedKey="@string/medium"
+                  CustomMenuItemView:subTitle="@string/make_gif_smoother"
+                  CustomMenuItemView:title="@string/frame_rate" />
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:animateLayoutChanges="true"
-                        android:orientation="vertical">
+              <include layout="@layout/view_divider_horizontal" />
 
-                        <include layout="@layout/view_divider_horizontal" />
+              <me.tasy5kg.cutegif.CustomMenuItemView
+                  android:id="@+id/cmiv_color_quality"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  CustomMenuItemView:selectedKey="@string/medium"
+                  CustomMenuItemView:subTitle="@string/reduce_color_distortion"
+                  CustomMenuItemView:title="@string/color_quality" />
 
-                        <me.tasy5kg.cutegif.CustomMenuItemView
-                            android:id="@+id/cmiv_speed"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            CustomMenuItemView:selectedKey="@string/_2_x"
-                            CustomMenuItemView:title="@string/playback_speed" />
-
-                        <include layout="@layout/view_divider_horizontal" />
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:id="@+id/llc_more_options_group"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="gone"
-                            tools:visibility="visible">
-
-                            <me.tasy5kg.cutegif.CustomMenuItemView
-                                android:id="@+id/cmiv_resolution"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                CustomMenuItemView:selectedKey="@string/_240p"
-                                CustomMenuItemView:title="@string/resolution" />
-
-                            <include layout="@layout/view_divider_horizontal" />
-
-                            <me.tasy5kg.cutegif.CustomMenuItemView
-                                android:id="@+id/cmiv_frame_rate"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                CustomMenuItemView:selectedKey="@string/medium"
-                                CustomMenuItemView:title="@string/frame_rate" />
-
-                            <include layout="@layout/view_divider_horizontal" />
-
-                            <me.tasy5kg.cutegif.CustomMenuItemView
-                                android:id="@+id/cmiv_color_quality"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                CustomMenuItemView:selectedKey="@string/medium"
-                                CustomMenuItemView:title="@string/color_quality" />
-
-                            <include layout="@layout/view_divider_horizontal" />
-
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:id="@+id/llc_more_options_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:animateLayoutChanges="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:orientation="vertical">
-
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="match_parent"
-                                android:layout_height="54dp"
-                                android:animateLayoutChanges="true"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_marginEnd="8dp"
-                                    app:srcCompat="@drawable/ic_baseline_more_horiz_24"
-                                    app:tint="@color/dark" />
-
-                                <com.google.android.material.textview.MaterialTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/more_options"
-                                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
-
-                            </androidx.appcompat.widget.LinearLayoutCompat>
-
-                            <include layout="@layout/view_divider_horizontal" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                </FrameLayout>
+              <include layout="@layout/view_divider_horizontal" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <View
-                android:id="@+id/view_mask_layer"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llc_more_options_button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
-                android:background="#80E6E6E6"
+                android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                android:visibility="gone"
-                tools:visibility="gone" />
+                android:orientation="vertical">
+
+              <androidx.appcompat.widget.LinearLayoutCompat
+                  android:layout_width="match_parent"
+                  android:layout_height="54dp"
+                  android:animateLayoutChanges="true"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    app:srcCompat="@drawable/ic_baseline_more_horiz_24"
+                    app:tint="@color/dark" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more_options"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+              </androidx.appcompat.widget.LinearLayoutCompat>
+
+              <include layout="@layout/view_divider_horizontal" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+          </androidx.appcompat.widget.LinearLayoutCompat>
+
         </FrameLayout>
 
+      </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:animateLayoutChanges="true"
-            android:orientation="horizontal">
+      <View
+          android:id="@+id/view_mask_layer"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:animateLayoutChanges="true"
+          android:background="#80E6E6E6"
+          android:clickable="true"
+          android:focusable="true"
+          android:visibility="gone"
+          tools:visibility="gone" />
+    </FrameLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/mb_delete"
-                style="@style/Widget.Material3.Button.TextButton.Dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:textColor="@color/dark"
-                android:visibility="gone" />
 
-            <Space
-                android:id="@+id/space"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/mb_cancel"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginStart="8dp"
-                android:gravity="center"
-                android:text="@string/close"
-                android:textColor="?attr/colorOnSurface" />
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_delete"
+          style="@style/Widget.Material3.Button.TextButton.Dialog"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/delete"
+          android:textColor="@color/dark"
+          android:visibility="gone" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/mb_convert"
-                style="@style/Widget.Material3.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/convert_to_gif"
-                android:textColor="?attr/colorOnSurface"
-                app:icon="@drawable/ic_baseline_video_library_24"
-                app:iconGravity="textStart" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+      <Space
+          android:id="@+id/space"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:visibility="gone" />
 
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_cancel"
+          style="@style/Widget.Material3.Button.OutlinedButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="end"
+          android:layout_marginStart="8dp"
+          android:gravity="center"
+          android:text="@string/close"
+          android:textColor="?attr/colorOnSurface" />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_convert"
+          style="@style/Widget.Material3.Button.Icon"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:text="@string/convert_to_gif"
+          android:textColor="?attr/colorOnSurface"
+          app:icon="@drawable/ic_baseline_video_library_24"
+          app:iconGravity="textStart" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

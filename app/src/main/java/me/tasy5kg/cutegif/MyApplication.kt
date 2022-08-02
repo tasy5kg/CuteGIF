@@ -5,13 +5,13 @@ import android.app.Application
 import android.content.Context
 
 class MyApplication : Application() {
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        lateinit var context: Context
-    }
+  companion object {
+    @SuppressLint("StaticFieldLeak")
+    lateinit var context: Context
+  }
 
-    override fun onCreate() {
-        super.onCreate()
-        context = applicationContext
-    }
+  override fun onCreate() {
+    super.onCreate()
+    context = applicationContext
+  }
 }
