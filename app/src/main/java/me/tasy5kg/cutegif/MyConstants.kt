@@ -52,7 +52,6 @@ object MyConstants {
       context.getString(R.string.glance_mode) to GIF_SPEED_GLANCE_MODE
     )
 
-
   const val REMEMBER_GIF_CONFIG_OFF = 0
   const val REMEMBER_GIF_CONFIG_ON = 1
   const val REMEMBER_GIF_CONFIG_DEFAULT = REMEMBER_GIF_CONFIG_OFF

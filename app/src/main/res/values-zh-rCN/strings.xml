@@ -73,7 +73,6 @@
   <string name="rotate">旋转</string>
   <string name="last_selected_option_loaded">已载入上次转换 GIF 时的选项</string>
   <string name="crop_and_rotate">裁剪和旋转</string>
-  <string name="whats_new_in_version_x_text">- 新增裁剪和旋转功能。\n- 新增“速览模式”，播放速度调至最高即可开启，适合电影、电视剧等长视频使用。\n- 新增“记住上次转换 GIF 时的选项”，可在设置中开启。\n- 提高了转换 GIF 的速度。</string>
-  <string name="whats_new_in_version_x">第 2 版 更新日志</string>
-
+  <string name="whats_new_in_version_2_and_3_text">- 新增裁剪和旋转功能，并修复了裁剪和旋转界面按钮显示不全的问题。\n- 新增“速览模式”，播放速度调至最高即可开启，适合电影、电视剧等长视频使用。\n- 新增“记住上次转换 GIF 时的选项”，可在设置中开启。\n- 提高了转换 GIF 的速度。</string>
+  <string name="whats_new_in_version_2_and_3">第 2、3 版 更新日志</string>
 </resources>
