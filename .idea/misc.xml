@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_about.xml" value="0.12441214194100043" />
+        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_crop.xml" value="0.2600253271422541" />
+        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_gif.xml" value="0.25" />
+        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_custom_menu_item.xml" value="0.1872103799814643" />
+        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_divider_horizontal.xml" value="0.2600253271422541" />
+        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_divider_vertical.xml" value="0.1" />
+        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_popup_config.xml" value="0.1" />
         <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1465" />
         <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1465" />
         <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/layout/activity_complete.xml" value="0.526395173453997" />

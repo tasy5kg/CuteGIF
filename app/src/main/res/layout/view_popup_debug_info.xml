@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white">
 
+
   <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -16,18 +17,25 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:gravity="bottom"
         android:text="@string/debug_info_"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_debug_info_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="12dp"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-        android:typeface="monospace" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+      <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/mtv_debug_info_content"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:paddingHorizontal="24dp"
+          android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+          android:typeface="monospace" />
+
+    </androidx.core.widget.NestedScrollView>
 
     <include layout="@layout/view_divider_horizontal" />
 

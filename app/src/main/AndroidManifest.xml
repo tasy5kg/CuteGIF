@@ -16,9 +16,6 @@
         android:exported="false"
         android:theme="@style/Theme.CuteGif.Dialog" />
     <activity
-        android:name="com.canhub.cropper.CropImageActivity"
-        android:theme="@style/Theme.CuteGif.Dialog" />
-    <activity
         android:name=".CropActivity"
         android:exported="false"
         android:theme="@style/Theme.CuteGif.Dialog" />

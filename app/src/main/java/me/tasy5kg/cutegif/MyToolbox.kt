@@ -5,18 +5,16 @@ import android.app.ActivityManager
 import android.content.*
 import android.content.res.ColorStateList
 import android.database.Cursor
-import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat.getSystemService
+import com.arthenica.ffmpegkit.FFmpegKit
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import me.tasy5kg.cutegif.MyApplication.Companion.context
-import java.util.*
 
 object MyToolbox {
 
@@ -44,7 +42,8 @@ object MyToolbox {
         "Version Code = ${BuildConfig.VERSION_CODE}\n" +
         "Version Name = ${BuildConfig.VERSION_NAME}\n" +
         "Build Type = ${BuildConfig.BUILD_TYPE}\n" +
-        "Debug = ${BuildConfig.DEBUG}"
+        "Debug = ${BuildConfig.DEBUG}\n\n" +
+        "[FFmpeg Info]\n" + FFmpegKit.execute("-version").allLogsAsString
 
   fun openLink(context: Context, url: String) = context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
 
@@ -78,15 +77,6 @@ object MyToolbox {
   fun keepNDecimalPlaces(double: Double, n: Int) = String.format("%.${n}f", double)
 
   fun getFileSizeFromUri(uri: Uri) = context.contentResolver.openAssetFileDescriptor(uri, "r")!!.length
-
-  @SuppressLint("SimpleDateFormat")
-  fun createNewGifFileAndReturnUri(fileName: String) =
-    context.contentResolver.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY), ContentValues().apply {
-      // on API 29, insert a media with a existed DISPLAY_NAME sometimes lead to NullPointException
-      put(MediaStore.Images.Media.DISPLAY_NAME, "${fileName}${SimpleDateFormat("_yyyyMMdd_HHmmss").format(Date())}.gif")
-      put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CuteGif")
-      put(MediaStore.Images.Media.MIME_TYPE, "image/gif")
-    })!!
 
   @SuppressLint("Range")
   fun getFileNameFromUri(uri: Uri, removeSuffix: Boolean): String {

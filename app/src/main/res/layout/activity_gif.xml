@@ -53,7 +53,18 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="192dp">
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/video_background" />
+
+          <com.google.android.material.progressindicator.CircularProgressIndicator
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:indeterminate="true" />
 
           <androidx.appcompat.widget.AppCompatImageView
               android:id="@+id/aciv"
@@ -61,7 +72,7 @@
               android:layout_height="192dp"
               android:adjustViewBounds="true"
               android:animateLayoutChanges="true"
-              android:background="@color/video_background" />
+              android:background="#00000000" />
 
           <com.google.android.material.chip.Chip
               android:id="@+id/chip_crop"

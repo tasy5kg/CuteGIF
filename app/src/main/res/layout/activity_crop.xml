@@ -33,6 +33,44 @@
   <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/crop_ratio"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:animateLayoutChanges="true">
+
+      <com.google.android.material.chip.ChipGroup
+          android:id="@+id/chip_group_crop_ratio"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:animateLayoutChanges="true"
+          android:paddingStart="8dp"
+          android:paddingEnd="24dp"
+          app:singleLine="true"
+          app:singleSelection="true"
+          tools:ignore="RtlSymmetry">
+
+      </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:paddingHorizontal="8dp"
       android:paddingVertical="8dp">

@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="24dp"
-        android:text="@string/whats_new_in_version_2_and_3"
+        android:text="@string/whats_new_in_version_4"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -86,7 +86,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:paddingHorizontal="24dp"
-        android:text="@string/whats_new_in_version_2_and_3_text"
+        android:text="@string/whats_new_in_version_4_text"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
 
