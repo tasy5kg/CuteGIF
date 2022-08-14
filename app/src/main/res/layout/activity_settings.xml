@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         CustomMenuItemView:selectedKey="@string/disabled"
-        CustomMenuItemView:title="@string/remember_last_selected_option" />
+        CustomMenuItemView:title="@string/remember_options_when_converting_gif" />
 
     <include layout="@layout/view_divider_horizontal" />
 

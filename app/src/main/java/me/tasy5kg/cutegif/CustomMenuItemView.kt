@@ -14,6 +14,10 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.slider.Slider
 import com.google.android.material.textview.MaterialTextView
+import me.tasy5kg.cutegif.MyConstants.CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS
+import me.tasy5kg.cutegif.MyConstants.CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_FINAL_DELAY
+import me.tasy5kg.cutegif.MyConstants.CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_SPEED
+import me.tasy5kg.cutegif.MyConstants.UNKNOWN_INT
 import me.tasy5kg.cutegif.MyToolbox.getKeyByValue
 import me.tasy5kg.cutegif.databinding.ViewCustomMenuItemBinding
 
@@ -22,7 +26,7 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
   private val mtvTitle: MaterialTextView
   private val mtvSubTitle: MaterialTextView
   private val mtvSelectedKey: MaterialTextView
-  private var isGifSpeed: Boolean? = null
+  private var customMenuItemViewType: Int = UNKNOWN_INT
   private lateinit var allOptionsMap: LinkedHashMap<String, Int>
   private lateinit var sliderInPopupView: Slider
   private lateinit var chipGroup: ChipGroup
@@ -60,74 +64,110 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
   fun setUpWithDropDownConfig(
     allOptionsMap: LinkedHashMap<String, Int>,
     // @StringRes guideText: Int,
-    isGifSpeed: Boolean = false,
+    customMenuItemViewType: Int,
   ) {
     this.allOptionsMap = allOptionsMap
-    this.isGifSpeed = isGifSpeed
-    if (isGifSpeed) {
-      val popupView = LayoutInflater.from(context).inflate(R.layout.view_popup_config_speed, null)
-      val popupWindow by lazy {
-        PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
-          elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
+    this.customMenuItemViewType = customMenuItemViewType
+    when (customMenuItemViewType) {
+      CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_SPEED -> {
+        val popupView = LayoutInflater.from(context).inflate(R.layout.view_popup_config_slider, null)
+        val popupWindow by lazy {
+          PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
+            elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
+          }
         }
-      }
-      // popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
-      sliderInPopupView = popupView.findViewById<Slider>(R.id.slider).apply {
-        addOnChangeListener { it, value, _ ->
-          val speedText = MyConstants.GIF_SPEED_MAP.keys.elementAt((value).toInt())
-          mtvSelectedKey.text = speedText
-          popupView.findViewById<MaterialTextView>(R.id.mtv_guide).apply {
-            if (selectedValue() == MyConstants.GIF_SPEED_GLANCE_MODE) {
-              text = context.getString(R.string.glance_mode_guide_text)
-              visibility = VISIBLE
-            } else {
-              visibility = GONE
+        // popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
+        sliderInPopupView = popupView.findViewById<Slider>(R.id.slider).apply {
+          addOnChangeListener { it, value, _ ->
+            val speedText = allOptionsMap.keys.elementAt((value).toInt())
+            mtvSelectedKey.text = speedText
+            popupView.findViewById<MaterialTextView>(R.id.mtv_guide).apply {
+              if (selectedValue() == MyConstants.GIF_SPEED_GLANCE_MODE) {
+                text = context.getString(R.string.glance_mode_guide_text)
+                visibility = VISIBLE
+              } else {
+                visibility = GONE
+              }
+            }
+            it.setLabelFormatter {
+              return@setLabelFormatter speedText
             }
           }
-          it.setLabelFormatter {
-            return@setLabelFormatter speedText
+          valueFrom = 0f
+          valueTo = MyConstants.GIF_SPEED_MAP.size.toFloat() - 1
+          value = MyConstants.GIF_SPEED_MAP.keys.indexOf(mtvSelectedKey.text).toFloat()
+          setLabelFormatter { return@setLabelFormatter mtvSelectedKey.text.toString() }
+        }
+        binding.root.setOnClickListener {
+          popupWindow.showAsDropDown(it)
+        }
+      }
+      CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS -> {
+        val menuItemList = allOptionsMap.keys
+        val popupView = LayoutInflater.from(context).inflate(R.layout.view_popup_config_chips, null)
+        val popupWindow by lazy {
+          PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
+            elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
           }
         }
-        valueTo = MyConstants.GIF_SPEED_MAP.size.toFloat() - 1
-        value = MyConstants.GIF_SPEED_MAP.keys.indexOf(mtvSelectedKey.text).toFloat()
-      }
-      binding.root.setOnClickListener {
-        popupWindow.showAsDropDown(it)
-      }
-    } else {
-      val menuItemList = allOptionsMap.keys
-      val popupView = LayoutInflater.from(context).inflate(R.layout.view_popup_config, null)
-      val popupWindow by lazy {
-        PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
-          elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
-        }
-      }
-      //  popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
-      chipGroup = popupView.findViewById(R.id.chip_group)
-      menuItemList.forEach { menuItemName ->
-        chipGroup.addView(Chip(ContextThemeWrapper(context, com.google.android.material.R.style.Widget_Material3_Chip_Filter)).apply {
-          text = menuItemName
-          chipBackgroundColor = MyToolbox.createColorStateList(
-            arrayOf(
-              android.R.attr.state_checked to R.color.green_light,
-              android.R.attr.state_checkable to R.color.light
+        //  popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
+        chipGroup = popupView.findViewById(R.id.chip_group)
+        menuItemList.forEach { menuItemName ->
+          chipGroup.addView(Chip(ContextThemeWrapper(context, com.google.android.material.R.style.Widget_Material3_Chip_Filter)).apply {
+            text = menuItemName
+            chipBackgroundColor = MyToolbox.createColorStateList(
+              arrayOf(
+                android.R.attr.state_checked to R.color.green_light,
+                android.R.attr.state_checkable to R.color.light
+              )
             )
-          )
-          isCheckable = true
-          isCheckedIconVisible = false
-          if (text == mtvSelectedKey.text) {
-            isChecked = true
+            isCheckable = true
+            isCheckedIconVisible = false
+            if (text == mtvSelectedKey.text) {
+              isChecked = true
+            }
+            setOnClickListener { clickedChip ->
+              (clickedChip as Chip).isChecked = true
+              mtvSelectedKey.text = clickedChip.text
+              popupWindow.dismiss()
+            }
           }
-          setOnClickListener { clickedChip ->
-            (clickedChip as Chip).isChecked = true
-            mtvSelectedKey.text = clickedChip.text
-            popupWindow.dismiss()
+          )
+        }
+        binding.root.setOnClickListener {
+          popupWindow.showAsDropDown(it)
+        }
+      }
+      CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_FINAL_DELAY -> {
+        val popupView = LayoutInflater.from(context).inflate(R.layout.view_popup_config_slider, null)
+        val popupWindow by lazy {
+          PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
+            elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
           }
         }
-        )
+        // popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
+        popupView.findViewById<MaterialTextView>(R.id.mtv_guide).apply {
+          visibility = VISIBLE
+          text = context.getString(R.string.pause_for_a_while_at_the_end_of_the_gif)
+        }
+        sliderInPopupView = popupView.findViewById<Slider>(R.id.slider).apply {
+          addOnChangeListener { it, value, _ ->
+            val selectedText = allOptionsMap.keys.elementAt((value).toInt())
+            mtvSelectedKey.text = selectedText
+            it.setLabelFormatter {
+              return@setLabelFormatter selectedText
+            }
+          }
+          valueTo = allOptionsMap.size.toFloat() - 1
+          value = allOptionsMap.keys.indexOf(mtvSelectedKey.text).toFloat()
+          setLabelFormatter { return@setLabelFormatter mtvSelectedKey.text.toString() }
+        }
+        binding.root.setOnClickListener {
+          popupWindow.showAsDropDown(it)
+        }
       }
-      binding.root.setOnClickListener {
-        popupWindow.showAsDropDown(it)
+      else -> {
+        throw IllegalArgumentException("customMenuItemViewType = $customMenuItemViewType")
       }
     }
   }
@@ -157,14 +197,19 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
 
   fun setSelectedValue(value: Int) {
     mtvSelectedKey.text = allOptionsMap.getKeyByValue(value)
-    when (isGifSpeed) {
-      true -> sliderInPopupView.value = MyConstants.GIF_SPEED_MAP.values.indexOf(value).toFloat()
-      false -> {
+    when (customMenuItemViewType) {
+      CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_SPEED, CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_FINAL_DELAY -> {
+        sliderInPopupView.value = allOptionsMap.values.indexOf(value).toFloat()
+      }
+      CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS -> {
         val outViews: ArrayList<View> = ArrayList()
         chipGroup.findViewsWithText(outViews, allOptionsMap.getKeyByValue(value), FIND_VIEWS_WITH_TEXT)
         (outViews.first() as Chip).isChecked = true
       }
-      null -> {} // do nothing
+      else -> {
+        throw IllegalArgumentException("customMenuItemViewType = $customMenuItemViewType")
+      }
+      // do nothing
     }
   }
 }

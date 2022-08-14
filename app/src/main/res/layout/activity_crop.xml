@@ -13,26 +13,40 @@
       android:layout_height="?attr/actionBarSize"
       android:animateLayoutChanges="true"
       android:background="?attr/colorPrimary"
-      app:subtitle="@string/crop_and_rotate"
+      app:subtitle="@string/crop"
       app:subtitleTextAppearance="@style/TextAppearance.Material3.LabelLarge"
       app:subtitleTextColor="@color/dark"
       app:title="@string/app_name"
       app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
       app:titleTextColor="@color/dark" />
 
-  <com.canhub.cropper.CropImageView
-      android:id="@+id/crop_image_view"
+  <RelativeLayout
+      android:id="@+id/relative_layout"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
-      android:background="@color/video_background"
-      tools:visibility="gone" />
+      android:background="@color/video_background">
+
+    <VideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+    <com.canhub.cropper.CropImageView
+        android:id="@+id/crop_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        tools:visibility="gone" />
+  </RelativeLayout>
 
   <include layout="@layout/view_divider_horizontal" />
 
   <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:minHeight="54dp"
       android:orientation="horizontal">
 
     <com.google.android.material.textview.MaterialTextView
@@ -41,7 +55,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/crop_ratio"
+        android:text="@string/aspect_ratio"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
     <HorizontalScrollView
@@ -68,6 +82,45 @@
 
   <include layout="@layout/view_divider_horizontal" />
 
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/duration_trimmed"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_trimmed_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+        tools:ignore="RelativeOverlap" />
+  </RelativeLayout>
+
+  <com.google.android.material.slider.RangeSlider
+      android:id="@+id/range_slider"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="8dp"
+
+      app:labelBehavior="visible"
+      app:tickColor="@color/green_dark"
+      app:trackColorActive="@color/green_light"
+      app:trackColorInactive="@color/light" />
+
+  <include layout="@layout/view_divider_horizontal" />
+
   <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -76,11 +129,11 @@
       android:paddingVertical="8dp">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/mb_rotate"
-        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:id="@+id/mb_cancel"
+        style="@style/Widget.Material3.Button.TextButton.Dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/rotate"
+        android:text="@string/cancel"
         android:textColor="?attr/colorOnSurface" />
 
     <com.google.android.material.button.MaterialButton

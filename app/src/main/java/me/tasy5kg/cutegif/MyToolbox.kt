@@ -5,6 +5,7 @@ import android.app.ActivityManager
 import android.content.*
 import android.content.res.ColorStateList
 import android.database.Cursor
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Build
 import android.provider.OpenableColumns
@@ -15,10 +16,15 @@ import androidx.core.content.ContextCompat.getSystemService
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import me.tasy5kg.cutegif.MyApplication.Companion.context
+import java.io.File
+import java.util.*
 
 object MyToolbox {
 
   fun <K, V> LinkedHashMap<K, V>.getKeyByValue(value: V): K = this.filter { it.value == value }.keys.first()
+
+  @SuppressLint("SimpleDateFormat")
+  fun getTimeYMDHMS(): String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
 
   private fun getMemInfo(): ActivityManager.MemoryInfo {
     val memInfo = ActivityManager.MemoryInfo()
@@ -76,7 +82,11 @@ object MyToolbox {
 
   fun keepNDecimalPlaces(double: Double, n: Int) = String.format("%.${n}f", double)
 
-  fun getFileSizeFromUri(uri: Uri) = context.contentResolver.openAssetFileDescriptor(uri, "r")!!.length
+  fun getFileSizeFromUri(uri: Uri) = when (uri.scheme) {
+    "content" -> context.contentResolver.openAssetFileDescriptor(uri, "r")!!.length
+    "file" -> File(uri.path!!).length()
+    else -> throw IllegalArgumentException("uri.scheme = ${uri.scheme}")
+  }
 
   @SuppressLint("Range")
   fun getFileNameFromUri(uri: Uri, removeSuffix: Boolean): String {

@@ -10,6 +10,7 @@ object MySettings {
   const val INT_PREVIOUS_GIF_CONFIG_RESOLUTION = "previous_gif_config_resolution"
   const val INT_PREVIOUS_GIF_CONFIG_FRAME_RATE = "previous_gif_config_frame_rate"
   const val INT_PREVIOUS_GIF_CONFIG_COLOR_QUALITY = "previous_gif_config_color_quality"
+  const val INT_PREVIOUS_GIF_CONFIG_FINAL_DELAY = "previous_gif_config_final_delay"
 
   fun getBoolean(key: String, defValue: Boolean) = PREFERENCES_SETTINGS.getBoolean(key, defValue)
 

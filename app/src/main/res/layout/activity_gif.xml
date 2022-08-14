@@ -75,6 +75,23 @@
               android:background="#00000000" />
 
           <com.google.android.material.chip.Chip
+              android:id="@+id/chip_rotate"
+              style="@style/Widget.Material3.Chip.Assist"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_marginEnd="8dp"
+              android:layout_toStartOf="@id/chip_crop"
+              android:alpha="0.8"
+              android:enabled="false"
+              android:gravity="center"
+              android:text="@string/rotate"
+              android:textColor="?attr/colorOnSurface"
+              app:chipBackgroundColor="@color/light"
+              app:chipIcon="@drawable/ic_baseline_rotate_right_24"
+              app:chipIconTint="?attr/colorOnSurface" />
+
+          <com.google.android.material.chip.Chip
               android:id="@+id/chip_crop"
               style="@style/Widget.Material3.Chip.Assist"
               android:layout_width="wrap_content"
@@ -83,8 +100,12 @@
               android:layout_alignParentBottom="true"
               android:layout_marginEnd="8dp"
               android:alpha="0.8"
+              android:enabled="false"
               android:text="@string/crop"
-              android:textColor="?attr/colorOnSurface" />
+              android:textColor="?attr/colorOnSurface"
+              app:chipBackgroundColor="@color/light"
+              app:chipIcon="@drawable/ic_baseline_crop_24"
+              app:chipIconTint="?attr/colorOnSurface" />
 
         </RelativeLayout>
 
@@ -121,6 +142,15 @@
                 tools:visibility="visible">
 
               <me.tasy5kg.cutegif.CustomMenuItemView
+                  android:id="@+id/cmiv_final_delay"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  CustomMenuItemView:selectedKey="@string/no_pause"
+                  CustomMenuItemView:title="@string/final_delay" />
+
+              <include layout="@layout/view_divider_horizontal" />
+
+              <me.tasy5kg.cutegif.CustomMenuItemView
                   android:id="@+id/cmiv_resolution"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -128,6 +158,7 @@
                   CustomMenuItemView:title="@string/resolution" />
 
               <include layout="@layout/view_divider_horizontal" />
+
 
               <me.tasy5kg.cutegif.CustomMenuItemView
                   android:id="@+id/cmiv_frame_rate"
@@ -139,6 +170,7 @@
 
               <include layout="@layout/view_divider_horizontal" />
 
+
               <me.tasy5kg.cutegif.CustomMenuItemView
                   android:id="@+id/cmiv_color_quality"
                   android:layout_width="match_parent"
@@ -148,6 +180,7 @@
                   CustomMenuItemView:title="@string/color_quality" />
 
               <include layout="@layout/view_divider_horizontal" />
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -204,7 +237,6 @@
           android:visibility="gone"
           tools:visibility="gone" />
     </FrameLayout>
-
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
