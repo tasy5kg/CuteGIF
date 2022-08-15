@@ -117,7 +117,7 @@ class CropActivity : AppCompatActivity() {
           } else {
             mMediaPlayer.seekTo((values[0] * 100).toInt())
           }
-          binding.mtvTrimmedDuration.text = getString(R.string.X_s, String.format("%.1f", (values[1] - values[0]) / 10.0))
+          materialToolbar.subtitle = getString(R.string.crop_X_s_taken, String.format("%.1f", (values[1] - values[0]) / 10.0))
           addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
             override fun onStartTrackingTouch(slider: RangeSlider) {
               binding.videoView.pause()
@@ -128,7 +128,7 @@ class CropActivity : AppCompatActivity() {
             }
           })
           addOnChangeListener { slider, value, _ ->
-            binding.mtvTrimmedDuration.text = getString(R.string.X_s, String.format("%.1f", (values[1] - values[0]) / 10.0))
+            materialToolbar.subtitle = getString(R.string.crop_X_s_taken, String.format("%.1f", (values[1] - values[0]) / 10.0))
             trimTimeStart = values[0]
             trimTimeEnd = values[1]
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

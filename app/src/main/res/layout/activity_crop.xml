@@ -25,6 +25,7 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
+      android:animateLayoutChanges="true"
       android:background="@color/video_background">
 
     <VideoView
@@ -46,6 +47,8 @@
   <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical"
       android:minHeight="54dp"
       android:orientation="horizontal">
 
@@ -54,15 +57,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/aspect_ratio"
+        android:layout_marginEnd="8dp"
+        android:text="@string/ratio"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:scrollbars="none">
 
       <com.google.android.material.chip.ChipGroup
           android:id="@+id/chip_group_crop_ratio"
@@ -70,11 +74,9 @@
           android:layout_height="wrap_content"
           android:layout_gravity="start"
           android:animateLayoutChanges="true"
-          android:paddingStart="8dp"
-          android:paddingEnd="24dp"
+          android:paddingHorizontal="8dp"
           app:singleLine="true"
-          app:singleSelection="true"
-          tools:ignore="RtlSymmetry">
+          app:singleSelection="true">
 
       </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
@@ -82,11 +84,12 @@
 
   <include layout="@layout/view_divider_horizontal" />
 
-  <RelativeLayout
+  <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
+      android:animateLayoutChanges="true"
       android:gravity="center_vertical"
+      android:minHeight="54dp"
       android:orientation="horizontal">
 
     <com.google.android.material.textview.MaterialTextView
@@ -94,39 +97,29 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/duration_trimmed"
+        android:layout_marginEnd="8dp"
+        android:text="@string/trim"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_trimmed_duration"
-        android:layout_width="wrap_content"
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/range_slider"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="24dp"
-        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-        tools:ignore="RelativeOverlap" />
-  </RelativeLayout>
-
-  <com.google.android.material.slider.RangeSlider
-      android:id="@+id/range_slider"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="8dp"
-
-      app:labelBehavior="visible"
-      app:tickColor="@color/green_dark"
-      app:trackColorActive="@color/green_light"
-      app:trackColorInactive="@color/light" />
+        android:layout_marginEnd="8dp"
+        app:tickColor="@color/green_dark"
+        app:trackColorActive="@color/green_light"
+        app:trackColorInactive="@color/light" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
   <include layout="@layout/view_divider_horizontal" />
 
   <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical"
       android:orientation="horizontal"
-      android:paddingHorizontal="8dp"
-      android:paddingVertical="8dp">
+      android:padding="8dp">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mb_cancel"
@@ -139,9 +132,10 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mb_done"
         style="@style/Widget.Material3.Button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_weight="1"
         android:text="@string/done"
         android:textColor="?attr/colorOnSurface" />
   </androidx.appcompat.widget.LinearLayoutCompat>

@@ -15,7 +15,7 @@ object MyConstants {
   const val UNKNOWN_FLOAT = -99999f
   const val UNKNOWN_INT = -99999
   const val DOUBLE_BACK_TO_EXIT_DELAY = 2000L
-  const val LAST_SELECTED_OPTION_LOADED_DISPLAY_DURATION = 3000L
+  const val MATERIAL_TOOLBAR_SUBTITLE_TEMP_DISPLAY_DURATION = 3000L
   const val POPUP_WINDOW_ELEVATION = 8f
   const val CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS = 1
   const val CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_SPEED = 2
@@ -27,6 +27,7 @@ object MyConstants {
   const val FFMPEG_COMMAND_FOR_ALL = "-hwaccel auto -hide_banner -benchmark -an"
   const val URI_JOIN_QQ_GROUP =
     "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3D$5Frn_d8p0OxBX6NwtTAhAhDQh2FTCcI9"
+
   val GIF_RESOLUTION_MAP = linkedMapOf(
     context.getString(R.string._144p) to 144,
     context.getString(R.string._240p) to 240,
@@ -84,15 +85,5 @@ object MyConstants {
       context.getString(R.string._4_x) to 400,
       context.getString(R.string._8_x) to 800,
       context.getString(R.string.glance_mode) to GIF_SPEED_GLANCE_MODE
-    )
-
-  const val REMEMBER_GIF_CONFIG_OFF = 0
-  const val REMEMBER_GIF_CONFIG_ON = 1
-  const val REMEMBER_GIF_CONFIG_DEFAULT = REMEMBER_GIF_CONFIG_OFF
-
-  val REMEMBER_GIF_CONFIG_MAP =
-    linkedMapOf(
-      context.getString(R.string.disabled) to REMEMBER_GIF_CONFIG_OFF,
-      context.getString(R.string.enabled) to REMEMBER_GIF_CONFIG_ON
     )
 }

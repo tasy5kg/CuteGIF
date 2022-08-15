@@ -81,6 +81,7 @@ class AboutActivity : AppCompatActivity() {
       val popupWindow by lazy {
         PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
           elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
+          isOutsideTouchable = true // see https://stackoverflow.com/questions/12232724/popupwindow-dismiss-when-clicked-outside
         }
       }
       binding.root.alpha = 0.5f
@@ -100,6 +101,7 @@ class AboutActivity : AppCompatActivity() {
       val popupWindow by lazy {
         PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
           elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
+          isOutsideTouchable = true
         }
       }
       popupView.findViewById<CustomMenuItemView>(R.id.cmiv_view_3rd_party_oss_licenses).setUpWithLambda {

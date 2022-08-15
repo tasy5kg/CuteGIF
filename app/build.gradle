@@ -23,8 +23,8 @@ android {
         applicationId "me.tasy5kg.cutegif"
         minSdk 24
         targetSdk 32
-        versionCode 6
-        versionName "20220816"
+        versionCode 8
+        versionName "20220818"
         /*
         ndk {
             abiFilters 'x86_64', 'arm64-v8a'
@@ -58,8 +58,10 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation "com.google.android.material:material:1.6.1"
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation 'com.google.android.material:material:1.7.0-beta01'
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
     implementation 'com.github.CanHub:Android-Image-Cropper:4.3.1'

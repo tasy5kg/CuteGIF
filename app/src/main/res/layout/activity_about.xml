@@ -14,7 +14,7 @@
       android:layout_height="wrap_content"
       android:animateLayoutChanges="true"
       android:orientation="vertical"
-      android:paddingTop="20dp">
+      android:paddingTop="24dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -58,11 +58,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="24dp"
-        android:text="@string/convert_video_to_gif_simple_and_fast"
-        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+        android:text="@string/convert_video_to_gif_simple_and_fast_in_about"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="24dp"
-        android:text="@string/whats_new_in_version_5"
+        android:text="@string/whats_new_in_version_n"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -86,7 +86,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:paddingHorizontal="24dp"
-        android:text="@string/whats_new_in_version_5_text"
+        android:text="@string/whats_new_in_version_n_text"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
 

@@ -25,7 +25,6 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import me.tasy5kg.cutegif.MyConstants.CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS
-import me.tasy5kg.cutegif.MyConstants.CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_FINAL_DELAY
 import me.tasy5kg.cutegif.MyConstants.CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_SPEED
 import me.tasy5kg.cutegif.MyConstants.DOUBLE_BACK_TO_EXIT_DELAY
 import me.tasy5kg.cutegif.MyConstants.EXTRA_CROP_PARAMS
@@ -34,25 +33,15 @@ import me.tasy5kg.cutegif.MyConstants.EXTRA_TRIM_START
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_FOR_ALL
 import me.tasy5kg.cutegif.MyConstants.FIRST_FRAME_PATH
 import me.tasy5kg.cutegif.MyConstants.GIF_COLOR_QUALITY_MAP
-import me.tasy5kg.cutegif.MyConstants.GIF_FINAL_DELAY_MAP
 import me.tasy5kg.cutegif.MyConstants.GIF_FRAME_RATE_MAP
 import me.tasy5kg.cutegif.MyConstants.GIF_RESOLUTION_MAP
 import me.tasy5kg.cutegif.MyConstants.GIF_SPEED_GLANCE_MODE
 import me.tasy5kg.cutegif.MyConstants.GIF_SPEED_MAP
-import me.tasy5kg.cutegif.MyConstants.LAST_SELECTED_OPTION_LOADED_DISPLAY_DURATION
+import me.tasy5kg.cutegif.MyConstants.MATERIAL_TOOLBAR_SUBTITLE_TEMP_DISPLAY_DURATION
 import me.tasy5kg.cutegif.MyConstants.PALETTE_PATH
-import me.tasy5kg.cutegif.MyConstants.REMEMBER_GIF_CONFIG_DEFAULT
-import me.tasy5kg.cutegif.MyConstants.REMEMBER_GIF_CONFIG_OFF
-import me.tasy5kg.cutegif.MyConstants.REMEMBER_GIF_CONFIG_ON
 import me.tasy5kg.cutegif.MyConstants.THUMBNAIL_PATH
 import me.tasy5kg.cutegif.MyConstants.UNKNOWN_FLOAT
-import me.tasy5kg.cutegif.MyConstants.UNKNOWN_INT
-import me.tasy5kg.cutegif.MySettings.INT_PREVIOUS_GIF_CONFIG_COLOR_QUALITY
-import me.tasy5kg.cutegif.MySettings.INT_PREVIOUS_GIF_CONFIG_FINAL_DELAY
-import me.tasy5kg.cutegif.MySettings.INT_PREVIOUS_GIF_CONFIG_FRAME_RATE
-import me.tasy5kg.cutegif.MySettings.INT_PREVIOUS_GIF_CONFIG_RESOLUTION
-import me.tasy5kg.cutegif.MySettings.INT_PREVIOUS_GIF_CONFIG_SPEED
-import me.tasy5kg.cutegif.MySettings.INT_REMEMBER_GIF_CONFIG
+import me.tasy5kg.cutegif.MySettings.INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE
 import me.tasy5kg.cutegif.databinding.ActivityGifBinding
 import org.json.JSONArray
 import org.json.JSONObject
@@ -61,6 +50,7 @@ import kotlin.math.*
 
 @SuppressLint("InflateParams")
 class GifActivity : AppCompatActivity() {
+  private var command1VfCached = ""
   private var gifViewRatio = 0.0
   private var rotation = 0
   private var trimTimeStart = UNKNOWN_FLOAT
@@ -76,46 +66,13 @@ class GifActivity : AppCompatActivity() {
   private lateinit var cmivColorQuality: CustomMenuItemView
   private lateinit var cmivFrameRate: CustomMenuItemView
   private lateinit var cmivSpeed: CustomMenuItemView
-  private lateinit var cmivFinalDelay: CustomMenuItemView
   private lateinit var gifUri: Uri
   private lateinit var materialToolbar: MaterialToolbar
-  private lateinit var mbClose: MaterialButton
+  private lateinit var mbCancelInGroupConvert: MaterialButton
   private lateinit var viewMaskLayer: View
   private lateinit var myCropParams: MyCropParams
   private lateinit var materialToolbarSubtitle: AppCompatTextView
-  private var command1VfCached = ""
   private var trimTimeCached = Pair(UNKNOWN_FLOAT, UNKNOWN_FLOAT)
-  private lateinit var path: String
-
-  private val getCropAndTrimResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-    if (it.resultCode == RESULT_OK) {
-      with(it.data!!.extras!!) {
-        myCropParams = get(EXTRA_CROP_PARAMS) as MyCropParams
-        trimTimeStart = get(EXTRA_TRIM_START) as Float
-        trimTimeEnd = get(EXTRA_TRIM_END) as Float
-      }
-      binding.chipCrop.text = getString(R.string.re_crop)
-      loadFirstFrame()
-    }
-  }
-  private val requestPermissionLauncher =
-    registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-      Toast.makeText(this@GifActivity, when (isGranted) {
-        true -> {
-          materialToolbarSubtitle.text = ""
-          getString(R.string.permission_granted_you_can_continue_converting_to_gif)
-        }
-        false -> getString(R.string.unable_to_save_your_gif_without_storage_permission)
-      }, Toast.LENGTH_LONG).show()
-    }
-
-  private fun rotationAdd90() {
-    rotation = if (rotation == 270) {
-      0
-    } else {
-      rotation + 90
-    }
-  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -145,7 +102,7 @@ class GifActivity : AppCompatActivity() {
     videoInformationSession = FFprobeKit.getMediaInformationFromCommand("-v quiet -hide_banner -print_format json -show_format -show_streams -show_chapters -i " + inputVideoSaf())
     viewMaskLayer = binding.viewMaskLayer
     mbConvert = binding.mbConvert.apply { setOnClickListener { onConvertClick() } }
-    mbClose = binding.mbCancel.apply {
+    mbCancelInGroupConvert = binding.mbCancel.apply {
       setOnClickListener {
         conversionUnsuccessfully(canceledByUser = true, finishActivity = true)
       }
@@ -167,6 +124,14 @@ class GifActivity : AppCompatActivity() {
         .putExtra(EXTRA_VIDEO_URI, inputVideoUri)
         .putExtra(EXTRA_TRIM_START, trimTimeStart)
         .putExtra(EXTRA_TRIM_END, trimTimeEnd))
+    }
+  }
+
+  private fun rotationAdd90() {
+    rotation = if (rotation == 270) {
+      0
+    } else {
+      rotation + 90
     }
   }
 
@@ -208,58 +173,52 @@ class GifActivity : AppCompatActivity() {
     cmivResolution = binding.cmivResolution
     cmivFrameRate = binding.cmivFrameRate
     cmivColorQuality = binding.cmivColorQuality
-    cmivFinalDelay = binding.cmivFinalDelay
     cmivSpeed.setUpWithDropDownConfig(GIF_SPEED_MAP, CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_SPEED)
     cmivResolution.setUpWithDropDownConfig(GIF_RESOLUTION_MAP, CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS)
     cmivFrameRate.setUpWithDropDownConfig(GIF_FRAME_RATE_MAP, CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS)
     cmivColorQuality.setUpWithDropDownConfig(GIF_COLOR_QUALITY_MAP, CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_CHIPS)
-    cmivFinalDelay.setUpWithDropDownConfig(GIF_FINAL_DELAY_MAP, CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_FINAL_DELAY)
     loadPreviousGifConfig()
   }
 
   private fun loadPreviousGifConfig() {
-    when (MySettings.getInt(INT_REMEMBER_GIF_CONFIG, REMEMBER_GIF_CONFIG_DEFAULT)) {
-      REMEMBER_GIF_CONFIG_ON -> {
-        val previousGifConfigSpeed = MySettings.getInt(INT_PREVIOUS_GIF_CONFIG_SPEED, UNKNOWN_INT)
-        val previousGifConfigResolution = MySettings.getInt(INT_PREVIOUS_GIF_CONFIG_RESOLUTION, UNKNOWN_INT)
-        val previousGifConfigFrameRate = MySettings.getInt(INT_PREVIOUS_GIF_CONFIG_FRAME_RATE, UNKNOWN_INT)
-        val previousGifConfigColorQuality = MySettings.getInt(INT_PREVIOUS_GIF_CONFIG_COLOR_QUALITY, UNKNOWN_INT)
-        val previousGifConfigFinalDelay = MySettings.getInt(INT_PREVIOUS_GIF_CONFIG_FINAL_DELAY, UNKNOWN_INT)
-        if (previousGifConfigSpeed != UNKNOWN_INT &&
-          previousGifConfigResolution != UNKNOWN_INT &&
-          previousGifConfigFrameRate != UNKNOWN_INT &&
-          previousGifConfigColorQuality != UNKNOWN_INT &&
-          previousGifConfigFinalDelay != UNKNOWN_INT
+    when (MySettings.rememberGifOptions) {
+      true -> {
+        val previousGifConfigSpeed = MySettings.previousGifConfigSpeed
+        val previousGifConfigResolution = MySettings.previousGifConfigResolution
+        val previousGifConfigFrameRate = MySettings.previousGifConfigFrameRate
+        val previousGifConfigColorQuality = MySettings.previousGifConfigColorQuality
+        if (previousGifConfigSpeed != INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE &&
+          previousGifConfigResolution != INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE &&
+          previousGifConfigFrameRate != INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE &&
+          previousGifConfigColorQuality != INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE
         ) {
           cmivSpeed.setSelectedValue(previousGifConfigSpeed)
           cmivResolution.setSelectedValue(previousGifConfigResolution)
           cmivFrameRate.setSelectedValue(previousGifConfigFrameRate)
           cmivColorQuality.setSelectedValue(previousGifConfigColorQuality)
-          cmivFinalDelay.setSelectedValue(previousGifConfigFinalDelay)
           materialToolbarSubtitle.text = getString(R.string.previously_saved_options_loaded)
           Handler(Looper.getMainLooper()).postDelayed({
             if (materialToolbarSubtitle.text.toString() == getString(R.string.previously_saved_options_loaded)) {
               materialToolbarSubtitle.text = ""
             }
-          }, LAST_SELECTED_OPTION_LOADED_DISPLAY_DURATION)
+          }, MATERIAL_TOOLBAR_SUBTITLE_TEMP_DISPLAY_DURATION)
         } else {
           materialToolbarSubtitle.text = ""
         }
       }
-      REMEMBER_GIF_CONFIG_OFF -> materialToolbarSubtitle.text = ""
+      false -> materialToolbarSubtitle.text = ""
     }
   }
 
   private fun saveCurrentGifConfig() {
-    when (MySettings.getInt(INT_REMEMBER_GIF_CONFIG, REMEMBER_GIF_CONFIG_DEFAULT)) {
-      REMEMBER_GIF_CONFIG_ON -> {
-        MySettings.setInt(INT_PREVIOUS_GIF_CONFIG_SPEED, cmivSpeed.selectedValue())
-        MySettings.setInt(INT_PREVIOUS_GIF_CONFIG_RESOLUTION, cmivResolution.selectedValue())
-        MySettings.setInt(INT_PREVIOUS_GIF_CONFIG_FRAME_RATE, cmivFrameRate.selectedValue())
-        MySettings.setInt(INT_PREVIOUS_GIF_CONFIG_COLOR_QUALITY, cmivColorQuality.selectedValue())
-        MySettings.setInt(INT_PREVIOUS_GIF_CONFIG_FINAL_DELAY, cmivFinalDelay.selectedValue())
+    when (MySettings.rememberGifOptions) {
+      true -> {
+        MySettings.previousGifConfigSpeed = cmivSpeed.selectedValue()
+        MySettings.previousGifConfigResolution = cmivResolution.selectedValue()
+        MySettings.previousGifConfigFrameRate = cmivFrameRate.selectedValue()
+        MySettings.previousGifConfigColorQuality = cmivColorQuality.selectedValue()
       }
-      REMEMBER_GIF_CONFIG_OFF -> {} // do nothing
+      false -> {} // do nothing
     }
   }
 
@@ -267,7 +226,7 @@ class GifActivity : AppCompatActivity() {
     runOnUiThread {
       binding.chipCrop.isEnabled = false
       binding.chipRotate.isEnabled = false
-      Glide.with(this@GifActivity).clear(binding.aciv)
+      Glide.with(this@GifActivity).clear(binding.acivPreviewVideo)
     }
     try {
       // FFmpegKit.executeAsync("$FFMPEG_COMMAND_FOR_ALL -i ${inputVideoSaf()} -vframes 1 -vf scale=${resolutionPara(1080)}:flags=lanczos -q:v 5 -y $FIRST_FRAME_PATH") {
@@ -288,7 +247,7 @@ class GifActivity : AppCompatActivity() {
     runOnUiThread {
       binding.chipCrop.isEnabled = false
       binding.chipRotate.isEnabled = false
-      Glide.with(this@GifActivity).clear(binding.aciv)
+      Glide.with(this@GifActivity).clear(binding.acivPreviewVideo)
     }
     try {
       val commandLoadCroppedAndTrimmedThumbnail = "$FFMPEG_COMMAND_FOR_ALL -i $FIRST_FRAME_PATH -vf ${cropParams()}${transposeParams()} -q:v 10 -y $THUMBNAIL_PATH"
@@ -303,7 +262,7 @@ class GifActivity : AppCompatActivity() {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .transition(withCrossFade())
-                .into(binding.aciv)
+                .into(binding.acivPreviewVideo)
               binding.chipCrop.isEnabled = true
               binding.chipRotate.isEnabled = true
             }
@@ -337,7 +296,7 @@ class GifActivity : AppCompatActivity() {
             isIndeterminate = true
           }
           materialToolbar.subtitle = getString(R.string.analyzing_video)
-          mbClose.visibility = GONE
+          mbCancelInGroupConvert.visibility = GONE
           mbConvert.apply {
             text = getString(R.string.cancel)
             icon = AppCompatResources.getDrawable(this@GifActivity, R.drawable.ic_baseline_close_24)
@@ -353,7 +312,7 @@ class GifActivity : AppCompatActivity() {
             visibility = GONE
           }
           materialToolbar.subtitle = getString(R.string.conversion_canceled)
-          mbClose.visibility = VISIBLE
+          mbCancelInGroupConvert.visibility = VISIBLE
           mbConvert.apply {
             text = getString(R.string.convert_to_gif)
             icon = AppCompatResources.getDrawable(this@GifActivity, R.drawable.ic_baseline_video_library_24)
@@ -366,12 +325,11 @@ class GifActivity : AppCompatActivity() {
   private fun conversionSuccessfully() {
     converting = false
     runOnUiThread {
-      binding.chipCrop.visibility = GONE
-      binding.chipRotate.visibility = GONE
       linearProgressIndicator.visibility = GONE
-      binding.frameLayoutGoneWhenFinished.visibility = GONE
-      viewMaskLayer.visibility = GONE
       materialToolbar.subtitle = getString(R.string.gif_saved_s_mb, MyToolbox.keepNDecimalPlaces(MyToolbox.getFileSizeFromUri(gifUri) / 1048576.0, 2))
+      binding.flAcivPreviewGifContainer.visibility = VISIBLE
+      binding.llcButtonGroupConvert.visibility = GONE
+      binding.llcButtonGroupDone.visibility = VISIBLE
       Glide.with(this@GifActivity)
         .load(when (gifUri.scheme) {
           "content" -> gifUri
@@ -381,54 +339,38 @@ class GifActivity : AppCompatActivity() {
         .fitCenter()
         .diskCacheStrategy(DiskCacheStrategy.NONE)
         .skipMemoryCache(true)
-        .into(binding.aciv.apply {
-          this.layoutParams.height =
-            min((this@GifActivity.resources.displayMetrics.heightPixels * 0.5).toInt(), (this@apply.width * gifViewRatio).toInt())
-          requestLayout()
-        })
-      mbConvert.apply {
-        layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        text = getString(R.string.done)
-        icon = AppCompatResources.getDrawable(this@GifActivity, R.drawable.ic_baseline_done_24)
-        setOnClickListener {
-          finishAndRemoveTask()
-        }
+        .into(binding.acivPreviewGif)
+      binding.nsvGoneWhenFinished.visibility = GONE
+      binding.mbDone.setOnClickListener {
+        finishAndRemoveTask()
       }
-      mbClose.apply {
-        visibility = VISIBLE
-        text = getString(R.string.share)
-        setOnClickListener {
-          startActivity(Intent.createChooser(Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_STREAM, gifUri)
-            type = "image/gif"
-          }, context.getString(R.string.share_gif_to)))
-        }
+      binding.mbShare.setOnClickListener {
+        startActivity(Intent.createChooser(Intent().apply {
+          action = Intent.ACTION_SEND
+          putExtra(Intent.EXTRA_STREAM, gifUri)
+          type = "image/gif"
+        }, getString(R.string.share_gif_to)))
       }
-      binding.space.visibility = VISIBLE
-      binding.mbDelete.apply {
-        visibility = VISIBLE
-        setOnClickListener {
-          finishAndRemoveTask()
-          deleteGifUriFile()
-          Toast.makeText(this@GifActivity, getString(R.string.gif_deleted), Toast.LENGTH_LONG).show()
+      binding.mbDeleteAndRedo.setOnClickListener {
+        deleteGifUriFile()
+        materialToolbar.subtitle = getString(R.string.the_gif_just_converted_has_been_deleted)
+        Handler(Looper.getMainLooper()).postDelayed({
+          if (materialToolbarSubtitle.text.toString() == getString(R.string.the_gif_just_converted_has_been_deleted)) {
+            materialToolbarSubtitle.text = ""
+          }
+        }, MATERIAL_TOOLBAR_SUBTITLE_TEMP_DISPLAY_DURATION)
+        viewMaskLayer.visibility = GONE
+        binding.nsvGoneWhenFinished.visibility = VISIBLE
+        binding.flAcivPreviewGifContainer.visibility = GONE
+        binding.llcButtonGroupConvert.visibility = VISIBLE
+        binding.llcButtonGroupDone.visibility = GONE
+        mbCancelInGroupConvert.visibility = VISIBLE
+        mbConvert.apply {
+          text = getString(R.string.convert_to_gif)
+          icon = AppCompatResources.getDrawable(this@GifActivity, R.drawable.ic_baseline_video_library_24)
         }
       }
     }
-  }
-
-  // takes ~5 secs
-  private val videoKeyFramesTimestampList by lazy {
-    // count all key frames FFprobeKit.execute("-hide_banner -loglevel error -skip_frame nokey -select_streams v:0 -count_frames -show_entries stream=nb_read_frames -of csv=p=0:sv=fail ${inputVideoSaf()}").logsAsString.split(",").first().toInt()
-    val list = FFprobeKit.execute("-loglevel error -skip_frame nokey -select_streams v:0 -show_entries frame=pts_time -of csv=p=0:sv=fail ${inputVideoSaf()}").allLogsAsString.split("\n").map {
-      try {
-        it.toFloat()
-      } catch (e: NumberFormatException) {
-        -1f
-      }
-    }.filter { it != -1f }
-    MyToolbox.logging("counted", "videoKeyFramesTimestampList.count() = ${list.count()}")
-    return@lazy list
   }
 
   private fun videoKeyFramesTimestampInTrimmedCount(): Int {
@@ -456,16 +398,28 @@ class GifActivity : AppCompatActivity() {
   }
 
   private fun startConversion() {
+    val analyzeVideoSlowly = MySettings.analyzeVideoSlowly
     Thread {
       // Note: set framestep for command1 will not increase speed
-      val command1Vf = "${cropParams()}${transposeParams()},scale=${resolutionParams(GIF_RESOLUTION_MAP.values.min())}:flags=fast_bilinear,palettegen=max_colors=${cmivColorQuality.selectedValue()}:stats_mode=diff"
+      val command1Vf =
+        when (analyzeVideoSlowly) {
+          false -> "${cropParams()}${transposeParams()},scale=${resolutionParams(GIF_RESOLUTION_MAP.values.min())}:flags=fast_bilinear,palettegen=max_colors=${cmivColorQuality.selectedValue()}:stats_mode=diff"
+          true -> "${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos,palettegen=max_colors=${cmivColorQuality.selectedValue()}:stats_mode=diff"
+        }
       //  val trimCommand = "-ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0}"
       val command1 = if (command1Vf == command1VfCached && trimTimeCached.first == trimTimeStart && trimTimeCached.second == trimTimeEnd) {
         "-version" // do nothing
       } else {
-        val trimTimeKeyFrameStart = floor(videoKeyFramesTimestampList.filter { it < trimTimeStart / 10.0 }.maxOrNull() ?: 0f)
-        val trimTimeKeyFrameEnd = ceil(videoKeyFramesTimestampList.filter { it > trimTimeEnd / 10.0 }.minOrNull() ?: videoKeyFramesTimestampList.max())
-        "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -ss $trimTimeKeyFrameStart -to $trimTimeKeyFrameEnd -i ${inputVideoSaf()} -vf $command1Vf -y $PALETTE_PATH"
+        when (analyzeVideoSlowly && cmivSpeed.selectedValue() != GIF_SPEED_GLANCE_MODE) {
+          false -> {
+            val trimTimeKeyFrameStart = floor(videoKeyFramesTimestampList.filter { it < trimTimeStart / 10.0 }.maxOrNull() ?: 0f)
+            val trimTimeKeyFrameEnd = ceil(videoKeyFramesTimestampList.filter { it > trimTimeEnd / 10.0 }.minOrNull() ?: videoKeyFramesTimestampList.max())
+            "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -ss $trimTimeKeyFrameStart -to $trimTimeKeyFrameEnd -i ${inputVideoSaf()} -vf $command1Vf -y $PALETTE_PATH"
+          }
+          true -> {
+            "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -vf $command1Vf -y $PALETTE_PATH"
+          }
+        }
       }
       MyToolbox.logging("command1", command1)
       FFmpegKit.executeAsync(command1) {
@@ -484,14 +438,14 @@ class GifActivity : AppCompatActivity() {
               GIF_SPEED_GLANCE_MODE -> {
                 val command2FrameStep = 30 / outputFpsTarget
                 outputFramesEstimated = videoKeyFramesTimestampInTrimmedCount() / command2FrameStep
-                command2 = "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -r 30 -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -i $PALETTE_PATH -lavfi \"framestep=$command2FrameStep,${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${cmivFinalDelay.selectedValue()} -y ${outputGifPath()}"
+                command2 = "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -r 30 -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -i $PALETTE_PATH -lavfi \"framestep=$command2FrameStep,${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifPath()}"
               }
               else -> {
                 outputSpeed = cmivSpeed.selectedValue() / 100.0
                 frameStep = max(round(inputVideoFps() * outputSpeed / outputFpsTarget).toInt(), 1)
                 outputFpsReal = inputVideoFps() * outputSpeed / frameStep
                 outputFramesEstimated = ((trimTimeEnd - trimTimeStart) / 10.0 * inputVideoFps() / frameStep).toInt()
-                command2 = "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -i $PALETTE_PATH -r $outputFpsReal -lavfi \"framestep=$frameStep,setpts=PTS/$outputSpeed,${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${cmivFinalDelay.selectedValue()} -y ${outputGifPath()}"
+                command2 = "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -i $PALETTE_PATH -r $outputFpsReal -lavfi \"framestep=$frameStep,setpts=PTS/$outputSpeed,${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifPath()}"
               }
             }
             MyToolbox.logging("command2", command2)
@@ -540,11 +494,7 @@ class GifActivity : AppCompatActivity() {
     ((videoInformationSession.mediaInformation.streams.first { it.type == "video" }.getStringProperty("duration"))
       ?: (videoInformationSession.mediaInformation.duration)).toFloat()
 
-  private fun inputVideoSaf(): String {
-    val videoSaf = FFmpegKitConfig.getSafParameterForRead(this, inputVideoUri)
-    path = videoSaf
-    return videoSaf
-  }
+  private fun inputVideoSaf() = FFmpegKitConfig.getSafParameterForRead(this, inputVideoUri)
 
   private fun outputGifPath() =
     when (gifUri.scheme) {
@@ -652,6 +602,43 @@ class GifActivity : AppCompatActivity() {
     keepScreenOn(false)
     FFmpegKitConfig.clearSessions()
     FFmpegKit.cancel()
+  }
+
+  private val getCropAndTrimResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    if (it.resultCode == RESULT_OK) {
+      with(it.data!!.extras!!) {
+        myCropParams = get(EXTRA_CROP_PARAMS) as MyCropParams
+        trimTimeStart = get(EXTRA_TRIM_START) as Float
+        trimTimeEnd = get(EXTRA_TRIM_END) as Float
+      }
+      binding.chipCrop.text = getString(R.string.re_crop)
+      loadFirstFrame()
+    }
+  }
+
+  private val requestPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+      Toast.makeText(this@GifActivity, when (isGranted) {
+        true -> {
+          materialToolbarSubtitle.text = ""
+          getString(R.string.permission_granted_you_can_continue_converting_to_gif)
+        }
+        false -> getString(R.string.unable_to_save_your_gif_without_storage_permission)
+      }, Toast.LENGTH_LONG).show()
+    }
+
+  // takes ~5 secs
+  private val videoKeyFramesTimestampList by lazy {
+    // count all key frames FFprobeKit.execute("-hide_banner -loglevel error -skip_frame nokey -select_streams v:0 -count_frames -show_entries stream=nb_read_frames -of csv=p=0:sv=fail ${inputVideoSaf()}").logsAsString.split(",").first().toInt()
+    val list = FFprobeKit.execute("-loglevel error -skip_frame nokey -select_streams v:0 -show_entries frame=pts_time -of csv=p=0:sv=fail ${inputVideoSaf()}").allLogsAsString.split("\n").map {
+      try {
+        it.toFloat()
+      } catch (e: NumberFormatException) {
+        -1f
+      }
+    }.filter { it != -1f }
+    MyToolbox.logging("counted", "videoKeyFramesTimestampList.count() = ${list.count()}")
+    return@lazy list
   }
 
   companion object {

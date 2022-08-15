@@ -74,6 +74,7 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
         val popupWindow by lazy {
           PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
             elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
+            isOutsideTouchable = true
           }
         }
         // popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
@@ -108,6 +109,7 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
         val popupWindow by lazy {
           PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
             elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
+            isOutsideTouchable = true
           }
         }
         //  popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
@@ -143,17 +145,21 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
         val popupWindow by lazy {
           PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
             elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
+            isOutsideTouchable = true
           }
         }
         // popupView.findViewById<MaterialTextView>(R.id.mtv_guide).text = context.getString(guideText)
+        /*
         popupView.findViewById<MaterialTextView>(R.id.mtv_guide).apply {
           visibility = VISIBLE
-          text = context.getString(R.string.pause_for_a_while_at_the_end_of_the_gif)
+          text = context.getString(R.string.add_a_pause_at_the_end_of_the_gif)
         }
+        */
         sliderInPopupView = popupView.findViewById<Slider>(R.id.slider).apply {
           addOnChangeListener { it, value, _ ->
             val selectedText = allOptionsMap.keys.elementAt((value).toInt())
             mtvSelectedKey.text = selectedText
+            MySettings.gifFinalDelay = selectedValue()
             it.setLabelFormatter {
               return@setLabelFormatter selectedText
             }
@@ -179,6 +185,7 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
   }
    */
 
+  /*
   fun setUpAsIntSetting(allOptionsMap: LinkedHashMap<String, Int>, settingsKey: String, defValue: Int) {
     this.allOptionsMap = allOptionsMap
     mtvSelectedKey.text = allOptionsMap.getKeyByValue(MySettings.getInt(settingsKey, defValue))
@@ -188,6 +195,7 @@ class CustomMenuItemView(context: Context, attrs: AttributeSet) : LinearLayoutCo
       mtvSelectedKey.text = allOptionsMap.getKeyByValue(updatedSelectedValue)
     }
   }
+   */
 
   fun setUpWithLambda(lambda: () -> Unit) {
     binding.root.setOnClickListener {
