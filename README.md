@@ -2,7 +2,7 @@
 
 English | [简体中文](https://pub.kdocs.cn/r/paGFePg24YDlAB4)
 
-#### [**Download latest version (9.0)**](https://github.com/tasy5kg/CuteGIF/releases/latest)
+### [**Download latest version (Version 9.0)**](https://github.com/tasy5kg/CuteGIF/releases/latest)
 
 Convert video to GIF. Simple and fast.
 
