@@ -29,26 +29,41 @@
           app:srcCompat="@mipmap/ic_launcher" />
 
       <androidx.appcompat.widget.LinearLayoutCompat
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:gravity="center_vertical"
           android:layout_marginStart="16dp"
           android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+            android:orientation="horizontal">
+
+          <com.google.android.material.textview.MaterialTextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/app_name"
+              android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+          <com.google.android.material.textview.MaterialTextView
+              android:id="@+id/mtv_version_info"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:text="Version X"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:textColor="@color/grey"
+              tools:ignore="HardcodedText,TextContrastCheck" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_version_info"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Version X (yyyyMMdd)"
-            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-            android:textColor="@color/grey"
-            tools:ignore="HardcodedText,TextContrastCheck" />
+            android:layout_marginTop="6dp"
+            android:text="@string/convert_video_to_gif_simple_and_fast_in_about"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -57,14 +72,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:paddingHorizontal="24dp"
-        android:text="@string/convert_video_to_gif_simple_and_fast_in_about"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:paddingHorizontal="24dp"
         android:text="@string/privacy_statement"

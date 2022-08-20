@@ -23,6 +23,7 @@ class SettingsActivity : AppCompatActivity() {
       setOnCheckedChangeListener { buttonView, isChecked ->
         MySettings.rememberGifOptions = isChecked
         if (!isChecked) {
+          // When this option is turned off, clear saved values
           with(MySettings) {
             previousGifConfigSpeed = INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE
             previousGifConfigResolution = INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE
@@ -38,7 +39,12 @@ class SettingsActivity : AppCompatActivity() {
         MySettings.analyzeVideoSlowly = isChecked
       }
     }
-    // binding.cmivAnalyzeVideoSlowly.setUpAsIntSetting(MyConstants.ANALYZE_VIDEO_SLOWLY_MAP, MySettings.INT_ANALYZE_VIDEO_SLOWLY, ANALYZE_VIDEO_SLOWLY_CONFIG_DEFAULT)
+    with(binding.msAlwaysShowMoreOptionsWhenConvertingGif) {
+      isChecked = MySettings.alwaysShowMoreOptionsWhenConvertingGif
+      setOnCheckedChangeListener { buttonView, isChecked ->
+        MySettings.alwaysShowMoreOptionsWhenConvertingGif = isChecked
+      }
+    }
     binding.cmivFinalDelay.apply {
       setUpWithDropDownConfig(GIF_FINAL_DELAY_MAP, CUSTOM_MENU_ITEM_VIEW_TYPE_GIF_FINAL_DELAY)
       setSelectedValue(MySettings.gifFinalDelay)

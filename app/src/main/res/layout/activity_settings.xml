@@ -58,6 +58,22 @@
 
     <include layout="@layout/view_divider_horizontal" />
 
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/ms_always_show_more_options_when_converting_gif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="54dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/always_show_more_options_when_converting_gif"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="?attr/colorOnSurface"
+        app:thumbTint="@color/green_dark"
+        app:trackDecorationTint="@color/grey"
+        app:trackTint="@color/light" />
+
+    <include layout="@layout/view_divider_horizontal" />
+
     <me.tasy5kg.cutegif.CustomMenuItemView
         android:id="@+id/cmiv_final_delay"
         android:layout_width="match_parent"

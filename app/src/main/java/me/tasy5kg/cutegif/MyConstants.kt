@@ -9,9 +9,11 @@ object MyConstants {
   val THUMBNAIL_PATH = context.externalCacheDir!!.canonicalPath + "/thumbnail.jpg"
   val TRANSPARENT_COLOR = Color.parseColor("#00000000")
   const val EXTRA_CROP_PARAMS = "EXTRA_CROP_PARAMS"
+  const val EXTRA_CROP_PARAMS_DEFAULT = "EXTRA_CROP_PARAMS_DEFAULT"
   const val EXTRA_TRIM_START = "EXTRA_TRIM_START"
   const val EXTRA_TRIM_END = "EXTRA_TRIM_END"
   const val EXTRA_VIDEO_URI = "EXTRA_VIDEO_URI"
+  const val EXTRA_CHECKED_CROP_RATIO_TEXT = "EXTRA_CHECKED_CROP_RATIO_TEXT"
   const val UNKNOWN_FLOAT = -99999f
   const val UNKNOWN_INT = -99999
   const val DOUBLE_BACK_TO_EXIT_DELAY = 2000L

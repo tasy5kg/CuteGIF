@@ -32,7 +32,7 @@
   <string name="_3_x">3x</string>
   <string name="_4_x">4x</string>
   <string name="_8_x">8x</string>
-  <string name="version_X_date">Version %d (%s)</string>
+  <string name="version_X">Version %s</string>
   <string name="_144p">144P</string>
   <string name="_240p">240P</string>
   <string name="_360p">360P</string>
@@ -55,22 +55,23 @@
   <string name="debug_info">Debug info</string>
   <string name="open_source_license">Licenses</string>
   <string name="developer_email_address_copied">Developer Email address copied to clipboard</string>
-  <string name="privacy_statement">- This app is open source and free to use.\n- Never connect to the internet.\n- User privacy is never collected.</string>
+  <string name="privacy_statement">This app is open source and free to use. No ads. User privacy is never collected.</string>
   <string name="analyzing_video">Analyzing video</string>
   <string name="glance_mode">Glance mode</string>
   <string name="glance_mode_guide_text">Glance mode only converts video key frames, which is suitable for long videos such as movies and TV series.</string>
   <string name="developer_options">Developer options</string>
   <string name="browse_help_documentation_download_latest_version">Download latest version</string>
-  <string name="for_more_info_see_home_about_menu">For more info, see <b>Home - About</b> menu.</string>
-  <string name="whats_new_in_version_n">What\'s new in version 8</string>
+  <string name="for_more_info_see_home_about_menu">For more info, see Home - About menu.</string>
+  <string name="whats_new_in_version_n">What\'s new in version 9.0</string>
   <string name="make_gif_smoother">Make GIF smoother</string>
   <string name="subscribe_to_releases_send_feedbacks">Subscribe to releases, send feedback</string>
   <string name="previously_saved_options_loaded">Previously saved options loaded</string>
   <string name="remember_options_when_converting_gif">Remember options when converting GIF</string>
+  <string name="always_show_more_options_when_converting_gif">Always show more options when converting GIF</string>
   <string name="settings">Settings</string>
   <string name="rotate">Rotate</string>
   <string name="re_rotate">Re-Rotate</string>
-  <string name="whats_new_in_version_n_text">- Video cropping can be previewed in real-time.\n- Support for trimming video.\n- Added setting \"Analyze video slowly for better color accuracy\".\n- Added setting \"Add a pause at the end of the GIF\".\n- Added button \"Delete &amp; Redo\".\n- More video formats supported.\n- Support for adding pauses at the end of GIF.\n- Optimized experience for Android 9.0 and below.\n- Lots and lots of detail optimizations.</string>
+  <string name="whats_new_in_version_n_text">- Added setting \"Always show more options when converting GIF\".\n- Fixed an issue where the video duration was too short to convert.\n- Fixed some GIF frame dropping issues.\n- Fixed issues related to Crop interface.</string>
   <string name="crop_free">Free</string>
   <string name="crop_square">Square</string>
   <string name="crop_4_3" translatable="false">4:3</string>

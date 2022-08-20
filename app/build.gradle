@@ -9,13 +9,20 @@ android {
         release {
         }
     }
-
     packagingOptions {
         jniLibs {
             useLegacyPackaging true
         }
     }
-
+    splits {
+        abi {
+            enable true
+            reset()
+            // include "arm64-v8a", "x86_64", "armeabi-v7a", "x86"
+            include "arm64-v8a"
+            universalApk true
+        }
+    }
     compileSdk 32
     buildToolsVersion '32.1.0 rc1'
 
@@ -23,16 +30,16 @@ android {
         applicationId "me.tasy5kg.cutegif"
         minSdk 24
         targetSdk 32
-        versionCode 8
-        versionName "20220818"
+        versionCode 20220820
+        versionName '9.0'
         /*
         ndk {
-            abiFilters 'x86_64', 'arm64-v8a'
+            abiFilters 'x86_64', 'arm64-v8a', 'armeabi-v7a'
         }
         */
         signingConfig signingConfigs.debug
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        setProperty "archivesBaseName", "CuteGIF_${versionCode}_${versionName}"
+        setProperty "archivesBaseName", "CuteGIF_${versionName}_${versionCode}"
     }
 
     buildTypes {
@@ -42,6 +49,7 @@ android {
         }
         debug {
             minifyEnabled false
+            debuggable true
         }
     }
     buildFeatures {
@@ -66,6 +74,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
     implementation 'com.github.CanHub:Android-Image-Cropper:4.3.1'
     implementation 'com.arthenica:ffmpeg-kit-video:4.5.1-1'
+    // implementation 'com.squareup.okhttp3:okhttp:4.10.0'
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
 

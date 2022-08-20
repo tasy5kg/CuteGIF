@@ -25,7 +25,6 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
-      android:animateLayoutChanges="true"
       android:background="@color/video_background">
 
     <VideoView
@@ -40,6 +39,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         tools:visibility="gone" />
+
   </RelativeLayout>
 
   <include layout="@layout/view_divider_horizontal" />
@@ -106,9 +106,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        app:minSeparation="1dp"
         app:tickColor="@color/green_dark"
         app:trackColorActive="@color/green_light"
-        app:trackColorInactive="@color/light" />
+        app:trackColorInactive="@color/white"/>
   </androidx.appcompat.widget.LinearLayoutCompat>
 
   <include layout="@layout/view_divider_horizontal" />

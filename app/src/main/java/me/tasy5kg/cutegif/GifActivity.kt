@@ -30,6 +30,7 @@ import me.tasy5kg.cutegif.MyConstants.DOUBLE_BACK_TO_EXIT_DELAY
 import me.tasy5kg.cutegif.MyConstants.EXTRA_CROP_PARAMS
 import me.tasy5kg.cutegif.MyConstants.EXTRA_TRIM_END
 import me.tasy5kg.cutegif.MyConstants.EXTRA_TRIM_START
+import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_FOR_ALL
 import me.tasy5kg.cutegif.MyConstants.FIRST_FRAME_PATH
 import me.tasy5kg.cutegif.MyConstants.GIF_COLOR_QUALITY_MAP
@@ -40,21 +41,21 @@ import me.tasy5kg.cutegif.MyConstants.GIF_SPEED_MAP
 import me.tasy5kg.cutegif.MyConstants.MATERIAL_TOOLBAR_SUBTITLE_TEMP_DISPLAY_DURATION
 import me.tasy5kg.cutegif.MyConstants.PALETTE_PATH
 import me.tasy5kg.cutegif.MyConstants.THUMBNAIL_PATH
-import me.tasy5kg.cutegif.MyConstants.UNKNOWN_FLOAT
+import me.tasy5kg.cutegif.MyConstants.UNKNOWN_INT
 import me.tasy5kg.cutegif.MySettings.INT_PREVIOUS_GIF_CONFIG_UNKNOWN_VALUE
 import me.tasy5kg.cutegif.databinding.ActivityGifBinding
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
+import kotlin.concurrent.thread
 import kotlin.math.*
 
 @SuppressLint("InflateParams")
 class GifActivity : AppCompatActivity() {
   private var command1VfCached = ""
-  private var gifViewRatio = 0.0
   private var rotation = 0
-  private var trimTimeStart = UNKNOWN_FLOAT
-  private var trimTimeEnd = UNKNOWN_FLOAT
+  private var trimTimeStart = UNKNOWN_INT // 1 == 1ms
+  private var trimTimeEnd = UNKNOWN_INT // 1 == 1ms
   private var converting = false
   private var doubleBackToExitPressedOnce = false
   private lateinit var binding: ActivityGifBinding
@@ -71,8 +72,46 @@ class GifActivity : AppCompatActivity() {
   private lateinit var mbCancelInGroupConvert: MaterialButton
   private lateinit var viewMaskLayer: View
   private lateinit var myCropParams: MyCropParams
+  private lateinit var defaultCropParams: MyCropParams
   private lateinit var materialToolbarSubtitle: AppCompatTextView
-  private var trimTimeCached = Pair(UNKNOWN_FLOAT, UNKNOWN_FLOAT)
+  private var trimTimeCached = Pair(UNKNOWN_INT, UNKNOWN_INT)
+
+  private val getCropAndTrimResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    if (it.resultCode == RESULT_OK) {
+      with(it.data!!.extras!!) {
+        myCropParams = get(EXTRA_CROP_PARAMS) as MyCropParams
+        trimTimeStart = get(EXTRA_TRIM_START) as Int
+        trimTimeEnd = get(EXTRA_TRIM_END) as Int
+      }
+      binding.chipCrop.text = getString(R.string.re_crop)
+      loadFirstFrame()
+    }
+  }
+
+  private val requestPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+      Toast.makeText(this@GifActivity, when (isGranted) {
+        true -> {
+          materialToolbarSubtitle.text = ""
+          getString(R.string.permission_granted_you_can_continue_converting_to_gif)
+        }
+        false -> getString(R.string.unable_to_save_your_gif_without_storage_permission)
+      }, Toast.LENGTH_LONG).show()
+    }
+
+  // takes ~5 secs
+  private val videoKeyFramesTimestampList by lazy {
+    // count all key frames FFprobeKit.execute("-hide_banner -loglevel error -skip_frame nokey -select_streams v:0 -count_frames -show_entries stream=nb_read_frames -of csv=p=0:sv=fail ${inputVideoSaf()}").logsAsString.split(",").first().toInt()
+    val list = FFprobeKit.execute("-loglevel error -skip_frame nokey -select_streams v:0 -show_entries frame=pts_time -of csv=p=0:sv=fail ${inputVideoSaf()}").allLogsAsString.split("\n").map {
+      try {
+        (it.toFloat() * 1000f).roundToInt() // 1 == 1ms
+      } catch (e: NumberFormatException) {
+        UNKNOWN_INT
+      }
+    }.filter { it != UNKNOWN_INT }
+    MyToolbox.logging("counted", "videoKeyFramesTimestampList.count() = ${list.count()}")
+    return@lazy list
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -89,9 +128,19 @@ class GifActivity : AppCompatActivity() {
         }
       }
     }
-    binding.llcMoreOptionsButton.setOnClickListener {
-      it.visibility = GONE
-      binding.llcMoreOptionsGroup.visibility = VISIBLE
+    with(binding.llcMoreOptionsButton) {
+      when (MySettings.alwaysShowMoreOptionsWhenConvertingGif) {
+        true -> {
+          visibility = GONE
+          binding.llcMoreOptionsGroup.visibility = VISIBLE
+        }
+        false -> {
+          setOnClickListener {
+            visibility = GONE
+            binding.llcMoreOptionsGroup.visibility = VISIBLE
+          }
+        }
+      }
     }
     linearProgressIndicator = binding.linearProgressIndicator
     inputVideoUri = intent.getParcelableExtra(EXTRA_VIDEO_URI) ?: intent.getParcelableExtra(Intent.EXTRA_STREAM) ?: intent.data ?: Uri.EMPTY
@@ -119,11 +168,14 @@ class GifActivity : AppCompatActivity() {
       binding.chipRotate.text = getString(R.string.re_rotate)
     }
     binding.chipCrop.setOnClickListener {
-      getCropAndTrimResult.launch(Intent(this@GifActivity, CropActivity::class.java)
-        .putExtra(EXTRA_CROP_PARAMS, myCropParams)
-        .putExtra(EXTRA_VIDEO_URI, inputVideoUri)
-        .putExtra(EXTRA_TRIM_START, trimTimeStart)
-        .putExtra(EXTRA_TRIM_END, trimTimeEnd))
+      getCropAndTrimResult.launch(CropActivity.startIntent(
+        this@GifActivity,
+        myCropParams,
+        defaultCropParams,
+        inputVideoUri,
+        trimTimeStart,
+        trimTimeEnd
+      ))
     }
   }
 
@@ -138,8 +190,8 @@ class GifActivity : AppCompatActivity() {
   private fun setDefaultCropParams() {
     try {
       val videoStreamInfo = videoInformationSession.mediaInformation.streams.first { it.type == "video" }
-      trimTimeStart = 0f
-      trimTimeEnd = (inputVideoDuration() * 10.0).roundToInt().toFloat()
+      trimTimeStart = 0
+      trimTimeEnd = inputVideoDuration()
       var rotation =
         try {
           -((videoStreamInfo.allProperties.get("side_data_list") as JSONArray).get(0) as JSONObject).getInt("rotation")
@@ -158,10 +210,11 @@ class GifActivity : AppCompatActivity() {
       }
       val width = videoStreamInfo.width.toInt()
       val height = videoStreamInfo.height.toInt()
-      myCropParams = when (rotation % 180) {
+      defaultCropParams = when (rotation % 180) {
         0 -> MyCropParams(width, height, 0, 0)
         else -> MyCropParams(height, width, 0, 0)
       }
+      myCropParams = defaultCropParams
     } catch (e: Exception) {
       e.printStackTrace()
       loadVideoFailed()
@@ -230,7 +283,7 @@ class GifActivity : AppCompatActivity() {
     }
     try {
       // FFmpegKit.executeAsync("$FFMPEG_COMMAND_FOR_ALL -i ${inputVideoSaf()} -vframes 1 -vf scale=${resolutionPara(1080)}:flags=lanczos -q:v 5 -y $FIRST_FRAME_PATH") {
-      val commandLoadFirstFrame = "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart / 10.0} -i ${inputVideoSaf()} -vframes 1 -q:v 10 -y $FIRST_FRAME_PATH"
+      val commandLoadFirstFrame = "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart}ms -i ${inputVideoSaf()} -frames:v 1 -q:v 10 -y $FIRST_FRAME_PATH"
       MyToolbox.logging("command", "loadFirstFrame: $commandLoadFirstFrame")
       FFmpegKit.executeAsync(commandLoadFirstFrame) {
         when (it.returnCode.isValueSuccess) {
@@ -374,7 +427,7 @@ class GifActivity : AppCompatActivity() {
   }
 
   private fun videoKeyFramesTimestampInTrimmedCount(): Int {
-    val count = videoKeyFramesTimestampList.count { it * 10.0 in trimTimeStart..trimTimeEnd }
+    val count = videoKeyFramesTimestampList.count { it in trimTimeStart..trimTimeEnd }
     MyToolbox.logging("counted", "videoKeyFramesTimestampInTrimmedCount() = $count")
     return count
   }
@@ -399,7 +452,7 @@ class GifActivity : AppCompatActivity() {
 
   private fun startConversion() {
     val analyzeVideoSlowly = MySettings.analyzeVideoSlowly
-    Thread {
+    thread {
       // Note: set framestep for command1 will not increase speed
       val command1Vf =
         when (analyzeVideoSlowly) {
@@ -412,12 +465,13 @@ class GifActivity : AppCompatActivity() {
       } else {
         when (analyzeVideoSlowly && cmivSpeed.selectedValue() != GIF_SPEED_GLANCE_MODE) {
           false -> {
-            val trimTimeKeyFrameStart = floor(videoKeyFramesTimestampList.filter { it < trimTimeStart / 10.0 }.maxOrNull() ?: 0f)
-            val trimTimeKeyFrameEnd = ceil(videoKeyFramesTimestampList.filter { it > trimTimeEnd / 10.0 }.minOrNull() ?: videoKeyFramesTimestampList.max())
-            "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -ss $trimTimeKeyFrameStart -to $trimTimeKeyFrameEnd -i ${inputVideoSaf()} -vf $command1Vf -y $PALETTE_PATH"
+            // make sure at least 1 key frame in trimTimeKeyFrameStart..trimTimeKeyFrameEnd
+            val trimTimeKeyFrameStart = videoKeyFramesTimestampList.filter { it < trimTimeStart }.maxOrNull() ?: 0
+            val trimTimeKeyFrameEnd = videoKeyFramesTimestampList.filter { it > trimTimeEnd }.minOrNull() ?: inputVideoDuration()
+            "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -ss ${trimTimeKeyFrameStart}ms -to ${trimTimeKeyFrameEnd}ms -i ${inputVideoSaf()} -vf $command1Vf -y $PALETTE_PATH"
           }
           true -> {
-            "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -vf $command1Vf -y $PALETTE_PATH"
+            "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart}ms -to ${trimTimeEnd}ms -i ${inputVideoSaf()} -vf $command1Vf -y $PALETTE_PATH"
           }
         }
       }
@@ -428,24 +482,19 @@ class GifActivity : AppCompatActivity() {
             command1VfCached = command1Vf
             trimTimeCached = Pair(trimTimeStart, trimTimeEnd)
             val outputFpsTarget = cmivFrameRate.selectedValue()
-            val outputFpsReal: Double
-            val outputSpeed: Double
-            val frameStep: Int
+            val outputSpeed: Float
             val outputFramesEstimated: Int
-            val command2: String
             var progress: Int
-            when (cmivSpeed.selectedValue()) {
+            val command2 = when (cmivSpeed.selectedValue()) {
               GIF_SPEED_GLANCE_MODE -> {
                 val command2FrameStep = 30 / outputFpsTarget
-                outputFramesEstimated = videoKeyFramesTimestampInTrimmedCount() / command2FrameStep
-                command2 = "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -r 30 -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -i $PALETTE_PATH -lavfi \"framestep=$command2FrameStep,${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifPath()}"
+                outputFramesEstimated = ceil(videoKeyFramesTimestampInTrimmedCount().toDouble() / command2FrameStep).toInt()
+                "$FFMPEG_COMMAND_FOR_ALL -skip_frame nokey -r 30 -ss ${trimTimeStart}ms -to ${trimTimeEnd}ms -i ${inputVideoSaf()} -i $PALETTE_PATH -lavfi \"framestep=$command2FrameStep,${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifPath()}"
               }
               else -> {
-                outputSpeed = cmivSpeed.selectedValue() / 100.0
-                frameStep = max(round(inputVideoFps() * outputSpeed / outputFpsTarget).toInt(), 1)
-                outputFpsReal = inputVideoFps() * outputSpeed / frameStep
-                outputFramesEstimated = ((trimTimeEnd - trimTimeStart) / 10.0 * inputVideoFps() / frameStep).toInt()
-                command2 = "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart / 10.0} -to ${trimTimeEnd / 10.0} -i ${inputVideoSaf()} -i $PALETTE_PATH -r $outputFpsReal -lavfi \"framestep=$frameStep,setpts=PTS/$outputSpeed,${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifPath()}"
+                outputSpeed = cmivSpeed.selectedValue() / 100f
+                outputFramesEstimated = ceil((trimTimeEnd - trimTimeStart) * outputFpsTarget / outputSpeed / 1000f).toInt()
+                "$FFMPEG_COMMAND_FOR_ALL -ss ${trimTimeStart}ms -to ${trimTimeEnd}ms -i ${inputVideoSaf()} -i $PALETTE_PATH -lavfi \"setpts=PTS/$outputSpeed,fps=fps=${outputFpsTarget},${cropParams()}${transposeParams()},scale=${resolutionParams()}:flags=lanczos [x]; [x][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifPath()}"
               }
             }
             MyToolbox.logging("command2", command2)
@@ -468,7 +517,7 @@ class GifActivity : AppCompatActivity() {
           it.returnCode.isValueError -> conversionUnsuccessfully(canceledByUser = false, finishActivity = true)
         }
       }
-    }.start()
+    }
   }
 
   @SuppressLint("SimpleDateFormat")
@@ -490,9 +539,14 @@ class GifActivity : AppCompatActivity() {
     }
   }
 
-  private fun inputVideoDuration() =
-    ((videoInformationSession.mediaInformation.streams.first { it.type == "video" }.getStringProperty("duration"))
-      ?: (videoInformationSession.mediaInformation.duration)).toFloat()
+  private fun inputVideoDuration() = try {
+    (((videoInformationSession.mediaInformation.streams.first { it.type == "video" }.getStringProperty("duration"))
+      ?: (videoInformationSession.mediaInformation.duration)).toFloat() * 1000f).roundToInt()
+  } catch (e: Exception) {
+    e.printStackTrace()
+    loadVideoFailed()
+    UNKNOWN_INT
+  }
 
   private fun inputVideoSaf() = FFmpegKitConfig.getSafParameterForRead(this, inputVideoUri)
 
@@ -532,24 +586,22 @@ class GifActivity : AppCompatActivity() {
     }
   }
 
-  private fun inputVideoFps(): Double {
+  private fun inputVideoFps(): Float {
     val fpsFraction = videoInformationSession.mediaInformation.streams.first { it.type == "video" }.averageFrameRate
     val numerator = fpsFraction.split("/").toTypedArray()[0].toInt()
     val denominator = fpsFraction.split("/").toTypedArray()[1].toInt()
-    return numerator.toDouble() / denominator
+    return numerator.toFloat() / denominator
   }
 
   private fun resolutionParams(): String = resolutionParams(null)
 
   private fun resolutionParams(shortLength: Int?): String {
-    val long = max(myCropParams.outW, myCropParams.outH)
+    // val long = max(myCropParams.outW, myCropParams.outH)
     val short = min(myCropParams.outW, myCropParams.outH)
     val pixel = min(shortLength ?: cmivResolution.selectedValue(), short)
     return if ((myCropParams.outW > myCropParams.outH) == (rotation % 180 == 0)) {
-      gifViewRatio = short.toDouble() / long
       "-2:$pixel"
     } else {
-      gifViewRatio = long.toDouble() / short
       "$pixel:-2"
     }
   }
@@ -604,45 +656,7 @@ class GifActivity : AppCompatActivity() {
     FFmpegKit.cancel()
   }
 
-  private val getCropAndTrimResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-    if (it.resultCode == RESULT_OK) {
-      with(it.data!!.extras!!) {
-        myCropParams = get(EXTRA_CROP_PARAMS) as MyCropParams
-        trimTimeStart = get(EXTRA_TRIM_START) as Float
-        trimTimeEnd = get(EXTRA_TRIM_END) as Float
-      }
-      binding.chipCrop.text = getString(R.string.re_crop)
-      loadFirstFrame()
-    }
-  }
-
-  private val requestPermissionLauncher =
-    registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-      Toast.makeText(this@GifActivity, when (isGranted) {
-        true -> {
-          materialToolbarSubtitle.text = ""
-          getString(R.string.permission_granted_you_can_continue_converting_to_gif)
-        }
-        false -> getString(R.string.unable_to_save_your_gif_without_storage_permission)
-      }, Toast.LENGTH_LONG).show()
-    }
-
-  // takes ~5 secs
-  private val videoKeyFramesTimestampList by lazy {
-    // count all key frames FFprobeKit.execute("-hide_banner -loglevel error -skip_frame nokey -select_streams v:0 -count_frames -show_entries stream=nb_read_frames -of csv=p=0:sv=fail ${inputVideoSaf()}").logsAsString.split(",").first().toInt()
-    val list = FFprobeKit.execute("-loglevel error -skip_frame nokey -select_streams v:0 -show_entries frame=pts_time -of csv=p=0:sv=fail ${inputVideoSaf()}").allLogsAsString.split("\n").map {
-      try {
-        it.toFloat()
-      } catch (e: NumberFormatException) {
-        -1f
-      }
-    }.filter { it != -1f }
-    MyToolbox.logging("counted", "videoKeyFramesTimestampList.count() = ${list.count()}")
-    return@lazy list
-  }
-
   companion object {
-    const val EXTRA_VIDEO_URI = "EXTRA_VIDEO_URI"
     fun start(context: Context, videoUri: Uri) {
       context.startActivity(Intent(context, GifActivity::class.java).putExtra(EXTRA_VIDEO_URI, videoUri))
     }

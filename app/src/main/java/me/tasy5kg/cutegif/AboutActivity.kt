@@ -48,7 +48,7 @@ class AboutActivity : AppCompatActivity() {
     } else {
       VISIBLE
     }
-    binding.mtvVersionInfo.text = getString(R.string.version_X_date, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME)
+    binding.mtvVersionInfo.text = getString(R.string.version_X, BuildConfig.VERSION_NAME)
     binding.cmivJoinQqGroup.setUpWithLambda {
       val intent = Intent().apply {
         data = Uri.parse(MyConstants.URI_JOIN_QQ_GROUP)
