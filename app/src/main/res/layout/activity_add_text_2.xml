@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
+  android:orientation="vertical"
+  tools:context=".AddTextActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_close"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="关闭"
+      app:icon="@drawable/ic_baseline_close_24" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="start"
+      android:text="编辑文字"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+      android:textColor="@color/grey" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_done"
+      style="@style/Widget.Material3.Button.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:text="完成"
+      app:icon="@drawable/ic_baseline_done_24" />
+
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:animateLayoutChanges="true"
+    android:background="@color/video_background"
+    android:focusable="false"
+    android:paddingVertical="12dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/aciv_frame"
+      android:layout_width="match_parent"
+
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:adjustViewBounds="true"
+      android:animateLayoutChanges="true"
+      android:scaleType="fitCenter"
+      android:transitionName="ImageVideoFrame" />
+
+    <View
+      android:id="@+id/view_reference_line_vertical"
+      android:layout_width="1dp"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:alpha="0.5"
+      android:background="@color/green_dark"
+      android:focusable="false"
+      android:visibility="gone"
+      tools:visibility="visible" />
+
+    <View
+      android:id="@+id/view_reference_line_horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_centerInParent="true"
+      android:alpha="0.5"
+      android:background="@color/green_dark"
+      android:focusable="false"
+      android:visibility="gone"
+      tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/aciv_text"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:adjustViewBounds="true"
+      android:animateLayoutChanges="true"
+      android:scaleType="fitCenter"
+      android:transitionName="ImageText" />
+
+
+  </RelativeLayout>
+
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/til"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:layout_marginTop="16dp"
+    android:minHeight="54dp"
+    app:hintEnabled="false">
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/tiet"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:fadeScrollbars="false"
+
+      android:gravity="center"
+      android:hint="在此输入文字"
+      android:maxLines="3"
+      android:scrollbars="vertical"
+      android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:layout_marginVertical="8dp"
+    android:animateLayoutChanges="true"
+    android:gravity="center_vertical"
+    android:minHeight="54dp"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+      style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="center_vertical"
+      app:selectionRequired="false"
+      app:singleSelection="false">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_text_font"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:checkable="false"
+        android:text="默认字体"
+
+        app:backgroundTint="#40757874" />
+
+      <!--    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_text_font"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:checkable="false"
+        android:fontFamily="@font/smiley_sans_oblique"
+        android:text="得意黑"
+        app:backgroundTint="#40757874" />-->
+
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_text_bold"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:layout_width="48dp"
+        android:layout_weight="0"
+
+        android:contentDescription="粗体"
+        app:icon="@drawable/ic_baseline_format_bold_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_text_italic"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:layout_width="48dp"
+        android:layout_weight="0"
+        android:contentDescription="斜体"
+        app:icon="@drawable/baseline_format_italic_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_text_align"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:layout_width="48dp"
+        android:layout_weight="0"
+        android:checkable="false"
+        android:contentDescription="对齐方向"
+        app:backgroundTint="#40757874"
+        app:icon="@drawable/ic_baseline_format_align_center_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_rotate"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:layout_width="48dp"
+        android:layout_weight="0"
+        android:checkable="false"
+        android:contentDescription="旋转"
+        app:backgroundTint="#40757874"
+        app:icon="@drawable/baseline_rotate_right_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="#ffffff" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_picked_color"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:layout_width="48dp"
+        android:layout_weight="0"
+        android:checkable="false"
+        android:contentDescription="颜色"
+        app:backgroundTint="#40757874"
+        app:icon="@drawable/ic_baseline_color_lens_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="#ffffff" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <com.google.android.material.slider.Slider
+    android:id="@+id/slider_rotation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:animateLayoutChanges="true"
+    android:stepSize="1"
+    android:value="0"
+    android:valueFrom="-180"
+    android:valueTo="180"
+    android:visibility="gone"
+    app:tickColor="@color/green_light"
+    app:trackColorActive="@color/white"
+    app:trackColorInactive="@color/white" />
+
+  <HorizontalScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/grid_layout_color_picker"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:orientation="horizontal"
+      android:paddingHorizontal="24dp"
+      android:paddingBottom="16dp"
+      android:visibility="gone"
+      tools:visibility="visible">
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_ffffff"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        android:checked="true"
+        app:buttonTint="#ffffff" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_ff5353"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+
+        app:buttonTint="#ff5353" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_ffeb3c"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#ffeb3c" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_01c853"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#01c853" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_00affe"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#00affe" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_d500fa"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#d500fa" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_8c6e63"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#8c6e63" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_000000"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#000000" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_a62714"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#a62714" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_ee8100"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#ee8100" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_548b2e"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#548b2e" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_00579c"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#00579c" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_8e24aa"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#8e24aa" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_4d342f"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#4d342f" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_90a4ad"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#90a4ad" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_ff4181"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#ff4181" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_ff6e41"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#ff6e41" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_aeea00"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#aeea00" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_304fff"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#304fff" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_7c4dff"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#7c4dff" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_1de9b6"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#1de9b6" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_cfd8dd"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#cfd8dd" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_f9bbd0"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#f9bbd0" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_ffccbb"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#ffccbb" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_f0f4c2"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#f0f4c2" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_9ea8db"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#9ea8db" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_d0c4e8"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#d0c4e8" />
+
+      <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/mrb_color_picker_b2dfdc"
+        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        app:buttonTint="#b2dfdc" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+  </HorizontalScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

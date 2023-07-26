@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
+  android:orientation="vertical"
+  tools:context=".VideoToGifActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:animateLayoutChanges="true"
+    android:gravity="center_vertical">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_close"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:icon="@drawable/ic_baseline_close_24"
+      app:iconTint="@color/dark" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="start"
+        android:text="编辑视频"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="@color/grey" />
+
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_gif_duration_s"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="start"
+        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+        android:textColor="@color/grey"
+        tools:text="GIF 时长 123.4 秒" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_save"
+      style="@style/Widget.Material3.Button.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:animateLayoutChanges="true"
+      android:text="导出"
+      app:icon="@drawable/baseline_save_alt_24" />
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <RelativeLayout
+    android:id="@+id/rl"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:animateLayoutChanges="true"
+    android:background="@color/video_background"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="12dp">
+
+    <VideoView
+      android:id="@+id/video_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:animateLayoutChanges="true"
+      android:transitionName="ImageVideoFrame" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/aciv_text"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:adjustViewBounds="true"
+      android:animateLayoutChanges="true"
+      android:scaleType="fitCenter"
+      android:transitionName="ImageText" />
+
+    <com.canhub.cropper.CropImageView
+      android:id="@+id/crop_image_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:alpha="0.75"
+      android:animateLayoutChanges="true"
+      app:cropAutoZoomEnabled="false"
+      app:cropBorderCornerLength="8dp"
+      app:cropBorderCornerThickness="2dp"
+      app:cropBorderLineThickness="1dp"
+      app:cropGuidelines="onTouch"
+      app:cropGuidelinesThickness="1dp"
+      app:cropShowProgressBar="false"
+      tools:visibility="gone" />
+
+  </RelativeLayout>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_play_pause"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:padding="0dp"
+        app:icon="@drawable/ic_baseline_pause_24" />
+
+      <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:animateLayoutChanges="true"
+        app:tickColor="@color/transparent"
+        app:trackColorActive="@color/transparent"
+        app:trackColorInactive="@color/transparent">
+
+
+        <com.google.android.material.slider.RangeSlider
+          android:id="@+id/range_slider"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:animateLayoutChanges="true"
+          app:labelBehavior="floating"
+          app:thumbColor="@color/green_dark"
+          app:tickColor="@color/green_light"
+          app:trackColorActive="@color/green_dark"
+          app:trackColorInactive="@color/white" />
+
+        <com.google.android.material.slider.Slider
+          android:id="@+id/slider_cursor"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:animateLayoutChanges="true"
+          android:enabled="false"
+          android:focusable="false"
+          app:thumbColor="@color/green_light"
+          app:thumbRadius="8dp"
+          app:tickColor="@color/green_light"
+          app:trackColorActive="@color/transparent"
+          app:trackColorInactive="@color/transparent" />
+      </FrameLayout>
+
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_video_current_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:animateLayoutChanges="true"
+        android:text="0:00.0"
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        android:textColor="@color/grey"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/llc_group_basic_options"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:orientation="vertical">
+
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:animateLayoutChanges="true"
+        android:gravity="center_vertical"
+        android:minHeight="54dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_crop_ratio"
+          style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="8dp"
+          android:animateLayoutChanges="true"
+          android:text="画幅"
+          app:icon="@drawable/ic_baseline_crop_24" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_playback_speed"
+          style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:animateLayoutChanges="true"
+          android:text="1.5倍速"
+          app:icon="@drawable/ic_baseline_speed_24" />
+
+        <Space
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_add_text"
+          style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:animateLayoutChanges="true"
+          android:text="文字"
+          app:icon="@drawable/ic_baseline_text_fields_24" />
+
+
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

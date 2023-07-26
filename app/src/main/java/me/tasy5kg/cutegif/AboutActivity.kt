@@ -1,152 +1,65 @@
 package me.tasy5kg.cutegif
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textview.MaterialTextView
-import me.tasy5kg.cutegif.MyConstants.URL_BROWSE_HELP_DOCUMENTATION_ZH_CN_KDOCS
-import me.tasy5kg.cutegif.MyConstants.URL_GET_LATEST_VERSION_GITHUB
-import me.tasy5kg.cutegif.MyConstants.URL_OPEN_SOURCE_REPO_GITHUB
+import android.view.View
+import me.tasy5kg.cutegif.Toolbox.onClick
+import me.tasy5kg.cutegif.Toolbox.setupTextViewWithClickablePart
+import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityAboutBinding
 
-class AboutActivity : AppCompatActivity() {
-  private lateinit var binding: ActivityAboutBinding
-
-  @SuppressLint("InflateParams")
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = ActivityAboutBinding.inflate(layoutInflater)
+class AboutActivity : BaseActivity() {
+  val binding by lazy { ActivityAboutBinding.inflate(layoutInflater) }
+  override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(true)
-    binding.mbStart.apply {
-      if (!MySettings.firstStartCurrentVersion()) {
-        text = getString(R.string.done)
-      }
-      setOnClickListener {
-        MySettings.setPreviousVersionToCurrent()
-        finish()
-      }
+    val mbChooseFileWayDocument by lazy { binding.mbChooseFileWayDocument }
+    val mbChooseFileWayGallery by lazy { binding.mbChooseFileWayGallery }
+    val mbChooseFileWay13 by lazy { binding.mbChooseFileWay13 }
+    val mbtgChooseFileWay by lazy { binding.mbtgChooseFileWay }
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+      mbChooseFileWay13.visibility = View.GONE
     }
-    binding.mtvForMoreInfoSeeHomeAboutMenu.visibility = if (MySettings.firstStartCurrentVersion()) {
-      VISIBLE
-    } else {
-      GONE
-    }
-    binding.llcVisibleForNotFirstStart.visibility = if (MySettings.firstStartCurrentVersion()) {
-      GONE
-    } else {
-      VISIBLE
-    }
-    binding.mtvVersionInfo.text = getString(R.string.version_X, BuildConfig.VERSION_NAME)
-    binding.cmivJoinQqGroup.setUpWithLambda {
-      val intent = Intent().apply {
-        data = Uri.parse(MyConstants.URI_JOIN_QQ_GROUP)
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
-      try {
-        startActivity(intent)
-      } catch (e: Exception) {
-        MyToolbox.copyToClipboard(this@AboutActivity, getString(R.string.qq_group_id), getString(R.string.join_qq_group_toast))
-      }
-    }
-    binding.cmivBrowseHelpDocumentationDownloadLatestVersion.setUpWithLambda {
-      MyToolbox.openLink(
-        this@AboutActivity,
-        if (MyToolbox.localeEqualsZhOrCn()) {
-          URL_BROWSE_HELP_DOCUMENTATION_ZH_CN_KDOCS
-        } else {
-          URL_GET_LATEST_VERSION_GITHUB
+    mbtgChooseFileWay.apply {
+      check(
+        when (MySettings.fileOpenWay) {
+          MySettings.INT_FILE_OPEN_WAY_DOCUMENT -> mbChooseFileWayDocument.id
+          MySettings.INT_FILE_OPEN_WAY_GALLERY -> mbChooseFileWayGallery.id
+          MySettings.INT_FILE_OPEN_WAY_13 -> mbChooseFileWay13.id
+          else -> throw IllegalArgumentException()
         }
       )
-    }
-    binding.cmivDeveloperOptions.apply {
-      setUpWithLambda {
-        this.visibility = GONE
-        binding.llcMoreOptionsGroup.visibility = VISIBLE
-      }
-    }
-    binding.mtvDebugInfo.setOnClickListener {
-      val popupView = LayoutInflater.from(this@AboutActivity).inflate(R.layout.view_popup_debug_info, null)
-      val popupWindow by lazy {
-        PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
-          elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
-          isOutsideTouchable = true // see https://stackoverflow.com/questions/12232724/popupwindow-dismiss-when-clicked-outside
+      addOnButtonCheckedListener { group, checkedId, isChecked ->
+        if (isChecked) {
+          MySettings.fileOpenWay = when (checkedId) {
+            mbChooseFileWayDocument.id -> MySettings.INT_FILE_OPEN_WAY_DOCUMENT
+            mbChooseFileWayGallery.id -> MySettings.INT_FILE_OPEN_WAY_GALLERY
+            mbChooseFileWay13.id -> MySettings.INT_FILE_OPEN_WAY_13
+            else -> throw IllegalArgumentException()
+          }
         }
       }
-      binding.root.alpha = 0.5f
-      popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
-      popupWindow.setOnDismissListener { binding.root.alpha = 1f }
-      popupView.findViewById<MaterialTextView>(R.id.mtv_debug_info_content).text = MyToolbox.debugInfo()
-      popupView.findViewById<MaterialButton>(R.id.mb_copy_and_close).setOnClickListener {
-        MyToolbox.copyToClipboard(this@AboutActivity, MyToolbox.debugInfo(), getString(R.string.debug_info_copied_to_clipboard))
-        popupWindow.dismiss()
-      }
     }
-    binding.mtvOpenSourceRepo.setOnClickListener {
-      MyToolbox.openLink(this@AboutActivity, URL_OPEN_SOURCE_REPO_GITHUB)
+// TODO
+    binding.mbDone.onClick {
+      finish()
     }
-    binding.mtvOpenSourceLicense.setOnClickListener {
-      val popupView = LayoutInflater.from(this@AboutActivity).inflate(R.layout.view_popup_open_source_licenses, null)
-      val popupWindow by lazy {
-        PopupWindow(popupView, binding.root.width, LinearLayout.LayoutParams.WRAP_CONTENT, true).apply {
-          elevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MyConstants.POPUP_WINDOW_ELEVATION, resources.displayMetrics)
-          isOutsideTouchable = true
-        }
-      }
-      popupView.findViewById<CustomMenuItemView>(R.id.cmiv_view_3rd_party_oss_licenses).setUpWithLambda {
-        MyToolbox.view3rdPartyOSSLicenses(this@AboutActivity)
-      }
-      binding.root.alpha = 0.5f
-      popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
-      popupWindow.setOnDismissListener { binding.root.alpha = 1f }
-      popupView.findViewById<MaterialButton>(R.id.mb_close).setOnClickListener {
-        popupWindow.dismiss()
-      }
+    binding.mtvLegalInfo.setupTextViewWithClickablePart(
+      "用户协议 | 隐私政策 | 开源许可",
+      listOf("用户协议" to { toast("...") },
+        "隐私政策" to { toast("...") },
+        "开源许可" to { toast("...") }),
+      true
+    )
+    binding.mtvVersionInfo.text = getString(R.string.version_X, BuildConfig.VERSION_NAME)
+    binding.mtvJoinQqGroup.onClick {
+      Toolbox.cmivJoinQqGroupLambda(this@AboutActivity)
     }
-    binding.mtvDeveloperEmailAddress.apply {
-      visibility = if (MySettings.firstStartCurrentVersion()) {
-        GONE
-      } else {
-        VISIBLE
-      }
-      setOnClickListener {
-        copyDeveloperEmailAddress()
-      }
-      setOnLongClickListener {
-        copyDeveloperEmailAddress()
-        return@setOnLongClickListener true
-      }
+    binding.mbDonateAlipay.onClick {
+      toast("我做得还不够好...")
     }
-
-  }
-
-  /*
-  private fun sendFeedbackEmail() {
-      try {
-          startActivity(Intent.createChooser(Intent(Intent.ACTION_SENDTO).apply {
-              data = Uri.parse(URI_EMAIL_TO_TASY5KG)
-              putExtra(Intent.EXTRA_SUBJECT, "My email's subject")    //TODO
-              putExtra(Intent.EXTRA_TEXT, "My email's body")  //TODO
-          }, null))
-      } catch (e: Exception) {
-          copyDeveloperEmailAddress()
-      }
-  }
-   */
-
-  private fun copyDeveloperEmailAddress() {
-    MyToolbox.copyToClipboard(this@AboutActivity, R.string.email_address_tasy5kg, R.string.developer_email_address_copied)
   }
 
   companion object {

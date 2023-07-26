@@ -2,7 +2,9 @@
 
 English | [简体中文](https://pub.kdocs.cn/r/paGFePg24YDlAB4)
 
-### [**Download latest version 9.0**](https://github.com/tasy5kg/CuteGIF/releases/latest)
+### Guide
+
+[**Download latest version 9.0**](https://github.com/tasy5kg/CuteGIF/releases/latest)
 
 Convert video to GIF. Simple and fast.
 
@@ -14,5 +16,4 @@ System requirements: Android 7.0+
 - Fixed an issue where the video duration was too short to convert.
 - Fixed some GIF frame dropping issues.
 - Fixed issues related to Crop interface.
-
 

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <attr name="title" format="string" />
   <declare-styleable name="CustomMenuItemView">
-    <attr name="title" format="string" />
+    <attr name="title" />
     <attr name="subTitle" format="string" />
     <attr name="selectedKey" format="string" />
+  </declare-styleable>
+  <declare-styleable name="CustomMenuItemViewSegmentedButtons">
+    <attr name="title" />
   </declare-styleable>
 </resources>

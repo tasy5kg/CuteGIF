@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal"
+  android:paddingVertical="8dp"
+  tools:context=".GifToVideoActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="16dp"
+    android:layout_weight="1"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/mtv_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="正在转换为视频（0%）"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+      android:textColor="@color/dark" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+      android:id="@+id/linear_progress_indicator"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:indeterminate="false"
+      app:indicatorColor="@color/green_dark"
+      app:trackColor="@color/white" />
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/mb_close"
+    style="@style/Widget.Material3.Button.IconButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/close"
+    app:icon="@drawable/ic_baseline_close_24"
+    app:iconTint="@color/dark" />
+</androidx.appcompat.widget.LinearLayoutCompat>

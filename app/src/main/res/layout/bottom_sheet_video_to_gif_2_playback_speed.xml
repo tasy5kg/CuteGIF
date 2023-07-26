@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".bottom.sheet.BottomSheetVideoToGif2PlaybackSpeed">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/standard_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="48dp">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:minHeight="64dp"
+      android:orientation="horizontal"
+      android:paddingHorizontal="24dp">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/playback_speed"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="@color/green_dark" />
+
+      <com.google.android.material.slider.Slider
+        android:id="@+id/slider_speed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:stepSize="1"
+        android:value="3"
+        android:valueFrom="0"
+        android:valueTo="6"
+        app:labelBehavior="visible" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

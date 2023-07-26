@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
+  android:orientation="vertical"
+  tools:context=".GifSplitActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:animateLayoutChanges="true"
+    android:gravity="center_vertical">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_close"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:icon="@drawable/ic_baseline_close_24"
+      app:iconTint="@color/dark" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="start"
+        android:text="GIF 截图"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="@color/grey" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_save"
+      style="@style/Widget.Material3.Button.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:animateLayoutChanges="true"
+      android:text="截图"
+      app:icon="@drawable/baseline_camera_24" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <RelativeLayout
+    android:id="@+id/rl"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:animateLayoutChanges="true"
+    android:background="@color/video_background"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="12dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/aciv"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:adjustViewBounds="true"
+      android:animateLayoutChanges="true"
+      android:scaleType="fitCenter"
+      android:transitionName="ImageText" />
+
+    <View
+      android:id="@+id/view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:alpha="0.25"
+      android:animateLayoutChanges="true"
+      android:background="@color/white"
+      android:visibility="invisible" />
+
+  </RelativeLayout>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_slider_minus"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:icon="@drawable/baseline_keyboard_arrow_left_24" />
+
+    <com.google.android.material.slider.Slider
+      android:id="@+id/slider"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:animateLayoutChanges="true"
+      android:stepSize="1"
+      android:value="1"
+      android:valueFrom="1"
+      android:valueTo="2"
+      app:labelBehavior="visible"
+      app:tickColor="@color/green_light"
+      app:trackColorActive="@color/white"
+      app:trackColorInactive="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_slider_plus"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:icon="@drawable/baseline_keyboard_arrow_right_24" />
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="#000000"
+  android:gravity="center_vertical"
+  tools:context=".EulaActivity">
+
+  <com.google.android.material.card.MaterialCardView
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="32dp"
+    app:cardBackgroundColor="@color/light"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="16dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingTop="4dp"
+      tools:context=".EulaActivity">
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          app:srcCompat="@mipmap/ic_launcher" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="12dp"
+          android:gravity="center_vertical"
+          android:orientation="vertical">
+
+          <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/app_name"
+              android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <com.google.android.material.textview.MaterialTextView
+              android:id="@+id/mtv_version_info"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+              android:textColor="@color/grey"
+              tools:ignore="HardcodedText,TextContrastCheck"
+              tools:text="Version X" />
+
+          </androidx.appcompat.widget.LinearLayoutCompat>
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="简洁好用的 GIF 工具箱。"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+      <include layout="@layout/view_divider_horizontal" />
+
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_user_agreement_and_privacy_policy_glance"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:maxHeight="128dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:scrollbars="vertical"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        tools:text="@string/eula_glance_text" />
+
+      <include layout="@layout/view_divider_horizontal" />
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_disagree"
+          style="@style/Widget.Material3.Button.OutlinedButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="退出"
+          android:textColor="?attr/colorOnSurface" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_agree"
+          style="@style/Widget.Material3.Button"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_weight="1"
+          android:text="同意"
+          android:textColor="?attr/colorOnSurface" />
+      </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+  </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

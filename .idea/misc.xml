@@ -1,113 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/drawable/ic_baseline_rotate_right_24.xml" value="0.2015" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_about.xml" value="0.25" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_crop.xml" value="0.43144424131627057" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_gif.xml" value="0.26336041043180847" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_grant_rw_permission.xml" value="0.26336041043180847" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_main.xml" value="0.20945319740500462" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/activity_settings.xml" value="0.375" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_custom_menu_item.xml" value="0.1872103799814643" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_divider_horizontal.xml" value="0.2600253271422541" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_divider_vertical.xml" value="0.1" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_popup_config.xml" value="0.1" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_popup_config_chips.xml" value="0.26336041043180847" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_popup_config_slider.xml" value="0.25181701581872595" />
-        <entry key="..\:/GitHub/CuteGIF/app/src/main/res/layout/view_popup_config_speed.xml" value="0.26336041043180847" />
-        <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1465" />
-        <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1465" />
-        <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/layout/activity_complete.xml" value="0.526395173453997" />
-        <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/layout/activity_gif.xml" value="0.1" />
-        <entry key="..\:/MyFiles/Android/CuteGif/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_assistant_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_color_lens_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_help_24.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_more_horiz_24.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_movie_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_speed_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_baseline_video_library_24.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1785" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.225" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/drawable/selector_button_in_toggle_group.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_about.xml" value="0.25" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_complete.xml" value="0.335" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_crop.xml" value="0.25181701581872595" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_gif.xml" value="0.24862811312790206" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_legal.xml" value="0.2026315789473684" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_main.xml" value="0.23262279888785914" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_playground.xml" value="0.24862811312790206" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_settings.xml" value="0.25" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/activity_shortcut_guide.xml" value="0.25" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_custom_menu_item.xml" value="0.165" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_divider_horizonta2l.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_divider_horizontal.xml" value="0.11757161179991449" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_divider_vertical.xml" value="0.10602821718683197" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_gif_config_item.xml" value="0.18628359592215013" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_material_divider.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_open_source_licenses.xml" value="0.26336041043180847" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_choose_server.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_choose_speed.xml" value="0.1527777777777778" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_config.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_config_speed.xml" value="0.5" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_debug_info.xml" value="0.26336041043180847" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_popup_open_source_licenses.xml" value="0.25181701581872595" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/layout/view_toolbar.xml" value="0.1" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/menu/toolbar_gif.xml" value="0.1527777777777778" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/menu/toolbar_main.xml" value="0.10740740740740741" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.25" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.225" />
-        <entry key="..\:/tasy5kg/AndroidStudioProjects/CuteGif/app/src/main/res/mipmap/ic_launcher.xml" value="0.1485" />
-      </map>
-    </option>
-  </component>
-  <component name="NullableNotNullManager">
-    <option name="myDefaultNullable" value="androidx.annotation.Nullable" />
-    <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />
-    <option name="myNullables">
-      <value>
-        <list size="12">
-          <item index="0" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
-          <item index="1" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
-          <item index="2" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
-          <item index="3" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
-          <item index="4" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
-          <item index="5" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
-          <item index="6" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
-          <item index="7" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
-          <item index="8" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
-          <item index="9" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
-          <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
-          <item index="11" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
-        </list>
-      </value>
-    </option>
-    <option name="myNotNulls">
-      <value>
-        <list size="11">
-          <item index="0" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
-          <item index="1" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
-          <item index="2" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
-          <item index="3" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
-          <item index="4" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
-          <item index="5" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
-          <item index="6" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
-          <item index="7" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
-          <item index="8" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
-          <item index="9" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
-          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
-        </list>
-      </value>
-    </option>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
@@ -116,7 +10,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.165" />
+        <option name="scale" value="0.16666666666666666" />
       </ProjectState>
     </option>
   </component>

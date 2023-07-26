@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:CustomMenuItemView="http://schemas.android.com/apk/res-auto"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:context=".SlideshowActivity">
+
+  <com.google.android.material.appbar.MaterialToolbar
+    android:id="@+id/material_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="?attr/colorPrimary"
+    app:subtitle="图片转 GIF"
+
+    app:subtitleTextColor="@color/dark"
+    app:title="@string/app_name"
+
+    app:titleTextColor="@color/dark" />
+
+  <RelativeLayout
+    android:id="@+id/relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/video_background"
+    android:visibility="gone">
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/aciv"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true" />
+
+  </RelativeLayout>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/llc_gone_when_conversion_started"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <me.tasy5kg.cutegif.CustomMenuItemView
+      android:id="@+id/cmiv_image_interval"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      CustomMenuItemView:selectedKey="1.0秒"
+      CustomMenuItemView:title="图片间隔" />
+
+    <include layout="@layout/view_divider_horizontal" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_convert"
+      style="@style/Widget.Material3.Button.Icon"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="8dp"
+      android:text="图片转 GIF"
+      android:textColor="?attr/colorOnSurface"
+      app:icon="@drawable/baseline_burst_mode_24"
+      app:iconGravity="textStart" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

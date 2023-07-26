@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:CustomMenuItemView="http://schemas.android.com/apk/res-auto"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:context=".AppCrashedActivity">
+
+  <com.google.android.material.appbar.MaterialToolbar
+    android:id="@+id/material_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="?attr/colorPrimary"
+    app:subtitle="出错了"
+    app:subtitleTextColor="@color/dark"
+    app:title="@string/app_name"
+    app:titleTextColor="@color/dark" />
+
+  <com.google.android.material.textview.MaterialTextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="12dp"
+    android:gravity="bottom"
+    android:text="非常抱歉，小萌 GIF 运行过程中出现错误。\n恳请您加入小萌 GIF QQ 群，将问题日志发送给开发者，以便我们修复此错误。"
+    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_marginHorizontal="24dp"
+    android:layout_marginVertical="12dp">
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="问题日志"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+    <Space
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_copy"
+      style="@style/Widget.Material3.Button.OutlinedButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="复制到剪贴板" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:paddingBottom="8dp">
+
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/mtv_problem_log"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingHorizontal="24dp"
+      android:textIsSelectable="true"
+      android:textSize="11sp"
+      android:typeface="monospace"
+      tools:text="[Exception Info]\njava.lang.IllegalArgumentException: xxxyyyzzz\n	at me.tasy5kg.cutegif.MainActivity.onCreate$lambda$11(MainActivity.kt:102)\n	at me.tasy5kg.cutegif.MainActivity.$r8$lambda$U2W_aUVSTR2RlR8nCYFJvzdAvMI(Unknown Source:0)\n	at me.tasy5kg.cutegif.MainActivity$$ExternalSyntheticLambda5.onClick(Unknown Source:2)\n	at android.view.View.performClick(View.java:7782)\n	at android.view.View.performClickInternal(View.java:7759)\n	at android.view.View.access$3700(View.java:858)\n	at android.view.View$PerformClick.run(View.java:29188)\n	at android.os.Handler.handleCallback(Handler.java:938)\n	at android.os.Handler.dispatchMessage(Handler.java:99)\n	at android.os.Looper.loopOnce(Looper.java:211)\n	at android.os.Looper.loop(Looper.java:300)\n	at android.app.ActivityThread.main(ActivityThread.java:8291)\n	at java.lang.reflect.Method.invoke(Native Method)\n	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:556)\n	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1049)\n\n[System Info]\nAndroid SDK Version = 31\nSupported ABIs = arm64-v8a,armeabi-v7a,armeabi\nManufacturer = Xiaomi\nBrand = Redmi\nModel = M2012K11AC\nLanguages = zh-CN\nCurrent Timestamp = 1665554993105\nTotal Memory = 7983026176\nAvailable Memory = 3419865088\n\n[Application Info]\nApplication ID = me.tasy5kg.cutegif\nVersion Code = 20221011\nVersion Name = 13.9_debug\nBuild Type = release\nDebug = true\n" />
+
+  </androidx.core.widget.NestedScrollView>
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <me.tasy5kg.cutegif.CustomMenuItemView
+    android:id="@+id/cmiv_join_qq_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    CustomMenuItemView:selectedKey="@string/qq_group_id"
+    CustomMenuItemView:subTitle="@string/subscribe_to_releases_send_feedbacks"
+    CustomMenuItemView:title="加入小萌 GIF QQ 群" />
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/mb_exit"
+    style="@style/Widget.Material3.Button.OutlinedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    android:text="退出"
+    android:textColor="?attr/colorOnSurface" />
+</androidx.appcompat.widget.LinearLayoutCompat>

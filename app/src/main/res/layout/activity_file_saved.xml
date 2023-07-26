@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context=".FileSavedActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:animateLayoutChanges="true"
+    android:gravity="center_vertical">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_back"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:icon="@drawable/ic_baseline_close_24"
+      app:iconTint="@color/dark" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_xxx_saved_to_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="start"
+        android:text="GIF 已保存至相册"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="@color/grey" />
+
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_file_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="start"
+        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+        android:textColor="@color/grey"
+        tools:text="文件大小：1234KB" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/aciv_preview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true" />
+
+    <VideoView
+      android:id="@+id/vv_preview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true" />
+  </RelativeLayout>
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="8dp">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_delete"
+      style="@style/Widget.Material3.Button.TextButton.Dialog"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="删除"
+      android:textColor="?attr/colorError"
+      app:icon="@drawable/ic_baseline_delete_forever_24"
+      app:iconTint="?attr/colorError" />
+
+    <Space
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_share"
+      style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:text="@string/share"
+      android:textColor="?attr/colorOnSurface"
+      app:icon="@drawable/ic_baseline_share_24" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_done"
+      style="@style/Widget.Material3.Button.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:text="@string/done"
+      android:textColor="?attr/colorOnSurface"
+      app:icon="@drawable/ic_baseline_done_24" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

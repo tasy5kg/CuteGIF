@@ -85,3 +85,6 @@ lint/tmp/
 # lint/reports/
 .idea/deploymentTargetDropDown.xml
 .idea/misc.xml
+
+
+temp_clipboard.txt

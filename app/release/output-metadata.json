@@ -1,0 +1,38 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "me.tasy5kg.cutegif",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 202304160,
+      "versionName": "Alpha_202304160",
+      "outputFile": "CuteGIF_Alpha_202304160_202304160-x86_64-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 202304160,
+      "versionName": "Alpha_202304160",
+      "outputFile": "CuteGIF_Alpha_202304160_202304160-arm64-v8a-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

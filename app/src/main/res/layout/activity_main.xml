@@ -1,87 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context=".MainActivity">
 
   <com.google.android.material.appbar.MaterialToolbar
-      android:id="@+id/material_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="?attr/colorPrimary"
-      app:title="@string/app_name"
-      app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-      app:titleTextColor="@color/dark" />
+    android:id="@+id/material_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#191C19"
+    app:subtitle="简洁好用的 GIF 工具箱"
+    app:title="@string/app_name"
+    app:titleTextColor="@color/dark" />
+
+  <include layout="@layout/view_divider_horizontal" />
 
   <androidx.appcompat.widget.LinearLayoutCompat
-      android:id="@+id/llc_select_a_video"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:background="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+      android:id="@+id/mcv_video_to_gif"
+      style="@style/Widget.Material3.CardView.Outlined"
+      android:layout_width="288dp"
+      android:layout_height="288dp"
+      android:layout_gravity="center"
+      android:backgroundTint="@color/light"
       android:clickable="true"
       android:focusable="true"
-      android:gravity="center"
+      app:strokeColor="@color/green_light">
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="128dp"
+          android:layout_height="128dp"
+          android:alpha="0.75"
+          app:srcCompat="@drawable/ic_baseline_video_library_24"
+          app:tint="@color/green_dark" />
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:text="@string/convert_video_to_gif_simple_and_fast_in_main"
+          android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="@string/tap_anywhere_to_select_a_video"
+          android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+          android:textColor="@color/grey" />
+
+      </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="288dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
       android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:alpha="0.75"
-        app:srcCompat="@drawable/ic_baseline_video_library_24"
-        app:tint="@color/grey" />
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_gif_split"
+        style="@style/Widget.Material3.CardView.Outlined"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/light"
+        app:strokeColor="@color/green_dark">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+          <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="0.75"
+            app:srcCompat="@drawable/baseline_camera_24"
+            app:tint="@color/green_dark" />
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GIF 截图"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+      </com.google.android.material.card.MaterialCardView>
+
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_gif_to_video"
+        style="@style/Widget.Material3.CardView.Outlined"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="@string/convert_video_to_gif_simple_and_fast_in_main"
-        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+        android:backgroundTint="@color/light"
+        app:strokeColor="@color/green_dark">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/tap_anywhere_to_select_a_video"
-        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-        android:textColor="@color/grey" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+          <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="0.75"
+            app:srcCompat="@drawable/baseline_videocam_24"
+            app:tint="@color/green_dark" />
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GIF 转视频"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+      </com.google.android.material.card.MaterialCardView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
   </androidx.appcompat.widget.LinearLayoutCompat>
-
-  <include
-      layout="@layout/view_divider_horizontal"
-      android:visibility="gone" />
+  <!--
+  <include layout="@layout/view_divider_horizontal" />
 
   <androidx.appcompat.widget.LinearLayoutCompat
-      android:id="@+id/llc_guide_shortcut"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:clickable="false"
-      android:focusable="false"
-      android:gravity="center_vertical"
-      android:orientation="horizontal"
-      android:paddingHorizontal="16dp"
-      android:paddingTop="20dp"
-      android:paddingBottom="24dp"
-      android:visibility="gone">
+    android:id="@+id/llc_images_to_gif"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="24dp">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="12dp"
-        app:srcCompat="@drawable/ic_baseline_assistant_24"
-        app:tint="@color/dark" />
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginEnd="12dp"
+      app:srcCompat="@drawable/baseline_burst_mode_24"
+      app:tint="@color/dark" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/with_cutegif_you_can_convert"
-        android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="图片转 GIF ..."
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
 
-  </androidx.appcompat.widget.LinearLayoutCompat>
+  </androidx.appcompat.widget.LinearLayoutCompat>-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>
