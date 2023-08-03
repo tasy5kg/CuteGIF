@@ -14,5 +14,6 @@ data class TaskBuilderVideoToGif(
   val textRender: TextRender?,
   val lossy: Int,
   val videoWH: Pair<Int, Int>,
-  val duration: Int
+  val duration: Int,
+  val finalDelay: Int,
 ) : Serializable

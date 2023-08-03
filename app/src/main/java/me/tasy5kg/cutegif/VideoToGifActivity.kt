@@ -12,6 +12,9 @@ import android.view.HapticFeedbackConstants
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
+import kotlin.math.abs
+import kotlin.math.floor
+import kotlin.math.roundToLong
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.MyConstants.EXTRA_ADD_TEXT_RENDER
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
@@ -22,19 +25,17 @@ import me.tasy5kg.cutegif.Toolbox.newRunnableWithSelf
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.onSliderTouch
 import me.tasy5kg.cutegif.bottom.sheet.BottomSheetVideoToGif2CropRatio
-import me.tasy5kg.cutegif.bottom.sheet.BottomSheetVideoToGif2MoreOptions
 import me.tasy5kg.cutegif.bottom.sheet.BottomSheetVideoToGif2PlaybackSpeed
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifBinding
-import kotlin.math.abs
-import kotlin.math.floor
-import kotlin.math.roundToLong
 
 class VideoToGifActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifBinding.inflate(layoutInflater) }
   private val bottomSheetVideoToGif2PlaybackSpeed by lazy { BottomSheetVideoToGif2PlaybackSpeed() }
-  private val bottomSheetVideoToGif2MoreOptions by lazy { BottomSheetVideoToGif2MoreOptions() }
+  private val videoToGifExportOptionsDialogFragment by lazy { VideoToGifExportOptionsDialogFragment() }
   private val bottomSheetVideoToGif2CropRatio by lazy { BottomSheetVideoToGif2CropRatio() }
-  private val inputVideoUri by lazy {
+  val cropParams get() = CropParams(binding.cropImageView.cropRect!!)
+
+  val inputVideoUri: Uri by lazy {
     with(intent) {
       getParcelableExtra(EXTRA_VIDEO_URI) ?: getParcelableExtra(Intent.EXTRA_STREAM) ?: data ?: Uri.EMPTY
     }
@@ -43,38 +44,29 @@ class VideoToGifActivity : BaseActivity() {
     newRunnableWithSelf { self ->
       try {
         val currentPosition = videoView.currentPosition / 100
-        sliderCursor.value =
-          (videoView.currentPosition / 100f).constraintBy(0f..sliderCursor.valueTo)
+        binding.sliderCursor.value =
+          (videoView.currentPosition / 100f).constraintBy(0f..binding.sliderCursor.valueTo)
         if ((currentPosition < rangeSlider.values[0] && currentPosition < videoLastPosition)
           || (currentPosition > rangeSlider.values[1])
         ) {
           seekMediaPlayer(rangeSlider.values[0])
         }
-        videoLastPosition = currentPosition / 100
-        mtvVideoCurrentPosition.text = msToMinSecDs(videoView.currentPosition)
+        videoLastPosition = currentPosition / 100L
+        binding.mtvVideoCurrentPosition.text = msToMinSecDs(videoView.currentPosition)
 
-        mbPlayPause.setIconResource(if (videoView.isPlaying) R.drawable.ic_baseline_pause_24 else R.drawable.ic_baseline_play_arrow_24)
+        binding.mbPlayPause.setIconResource(if (videoView.isPlaying) R.drawable.ic_baseline_pause_24 else R.drawable.ic_baseline_play_arrow_24)
       } catch (e: Exception) {
         e.printStackTrace()
       }
       videoView.postDelayed(self, 50)
     }
   }
-  private val videoView by lazy { binding.videoView }
-  private val acivText by lazy { binding.acivText }
-  private val mtvVideoCurrentPosition by lazy { binding.mtvVideoCurrentPosition }
-  private val mtvGifDurationS by lazy { binding.mtvGifDurationS }
+  val videoView by lazy { binding.videoView }
   private val rangeSlider by lazy { binding.rangeSlider } // value 1.0f == 100ms
-  private val sliderCursor by lazy { binding.sliderCursor }
-  private val cropImageView by lazy { binding.cropImageView }
-  private val mbPlaybackSpeed by lazy { binding.mbPlaybackSpeed }
-  private val mbPlayPause by lazy { binding.mbPlayPause }
-  private val mbCropRatio by lazy { binding.mbCropRatio }
-  private val mbAddText by lazy { binding.mbAddText }
 
-  private var videoLastPosition = 0 // 1 == 1ms
-  private var playbackSpeed = 1.5f
-  private var textRender: TextRender? = null
+  private var videoLastPosition = 0L // 1 == 1ms
+  private var playbackSpeed = 1f
+  var textRender: TextRender? = null
 
   private lateinit var videoWH: Pair<Int, Int>
   private lateinit var mMediaPlayer: MediaPlayer
@@ -84,7 +76,7 @@ class VideoToGifActivity : BaseActivity() {
       if (activityResult.resultCode == RESULT_OK) {
         textRender = activityResult.data?.getExtra(EXTRA_ADD_TEXT_RENDER)
         textRender?.let {
-          acivText.setImageBitmap(it.toBitmap(videoWH.first, videoWH.second))
+          binding.acivText.setImageBitmap(it.toBitmap(videoWH.first, videoWH.second))
         }
       }
     }
@@ -96,7 +88,7 @@ class VideoToGifActivity : BaseActivity() {
     }
     // CropImageView cannot automatically resize itself when the parent layout changes size. Help it resize here.
     binding.rl.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-      cropImageView.layoutParams.height = MATCH_PARENT
+      binding.cropImageView.layoutParams.height = MATCH_PARENT
     }
 
     setContentView(binding.root)
@@ -113,10 +105,8 @@ class VideoToGifActivity : BaseActivity() {
     }
     binding.mbClose.setOnClickListener { finish() }
     binding.mbSave.onClick(HapticFeedbackType.CONFIRM) {
-      bottomSheetVideoToGif2MoreOptions.show(
-        supportFragmentManager,
-        BottomSheetVideoToGif2MoreOptions.TAG
-      )
+      videoView.pause()
+      supportFragmentManager.beginTransaction().add(videoToGifExportOptionsDialogFragment, VideoToGifExportOptionsDialogFragment.TAG).commit()
     }
   }
 
@@ -127,20 +117,22 @@ class VideoToGifActivity : BaseActivity() {
 
   private fun createTaskBuilderBase(): TaskBuilderVideoToGif {
     val inputVideoUriWrapper = Toolbox.UriWrapper(inputVideoUri)
-    val trimTime = with(rangeSlider) { (values[0] * 100).toInt() to (values[1] * 100).toInt() }
-    val cropParams = CropParams(cropImageView.cropRect!!)
+    val trimTime = with(rangeSlider) {
+      if ((values[0] * 100).toInt() == 0 && (values[1] * 100).toInt() == videoView.duration)
+        null
+      else ((values[0] * 100).toInt() to (values[1] * 100).toInt())
+    }
     val outputSpeed = playbackSpeed
-    val outputFps = bottomSheetVideoToGif2MoreOptions.getFramerateValue()
-    val colorQuality = bottomSheetVideoToGif2MoreOptions.getColorQualityValue()
-    val reverse = bottomSheetVideoToGif2MoreOptions.getReverseValue()
+    val outputFps = videoToGifExportOptionsDialogFragment.getFramerateValue()
+    val colorQuality = videoToGifExportOptionsDialogFragment.getColorQualityValue()
+    val reverse = videoToGifExportOptionsDialogFragment.getReverseValue()
     val textRender = textRender
-    val resolutionShortLength = bottomSheetVideoToGif2MoreOptions.getImageResolutionValue()
-    val lossy = bottomSheetVideoToGif2MoreOptions.getLossyValue()
-    val sliderTouched =
-      rangeSlider.values[0] != rangeSlider.valueFrom || rangeSlider.values[1] != rangeSlider.valueTo
+    val resolutionShortLength = videoToGifExportOptionsDialogFragment.getImageResolutionValue()
+    val lossy = videoToGifExportOptionsDialogFragment.getLossyValue()
+    val finalDelay = videoToGifExportOptionsDialogFragment.getFinalDelayValue()
     return TaskBuilderVideoToGif(
       inputVideoUriWrapper = inputVideoUriWrapper,
-      trimTime = if (sliderTouched) trimTime else null,
+      trimTime =  trimTime,
       cropParams = cropParams,
       resolutionShortLength = resolutionShortLength,
       outputSpeed = outputSpeed,
@@ -150,7 +142,8 @@ class VideoToGifActivity : BaseActivity() {
       textRender = textRender,
       lossy = lossy,
       videoWH = videoWH,
-      duration = videoView.duration
+      duration = videoView.duration,
+      finalDelay = finalDelay
     )
 
   }
@@ -165,7 +158,7 @@ class VideoToGifActivity : BaseActivity() {
     }
     if (notInitializedBefore) {
       videoWH = with(mediaPlayer) { videoWidth to videoHeight }
-      cropImageView.apply {
+      binding.cropImageView.apply {
         setBackgroundColor(Color.TRANSPARENT)
         setImageBitmap(
           Bitmap.createBitmap(
@@ -198,7 +191,7 @@ class VideoToGifActivity : BaseActivity() {
           }
         }
       }
-      sliderCursor.apply {
+      binding.sliderCursor.apply {
         valueFrom = 0f
         valueTo = videoView.duration / 100f
         setCustomThumbDrawable(
@@ -208,19 +201,19 @@ class VideoToGifActivity : BaseActivity() {
           )!!
         )
       }
-      mbPlaybackSpeed.setOnClickListener {
+      binding.mbPlaybackSpeed.setOnClickListener {
         bottomSheetVideoToGif2PlaybackSpeed.show(
           supportFragmentManager,
           BottomSheetVideoToGif2PlaybackSpeed.TAG
         )
       }
-      mbCropRatio.setOnClickListener {
+      binding.mbCropRatio.setOnClickListener {
         bottomSheetVideoToGif2CropRatio.show(
           supportFragmentManager,
           BottomSheetVideoToGif2CropRatio.TAG
         )
       }
-      mbAddText.setOnClickListener {
+      binding.mbAddText.setOnClickListener {
         mMediaPlayer.pause()
         getAddTextResult.launch(
           AddTextActivity.startIntent(
@@ -232,16 +225,15 @@ class VideoToGifActivity : BaseActivity() {
           )
         )
       }
-      mbPlayPause.setOnClickListener { mMediaPlayer.apply { if (isPlaying) pause() else start() } }
+      binding.mbPlayPause.setOnClickListener { mMediaPlayer.apply { if (isPlaying) pause() else start() } }
     }
   }
 
   private fun seekMediaPlayer(sliderValue: Float) =
     mMediaPlayer.seekTo((sliderValue * 100).roundToLong(), MediaPlayer.SEEK_CLOSEST)
 
-
   private fun updateGifDuration() {
-    mtvGifDurationS.text =
+    binding.mtvGifDurationS.text =
       getString(
         R.string.gif_duration_s,
         String.format(
@@ -269,22 +261,26 @@ class VideoToGifActivity : BaseActivity() {
   }
 
   fun setPlaybackSpeed(speed: Float, text: String) {
-    mbPlaybackSpeed.text = text
+    binding.mbPlaybackSpeed.text = text
     playbackSpeed = speed
     mMediaPlayer.apply {
-      playbackParams = playbackParams.setSpeed(playbackSpeed)
-      logRed("playbackSpeed", playbackSpeed)
+      // set playback speed too high may cause exceptions
+      try {
+        playbackParams = playbackParams.setSpeed(playbackSpeed)
+      } catch (e: Exception) {
+        e.printStackTrace()
+      }
     }
     updateGifDuration()
   }
 
   fun setCropRatio(ratio: Pair<Int, Int>?) {
-    cropImageView.apply {
+    binding.cropImageView.apply {
       clearAspectRatio()
       cropRect = wholeImageRect
       ratio?.let { setAspectRatio(it.first, ratio.second) }
     }
-    mbCropRatio.text = BottomSheetVideoToGif2CropRatio.cropRatioToText(ratio)
+    binding.mbCropRatio.text = BottomSheetVideoToGif2CropRatio.cropRatioToText(ratio)
   }
 
   companion object {

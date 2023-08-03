@@ -93,6 +93,7 @@
         tools:text="@string/eula_glance_text" />
 
       <include layout="@layout/view_divider_horizontal" />
+
       <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -151,7 +151,7 @@
     android:layout_marginTop="16dp"
     android:gravity="center"
     android:paddingHorizontal="16dp"
-    android:text="用户协议 | 隐私政策 | 开源许可"
+    tools:text="用户协议 | 隐私政策 | 开源许可"
     android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
     android:textColor="@color/grey" />
 
@@ -165,28 +165,30 @@
     android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
     android:textColor="@color/grey"
     android:textIsSelectable="true" />
-<androidx.appcompat.widget.LinearLayoutCompat
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginHorizontal="16dp"
-  android:layout_marginVertical="16dp"
-  android:orientation="horizontal">
 
-  <com.google.android.material.button.MaterialButton
-    android:id="@+id/mb_donate_alipay"
-    style="@style/Widget.Material3.Button.OutlinedButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="支付宝捐赠"
-    android:layout_marginEnd="8dp"
-    android:textColor="?attr/colorOnSurface" />
-
-  <com.google.android.material.button.MaterialButton
-    android:id="@+id/mb_done"
-    style="@style/Widget.Material3.Button"
+  <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/done"
-    android:textColor="?attr/colorOnSurface" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="16dp"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_donate_alipay"
+      style="@style/Widget.Material3.Button.OutlinedButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:visibility="gone"
+      android:text="支付宝捐赠"
+      android:textColor="?attr/colorOnSurface" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_done"
+      style="@style/Widget.Material3.Button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/done"
+      android:textColor="?attr/colorOnSurface" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

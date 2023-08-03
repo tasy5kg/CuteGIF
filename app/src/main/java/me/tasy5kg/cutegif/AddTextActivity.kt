@@ -15,6 +15,9 @@ import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.google.android.material.radiobutton.MaterialRadioButton
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 import me.tasy5kg.cutegif.MyConstants.EXTRA_TEXT_RENDER
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_POSITION
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
@@ -26,25 +29,11 @@ import me.tasy5kg.cutegif.Toolbox.getB
 import me.tasy5kg.cutegif.Toolbox.getExtra
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.databinding.ActivityAddText2Binding
-import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 @SuppressLint("RtlHardcoded")
 class AddTextActivity : BaseActivity() {
   private val binding by lazy { ActivityAddText2Binding.inflate(layoutInflater) }
-  private val tiet by lazy { binding.tiet }
-  private val mbPickedColor by lazy { binding.mbPickedColor }
-  private val mbTextFont by lazy { binding.mbTextFont }
-  private val mbTextBold by lazy { binding.mbTextBold }
-  private val mbTextItalic by lazy { binding.mbTextItalic }
-  private val mbTextAlign by lazy { binding.mbTextAlign }
-  private val acivText by lazy { binding.acivText }
-  private val gridLayoutColorPicker by lazy { binding.gridLayoutColorPicker }
-  private val viewReferenceLineHorizontal by lazy { binding.viewReferenceLineHorizontal }
-  private val viewReferenceLineVertical by lazy { binding.viewReferenceLineVertical }
-  private val expandableLayoutSet by lazy { setOf(gridLayoutColorPicker, sliderRotation) }
-  private val sliderRotation by lazy { binding.sliderRotation }
+  private val expandableLayoutSet by lazy { setOf(binding.gridLayoutColorPicker, binding.sliderRotation) }
   private lateinit var frame: Bitmap
   private lateinit var textRender: TextRender
   private var viewReferenceLineVerticalPerformedHapticFeedback = false
@@ -57,8 +46,7 @@ class AddTextActivity : BaseActivity() {
     val videoUri = intent.getExtra<Uri>(EXTRA_VIDEO_URI)
     val videoPosition = intent.getExtra<Long>(EXTRA_VIDEO_POSITION)
     textRender = intent.getExtra(EXTRA_TEXT_RENDER)
-    frame = Toolbox.getVideoSingleFrame(videoUri, videoPosition, true)
-    val acivFrame = binding.acivFrame
+    frame = Toolbox.getVideoSingleFrame(videoUri, videoPosition)
     val videoWH = intent.getExtra<Pair<Int, Int>>(EXTRA_VIDEO_WH)
     binding.acivFrame.setImageBitmap(
       Toolbox.generateTransparentBitmap(
@@ -66,7 +54,7 @@ class AddTextActivity : BaseActivity() {
         videoWH.second
       )
     )
-    Glide.with(this).load(frame).into(acivFrame)
+    Glide.with(this).load(frame).into(binding.acivFrame)
     binding.mbClose.setOnClickListener {
       finishAfterTransition()
     }
@@ -74,9 +62,10 @@ class AddTextActivity : BaseActivity() {
       setResult(RESULT_OK, VideoToGifActivity.intentAddTextResult(textRender))
       finishAfterTransition()
     }
-    mbTextFont.apply {
+    binding.mbTextFont.apply {
       text = textRender.font
       onClick {
+        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
         fontIndex++
         if (fontIndex >= FONT_LIST.size) {
           fontIndex = 0
@@ -86,14 +75,14 @@ class AddTextActivity : BaseActivity() {
         updateTextRender(font = fontName)
       }
     }
-    tiet.apply {
+    binding.tiet.apply {
       setText(textRender.content)
       selectAll()
       //  requestFocus()
       gravity = textRender.gravity
-      addTextChangedListener { updateTextRender(content = tiet.text.toString()) }
+      addTextChangedListener { updateTextRender(content = binding.tiet.text.toString()) }
     }
-    mbTextAlign.apply {
+    binding.mbTextAlign.apply {
       setIconResource(gravityToIconPairs.getB(textRender.gravity))
       setOnClickListener {
         it.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
@@ -104,33 +93,37 @@ class AddTextActivity : BaseActivity() {
           else -> throw IllegalArgumentException()
         }
         setIconResource(gravityToIconPairs.getB(newGravity))
-        tiet.gravity = newGravity
+        binding.tiet.gravity = newGravity
         updateTextRender(gravity = newGravity)
       }
     }
-    mbTextBold.apply {
+    binding.mbTextBold.apply {
       isChecked = textRender.bold
-      setOnClickListener {
-        it.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+      onClick {
+        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
         updateTextRender(bold = isChecked)
       }
     }
-    mbTextItalic.apply {
+    binding.mbTextItalic.apply {
       isChecked = textRender.italic
-      setOnClickListener {
+      onClick {
+        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
         updateTextRender(italic = isChecked)
       }
     }
     binding.mbRotate.onClick {
-      sliderRotation.showOrHide()
+      binding.sliderRotation.showOrHide()
+      onClick {
+        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+      }
     }
-    sliderRotation.apply {
+    binding.sliderRotation.apply {
       setLabelFormatter { "旋转${it.toInt()}°" }
       addOnChangeListener { slider, value, fromUser ->
         updateTextRender(rotation = value)
       }
     }
-    val sequenceOfMrb = gridLayoutColorPicker.children.map { it as MaterialRadioButton }
+    val sequenceOfMrb = binding.gridLayoutColorPicker.children.map { it as MaterialRadioButton }
     sequenceOfMrb.forEach { aMrb ->
       aMrb.isChecked = (aMrb.buttonTintList!!.defaultColor == textRender.color)
       aMrb.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -142,9 +135,9 @@ class AddTextActivity : BaseActivity() {
         }
       }
     }
-    mbPickedColor.setOnClickListener {
-      it.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
-      gridLayoutColorPicker.showOrHide()
+    binding.mbPickedColor.onClick {
+      performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+      binding.gridLayoutColorPicker.showOrHide()
     }
     mbPickedColorBackgroundColor = textRender.color
     setupAcivText()
@@ -161,7 +154,7 @@ class AddTextActivity : BaseActivity() {
     var distanceActionPointerDown = 0f
     var textSizeActionPointerDown = textRender.size
     var enteredScaleMode = false
-    acivText.setOnTouchListener { view, event ->
+    binding.acivText.setOnTouchListener { view, event ->
       when (event.pointerCount) {
         1 -> {
           when (event.actionMasked) {
@@ -178,28 +171,28 @@ class AddTextActivity : BaseActivity() {
                 val dx =
                   (translateXActionUp + event.rawX - xActionDown).constraintBy((-frame.width / 2f)..(frame.width / 2f))
                 val translateX = if (abs(dx) < frame.width * 0.03f) {
-                  viewReferenceLineVertical.visibility = VISIBLE
+                  binding.viewReferenceLineVertical.visibility = VISIBLE
                   if (!viewReferenceLineVerticalPerformedHapticFeedback) {
                     view.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_GESTURE_END)
                     viewReferenceLineVerticalPerformedHapticFeedback = true
                   }
                   0f
                 } else {
-                  viewReferenceLineVertical.visibility = GONE
+                  binding.viewReferenceLineVertical.visibility = GONE
                   viewReferenceLineVerticalPerformedHapticFeedback = false
                   dx
                 }
                 val dy =
                   (translateYActionUp + event.rawY - yActionDown).constraintBy((-frame.height / 2f)..(frame.height / 2f))
                 val translateY = if (abs(dy) < frame.height * 0.03f) {
-                  viewReferenceLineHorizontal.visibility = VISIBLE
+                  binding.viewReferenceLineHorizontal.visibility = VISIBLE
                   if (!viewReferenceLineHorizontalPerformedHapticFeedback) {
                     view.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_GESTURE_END)
                     viewReferenceLineHorizontalPerformedHapticFeedback = true
                   }
                   0f
                 } else {
-                  viewReferenceLineHorizontal.visibility = GONE
+                  binding.viewReferenceLineHorizontal.visibility = GONE
                   viewReferenceLineHorizontalPerformedHapticFeedback = false
                   dy
                 }
@@ -213,16 +206,16 @@ class AddTextActivity : BaseActivity() {
               } else {
                 translateXActionUp = textRender.translateX
                 translateYActionUp = textRender.translateY
-                viewReferenceLineVertical.visibility = GONE
-                viewReferenceLineHorizontal.visibility = GONE
+                binding.viewReferenceLineVertical.visibility = GONE
+                binding.viewReferenceLineHorizontal.visibility = GONE
                 if (System.nanoTime() - timestampActionDown < ViewConfiguration.getLongPressTimeout() * 1000000
                   && (event.rawX - xActionDown).pow(2) + (event.rawX - xActionDown).pow(
                     2
                   ) < 10f
                 ) {
-                  tiet.requestFocus()
+                  binding.tiet.requestFocus()
                   getSystemService(InputMethodManager::class.java).showSoftInput(
-                    tiet,
+                    binding.tiet,
                     InputMethodManager.SHOW_IMPLICIT
                   )
                 }
@@ -253,9 +246,9 @@ class AddTextActivity : BaseActivity() {
   }
 
   private var mbPickedColorBackgroundColor
-    get() = mbPickedColor.iconTint.defaultColor
+    get() = binding.mbPickedColor.iconTint.defaultColor
     set(value) {
-      mbPickedColor.iconTint =
+      binding.mbPickedColor.iconTint =
         Toolbox.createColorStateListFromColorParsed(arrayOf(android.R.attr.state_enabled to value))
     }
 
@@ -275,12 +268,12 @@ class AddTextActivity : BaseActivity() {
     translateX: Float = textRender.translateX,
     translateY: Float = textRender.translateY,
     updateAcivText: Boolean = true,
-    rotation: Float = textRender.rotation
+    rotation: Float = textRender.rotation,
   ) {
     textRender =
       TextRender(content, size, color, font, bold, italic, gravity, translateX, translateY, rotation)
     if (updateAcivText) {
-      acivText.setImageBitmap(textRender.toBitmap(frame.width, frame.height))
+      binding.acivText.setImageBitmap(textRender.toBitmap(frame.width, frame.height))
     }
   }
 
@@ -299,7 +292,7 @@ class AddTextActivity : BaseActivity() {
       videoUri: Uri,
       videoPosition: Long,
       textRender: TextRender?,
-      videoWH: Pair<Int, Int>
+      videoWH: Pair<Int, Int>,
     ): Intent {
       return Intent(context, AddTextActivity::class.java)
         .putExtra(EXTRA_VIDEO_URI, videoUri)

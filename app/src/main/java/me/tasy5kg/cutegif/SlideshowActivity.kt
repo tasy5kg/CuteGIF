@@ -16,6 +16,10 @@ import androidx.core.widget.doAfterTextChanged
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import java.io.File
+import java.io.FileOutputStream
+import kotlin.concurrent.thread
+import kotlin.math.min
 import me.tasy5kg.cutegif.MyConstants.EXTRA_IMAGES_CLIP_DATA
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.IMAGE_FALLBACK_JPG_PATH
@@ -30,14 +34,11 @@ import me.tasy5kg.cutegif.Toolbox.formatFileSize
 import me.tasy5kg.cutegif.Toolbox.getImageRotatedWidthAndHeight
 import me.tasy5kg.cutegif.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.Toolbox.logRed
+import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
 import me.tasy5kg.cutegif.Toolbox.mediaInformation
 import me.tasy5kg.cutegif.Toolbox.toUriList
 import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivitySlideshowBinding
-import java.io.File
-import java.io.FileOutputStream
-import kotlin.concurrent.thread
-import kotlin.math.min
 
 class SlideshowActivity : BaseActivity() {
   private val shortLength = 360 // TODO
@@ -74,7 +75,7 @@ class SlideshowActivity : BaseActivity() {
     binding.mbConvert.setOnClickListener {
       onConvertClick()
     }
-    deleteSlideshowDir()
+    makeDirEmpty(SLIDESHOW_DIR_PATH)
   }
 
   private fun onConvertClick() {
@@ -139,7 +140,7 @@ class SlideshowActivity : BaseActivity() {
       //outputGifUri = Toolbox.createNewFile() TODO
       // todo   val commandImagesToGif = "$FFMPEG_COMMAND_PREFIX_FOR_ALL -r ${100.0 / binding.cmivImageInterval.selectedValue()} -f image2 -i ${importedImagePath(null)} -i $PALETTE_PATH -filter_complex \"[0:v][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifUri.createFfSafForWrite()}"
       val commandImagesToGif =
-        "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -r ${100.0} -f image2 -i ${importedImagePath(null)} -i $PALETTE_PATH -filter_complex \"[0:v][1:v] paletteuse=dither=bayer\" -final_delay ${MySettings.gifFinalDelay} -y ${outputGifUri.createFfSafForWrite()}"
+        "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -r ${100.0} -f image2 -i ${importedImagePath(null)} -i $PALETTE_PATH -filter_complex \"[0:v][1:v] paletteuse=dither=bayer\" -final_delay ${TODO()} -y ${outputGifUri.createFfSafForWrite()}"
       FFmpegKit.executeAsync(commandImagesToGif, { ffmpegSession ->
         runOnUiThread { keepScreenOn(false) }
         when {
@@ -159,7 +160,7 @@ class SlideshowActivity : BaseActivity() {
   }
 
   private fun conversionSuccessfully() {
-    deleteSlideshowDir()
+    makeDirEmpty(SLIDESHOW_DIR_PATH)
     runOnUiThread {
       binding.relativeLayout.visibility = VISIBLE
       sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).apply {
@@ -183,12 +184,6 @@ class SlideshowActivity : BaseActivity() {
   }
 
   private fun Pair<Int, Int>.toResolutionPara() = "$first:$second"
-
-  private fun deleteSlideshowDir() =
-    File(SLIDESHOW_DIR_PATH).apply {
-      deleteRecursively()
-      mkdirs()
-    }
 
   private fun importedImagePath(imageIndex: Int?) =
     if (imageIndex == null) "${SLIDESHOW_DIR_PATH}/image_%04d.jpg" else "${SLIDESHOW_DIR_PATH}/image_${
@@ -221,7 +216,7 @@ class SlideshowActivity : BaseActivity() {
     runOnUiThread {
       toast(toastText)
       keepScreenOn(false)
-      deleteSlideshowDir()
+      makeDirEmpty(SLIDESHOW_DIR_PATH)
       finish()
     }
   }

@@ -13,6 +13,7 @@ import android.view.View.VISIBLE
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import java.util.*
 import me.tasy5kg.cutegif.MyConstants.EXTRA_SAVED_FILE_URI
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_IMAGE_GIF
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_VIDEO_MP4
@@ -23,35 +24,32 @@ import me.tasy5kg.cutegif.Toolbox.mimeType
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityFileSavedBinding
-import java.util.*
 
 class FileSavedActivity : BaseActivity() {
   private val binding by lazy { ActivityFileSavedBinding.inflate(layoutInflater) }
   private val fileUri by lazy { intent.extras!!.get(EXTRA_SAVED_FILE_URI) as Uri }
-  private val mtvXxxSavedToGallery by lazy { binding.mtvXxxSavedToGallery }
-  private val acivPreview by lazy { binding.acivPreview }
-  private val vvPreview by lazy { binding.vvPreview }
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(false)
     sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).apply { data = fileUri })
-    mtvXxxSavedToGallery.text = fileUri.mimeType()!!.split('/')[1].uppercase(Locale.ROOT) + " 已保存至相册"
+    binding.mtvXxxSavedToGallery.text = fileUri.mimeType()!!.split('/')[1].uppercase(Locale.ROOT) + " 已保存至相册"
     when (fileUri.mimeType()) {
       MIME_TYPE_IMAGE_GIF -> {
-        acivPreview.visibility = VISIBLE
-        vvPreview.visibility = GONE
+        binding.acivPreview.visibility = VISIBLE
+        binding.vvPreview.visibility = GONE
         Glide.with(this)
           .load(fileUri)
           .fitCenter()
           .diskCacheStrategy(DiskCacheStrategy.NONE)
           .skipMemoryCache(true)
           .transition(DrawableTransitionOptions.withCrossFade())
-          .into(acivPreview)
+          .into(binding.acivPreview)
       }
+
       MIME_TYPE_VIDEO_MP4 -> {
-        acivPreview.visibility = GONE
-        vvPreview.apply {
+        binding.acivPreview.visibility = GONE
+        binding.vvPreview.apply {
           visibility = VISIBLE
           setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE)
           setOnPreparedListener {
@@ -64,6 +62,7 @@ class FileSavedActivity : BaseActivity() {
           start()
         }
       }
+
       else -> {
         throw NotImplementedError()
       }

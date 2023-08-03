@@ -16,12 +16,11 @@ import me.tasy5kg.cutegif.databinding.ActivityAppCrashedBinding
 
 class AppCrashedActivity : AppCompatActivity() {
   private val binding by lazy { ActivityAppCrashedBinding.inflate(layoutInflater) }
-  private val materialToolbar by lazy { binding.materialToolbar }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    setSupportActionBar(materialToolbar)
+    setSupportActionBar(binding.materialToolbar )
     setFinishOnTouchOutside(false)
     val stackTraceString = intent.extras!!.getString(EXTRA_STACK_TRACE_STRING)!!
     val problemLog =

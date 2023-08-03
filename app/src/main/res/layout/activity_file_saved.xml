@@ -63,8 +63,12 @@
     <androidx.appcompat.widget.AppCompatImageView
       android:id="@+id/aciv_preview"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_centerInParent="true" />
+      android:layout_height="256dp"
+      android:layout_centerInParent="true"
+      android:layout_marginVertical="12dp"
+      android:layout_gravity="center"
+      android:layout_marginHorizontal="24dp"
+      android:animateLayoutChanges="true" />
 
     <VideoView
       android:id="@+id/vv_preview"

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:animateLayoutChanges="true"
+  android:background="@color/light">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/llc"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    android:paddingVertical="16dp">
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical|bottom"
+      android:text="画质调节"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+      android:textColor="@color/green_light" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/aciv_single_frame_preview"
+      android:layout_width="match_parent"
+      android:layout_height="256dp"
+      android:layout_marginVertical="12dp"
+      android:layout_gravity="center"
+      android:layout_marginHorizontal="24dp"
+      android:animateLayoutChanges="true" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical"
+      android:minHeight="64dp"
+      android:orientation="horizontal">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/resolution"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      <com.google.android.material.slider.Slider
+        android:id="@+id/slider_resolution"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:animateLayoutChanges="true"
+        android:stepSize="16"
+        android:value="240"
+        android:valueFrom="64"
+        android:valueTo="640"
+        app:labelBehavior="visible" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <include
+      layout="@layout/view_divider_horizontal"
+      android:animateLayoutChanges="true" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical"
+      android:minHeight="64dp"
+      android:orientation="horizontal">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:animateLayoutChanges="true"
+        android:gravity="center_vertical"
+        android:text="清晰度"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/mbtg_image_quality"
+        style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:animateLayoutChanges="true"
+        android:padding="0dp"
+        app:checkedButton="@id/mb_image_quality_mid"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_image_quality_low"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="低" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_image_quality_mid"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="中" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_image_quality_high"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="高" />
+      </com.google.android.material.button.MaterialButtonToggleGroup>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <include layout="@layout/view_divider_horizontal" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical"
+      android:minHeight="64dp"
+      android:orientation="horizontal">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/color_quality"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/mbtg_color_quality"
+        style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:animateLayoutChanges="true"
+        android:padding="0dp"
+        app:checkedButton="@id/mb_color_quality_mid"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_color_quality_low"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="低" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_color_quality_mid"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="中" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_color_quality_high"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="高" />
+      </com.google.android.material.button.MaterialButtonToggleGroup>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <include layout="@layout/view_divider_horizontal" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/mtv_more_options"
+      android:paddingHorizontal="24dp"
+      android:layout_weight="2"
+      android:background="?android:attr/selectableItemBackground"
+      android:gravity="center_vertical"
+      android:minHeight="48dp"
+      android:text="更多选项..."
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+      android:textColor="@color/green_dark" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/llc_more_options"
+      android:visibility="gone"
+      tools:visibility="visible"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:animateLayoutChanges="true"
+        android:gravity="center_vertical|bottom"
+        android:minHeight="48dp"
+        android:text="更多选项"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="@color/green_light" />
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:animateLayoutChanges="true"
+        android:gravity="center_vertical"
+        android:minHeight="64dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="2"
+          android:text="@string/frame_rate"
+          android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+          android:id="@+id/mbtg_framerate"
+          style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="5"
+          android:animateLayoutChanges="true"
+          android:padding="0dp"
+          app:checkedButton="@id/mb_framerate_10"
+          app:selectionRequired="true"
+          app:singleSelection="true">
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_framerate_5"
+            style="@style/Theme.CuteGif.SegmentedButton"
+            android:animateLayoutChanges="true"
+            android:text="5" />
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_framerate_10"
+            style="@style/Theme.CuteGif.SegmentedButton"
+            android:animateLayoutChanges="true"
+            android:text="10" />
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_framerate_15"
+            style="@style/Theme.CuteGif.SegmentedButton"
+            android:animateLayoutChanges="true"
+            android:text="15" />
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_framerate_25"
+            style="@style/Theme.CuteGif.SegmentedButton"
+            android:animateLayoutChanges="true"
+            android:text="25" />
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_framerate_50"
+            style="@style/Theme.CuteGif.SegmentedButton"
+            android:animateLayoutChanges="true"
+            android:text="50" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+      <include
+        layout="@layout/view_divider_horizontal"
+        android:animateLayoutChanges="true" />
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:animateLayoutChanges="true"
+        android:gravity="center_vertical"
+        android:minHeight="64dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/mcb_final_delay"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="结尾停顿"
+          android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+          android:id="@+id/mcb_reverse_video"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="倒放"
+          android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <include layout="@layout/view_divider_horizontal" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="8dp"
+      android:animateLayoutChanges="true"
+      android:orientation="horizontal">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_close"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关闭"
+        android:textColor="?attr/colorOnSurface" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_save"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:text="导出" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

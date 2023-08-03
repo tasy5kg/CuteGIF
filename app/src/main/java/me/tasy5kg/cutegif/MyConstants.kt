@@ -14,9 +14,11 @@ object MyConstants {
   val VIDEO_TO_GIF_VIDEO_FALLBACK_DIR = "$CACHE_DIR_PATH/video_fallback_dir/"
   val ADD_TEXT_RENDER_PNG_PATH = "$CACHE_DIR_PATH/add_text.png"
   val IMAGE_FALLBACK_JPG_PATH = "$CACHE_DIR_PATH/fallback.jpg"
+  val GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH = "$CACHE_DIR_PATH/get_video_single_frame_with_ffmpeg_temp_path.jpg"
   val OUTPUT_GIF_TEMP_PATH = "$CACHE_DIR_PATH/output_temp.gif"
   val OUTPUT_SPLIT_DIR = "$CACHE_DIR_PATH/split_dir/"
-
+  val VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_DIR = "$CACHE_DIR_PATH/video_to_gif_export_options_preview_dir/"
+  val VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_INPUT_FRAME_PATH = "${VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_DIR}input.png"
   /** resulting in an action being performed **/
   val HAPTIC_FEEDBACK_TYPE_CONFIRM =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) HapticFeedbackConstants.CONFIRM else HapticFeedbackConstants.LONG_PRESS

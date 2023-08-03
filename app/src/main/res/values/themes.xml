@@ -14,6 +14,7 @@
     <item name="colorOutline">@color/dark</item>
     <item name="iconTint">@color/dark</item>
     <item name="android:statusBarColor">#191c19</item>
+    <item name="colorSurfaceVariant">@color/grey</item>
   </style>
 
 
@@ -33,7 +34,7 @@
     <item name="windowNoTitle">true</item>
     <item name="android:statusBarColor">#191c19</item>
     <item name="dialogCornerRadius">8dp</item>
-
+    <item name="colorSurfaceVariant">@color/grey</item>
   </style>
 
   <style name="Theme.CuteGif.MTVCustomMenuItem" parent="Theme.CuteGif">
@@ -79,7 +80,7 @@
 
   </style>
 
-  <style name="Theme.CuteGif.ACIV.Help" parent="Theme.CuteGif">
+<!--  <style name="Theme.CuteGif.ACIV.Help" parent="Theme.CuteGif">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:scaleX">0.75</item>
@@ -87,5 +88,5 @@
     <item name="tint">@color/grey</item>
     <item name="android:clickable">true</item>
     <item name="android:focusable">true</item>
-  </style>
+  </style>-->
 </resources>

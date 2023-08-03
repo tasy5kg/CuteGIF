@@ -214,7 +214,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:animateLayoutChanges="true"
-          android:text="1.5倍速"
+          android:text="正常"
           app:icon="@drawable/ic_baseline_speed_24" />
 
         <Space

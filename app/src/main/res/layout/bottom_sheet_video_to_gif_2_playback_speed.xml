@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
         android:stepSize="1"
-        android:value="3"
+        android:value="2"
         android:valueFrom="0"
         android:valueTo="6"
         app:labelBehavior="visible" />

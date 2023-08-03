@@ -15,32 +15,36 @@ import androidx.draganddrop.DropHelper
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_13
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_DOCUMENT
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_GALLERY
+import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
   private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-  private val materialToolbar by lazy { binding.materialToolbar }
-  private val mcvVideoToGif by lazy { binding.mcvVideoToGif }
-  private val mcvGifSplit by lazy { binding.mcvGifSplit }
-  private val mcvGifToVideo by lazy { binding.mcvGifToVideo }
 
   private val arlImportVideoToGifDocument =
     registerForActivityResult(ActivityResultContracts.GetContent()) {
       it?.let { _ ->
-        VideoToGifActivity.start(this, it) }
+        VideoToGifActivity.start(this, it)
+      }
     }
 
   private val arlImportVideoToGifElse =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-      it?.data?.data?.let { uri
-        -> VideoToGifActivity.start(this, uri) }
+      it?.data?.data?.let {
+          uri,
+        ->
+        VideoToGifActivity.start(this, uri)
+      }
     }
 
   private val arlImportGifSplitDocument =
     registerForActivityResult(ActivityResultContracts.GetContent()) {
-      it?.let { _
-        -> GifSplitActivity.start(this, it) }
+      it?.let {
+          _,
+        ->
+        GifSplitActivity.start(this, it)
+      }
     }
 
   private val arlImportGifSplit13 =
@@ -53,7 +57,8 @@ class MainActivity : BaseActivity() {
   private val arlImportGifToVideoDocument =
     registerForActivityResult(ActivityResultContracts.GetContent()) {
       it?.let { _ ->
-        GifToVideoActivity.start(this, it) }
+        GifToVideoActivity.start(this, it)
+      }
     }
 
   private val arlImportGifToVideo13 =
@@ -63,15 +68,14 @@ class MainActivity : BaseActivity() {
       }
     }
 
-
   @SuppressLint("InlinedApi")
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
-    setSupportActionBar(materialToolbar)
-    mcvVideoToGif.onClick { importVideoToGif() }
-    mcvGifSplit.onClick { importForGifSplit() }
-    mcvGifToVideo.onClick { importForGifToVideo() }
-    DropHelper.configureView(this, mcvVideoToGif, arrayOf("video/*"), OnReceiveContentListener { _, payload ->
+    setSupportActionBar(binding.materialToolbar)
+    binding.mcvVideoToGif.onClick { importVideoToGif() }
+    binding.mcvGifSplit.onClick { importForGifSplit() }
+    binding.mcvGifToVideo.onClick { importForGifToVideo() }
+    DropHelper.configureView(this, binding.mcvVideoToGif, arrayOf("video/*"), OnReceiveContentListener { _, payload ->
       try {
         if (payload.source == SOURCE_DRAG_AND_DROP &&
           payload.clip.itemCount == 1 &&
@@ -86,7 +90,7 @@ class MainActivity : BaseActivity() {
       }
       return@OnReceiveContentListener payload
     })
-    DropHelper.configureView(this, mcvGifSplit, arrayOf("image/gif"), OnReceiveContentListener { _, payload ->
+    DropHelper.configureView(this, binding.mcvGifSplit, arrayOf("image/gif"), OnReceiveContentListener { _, payload ->
       try {
         if (payload.source == SOURCE_DRAG_AND_DROP &&
           payload.clip.itemCount == 1 &&
@@ -101,7 +105,7 @@ class MainActivity : BaseActivity() {
       }
       return@OnReceiveContentListener payload
     })
-    DropHelper.configureView(this, mcvGifToVideo, arrayOf("image/gif"), OnReceiveContentListener { _, payload ->
+    DropHelper.configureView(this, binding.mcvGifToVideo, arrayOf("image/gif"), OnReceiveContentListener { _, payload ->
       try {
         if (payload.source == SOURCE_DRAG_AND_DROP &&
           payload.clip.itemCount == 1 &&
@@ -142,6 +146,7 @@ class MainActivity : BaseActivity() {
       INT_FILE_OPEN_WAY_13 -> arlImportGifSplit13.launch(Intent(MediaStore.ACTION_PICK_IMAGES).apply {
         type = "image/gif"
       })
+
       else -> importForGifSplit(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) INT_FILE_OPEN_WAY_13 else INT_FILE_OPEN_WAY_DOCUMENT
       )
@@ -155,6 +160,7 @@ class MainActivity : BaseActivity() {
       INT_FILE_OPEN_WAY_13 -> arlImportGifToVideo13.launch(Intent(MediaStore.ACTION_PICK_IMAGES).apply {
         type = "image/gif"
       })
+
       else -> importForGifToVideo(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) INT_FILE_OPEN_WAY_13 else INT_FILE_OPEN_WAY_DOCUMENT
       )
@@ -169,13 +175,14 @@ class MainActivity : BaseActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       R.id.menu_item_about -> AboutActivity.start(this)
+      R.id.menu_item_donate -> DonateActivity.start(this)
     }
     return true
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    VideoToGifVideoFallbackActivity.prepareVideoToGifVideoFallbackDir()
+    makeDirEmpty(MyConstants.VIDEO_TO_GIF_VIDEO_FALLBACK_DIR)
   }
 
   companion object {

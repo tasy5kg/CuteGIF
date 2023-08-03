@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
+import kotlin.concurrent.thread
+import kotlin.math.min
 import me.tasy5kg.cutegif.MyConstants.EXTRA_GIF_URI
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.Toolbox.createFfSafForRead
@@ -17,14 +19,10 @@ import me.tasy5kg.cutegif.Toolbox.logRed
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityGifToVideoBinding
-import java.lang.Integer.min
-import kotlin.concurrent.thread
 
 class GifToVideoActivity : BaseActivity() {
   private val binding by lazy { ActivityGifToVideoBinding.inflate(layoutInflater) }
   private val gifUri by lazy { intent.getExtra<Uri>(EXTRA_GIF_URI) }
-  private val mtvTitle by lazy { binding.mtvTitle }
-  private val lpi by lazy { binding.linearProgressIndicator }
   private var taskThread: Thread? = null
   private var taskQuitOrFailed = false
 
@@ -65,6 +63,7 @@ class GifToVideoActivity : BaseActivity() {
           FileSavedActivity.start(this, videoUri)
           finish()
         }
+
         it.returnCode.isValueError -> {
           runOnUiThread { Toolbox.toast("GIF 转视频失败") }
           finish()
@@ -76,8 +75,8 @@ class GifToVideoActivity : BaseActivity() {
       }, {
         val progress = min(it.time * 100 / duration, 99)
         runOnUiThread {
-          mtvTitle.text = "正在转换为视频（$progress%）"
-          lpi.setProgress(progress, true)
+          binding.mtvTitle.text = "正在转换为视频（$progress%）"
+          binding.linearProgressIndicator.setProgress(progress, true)
         }
       })
   }

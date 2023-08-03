@@ -32,14 +32,6 @@ object MySettings {
     acceptedEulaLicenseVersionCode = INT_EULA_LICENSE_VERSION_CODE_NOT_ACCEPTED
   }
 
-  //
-  private const val INT_GIF_FINAL_DELAY = "int_gif_final_delay"
-  private const val INT_GIF_FINAL_DELAY_DEF_VALUE = -1
-  var gifFinalDelay: Int
-    get() = getInt(INT_GIF_FINAL_DELAY) ?: INT_GIF_FINAL_DELAY_DEF_VALUE
-    set(value) = setInt(INT_GIF_FINAL_DELAY, value)
-
-
   private const val INT_FILE_OPEN_WAY = "int_file_open_way"
   const val INT_FILE_OPEN_WAY_DOCUMENT = 1
   const val INT_FILE_OPEN_WAY_GALLERY = 2
@@ -49,7 +41,6 @@ object MySettings {
   var fileOpenWay: Int
     get() = getInt(INT_FILE_OPEN_WAY) ?: INT_FILE_OPEN_WAY_DEFAULT
     set(value) = setInt(INT_FILE_OPEN_WAY, value)
-
 
   /*
     //

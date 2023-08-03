@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context=".DonateActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:animateLayoutChanges="true"
+    android:gravity="center_vertical">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mb_back"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:icon="@drawable/ic_baseline_close_24"
+      app:iconTint="@color/dark" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:animateLayoutChanges="true"
+      android:gravity="start"
+      android:text="捐赠"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+      android:textColor="@color/grey" />
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="如果您喜欢 小萌GIF，还请您向作者捐赠，鼓励作者开发更多好用的软件。感谢您的支持！"
+          android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="match_parent"
+          android:layout_height="256dp"
+          android:layout_centerInParent="true"
+          android:layout_gravity="center"
+          android:layout_marginVertical="16dp"
+          app:srcCompat="@raw/donate_wechat" />
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="注：您可在付款备注处写上您的昵称，以便下次 小萌GIF 更新时，将您的昵称显示在捐赠名单中。"
+          android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+          android:textColor="@color/grey" />
+
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+      <include layout="@layout/view_divider_horizontal" />
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_close"
+          style="@style/Widget.Material3.Button.OutlinedButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="关闭"
+          android:textColor="?attr/colorOnSurface" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mb_start_donating"
+          style="@style/Widget.Material3.Button"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="8dp"
+          android:layout_weight="1"
+          android:text="保存二维码，并打开微信扫一扫"
+          android:textColor="?attr/colorOnSurface" />
+      </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+  </androidx.core.widget.NestedScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

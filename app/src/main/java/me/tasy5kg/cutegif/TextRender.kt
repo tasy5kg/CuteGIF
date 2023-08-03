@@ -10,14 +10,14 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.drawToBitmap
+import java.io.Serializable
+import java.util.*
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.Toolbox.getB
 import me.tasy5kg.cutegif.Toolbox.getContrastColor
 import me.tasy5kg.cutegif.Toolbox.setSpan
 import me.tasy5kg.cutegif.Toolbox.toInt
 import ru.santaev.outlinespan.OutlineSpan
-import java.io.Serializable
-import java.util.*
 
 @SuppressLint("InflateParams")
 data class TextRender(
@@ -58,19 +58,17 @@ data class TextRender(
       font: String,
       bold: Boolean,
       italic: Boolean,
-      gravity: Int
+      gravity: Int,
     ) =
-      with(
-        LayoutInflater.from(appContext)
-          .inflate(R.layout.view_invisible_mtv_text_render, null) as TextView
-      ) {
+      with(LayoutInflater.from(appContext).inflate(R.layout.view_invisible_mtv_text_render, null) as TextView) {
         /** Add a space before and after each line of text, so that italic text will not be cut off when rendered. */
         text = SpannableString(content.split('\n').joinToString("\n") { " $it " }).apply {
-          setSpan(OutlineSpan(color.getContrastColor(), size / 4f))
+          setSpan(OutlineSpan(color.getContrastColor(), size / 8f))
         }
         textSize = size
         setTypeface(FONT_LIST.getB(font), bold.toInt() + italic.toInt() * 2)
         setTextColor(color)
+        setShadowLayer(size / 8f, 0f, 0f, color.getContrastColor())
         this.gravity = gravity
         measure(WRAP_CONTENT, WRAP_CONTENT)
         layout(0, 0, measuredWidth, measuredHeight)

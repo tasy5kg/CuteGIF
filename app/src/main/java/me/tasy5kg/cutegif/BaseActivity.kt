@@ -5,11 +5,14 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.system.exitProcess
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity() : AppCompatActivity() {
+
+  abstract fun onCreateIfEulaAccepted(savedInstanceState: Bundle?)
 
   final override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    if (!MySettings.getIfEulaLicenseAcceptedLatest()) {
+    //  if (!MySettings.getIfEulaLicenseAcceptedLatest()) {
+    if (false) {//TODO
       /** Ask user to accept EULA */
       EulaActivity.start(this)
       finish()
@@ -22,10 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
       }
       window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-      // window.blurBehind(MyConstants.BLUR_BEHIND_RADIUS_24)
       onCreateIfEulaAccepted(savedInstanceState)
     }
   }
-
-  abstract fun onCreateIfEulaAccepted(savedInstanceState: Bundle?)
 }

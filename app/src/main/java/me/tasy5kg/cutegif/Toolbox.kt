@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.*
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -26,23 +27,45 @@ import android.webkit.MimeTypeMap
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorInt
+import androidx.annotation.IntRange
 import androidx.annotation.StringRes
 import androidx.core.graphics.ColorUtils
+import androidx.lifecycle.LifecycleEventObserver
+import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
 import com.arthenica.ffmpegkit.FFprobeKit
 import com.arthenica.ffmpegkit.MediaInformation
 import com.google.android.material.slider.RangeSlider
-import me.tasy5kg.cutegif.MyApplication.Companion.appContext
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.Serializable
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.roundToInt
+import me.tasy5kg.cutegif.MyApplication.Companion.appContext
+import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
+import me.tasy5kg.cutegif.MyConstants.GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH
+import org.json.JSONArray
+import org.json.JSONObject
 
 object Toolbox {
+
+  @SuppressLint("WrongConstant")
+  fun Context.openWeChatQrScanner() =
+    try {
+      startActivity(Intent().apply {
+        component = ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI")
+        flags = 335544320
+        action = "android.intent.action.VIEW"
+        putExtra("LauncherUI.From.Scaner.Shortcut", true)
+      })
+      toast("请选择相册内的第一张图片")
+    } catch (e: Exception) {
+      toast("打开微信扫一扫失败")
+    }
+
   inline fun newRunnableWithSelf(crossinline lambda: (Runnable) -> Unit) =
     object : Runnable {
       override fun run() {
@@ -50,18 +73,54 @@ object Toolbox {
       }
     }
 
+  // return elapsed time in nanoseconds
+  inline fun elapsedTime(crossinline lambda: () -> Unit): Long {
+    val startTime = System.nanoTime()
+    lambda()
+    return System.nanoTime() - startTime
+  }
+
+  inline fun logRedElapsedTime(tag: String, crossinline lambda: () -> Unit) {
+    val startTime = System.nanoTime()
+    lambda()
+    logRed("ElapsedTime", "$tag elapsed time: ${((System.nanoTime() - startTime) / 1000000f).keepNDecimalPlaces(3)}ms")
+  }
+
+  // Usage: Add ```lifecycle.logRedOnLifecycleEvent()``` to onCreate() method of a activity
+  fun logRedOnLifecycleEvent(): LifecycleEventObserver =
+    LifecycleEventObserver { source, event ->
+      logRed("LifecycleEvent", "${source::class.java.simpleName} ${event.name}")
+    }
+
+  fun makeDirEmpty(dir: String) = File(dir).apply {
+    mkdirs()
+    deleteRecursively()
+    mkdirs()
+  }
+
+  data class WidthHeight(val w: Int, val h: Int) {
+    val short = min(w, h)
+    val long = max(w, h)
+  }
+
   data class UriWrapper(val uriString: String) : Serializable {
     constructor(uri: Uri) : this(uri.toString())
 
     fun getUri() = Uri.parse(uriString)!!
   }
 
+  /**
+   * a function to generate a transparent [Bitmap] with the given width and height.
+   * @param w The width of the [Bitmap].
+   * @param h The height of the [Bitmap].
+   * @return The generated transparent [Bitmap].
+   */
   fun generateTransparentBitmap(w: Int, h: Int) =
     Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888).apply { eraseColor(Color.TRANSPARENT) }!!
 
   inline fun <V : View> V.onClick(
     hapticFeedbackType: HapticFeedbackType? = null,
-    crossinline lambda: V.() -> Unit
+    crossinline lambda: V.() -> Unit,
   ) =
     setOnClickListener { _ ->
       hapticFeedbackType?.let { performHapticFeedback(it.value) }
@@ -70,7 +129,7 @@ object Toolbox {
 
   inline fun RangeSlider.onSliderTouch(
     crossinline onStartTrackingTouch: RangeSlider.() -> Unit,
-    crossinline onStopTrackingTouch: RangeSlider.() -> Unit
+    crossinline onStopTrackingTouch: RangeSlider.() -> Unit,
   ) {
     addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
       override fun onStartTrackingTouch(slider: RangeSlider) = onStartTrackingTouch(slider)
@@ -106,18 +165,32 @@ object Toolbox {
     this.filter { it.value == value }.keys.first()
 
   @SuppressLint("SimpleDateFormat")
-  fun getTimeYMDHMS(): String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+  fun getTimeYMDHMS(): String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date(System.currentTimeMillis()))
 
-  fun getVideoSingleFrame(uri: Uri, timestamp_ms: Long, accurate: Boolean) =
-    with(MediaMetadataRetriever()) {
-      setDataSource(appContext, uri)
-      val bitmap = getFrameAtTime(
-        timestamp_ms * 1000L,
-        if (accurate) MediaMetadataRetriever.OPTION_CLOSEST else MediaMetadataRetriever.OPTION_CLOSEST_SYNC
-      )!!
-      release()
-      bitmap
+  fun getVideoSingleFrame(uri: Uri, timestamp_ms: Long): Bitmap =
+    try {
+      with(MediaMetadataRetriever()) {
+        setDataSource(appContext, uri)
+        val bitmap = getFrameAtTime(
+          timestamp_ms * 1000L,
+          MediaMetadataRetriever.OPTION_CLOSEST_SYNC // OPTION_CLOSEST is slower and may cause NullPointerException, avoid using it.
+        )!!
+        release()
+        bitmap
+      }
+    } catch (e: Exception) {
+      /**
+       * Even if it is set to OPTION_CLOSEST_SYNC, the getFrameAtTime() method still has the probability of NullPointerException.
+       * Therefore, use FFmpeg as a fallback method.
+       **/
+      getVideoSingleFrameWithFFmpeg(uri, timestamp_ms, 5, GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH)
+      BitmapFactory.decodeFile(GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH).copy(Bitmap.Config.ARGB_8888, true)
     }
+
+  fun getVideoSingleFrameWithFFmpeg(uri: Uri, timestamp_ms: Long, @IntRange(2, 31) quality: Int, outputPath: String) =
+    FFmpegKit.execute("$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -ss ${timestamp_ms}ms -i ${uri.createFfSafForRead()} -frames:v 1 -q:v $quality -y $outputPath")
+
+  fun getScreenWH() = with(Resources.getSystem().displayMetrics) { Pair(widthPixels, heightPixels) }
 
   fun getImageWidthHeight(path: String) =
     with(BitmapFactory.Options()) {
@@ -126,11 +199,17 @@ object Toolbox {
       Pair(this.outWidth, this.outHeight)
     }
 
-  fun Bitmap.saveToPng(path: String) {
-    val out = FileOutputStream(path)
-    this.compress(Bitmap.CompressFormat.PNG, 100, out)
-    out.close()
-  }
+  fun Bitmap.saveToPng(path: String) =
+    FileOutputStream(path).let {
+      this.compress(Bitmap.CompressFormat.PNG, 100, it)
+      it.close()
+    }
+
+  fun Bitmap.saveToJpg(path: String, @IntRange(0, 100) quality: Int) =
+    FileOutputStream(path).let {
+      this.compress(Bitmap.CompressFormat.JPEG, quality, it)
+      it.close()
+    }
 
   fun openLink(context: Context, url: String) =
     try {
@@ -172,6 +251,7 @@ object Toolbox {
           put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/${appName}")
           put(MediaStore.Video.Media.MIME_TYPE, MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileType))
         })
+
       "gif", "png" -> appContext.contentResolver.insert(
         MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
         ContentValues().apply {
@@ -179,6 +259,7 @@ object Toolbox {
           put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/${appName}")
           put(MediaStore.Images.Media.MIME_TYPE, MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileType))
         })
+
       else -> throw NotImplementedError("fileType = $fileType")
     }!!
   }
@@ -284,7 +365,7 @@ object Toolbox {
   fun Long.formatFileSize(
     fileSizeUnit: FileSizeUnit = FileSizeUnit.KB,
     decimalPlaces: Int = 0,
-    appendUnit: Boolean = true
+    appendUnit: Boolean = true,
   ) =
     (this / fileSizeUnit.multiple).keepNDecimalPlaces(decimalPlaces) +
         if (appendUnit) {
@@ -482,16 +563,38 @@ object Toolbox {
   }
 
   @ColorInt
-  fun Int.getContrastColor() =
-    if (ColorUtils.calculateContrast(this, Color.BLACK) > ColorUtils.calculateContrast(
-        this,
-        Color.WHITE
-      )
-    )
+  fun Int.getContrastColor(reverse: Boolean = false) =
+    if (ColorUtils.calculateContrast(this, Color.BLACK) > ColorUtils.calculateContrast(this, Color.WHITE))
       Color.BLACK
     else
       Color.WHITE
 
-  inline fun SpannableString.setSpan(what: Any?) =
+  fun SpannableString.setSpan(what: Any?) =
     setSpan(what, 0, length, SPAN_EXCLUSIVE_EXCLUSIVE)
+
+  /**
+  lossy should >= 0 .
+  return true when succeed, false when failed.
+  if outputGifPath is null, then output will overwrite input file.
+   */
+  fun gifsicleLossy(
+    lossy: Int,
+    inputGifPath: String,
+    outputGifPath: String?,
+    enableO3: Boolean,
+  ): Boolean {
+    val nativeLibraryDir = appContext.applicationInfo.nativeLibraryDir
+    val gifsiclePath = "${nativeLibraryDir}/libgifsicle.so"
+    val gifsicleEnvp = arrayOf("LD_LIBRARY_PATH=${nativeLibraryDir}")
+    val gifsicleCmd = when (outputGifPath) {
+      null -> "$gifsiclePath -b -O3 --lossy=$lossy $inputGifPath"
+      else -> "$gifsiclePath -O3 --lossy=$lossy --output $outputGifPath $inputGifPath"
+    }
+    return try {
+      (Runtime.getRuntime().exec(gifsicleCmd, gifsicleEnvp).waitFor() == 0)
+    } catch (e: Exception) {
+      logRed("gifsicleLossy() failed", e.message)
+      false
+    }
+  }
 }

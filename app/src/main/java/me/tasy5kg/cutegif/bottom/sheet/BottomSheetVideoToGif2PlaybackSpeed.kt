@@ -6,26 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.slider.Slider
 import me.tasy5kg.cutegif.VideoToGifActivity
 import me.tasy5kg.cutegif.databinding.BottomSheetVideoToGif2PlaybackSpeedBinding
 
 class BottomSheetVideoToGif2PlaybackSpeed : BottomSheetDialogFragment() {
+  private var _binding: BottomSheetVideoToGif2PlaybackSpeedBinding? = null
+  private val binding get() = _binding!!
+  private val videoToGifActivity get() = activity as VideoToGifActivity
 
-  private lateinit var sliderSpeed: Slider
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?,
-  ): View {
-    val binding = BottomSheetVideoToGif2PlaybackSpeedBinding.inflate(layoutInflater)
-    sliderSpeed = binding.sliderSpeed
-    with(sliderSpeed) {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    _binding = BottomSheetVideoToGif2PlaybackSpeedBinding.inflate(layoutInflater, container, false)
+    binding.sliderSpeed.apply {
       setLabelFormatter {
         sliderValueToText(it)
       }
       addOnChangeListener { slider, value, _ ->
-        (activity as VideoToGifActivity).setPlaybackSpeed(
+        videoToGifActivity.setPlaybackSpeed(
           sliderValueToSpeed(value),
           sliderValueToText(value)
         )
@@ -33,6 +29,11 @@ class BottomSheetVideoToGif2PlaybackSpeed : BottomSheetDialogFragment() {
       }
     }
     return binding.root
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
   }
 
   companion object {

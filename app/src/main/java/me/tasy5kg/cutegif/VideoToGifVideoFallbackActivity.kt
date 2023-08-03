@@ -7,6 +7,9 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
+import java.io.File
+import kotlin.concurrent.thread
+import kotlin.math.min
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL
 import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_VIDEO_FALLBACK_DIR
@@ -15,19 +18,15 @@ import me.tasy5kg.cutegif.Toolbox.fileName
 import me.tasy5kg.cutegif.Toolbox.getExtra
 import me.tasy5kg.cutegif.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.Toolbox.logRed
+import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.removeFileNameExtension
 import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifVideoFallbackBinding
-import java.io.File
-import java.lang.Integer.min
-import kotlin.concurrent.thread
 
 class VideoToGifVideoFallbackActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifVideoFallbackBinding.inflate(layoutInflater) }
   private val videoUri by lazy { intent.getExtra<Uri>(EXTRA_VIDEO_URI) }
-  private val mtvTitle by lazy { binding.mtvTitle }
-  private val lpi by lazy { binding.linearProgressIndicator }
   private var taskThread: Thread? = null
   private var taskQuitOrFailed = false
 
@@ -54,7 +53,7 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
       quitOrFailed("无法读取视频")
       return
     }
-    prepareVideoToGifVideoFallbackDir()
+    makeDirEmpty(VIDEO_TO_GIF_VIDEO_FALLBACK_DIR)
     val fallbackMp4Path = "$VIDEO_TO_GIF_VIDEO_FALLBACK_DIR${videoUri.fileName().removeFileNameExtension()}.mp4"
     val command = "$FFMPEG_COMMAND_PREFIX_FOR_ALL " +
         "-i ${videoUri.createFfSafForRead()} " +
@@ -67,6 +66,7 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
           VideoToGifActivity.start(this, Uri.fromFile(File(fallbackMp4Path)))
           finish()
         }
+
         it.returnCode.isValueError -> {
           runOnUiThread { Toolbox.toast("无法读取视频") }
           finish()
@@ -78,8 +78,8 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
       }, {
         val progress = min(it.time * 100 / duration, 99)
         runOnUiThread {
-          mtvTitle.text = "正在转码视频（$progress%）"
-          lpi.setProgress(progress, true)
+          binding.mtvTitle.text = "正在转码视频（$progress%）"
+          binding.linearProgressIndicator.setProgress(progress, true)
         }
       }
     )
@@ -102,12 +102,6 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
   }
 
   companion object {
-    fun prepareVideoToGifVideoFallbackDir() = File(VIDEO_TO_GIF_VIDEO_FALLBACK_DIR).apply {
-      mkdirs()
-      deleteRecursively()
-      mkdirs()
-    }
-
     fun start(context: Context, videoUri: Uri) =
       context.startActivity(Intent(context, VideoToGifVideoFallbackActivity::class.java).apply {
         putExtra(EXTRA_VIDEO_URI, videoUri)

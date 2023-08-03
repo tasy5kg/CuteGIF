@@ -1,9 +1,9 @@
 package me.tasy5kg.cutegif.task.builder
 
+import java.io.Serializable
 import me.tasy5kg.cutegif.CropParams
 import me.tasy5kg.cutegif.TextRender
 import me.tasy5kg.cutegif.Toolbox
-import java.io.Serializable
 
 data class TaskBuilderVideoToGif(
   val inputVideoUriWrapper: Toolbox.UriWrapper,

@@ -14,7 +14,6 @@ import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
 import com.arthenica.ffmpegkit.FFprobeKit
 import java.io.Serializable
-import java.lang.Integer.min
 import kotlin.concurrent.thread
 import kotlin.math.ceil
 import kotlin.math.roundToInt

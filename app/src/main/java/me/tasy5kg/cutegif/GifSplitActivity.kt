@@ -9,12 +9,14 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import com.arthenica.ffmpegkit.FFmpegKit
+import java.io.File
+import me.tasy5kg.cutegif.MyConstants.OUTPUT_SPLIT_DIR
 import me.tasy5kg.cutegif.Toolbox.createFfSafForRead
 import me.tasy5kg.cutegif.Toolbox.getExtra
+import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityGifSplitBinding
-import java.io.File
 
 class GifSplitActivity : BaseActivity() {
   private val binding by lazy { ActivityGifSplitBinding.inflate(layoutInflater) }
@@ -43,22 +45,22 @@ class GifSplitActivity : BaseActivity() {
         slider.value++
       }
     }
-    prepareOutputSplitDir()
+    makeDirEmpty(OUTPUT_SPLIT_DIR)
     val mlo = mutableListOf<Bitmap>()
     FFmpegKit.execute(
       "${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i ${inputGifUri.createFfSafForRead()} " +
-          "${MyConstants.OUTPUT_SPLIT_DIR}%05d.png"
+          "$OUTPUT_SPLIT_DIR%05d.png"
     )
     var frameIndex = 1
-    while (File("${MyConstants.OUTPUT_SPLIT_DIR}${String.format("%05d", frameIndex)}.png").exists()) {
+    while (File("$OUTPUT_SPLIT_DIR${String.format("%05d", frameIndex)}.png").exists()) {
       mlo.add(
-        BitmapFactory.decodeFile("${MyConstants.OUTPUT_SPLIT_DIR}${String.format("%05d", frameIndex)}.png")
+        BitmapFactory.decodeFile("$OUTPUT_SPLIT_DIR${String.format("%05d", frameIndex)}.png")
       )
       frameIndex++
     }
     slider.apply {
       valueTo = mlo.size.toFloat()
-      setLabelFormatter { "${value.toInt()}/${valueTo.toInt()}" }
+      setLabelFormatter { "${it.toInt()}/${valueTo.toInt()}" }
       addOnChangeListener { slider, value, _ ->
         slider.performHapticFeedback(HapticFeedbackConstants.TEXT_HANDLE_MOVE)
         aciv.setImageBitmap(mlo[value.toInt() - 1])
@@ -67,7 +69,7 @@ class GifSplitActivity : BaseActivity() {
     aciv.setImageBitmap(mlo[0])
     binding.mbSave.onClick {
       Toolbox.copyFile(
-        "${MyConstants.OUTPUT_SPLIT_DIR}${String.format("%05d", slider.value.toInt())}.png",
+        "$OUTPUT_SPLIT_DIR${String.format("%05d", slider.value.toInt())}.png",
         Toolbox.createNewFile(inputGifUri, "png")
       )
       toast("截图已保存至相册")
@@ -82,18 +84,10 @@ class GifSplitActivity : BaseActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-    prepareOutputSplitDir()
+    makeDirEmpty(OUTPUT_SPLIT_DIR)
   }
 
   companion object {
-    private fun prepareOutputSplitDir() {
-      File(MyConstants.OUTPUT_SPLIT_DIR).apply {
-        mkdirs()
-        deleteRecursively()
-        mkdirs()
-      }
-    }
-
     fun start(context: Context, gifUri: Uri) =
       context.startActivity(
         Intent(context, GifSplitActivity::class.java)
