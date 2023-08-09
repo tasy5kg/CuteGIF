@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    lintOptions{
-        disable 'SetTextI18n'
-    }
     signingConfigs {
         release {
         }
     }
     packagingOptions {
+    jniLibs {
+        useLegacyPackaging true
+    }
     }
     splits {
         abi {
@@ -29,8 +29,8 @@ android {
         minSdk 29
         targetSdk 33
         compileSdk 33
-        versionCode 202308030
-        versionName "15.0"
+        versionCode 202308090
+        versionName "15.1"
         signingConfig signingConfigs.debug
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         setProperty "archivesBaseName", "CuteGIF_${versionName}_${versionCode}"
@@ -60,6 +60,9 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
     namespace 'me.tasy5kg.cutegif'
+    lint {
+        disable 'SetTextI18n'
+    }
 }
 
 dependencies {

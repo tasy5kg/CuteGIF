@@ -75,6 +75,7 @@ class MainActivity : BaseActivity() {
     binding.mcvVideoToGif.onClick { importVideoToGif() }
     binding.mcvGifSplit.onClick { importForGifSplit() }
     binding.mcvGifToVideo.onClick { importForGifToVideo() }
+    binding.mcvDonate.onClick { DonateActivity.start(this@MainActivity) }
     DropHelper.configureView(this, binding.mcvVideoToGif, arrayOf("video/*"), OnReceiveContentListener { _, payload ->
       try {
         if (payload.source == SOURCE_DRAG_AND_DROP &&
@@ -175,7 +176,6 @@ class MainActivity : BaseActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       R.id.menu_item_about -> AboutActivity.start(this)
-      R.id.menu_item_donate -> DonateActivity.start(this)
     }
     return true
   }
