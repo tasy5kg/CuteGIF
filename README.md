@@ -16,4 +16,3 @@ System requirements: Android 7.0+
 - Fixed an issue where the video duration was too short to convert.
 - Fixed some GIF frame dropping issues.
 - Fixed issues related to Crop interface.
-
