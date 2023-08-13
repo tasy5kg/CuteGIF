@@ -5,11 +5,11 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import androidx.core.graphics.drawable.toDrawable
+import me.tasy5kg.cutegif.MyConstants.UNKNOWN_INT
+import me.tasy5kg.cutegif.Toolbox.closestEven
 import java.io.Serializable
 import kotlin.math.max
 import kotlin.math.min
-import me.tasy5kg.cutegif.MyConstants.UNKNOWN_INT
-import me.tasy5kg.cutegif.Toolbox.closestEven
 
 data class CropParams(
   var outW: Int = UNKNOWN_INT,
