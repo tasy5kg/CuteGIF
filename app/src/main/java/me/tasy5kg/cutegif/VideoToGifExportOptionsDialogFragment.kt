@@ -10,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.arthenica.ffmpegkit.FFmpegKit
-import java.io.File
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_DIR
 import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.saveToPng
 import me.tasy5kg.cutegif.databinding.DialogFragmentVideoToGifExportOptionsBinding
+import java.io.File
 
 class VideoToGifExportOptionsDialogFragment : DialogFragment() {
   private var _binding: DialogFragmentVideoToGifExportOptionsBinding? = null
@@ -64,7 +64,13 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     // Merge the text layer with the frame
     Canvas(frame).drawBitmap(videoToGifActivity.textRender?.toBitmap(frame.width, frame.height) ?: Toolbox.generateTransparentBitmap(1, 1), 0f, 0f, null)
     // Crop
-    frame = Bitmap.createBitmap(frame, videoToGifActivity.cropParams.x, videoToGifActivity.cropParams.y, videoToGifActivity.cropParams.outW, videoToGifActivity.cropParams.outH)
+    frame = Bitmap.createBitmap(
+      frame,
+      videoToGifActivity.cropParams.x,
+      videoToGifActivity.cropParams.y,
+      videoToGifActivity.cropParams.outW,
+      videoToGifActivity.cropParams.outH
+    )
     updatePreviewImage()
     return binding.root
   }

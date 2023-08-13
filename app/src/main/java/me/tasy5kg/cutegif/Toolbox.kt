@@ -36,6 +36,11 @@ import com.arthenica.ffmpegkit.FFmpegKitConfig
 import com.arthenica.ffmpegkit.FFprobeKit
 import com.arthenica.ffmpegkit.MediaInformation
 import com.google.android.material.slider.RangeSlider
+import me.tasy5kg.cutegif.MyApplication.Companion.appContext
+import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
+import me.tasy5kg.cutegif.MyConstants.GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -44,11 +49,6 @@ import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
-import me.tasy5kg.cutegif.MyApplication.Companion.appContext
-import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
-import me.tasy5kg.cutegif.MyConstants.GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH
-import org.json.JSONArray
-import org.json.JSONObject
 
 object Toolbox {
 

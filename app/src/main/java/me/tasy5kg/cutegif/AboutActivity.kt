@@ -22,14 +22,14 @@ class AboutActivity : BaseActivity() {
     binding.mbtgChooseFileWay.apply {
       check(
         when (MySettings.fileOpenWay) {
-          MySettings.INT_FILE_OPEN_WAY_DOCUMENT ->binding.mbChooseFileWayDocument.id
+          MySettings.INT_FILE_OPEN_WAY_DOCUMENT -> binding.mbChooseFileWayDocument.id
           MySettings.INT_FILE_OPEN_WAY_GALLERY -> binding.mbChooseFileWayGallery.id
           MySettings.INT_FILE_OPEN_WAY_13 -> binding.mbChooseFileWay13.id
           else -> throw IllegalArgumentException()
         }
       )
       addOnButtonCheckedListener { group, checkedId, isChecked ->
-          performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
         if (isChecked) {
           MySettings.fileOpenWay = when (checkedId) {
             binding.mbChooseFileWayDocument.id -> MySettings.INT_FILE_OPEN_WAY_DOCUMENT

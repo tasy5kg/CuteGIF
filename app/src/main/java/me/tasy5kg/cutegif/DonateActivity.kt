@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.openWeChatQrScanner
-import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityDonateBinding
 
 class DonateActivity : AppCompatActivity() {

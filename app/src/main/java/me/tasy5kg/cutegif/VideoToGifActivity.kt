@@ -12,21 +12,20 @@ import android.view.HapticFeedbackConstants
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
-import kotlin.math.abs
-import kotlin.math.floor
-import kotlin.math.roundToLong
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.MyConstants.EXTRA_ADD_TEXT_RENDER
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
 import me.tasy5kg.cutegif.Toolbox.constraintBy
 import me.tasy5kg.cutegif.Toolbox.getExtra
-import me.tasy5kg.cutegif.Toolbox.logRed
 import me.tasy5kg.cutegif.Toolbox.newRunnableWithSelf
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.onSliderTouch
 import me.tasy5kg.cutegif.bottom.sheet.BottomSheetVideoToGif2CropRatio
 import me.tasy5kg.cutegif.bottom.sheet.BottomSheetVideoToGif2PlaybackSpeed
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifBinding
+import kotlin.math.abs
+import kotlin.math.floor
+import kotlin.math.roundToLong
 
 class VideoToGifActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifBinding.inflate(layoutInflater) }
@@ -132,7 +131,7 @@ class VideoToGifActivity : BaseActivity() {
     val finalDelay = videoToGifExportOptionsDialogFragment.getFinalDelayValue()
     return TaskBuilderVideoToGif(
       inputVideoUriWrapper = inputVideoUriWrapper,
-      trimTime =  trimTime,
+      trimTime = trimTime,
       cropParams = cropParams,
       resolutionShortLength = resolutionShortLength,
       outputSpeed = outputSpeed,

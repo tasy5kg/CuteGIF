@@ -15,9 +15,6 @@ import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.google.android.material.radiobutton.MaterialRadioButton
-import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.math.sqrt
 import me.tasy5kg.cutegif.MyConstants.EXTRA_TEXT_RENDER
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_POSITION
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
@@ -29,6 +26,9 @@ import me.tasy5kg.cutegif.Toolbox.getB
 import me.tasy5kg.cutegif.Toolbox.getExtra
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.databinding.ActivityAddText2Binding
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 @SuppressLint("RtlHardcoded")
 class AddTextActivity : BaseActivity() {

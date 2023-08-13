@@ -10,14 +10,14 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.drawToBitmap
-import java.io.Serializable
-import java.util.*
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.Toolbox.getB
 import me.tasy5kg.cutegif.Toolbox.getContrastColor
 import me.tasy5kg.cutegif.Toolbox.setSpan
 import me.tasy5kg.cutegif.Toolbox.toInt
 import ru.santaev.outlinespan.OutlineSpan
+import java.io.Serializable
+import java.util.*
 
 @SuppressLint("InflateParams")
 data class TextRender(

@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import com.arthenica.ffmpegkit.FFmpegKit
-import java.io.File
 import me.tasy5kg.cutegif.MyConstants.OUTPUT_SPLIT_DIR
 import me.tasy5kg.cutegif.Toolbox.createFfSafForRead
 import me.tasy5kg.cutegif.Toolbox.getExtra
@@ -17,6 +16,7 @@ import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityGifSplitBinding
+import java.io.File
 
 class GifSplitActivity : BaseActivity() {
   private val binding by lazy { ActivityGifSplitBinding.inflate(layoutInflater) }

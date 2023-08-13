@@ -7,8 +7,6 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
-import kotlin.concurrent.thread
-import kotlin.math.min
 import me.tasy5kg.cutegif.MyConstants.EXTRA_GIF_URI
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.Toolbox.createFfSafForRead
@@ -19,6 +17,8 @@ import me.tasy5kg.cutegif.Toolbox.logRed
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityGifToVideoBinding
+import kotlin.concurrent.thread
+import kotlin.math.min
 
 class GifToVideoActivity : BaseActivity() {
   private val binding by lazy { ActivityGifToVideoBinding.inflate(layoutInflater) }

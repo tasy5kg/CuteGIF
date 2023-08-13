@@ -7,9 +7,6 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
-import java.io.File
-import kotlin.concurrent.thread
-import kotlin.math.min
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL
 import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_VIDEO_FALLBACK_DIR
@@ -23,6 +20,9 @@ import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.removeFileNameExtension
 import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifVideoFallbackBinding
+import java.io.File
+import kotlin.concurrent.thread
+import kotlin.math.min
 
 class VideoToGifVideoFallbackActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifVideoFallbackBinding.inflate(layoutInflater) }

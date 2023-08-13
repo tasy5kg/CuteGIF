@@ -8,9 +8,6 @@ import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
 import com.arthenica.ffmpegkit.FFprobeKit
-import kotlin.concurrent.thread
-import kotlin.math.ceil
-import kotlin.math.min
 import me.tasy5kg.cutegif.MyConstants.ADD_TEXT_RENDER_PNG_PATH
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.OUTPUT_GIF_TEMP_PATH
@@ -27,9 +24,11 @@ import me.tasy5kg.cutegif.Toolbox.saveToPng
 import me.tasy5kg.cutegif.Toolbox.toEmptyStringIf
 import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifPerformerBinding
+import kotlin.concurrent.thread
+import kotlin.math.ceil
+import kotlin.math.min
 
 class VideoToGifPerformerActivity : BaseActivity() {
-
   private val binding by lazy { ActivityVideoToGifPerformerBinding.inflate(layoutInflater) }
   private var taskThread: Thread? = null
   private var taskQuitOrFailed = false

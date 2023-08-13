@@ -20,7 +20,7 @@ class AppCrashedActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    setSupportActionBar(binding.materialToolbar )
+    setSupportActionBar(binding.materialToolbar)
     setFinishOnTouchOutside(false)
     val stackTraceString = intent.extras!!.getString(EXTRA_STACK_TRACE_STRING)!!
     val problemLog =

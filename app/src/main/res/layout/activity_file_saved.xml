@@ -65,9 +65,9 @@
       android:layout_width="match_parent"
       android:layout_height="256dp"
       android:layout_centerInParent="true"
-      android:layout_marginVertical="12dp"
       android:layout_gravity="center"
       android:layout_marginHorizontal="24dp"
+      android:layout_marginVertical="12dp"
       android:animateLayoutChanges="true" />
 
     <VideoView

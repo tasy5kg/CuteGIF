@@ -19,6 +19,7 @@ object MyConstants {
   val OUTPUT_SPLIT_DIR = "$CACHE_DIR_PATH/split_dir/"
   val VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_DIR = "$CACHE_DIR_PATH/video_to_gif_export_options_preview_dir/"
   val VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_INPUT_FRAME_PATH = "${VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_DIR}input.png"
+
   /** resulting in an action being performed **/
   val HAPTIC_FEEDBACK_TYPE_CONFIRM =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) HapticFeedbackConstants.CONFIRM else HapticFeedbackConstants.LONG_PRESS

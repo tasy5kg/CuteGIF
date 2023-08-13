@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:tools="http://schemas.android.com/tools"
   android:animateLayoutChanges="true"
   android:background="@color/light">
 
@@ -29,9 +29,9 @@
       android:id="@+id/aciv_single_frame_preview"
       android:layout_width="match_parent"
       android:layout_height="256dp"
-      android:layout_marginVertical="12dp"
       android:layout_gravity="center"
       android:layout_marginHorizontal="24dp"
+      android:layout_marginVertical="12dp"
       android:animateLayoutChanges="true" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -170,25 +170,25 @@
     <include layout="@layout/view_divider_horizontal" />
 
     <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/mtv_more_options"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/mtv_more_options"
-      android:paddingHorizontal="24dp"
       android:layout_weight="2"
       android:background="?android:attr/selectableItemBackground"
       android:gravity="center_vertical"
       android:minHeight="48dp"
+      android:paddingHorizontal="24dp"
       android:text="更多选项..."
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/green_dark" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
       android:id="@+id/llc_more_options"
-      android:visibility="gone"
-      tools:visibility="visible"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical">
+      android:orientation="vertical"
+      android:visibility="gone"
+      tools:visibility="visible">
 
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
@@ -295,6 +295,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include layout="@layout/view_divider_horizontal" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

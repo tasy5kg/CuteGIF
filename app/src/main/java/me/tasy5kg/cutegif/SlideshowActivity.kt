@@ -16,10 +16,6 @@ import androidx.core.widget.doAfterTextChanged
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import java.io.File
-import java.io.FileOutputStream
-import kotlin.concurrent.thread
-import kotlin.math.min
 import me.tasy5kg.cutegif.MyConstants.EXTRA_IMAGES_CLIP_DATA
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.IMAGE_FALLBACK_JPG_PATH
@@ -39,6 +35,10 @@ import me.tasy5kg.cutegif.Toolbox.mediaInformation
 import me.tasy5kg.cutegif.Toolbox.toUriList
 import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivitySlideshowBinding
+import java.io.File
+import java.io.FileOutputStream
+import kotlin.concurrent.thread
+import kotlin.math.min
 
 class SlideshowActivity : BaseActivity() {
   private val shortLength = 360 // TODO

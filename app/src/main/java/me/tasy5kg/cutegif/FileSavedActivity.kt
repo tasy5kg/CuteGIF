@@ -13,7 +13,6 @@ import android.view.View.VISIBLE
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import java.util.*
 import me.tasy5kg.cutegif.MyConstants.EXTRA_SAVED_FILE_URI
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_IMAGE_GIF
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_VIDEO_MP4
@@ -24,6 +23,7 @@ import me.tasy5kg.cutegif.Toolbox.mimeType
 import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityFileSavedBinding
+import java.util.Locale
 
 class FileSavedActivity : BaseActivity() {
   private val binding by lazy { ActivityFileSavedBinding.inflate(layoutInflater) }
