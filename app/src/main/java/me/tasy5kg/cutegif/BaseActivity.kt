@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.system.exitProcess
 
-abstract class BaseActivity() : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
   abstract fun onCreateIfEulaAccepted(savedInstanceState: Bundle?)
 
