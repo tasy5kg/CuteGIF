@@ -3,7 +3,7 @@ package me.tasy5kg.cutegif
 import java.io.Serializable
 
 data class TaskBuilderVideoToGif(
-  val inputVideoUriWrapper: Toolbox.UriWrapper,
+  val inputVideoPath: String,
   val trimTime: Pair<Int, Int>?,
   val cropParams: CropParams,
   val resolutionShortLength: Int,

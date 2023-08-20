@@ -20,6 +20,7 @@ import me.tasy5kg.cutegif.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.Toolbox.logRed
 import me.tasy5kg.cutegif.Toolbox.logRedElapsedTime
 import me.tasy5kg.cutegif.Toolbox.onClick
+import me.tasy5kg.cutegif.Toolbox.pathToUri
 import me.tasy5kg.cutegif.Toolbox.saveToPng
 import me.tasy5kg.cutegif.Toolbox.toEmptyStringIf
 import me.tasy5kg.cutegif.Toolbox.videoDuration
@@ -54,17 +55,16 @@ class VideoToGifPerformerActivity : BaseActivity() {
 
   private fun performPart1() {
     with(taskBuilderVideoToGif) {
-      val inputVideoUri = inputVideoUriWrapper.getUri()
       putProgress("正在读取视频", null, null)
       (textRender?.toBitmap(videoWH.first, videoWH.second) ?: Toolbox.generateTransparentBitmap(1, 1)).saveToPng(ADD_TEXT_RENDER_PNG_PATH)
       val trimTimeCommand = when {
         trimTime == null -> ""
         trimTime.first == 0 -> "-ss 0ms -to ${trimTime.second}ms "
-        else -> "-ss ${videoKeyFramesTimestampList(inputVideoUri).findLast { it <= trimTime.first }}ms -to ${trimTime.second}ms "
+        else -> "-ss ${videoKeyFramesTimestampList(pathToUri(inputVideoPath)).findLast { it <= trimTime.first }}ms -to ${trimTime.second}ms "
       }
       val commandCreatePalette =
         "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -skip_frame nokey $trimTimeCommand" +
-            "-i ${inputVideoUri.createFfSafForRead()} " +
+            "-i $inputVideoPath " +
             "-i $ADD_TEXT_RENDER_PNG_PATH " +
             "-filter_complex overlay=0:0,${cropParams.toFFmpegCropCommand()}" +
             "${resolutionParams(cropParams, resolutionShortLength)}," +
@@ -83,15 +83,13 @@ class VideoToGifPerformerActivity : BaseActivity() {
 
   private fun performPart2() {
     with(taskBuilderVideoToGif) {
-      val inputVideoUri = inputVideoUriWrapper.getUri()
       val outputFramesEstimated = ceil(
-        (if (trimTime == null) inputVideoUri.videoDuration()
-        else (trimTime.second - trimTime.first)) * outputFps / outputSpeed / 1000f
+        (if (trimTime == null) pathToUri(inputVideoPath).videoDuration() else (trimTime.second - trimTime.first)) * outputFps / outputSpeed / 1000f
       ).toInt()
       val commandVideoToGif =
         "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN " +
             (if (trimTime == null) "" else "-ss ${trimTime.first}ms -to ${trimTime.second}ms ") +
-            "-i ${inputVideoUri.createFfSafForRead()} -i $ADD_TEXT_RENDER_PNG_PATH -i $PALETTE_PATH " +
+            "-i $inputVideoPath -i $ADD_TEXT_RENDER_PNG_PATH -i $PALETTE_PATH " +
             "-filter_complex \"[0:v] setpts=PTS/$outputSpeed,fps=fps=${outputFps}" +
             "${(",reverse").toEmptyStringIf { !reverse }} [0vPreprocessed];" +
             "[0vPreprocessed][1:v] overlay=0:0,${cropParams.toFFmpegCropCommand()}" +
@@ -112,13 +110,12 @@ class VideoToGifPerformerActivity : BaseActivity() {
 
   private fun performPart3() {
     with(taskBuilderVideoToGif) {
-      val inputVideoUri = inputVideoUriWrapper.getUri()
       putProgress("正在压缩 GIF", null, null)
       logRedElapsedTime("gifsicleLossy") {
         when (Toolbox.gifsicleLossy(lossy, OUTPUT_GIF_TEMP_PATH, null, true)) {
           true -> {
             if (!taskQuitOrFailed) {
-              val outputUri = Toolbox.createNewFile(inputVideoUri, "gif")
+              val outputUri = Toolbox.createNewFile(pathToUri(inputVideoPath), "gif")
               Toolbox.copyFile(OUTPUT_GIF_TEMP_PATH, outputUri, true)
               finish()
               FileSavedActivity.start(this@VideoToGifPerformerActivity, outputUri)

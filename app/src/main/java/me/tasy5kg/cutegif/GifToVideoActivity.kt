@@ -2,19 +2,18 @@ package me.tasy5kg.cutegif
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
-import me.tasy5kg.cutegif.MyConstants.EXTRA_GIF_URI
+import me.tasy5kg.cutegif.MyConstants.EXTRA_GIF_PATH
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
-import me.tasy5kg.cutegif.Toolbox.createFfSafForRead
 import me.tasy5kg.cutegif.Toolbox.createFfSafForWrite
 import me.tasy5kg.cutegif.Toolbox.getExtra
 import me.tasy5kg.cutegif.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.Toolbox.logRed
 import me.tasy5kg.cutegif.Toolbox.onClick
+import me.tasy5kg.cutegif.Toolbox.pathToUri
 import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityGifToVideoBinding
 import kotlin.concurrent.thread
@@ -22,7 +21,7 @@ import kotlin.math.min
 
 class GifToVideoActivity : BaseActivity() {
   private val binding by lazy { ActivityGifToVideoBinding.inflate(layoutInflater) }
-  private val gifUri by lazy { intent.getExtra<Uri>(EXTRA_GIF_URI) }
+  private val inputGifPath by lazy { intent.getExtra<String>(MyConstants.EXTRA_GIF_PATH) }
   private var taskThread: Thread? = null
   private var taskQuitOrFailed = false
 
@@ -41,7 +40,7 @@ class GifToVideoActivity : BaseActivity() {
   private fun performTranscode() {
     keepScreenOn(true)
     val duration = try {
-      gifUri.videoDuration()
+      pathToUri(inputGifPath).videoDuration()
     } catch (_: Exception) {
       0
     }
@@ -49,9 +48,9 @@ class GifToVideoActivity : BaseActivity() {
       quitOrFailed("无法读取 GIF")
       return
     }
-    val videoUri = Toolbox.createNewFile(gifUri, "mp4")
+    val videoUri = Toolbox.createNewFile(pathToUri(inputGifPath), "mp4")
     val command =
-      "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i ${gifUri.createFfSafForRead()} " +
+      "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i $inputGifPath " +
           "-c:v libx264 -crf 23 -preset veryslow -pix_fmt yuv420p " +
           "-vf pad=\"width=ceil(iw/2)*2:height=ceil(ih/2)*2\" " + // reference: https://stackoverflow.com/a/53024964
           "-movflags +faststart " +
@@ -98,9 +97,9 @@ class GifToVideoActivity : BaseActivity() {
   }
 
   companion object {
-    fun start(context: Context, gifUri: Uri) =
+    fun start(context: Context, gifPath: String) =
       context.startActivity(Intent(context, GifToVideoActivity::class.java).apply {
-        putExtra(EXTRA_GIF_URI, gifUri)
+        putExtra(EXTRA_GIF_PATH, gifPath)
       })
   }
 }

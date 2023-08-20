@@ -159,6 +159,7 @@
           android:layout_height="wrap_content"
           android:animateLayoutChanges="true"
           android:enabled="false"
+          app:labelBehavior="floating"
           android:focusable="false"
           app:thumbColor="@color/green_light"
           app:thumbRadius="8dp"

@@ -30,6 +30,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 import androidx.annotation.StringRes
 import androidx.core.graphics.ColorUtils
+import androidx.core.view.ContentInfoCompat
+import androidx.core.view.OnReceiveContentListener
+import androidx.draganddrop.DropHelper
 import androidx.lifecycle.LifecycleEventObserver
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
@@ -39,6 +42,7 @@ import com.google.android.material.slider.RangeSlider
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH
+import me.tasy5kg.cutegif.MyConstants.INPUT_FILE_DIR
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
@@ -72,6 +76,20 @@ object Toolbox {
         lambda(this)
       }
     }
+
+  inline fun View.enableDropFile(activity: Activity, mimeType: String, crossinline onReceiveContentListener: (Uri) -> Unit) {
+    DropHelper.configureView(activity, this, arrayOf(mimeType), OnReceiveContentListener { _, payload ->
+      if (payload.source == ContentInfoCompat.SOURCE_DRAG_AND_DROP &&
+        payload.clip.itemCount == 1 &&
+        payload.clip.description.getMimeType(0).contains(mimeType.replace("*", ""))
+      ) {
+        onReceiveContentListener(payload.clip.getItemAt(0).uri)
+        return@OnReceiveContentListener null
+      } else {
+        return@OnReceiveContentListener payload
+      }
+    })
+  }
 
   // return elapsed time in nanoseconds
   inline fun elapsedTime(crossinline lambda: () -> Unit): Long {
@@ -163,6 +181,8 @@ object Toolbox {
 
   fun <K, V> LinkedHashMap<K, V>.getKeyByValue(value: V): K =
     this.filter { it.value == value }.keys.first()
+
+  fun pathToUri(path: String) = Uri.fromFile(File(path))
 
   @SuppressLint("SimpleDateFormat")
   fun getTimeYMDHMS(): String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date(System.currentTimeMillis()))
@@ -274,6 +294,22 @@ object Toolbox {
     if (deleteSrc) {
       srcFile.delete()
     }
+  }
+
+  fun copyFile(srcUri: Uri, destPath: String) {
+    val destFile = File(destPath)
+    val destFileOutputStream = FileOutputStream(destFile)
+    val srcInputStream = appContext.contentResolver.openInputStream(srcUri)!!
+    srcInputStream.copyTo(destFileOutputStream)
+    srcInputStream.close()
+    destFileOutputStream.close()
+  }
+
+  fun Uri.copyToInputFileDir(): String {
+    makeDirEmpty(INPUT_FILE_DIR)
+    val inputFilePath = MyConstants.INPUT_FILE_DIR + this.fileName()
+    copyFile(this, inputFilePath)
+    return inputFilePath
   }
 
   fun Uri.deleteFile() {

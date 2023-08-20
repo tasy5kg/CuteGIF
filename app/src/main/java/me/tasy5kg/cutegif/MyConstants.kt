@@ -11,7 +11,7 @@ object MyConstants {
   private val CACHE_DIR_PATH = appContext.cacheDir.canonicalPath
   val SLIDESHOW_DIR_PATH = "$CACHE_DIR_PATH/slideshow"
   val PALETTE_PATH = "$CACHE_DIR_PATH/palette.png"
-  val VIDEO_TO_GIF_VIDEO_FALLBACK_DIR = "$CACHE_DIR_PATH/video_fallback_dir/"
+  val INPUT_FILE_DIR = "$CACHE_DIR_PATH/input_file_dir/"
   val ADD_TEXT_RENDER_PNG_PATH = "$CACHE_DIR_PATH/add_text.png"
   val IMAGE_FALLBACK_JPG_PATH = "$CACHE_DIR_PATH/fallback.jpg"
   val GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH = "$CACHE_DIR_PATH/get_video_single_frame_with_ffmpeg_temp_path.jpg"
@@ -39,7 +39,9 @@ object MyConstants {
   const val EXTRA_CROP_PARAMS_DEFAULT = "EXTRA_CROP_PARAMS_DEFAULT"
   const val EXTRA_TRIM_TIME = "EXTRA_TRIM_TIME"
   const val EXTRA_VIDEO_URI = "EXTRA_VIDEO_URI"
+  const val EXTRA_VIDEO_PATH = "EXTRA_VIDEO_PATH"
   const val EXTRA_GIF_URI = "EXTRA_GIF_URI"
+  const val EXTRA_GIF_PATH = "EXTRA_GIF_PATH"
   const val EXTRA_STACK_TRACE_STRING = "EXTRA_STACK_TRACE_STRING"
   const val EXTRA_TASK_BUILDER = "EXTRA_TASK_BUILDER"
   const val EXTRA_IMAGES_CLIP_DATA = "EXTRA_IMAGES_CLIP_DATA"

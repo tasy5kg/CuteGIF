@@ -14,6 +14,7 @@ import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_DIR
 import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
 import me.tasy5kg.cutegif.Toolbox.onClick
+import me.tasy5kg.cutegif.Toolbox.pathToUri
 import me.tasy5kg.cutegif.Toolbox.saveToPng
 import me.tasy5kg.cutegif.databinding.DialogFragmentVideoToGifExportOptionsBinding
 import java.io.File
@@ -60,7 +61,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     }
 
     binding.mbClose.onClick { dismiss() }
-    frame = Toolbox.getVideoSingleFrame(videoToGifActivity.inputVideoUri, videoToGifActivity.videoView.currentPosition.toLong())
+    frame = Toolbox.getVideoSingleFrame(pathToUri( videoToGifActivity.inputVideoPath), videoToGifActivity.videoView.currentPosition.toLong())
     // Merge the text layer with the frame
     Canvas(frame).drawBitmap(videoToGifActivity.textRender?.toBitmap(frame.width, frame.height) ?: Toolbox.generateTransparentBitmap(1, 1), 0f, 0f, null)
     // Crop

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.view.View.GONE
@@ -16,8 +15,8 @@ import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.google.android.material.radiobutton.MaterialRadioButton
 import me.tasy5kg.cutegif.MyConstants.EXTRA_TEXT_RENDER
+import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_PATH
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_POSITION
-import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_URI
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_WH
 import me.tasy5kg.cutegif.TextRender.Companion.FONT_LIST
 import me.tasy5kg.cutegif.Toolbox.constraintBy
@@ -25,6 +24,7 @@ import me.tasy5kg.cutegif.Toolbox.flipVisibility
 import me.tasy5kg.cutegif.Toolbox.getB
 import me.tasy5kg.cutegif.Toolbox.getExtra
 import me.tasy5kg.cutegif.Toolbox.onClick
+import me.tasy5kg.cutegif.Toolbox.pathToUri
 import me.tasy5kg.cutegif.databinding.ActivityAddText2Binding
 import kotlin.math.abs
 import kotlin.math.pow
@@ -43,10 +43,10 @@ class AddTextActivity : BaseActivity() {
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(false)
-    val videoUri = intent.getExtra<Uri>(EXTRA_VIDEO_URI)
+    val videoPath = intent.getExtra<String>(EXTRA_VIDEO_PATH)
     val videoPosition = intent.getExtra<Long>(EXTRA_VIDEO_POSITION)
     textRender = intent.getExtra(EXTRA_TEXT_RENDER)
-    frame = Toolbox.getVideoSingleFrame(videoUri, videoPosition)
+    frame = Toolbox.getVideoSingleFrame(pathToUri(videoPath), videoPosition)
     val videoWH = intent.getExtra<Pair<Int, Int>>(EXTRA_VIDEO_WH)
     binding.acivFrame.setImageBitmap(
       Toolbox.generateTransparentBitmap(
@@ -78,7 +78,6 @@ class AddTextActivity : BaseActivity() {
     binding.tiet.apply {
       setText(textRender.content)
       selectAll()
-      //  requestFocus()
       gravity = textRender.gravity
       addTextChangedListener { updateTextRender(content = binding.tiet.text.toString()) }
     }
@@ -289,13 +288,13 @@ class AddTextActivity : BaseActivity() {
 
     fun startIntent(
       context: Context,
-      videoUri: Uri,
+      videoPath: String,
       videoPosition: Long,
       textRender: TextRender?,
       videoWH: Pair<Int, Int>,
     ): Intent {
       return Intent(context, AddTextActivity::class.java)
-        .putExtra(EXTRA_VIDEO_URI, videoUri)
+        .putExtra(EXTRA_VIDEO_PATH, videoPath)
         .putExtra(EXTRA_VIDEO_POSITION, videoPosition)
         .putExtra(EXTRA_TEXT_RENDER, textRender ?: TextRender.DEFAULT)
         .putExtra(EXTRA_VIDEO_WH, videoWH)
