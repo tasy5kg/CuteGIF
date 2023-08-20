@@ -101,37 +101,23 @@ class VideoToGifActivity : BaseActivity() {
     VideoToGifPerformerActivity.start(this@VideoToGifActivity, createTaskBuilderBase())
   }
 
-  private fun createTaskBuilderBase(): TaskBuilderVideoToGif {
-    val trimTime = with(rangeSlider) {
-      if ((values[0] * 100).toInt() == 0 && (values[1] * 100).toInt() == videoView.duration)
-        null
-      else ((values[0] * 100).toInt() to (values[1] * 100).toInt())
-    }
-    val outputSpeed = playbackSpeed
-    val outputFps = videoToGifExportOptionsDialogFragment.getFramerateValue()
-    val colorQuality = videoToGifExportOptionsDialogFragment.getColorQualityValue()
-    val reverse = videoToGifExportOptionsDialogFragment.getReverseValue()
-    val textRender = textRender
-    val resolutionShortLength = videoToGifExportOptionsDialogFragment.getImageResolutionValue()
-    val lossy = videoToGifExportOptionsDialogFragment.getLossyValue()
-    val finalDelay = videoToGifExportOptionsDialogFragment.getFinalDelayValue()
-    return TaskBuilderVideoToGif(
-      inputVideoPath = inputVideoPath,
-      trimTime = trimTime,
-      cropParams = cropParams,
-      resolutionShortLength = resolutionShortLength,
-      outputSpeed = outputSpeed,
-      outputFps = outputFps,
-      colorQuality = colorQuality,
-      reverse = reverse,
-      textRender = textRender,
-      lossy = lossy,
-      videoWH = videoWH,
-      duration = videoView.duration,
-      finalDelay = finalDelay
-    )
-
-  }
+  private fun createTaskBuilderBase() = TaskBuilderVideoToGif(
+    trimTime = with(rangeSlider) {
+      if ((values[0] * 100).toInt() == 0 && (values[1] * 100).toInt() == videoView.duration) null else ((values[0] * 100).toInt() to (values[1] * 100).toInt())
+    },
+    inputVideoPath = inputVideoPath,
+    cropParams = cropParams,
+    resolutionShortLength = videoToGifExportOptionsDialogFragment.getImageResolutionValue(),
+    outputSpeed = playbackSpeed,
+    outputFps = videoToGifExportOptionsDialogFragment.getFramerateValue(),
+    colorQuality = videoToGifExportOptionsDialogFragment.getColorQualityValue(),
+    reverse = videoToGifExportOptionsDialogFragment.getReverseValue(),
+    textRender = textRender,
+    lossy = videoToGifExportOptionsDialogFragment.getLossyValue(),
+    videoWH = videoWH,
+    duration = videoView.duration,
+    finalDelay = videoToGifExportOptionsDialogFragment.getFinalDelayValue()
+  )
 
   private fun mediaPlayerReady(mediaPlayer: MediaPlayer) {
     val notInitializedBefore = !::mMediaPlayer.isInitialized
