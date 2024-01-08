@@ -11,8 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.arthenica.ffmpegkit.FFmpegKit
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.MyConstants.EXTRA_STACK_TRACE_STRING
-import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.databinding.ActivityAppCrashedBinding
+import me.tasy5kg.cutegif.toolbox.Toolbox
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 
 class AppCrashedActivity : AppCompatActivity() {
   private val binding by lazy { ActivityAppCrashedBinding.inflate(layoutInflater) }
@@ -32,10 +33,12 @@ class AppCrashedActivity : AppCompatActivity() {
       Toolbox.copyTextToClipboard(problemLog, "已复制到剪贴板")
 
     }
-    binding.mbExit.setOnClickListener {
+    binding.mbExit.onClick {
       finish()
     }
-    //todo binding.cmivJoinQqGroup.setUpWithLambda { Toolbox.cmivJoinQqGroupLambda(this@AppCrashedActivity) }
+    binding.mtvJoinQqGroup.onClick {
+      Toolbox.cmivJoinQqGroupLambda(this@AppCrashedActivity)
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {

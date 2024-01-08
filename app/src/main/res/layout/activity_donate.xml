@@ -22,7 +22,6 @@
       app:icon="@drawable/ic_baseline_close_24"
       app:iconTint="@color/dark" />
 
-
     <com.google.android.material.textview.MaterialTextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -65,14 +64,30 @@
           android:layout_height="256dp"
           android:layout_centerInParent="true"
           android:layout_gravity="center"
-          android:layout_marginVertical="16dp"
+          android:layout_marginVertical="12dp"
           app:srcCompat="@raw/donate_wechat" />
 
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="注：您可在付款备注处写上您的昵称，以便下次 小萌GIF 更新时，将您的昵称显示在捐赠名单中。"
+          android:text="感谢下列捐赠用户："
+          android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+          android:textIsSelectable="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="4dp"
+          android:text="@string/_donated_users_list"
           android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+          android:textIsSelectable="true" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="您可在付款备注处写上您的昵称，以便下次软件更新时，将您的昵称显示在捐赠名单中。"
+          android:textAppearance="@style/TextAppearance.Material3.BodySmall"
           android:textColor="@color/grey" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
@@ -104,7 +119,7 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="8dp"
           android:layout_weight="1"
-          android:text="保存二维码，并打开微信扫一扫"
+          android:text="保存二维码，打开微信扫一扫捐赠"
           android:textColor="?attr/colorOnSurface" />
       </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

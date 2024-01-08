@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:CustomMenuItemView="http://schemas.android.com/apk/res-auto"
+
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -71,19 +71,24 @@
       android:textIsSelectable="true"
       android:textSize="11sp"
       android:typeface="monospace"
-      tools:text="[Exception Info]\njava.lang.IllegalArgumentException: xxxyyyzzz\n	at me.tasy5kg.cutegif.MainActivity.onCreate$lambda$11(MainActivity.kt:102)\n	at me.tasy5kg.cutegif.MainActivity.$r8$lambda$U2W_aUVSTR2RlR8nCYFJvzdAvMI(Unknown Source:0)\n	at me.tasy5kg.cutegif.MainActivity$$ExternalSyntheticLambda5.onClick(Unknown Source:2)\n	at android.view.View.performClick(View.java:7782)\n	at android.view.View.performClickInternal(View.java:7759)\n	at android.view.View.access$3700(View.java:858)\n	at android.view.View$PerformClick.run(View.java:29188)\n	at android.os.Handler.handleCallback(Handler.java:938)\n	at android.os.Handler.dispatchMessage(Handler.java:99)\n	at android.os.Looper.loopOnce(Looper.java:211)\n	at android.os.Looper.loop(Looper.java:300)\n	at android.app.ActivityThread.main(ActivityThread.java:8291)\n	at java.lang.reflect.Method.invoke(Native Method)\n	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:556)\n	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1049)\n\n[System Info]\nAndroid SDK Version = 31\nSupported ABIs = arm64-v8a,armeabi-v7a,armeabi\nManufacturer = Xiaomi\nBrand = Redmi\nModel = M2012K11AC\nLanguages = zh-CN\nCurrent Timestamp = 1665554993105\nTotal Memory = 7983026176\nAvailable Memory = 3419865088\n\n[Application Info]\nApplication ID = me.tasy5kg.cutegif\nVersion Code = 20221011\nVersion Name = 13.9_debug\nBuild Type = release\nDebug = true\n" />
+      tools:text="[示例错误日志]\n\n[Exception Info]\njava.lang.IllegalArgumentException: xxxyyyzzz\n	at me.tasy5kg.cutegif.MainActivity.onCreate$lambda$11(MainActivity.kt:102)\n	at me.tasy5kg.cutegif.MainActivity.$r8$lambda$U2W_aUVSTR2RlR8nCYFJvzdAvMI(Unknown Source:0)\n	at me.tasy5kg.cutegif.MainActivity$$ExternalSyntheticLambda5.onClick(Unknown Source:2)\n	at android.view.View.performClick(View.java:7782)\n	at android.view.View.performClickInternal(View.java:7759)\n	at android.view.View.access$3700(View.java:858)\n	at android.view.View$PerformClick.run(View.java:29188)\n	at android.os.Handler.handleCallback(Handler.java:938)\n	at android.os.Handler.dispatchMessage(Handler.java:99)\n	at android.os.Looper.loopOnce(Looper.java:211)\n	at android.os.Looper.loop(Looper.java:300)\n	at android.app.ActivityThread.main(ActivityThread.java:8291)\n	at java.lang.reflect.Method.invoke(Native Method)\n	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:556)\n	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1049)\n\n[System Info]\nAndroid SDK Version = 31\nSupported ABIs = arm64-v8a,armeabi-v7a,armeabi\nManufacturer = Xiaomi\nBrand = Redmi\nModel = M2012K11AC\nLanguages = zh-CN\nCurrent Timestamp = 1665554993105\nTotal Memory = 7983026176\nAvailable Memory = 3419865088\n\n[Application Info]\nApplication ID = me.tasy5kg.cutegif\nVersion Code = 20221011\nVersion Name = 13.9_debug\nBuild Type = release\nDebug = true\n" />
 
   </androidx.core.widget.NestedScrollView>
 
   <include layout="@layout/view_divider_horizontal" />
 
-  <me.tasy5kg.cutegif.CustomMenuItemView
-    android:id="@+id/cmiv_join_qq_group"
+  <com.google.android.material.textview.MaterialTextView
+    android:id="@+id/mtv_join_qq_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    CustomMenuItemView:selectedKey="@string/qq_group_id"
-    CustomMenuItemView:subTitle="@string/subscribe_to_releases_send_feedbacks"
-    CustomMenuItemView:title="加入小萌 GIF QQ 群" />
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:minHeight="64dp"
+    android:paddingHorizontal="16dp"
+    android:text="点此加入 QQ 群反馈问题"
+    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
   <include layout="@layout/view_divider_horizontal" />
 

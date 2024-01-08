@@ -3,7 +3,7 @@ package me.tasy5kg.cutegif
 import android.os.Build
 import android.view.HapticFeedbackConstants
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
-import me.tasy5kg.cutegif.Toolbox.appGetString
+import me.tasy5kg.cutegif.toolbox.Toolbox.appGetString
 
 object MyConstants {
 

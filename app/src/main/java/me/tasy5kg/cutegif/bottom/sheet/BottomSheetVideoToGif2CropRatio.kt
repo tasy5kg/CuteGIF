@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import me.tasy5kg.cutegif.MyConstants
 import me.tasy5kg.cutegif.R
-import me.tasy5kg.cutegif.Toolbox.appGetString
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.swapIf
 import me.tasy5kg.cutegif.VideoToGifActivity
 import me.tasy5kg.cutegif.databinding.BottomSheetVideoToGif2CropRatioBinding
+import me.tasy5kg.cutegif.toolbox.Toolbox.appGetString
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.swapIf
 
 class BottomSheetVideoToGif2CropRatio : BottomSheetDialogFragment() {
   private var _binding: BottomSheetVideoToGif2CropRatioBinding? = null

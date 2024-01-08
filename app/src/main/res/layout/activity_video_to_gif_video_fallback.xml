@@ -20,7 +20,7 @@
       android:id="@+id/mtv_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="正在转码视频（0%）"
+      android:text="正在转码视频"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/dark" />
 
@@ -29,7 +29,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:indeterminate="false"
+      android:indeterminate="true"
       app:indicatorColor="@color/green_dark"
       app:trackColor="@color/white" />
 

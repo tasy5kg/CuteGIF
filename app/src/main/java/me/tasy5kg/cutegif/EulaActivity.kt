@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.setupTextViewWithClickablePart
-import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityEulaBinding
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.setupTextViewWithClickablePart
+import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 
 class EulaActivity : AppCompatActivity() {
   private val binding by lazy { ActivityEulaBinding.inflate(layoutInflater) }

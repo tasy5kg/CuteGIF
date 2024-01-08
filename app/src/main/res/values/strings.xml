@@ -119,11 +119,12 @@
   <string name="very_low">很低</string>
   <string name="crop_4_3" translatable="false">4:3</string>
   <string name="crop_16_9" translatable="false">16:9</string>
-  <string name="open_source_license_cute_gif" translatable="false">Copyright 2022 tasy5kg@qq.com\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.</string>
+  <string name="open_source_license_cute_gif" translatable="false">Copyright 2022~2024 tasy5kg@qq.com\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.</string>
   <string name="qq_group_id" translatable="false">729757909</string>
   <string name="email_address_tasy5kg" translatable="false">tasy5kg@qq.com</string>
   <string name="eula_glance_text">欢迎您使用小萌GIF！使用本应用前，请您务必阅读《用户协议》和《隐私政策》。点击“同意”按钮即表示您已阅读并同意前述协议。</string>
   <string name="_user_agreement_">《用户协议》</string>
   <string name="_privacy_policy_">《隐私政策》</string>
   <string name="custom">自定义</string>
+  <string name="_donated_users_list" translatable="false">\@张先森 @禽兽养殖二厂</string>
 </resources>

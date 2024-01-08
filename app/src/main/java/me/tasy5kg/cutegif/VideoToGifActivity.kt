@@ -14,14 +14,15 @@ import androidx.appcompat.content.res.AppCompatResources
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.MyConstants.EXTRA_ADD_TEXT_RENDER
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_PATH
-import me.tasy5kg.cutegif.Toolbox.constraintBy
-import me.tasy5kg.cutegif.Toolbox.getExtra
-import me.tasy5kg.cutegif.Toolbox.newRunnableWithSelf
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.onSliderTouch
 import me.tasy5kg.cutegif.bottom.sheet.BottomSheetVideoToGif2CropRatio
 import me.tasy5kg.cutegif.bottom.sheet.BottomSheetVideoToGif2PlaybackSpeed
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifBinding
+import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoDurationByAndroidSystem
+import me.tasy5kg.cutegif.toolbox.Toolbox.constraintBy
+import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
+import me.tasy5kg.cutegif.toolbox.Toolbox.newRunnableWithSelf
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.onSliderTouch
 import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.roundToLong
@@ -31,6 +32,7 @@ class VideoToGifActivity : BaseActivity() {
   private val bottomSheetVideoToGif2PlaybackSpeed by lazy { BottomSheetVideoToGif2PlaybackSpeed() }
   private val videoToGifExportOptionsDialogFragment by lazy { VideoToGifExportOptionsDialogFragment() }
   private val bottomSheetVideoToGif2CropRatio by lazy { BottomSheetVideoToGif2CropRatio() }
+  private val videoDuration by lazy { getVideoDurationByAndroidSystem(inputVideoPath) }
   val cropParams get() = CropParams(binding.cropImageView.cropRect!!)
   val inputVideoPath by lazy { intent.getExtra<String>(EXTRA_VIDEO_PATH) }
 
@@ -76,8 +78,12 @@ class VideoToGifActivity : BaseActivity() {
     binding.rl.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
       binding.cropImageView.layoutParams.height = MATCH_PARENT
     }
-
     setContentView(binding.root)
+    if (videoDuration == null) {
+      VideoToGifVideoFallbackActivity.start(this@VideoToGifActivity, inputVideoPath)
+      finish()
+      return
+    }
     videoView.apply {
       setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE)
       setOnErrorListener { _, _, _ ->
@@ -86,7 +92,9 @@ class VideoToGifActivity : BaseActivity() {
         finish()
         return@setOnErrorListener true
       }
-      setOnPreparedListener { mediaPlayerReady(it) }
+      setOnPreparedListener {
+        mediaPlayerReady(it)
+      }
       setVideoPath(inputVideoPath)
     }
     binding.mbClose.setOnClickListener { finish() }
@@ -133,6 +141,7 @@ class VideoToGifActivity : BaseActivity() {
         setImageBitmap(Bitmap.createBitmap(videoWH.first, videoWH.second, Bitmap.Config.ALPHA_8).apply { eraseColor(Color.TRANSPARENT) })
         cropRect = wholeImageRect
       }
+
       rangeSlider.apply {
         valueFrom = 0f
         valueTo = videoView.duration / 100f

@@ -19,13 +19,15 @@ import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_PATH
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_POSITION
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_WH
 import me.tasy5kg.cutegif.TextRender.Companion.FONT_LIST
-import me.tasy5kg.cutegif.Toolbox.constraintBy
-import me.tasy5kg.cutegif.Toolbox.flipVisibility
-import me.tasy5kg.cutegif.Toolbox.getB
-import me.tasy5kg.cutegif.Toolbox.getExtra
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.pathToUri
 import me.tasy5kg.cutegif.databinding.ActivityAddText2Binding
+import me.tasy5kg.cutegif.toolbox.MediaTools.generateTransparentBitmap
+import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoSingleFrame
+import me.tasy5kg.cutegif.toolbox.Toolbox
+import me.tasy5kg.cutegif.toolbox.Toolbox.constraintBy
+import me.tasy5kg.cutegif.toolbox.Toolbox.flipVisibility
+import me.tasy5kg.cutegif.toolbox.Toolbox.getB
+import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -46,10 +48,10 @@ class AddTextActivity : BaseActivity() {
     val videoPath = intent.getExtra<String>(EXTRA_VIDEO_PATH)
     val videoPosition = intent.getExtra<Long>(EXTRA_VIDEO_POSITION)
     textRender = intent.getExtra(EXTRA_TEXT_RENDER)
-    frame = Toolbox.getVideoSingleFrame(pathToUri(videoPath), videoPosition)
+    frame = getVideoSingleFrame(videoPath, videoPosition)
     val videoWH = intent.getExtra<Pair<Int, Int>>(EXTRA_VIDEO_WH)
     binding.acivFrame.setImageBitmap(
-      Toolbox.generateTransparentBitmap(
+      generateTransparentBitmap(
         videoWH.first,
         videoWH.second
       )

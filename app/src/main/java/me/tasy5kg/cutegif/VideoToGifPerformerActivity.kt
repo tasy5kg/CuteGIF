@@ -2,29 +2,32 @@ package me.tasy5kg.cutegif
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
-import com.arthenica.ffmpegkit.FFprobeKit
 import me.tasy5kg.cutegif.MyConstants.ADD_TEXT_RENDER_PNG_PATH
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.OUTPUT_GIF_TEMP_PATH
 import me.tasy5kg.cutegif.MyConstants.PALETTE_PATH
 import me.tasy5kg.cutegif.MyConstants.TASK_BUILDER_VIDEO_TO_GIF
-import me.tasy5kg.cutegif.Toolbox.createFfSafForRead
-import me.tasy5kg.cutegif.Toolbox.formatFileSize
-import me.tasy5kg.cutegif.Toolbox.getExtra
-import me.tasy5kg.cutegif.Toolbox.keepScreenOn
-import me.tasy5kg.cutegif.Toolbox.logRed
-import me.tasy5kg.cutegif.Toolbox.logRedElapsedTime
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.pathToUri
-import me.tasy5kg.cutegif.Toolbox.saveToPng
-import me.tasy5kg.cutegif.Toolbox.toEmptyStringIf
-import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifPerformerBinding
+import me.tasy5kg.cutegif.toolbox.FileTools
+import me.tasy5kg.cutegif.toolbox.FileTools.copyFile
+import me.tasy5kg.cutegif.toolbox.FileTools.createNewFile
+import me.tasy5kg.cutegif.toolbox.FileTools.formattedFileSize
+import me.tasy5kg.cutegif.toolbox.MediaTools.generateTransparentBitmap
+import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoDurationMsByFFmpeg
+import me.tasy5kg.cutegif.toolbox.MediaTools.gifsicleLossy
+import me.tasy5kg.cutegif.toolbox.MediaTools.saveToPng
+import me.tasy5kg.cutegif.toolbox.MediaTools.videoKeyFramesTimestampList
+import me.tasy5kg.cutegif.toolbox.Toolbox
+import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
+import me.tasy5kg.cutegif.toolbox.Toolbox.keepScreenOn
+import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
+import me.tasy5kg.cutegif.toolbox.Toolbox.logRedElapsedTime
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.toEmptyStringIf
 import kotlin.concurrent.thread
 import kotlin.math.ceil
 import kotlin.math.min
@@ -56,11 +59,11 @@ class VideoToGifPerformerActivity : BaseActivity() {
   private fun performPart1() {
     with(taskBuilderVideoToGif) {
       putProgress("正在读取视频", null, null)
-      (textRender?.toBitmap(videoWH.first, videoWH.second) ?: Toolbox.generateTransparentBitmap(1, 1)).saveToPng(ADD_TEXT_RENDER_PNG_PATH)
+      (textRender?.toBitmap(videoWH.first, videoWH.second) ?: generateTransparentBitmap(1, 1)).saveToPng(ADD_TEXT_RENDER_PNG_PATH)
       val trimTimeCommand = when {
         trimTime == null -> ""
         trimTime.first == 0 -> "-ss 0ms -to ${trimTime.second}ms "
-        else -> "-ss ${videoKeyFramesTimestampList(pathToUri(inputVideoPath)).findLast { it <= trimTime.first }}ms -to ${trimTime.second}ms "
+        else -> "-ss ${videoKeyFramesTimestampList(inputVideoPath).findLast { it <= trimTime.first }}ms -to ${trimTime.second}ms "
       }
       val commandCreatePalette =
         "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -skip_frame nokey $trimTimeCommand" +
@@ -84,7 +87,7 @@ class VideoToGifPerformerActivity : BaseActivity() {
   private fun performPart2() {
     with(taskBuilderVideoToGif) {
       val outputFramesEstimated = ceil(
-        (if (trimTime == null) pathToUri(inputVideoPath).videoDuration() else (trimTime.second - trimTime.first)) * outputFps / outputSpeed / 1000f
+        (if (trimTime == null) getVideoDurationMsByFFmpeg(inputVideoPath)!! else (trimTime.second - trimTime.first)) * outputFps / outputSpeed / 1000f
       ).toInt()
       val commandVideoToGif =
         "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN " +
@@ -112,11 +115,11 @@ class VideoToGifPerformerActivity : BaseActivity() {
     with(taskBuilderVideoToGif) {
       putProgress("正在压缩 GIF", null, null)
       logRedElapsedTime("gifsicleLossy") {
-        when (Toolbox.gifsicleLossy(lossy, OUTPUT_GIF_TEMP_PATH, null, true)) {
+        when (gifsicleLossy(lossy, OUTPUT_GIF_TEMP_PATH, null, true)) {
           true -> {
             if (!taskQuitOrFailed) {
-              val outputUri = Toolbox.createNewFile(pathToUri(inputVideoPath), "gif")
-              Toolbox.copyFile(OUTPUT_GIF_TEMP_PATH, outputUri, true)
+              val outputUri = createNewFile(FileTools.FileName(inputVideoPath).nameWithoutExtension, "gif")
+            copyFile(OUTPUT_GIF_TEMP_PATH, outputUri, true)
               finish()
               FileSavedActivity.start(this@VideoToGifPerformerActivity, outputUri)
             }
@@ -161,7 +164,7 @@ class VideoToGifPerformerActivity : BaseActivity() {
         }
       }
       binding.mtvTitle.text =
-        stateText + if (fileSize == null) "..." else "（${fileSize.formatFileSize()}）"
+        stateText + if (fileSize == null) "..." else "（${fileSize.formattedFileSize()}）"
     }
   }
 
@@ -186,14 +189,5 @@ class VideoToGifPerformerActivity : BaseActivity() {
       context.startActivity(Intent(context, VideoToGifPerformerActivity::class.java).apply {
         putExtra(TASK_BUILDER_VIDEO_TO_GIF, taskBuilderVideoToGif)
       })
-    // Slow operation: this function may takes at least 5s.
-
-    private fun videoKeyFramesTimestampList(videoUri: Uri) =
-      FFprobeKit.execute(
-        "-loglevel error -skip_frame nokey -select_streams v:0 -show_entries frame=pts_time ${videoUri.createFfSafForRead()}"
-      ).allLogsAsString
-        .split("\n")
-        .filter { it.startsWith("pts_time=") }
-        .map { ((it.split('=')[1]).toFloat() * 1000f).toInt() }
   }
 }

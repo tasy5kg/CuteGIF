@@ -2,7 +2,7 @@ package me.tasy5kg.cutegif.task.builder
 
 import me.tasy5kg.cutegif.CropParams
 import me.tasy5kg.cutegif.TextRender
-import me.tasy5kg.cutegif.Toolbox
+import me.tasy5kg.cutegif.toolbox.Toolbox
 import java.io.Serializable
 
 data class TaskBuilderVideoToGif(

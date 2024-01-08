@@ -9,12 +9,13 @@ import android.view.HapticFeedbackConstants
 import android.view.View
 import com.arthenica.ffmpegkit.FFmpegKit
 import me.tasy5kg.cutegif.MyConstants.OUTPUT_SPLIT_DIR
-import me.tasy5kg.cutegif.Toolbox.getExtra
-import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.pathToUri
-import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityGifSplitBinding
+import me.tasy5kg.cutegif.toolbox.FileTools.copyFile
+import me.tasy5kg.cutegif.toolbox.FileTools.createNewFile
+import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 import java.io.File
 
 class GifSplitActivity : BaseActivity() {
@@ -24,8 +25,8 @@ class GifSplitActivity : BaseActivity() {
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     binding.mbClose.onClick { finish() }
-    binding.mbSliderMinus.onClick { if (binding.slider.value > binding.slider.valueFrom)binding.slider.value-- }
-    binding.mbSliderPlus.onClick { if (binding.slider.value < binding.slider.valueTo)binding.slider.value++ }
+    binding.mbSliderMinus.onClick { if (binding.slider.value > binding.slider.valueFrom) binding.slider.value-- }
+    binding.mbSliderPlus.onClick { if (binding.slider.value < binding.slider.valueTo) binding.slider.value++ }
     makeDirEmpty(OUTPUT_SPLIT_DIR)
     val mlo = mutableListOf<Bitmap>()
     FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i $inputGifPath $OUTPUT_SPLIT_DIR%05d.png")
@@ -44,9 +45,9 @@ class GifSplitActivity : BaseActivity() {
     }
     binding.aciv.setImageBitmap(mlo[0])
     binding.mbSave.onClick {
-      Toolbox.copyFile(
+      copyFile(
         "$OUTPUT_SPLIT_DIR${String.format("%05d", binding.slider.value.toInt())}.png",
-        Toolbox.createNewFile(pathToUri(inputGifPath), "png")
+        createNewFile(inputGifPath, "png")
       )
       toast("截图已保存至相册")
       binding.view.apply {

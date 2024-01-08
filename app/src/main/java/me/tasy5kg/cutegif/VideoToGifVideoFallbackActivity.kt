@@ -9,16 +9,17 @@ import com.arthenica.ffmpegkit.FFmpegKitConfig
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_PATH
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL
 import me.tasy5kg.cutegif.MyConstants.INPUT_FILE_DIR
-import me.tasy5kg.cutegif.Toolbox.getExtra
-import me.tasy5kg.cutegif.Toolbox.keepScreenOn
-import me.tasy5kg.cutegif.Toolbox.logRed
-import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.pathToUri
-import me.tasy5kg.cutegif.Toolbox.videoDuration
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifVideoFallbackBinding
+import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoDurationMsByFFmpeg
+import me.tasy5kg.cutegif.toolbox.Toolbox
+import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
+import me.tasy5kg.cutegif.toolbox.Toolbox.keepScreenOn
+import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import kotlin.concurrent.thread
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 class VideoToGifVideoFallbackActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifVideoFallbackBinding.inflate(layoutInflater) }
@@ -40,15 +41,7 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
 
   private fun performFallback() {
     keepScreenOn(true)
-    val duration = try {
-      pathToUri(inputVideoPath).videoDuration()
-    } catch (e: Exception) {
-      0
-    }
-    if (duration == 0) {
-      quitOrFailed("无法读取视频")
-      return
-    }
+    val duration = getVideoDurationMsByFFmpeg(inputVideoPath)
     val fallbackMp4Path = "${inputVideoPath}_fallback.mp4"
     val command = "$FFMPEG_COMMAND_PREFIX_FOR_ALL " +
         "-i $inputVideoPath -c:v libx264 -preset:v ultrafast -crf 17 -pix_fmt yuv420p -c:a aac -b:a 128k -y $fallbackMp4Path"
@@ -71,10 +64,13 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
       {
         logRed("logcallback", it.message.toString())
       }, {
-        val progress = min(it.time * 100 / duration, 99)
-        runOnUiThread {
-          binding.mtvTitle.text = "正在转码视频（$progress%）"
-          binding.linearProgressIndicator.setProgress(progress, true)
+        if (duration != null) {
+          val progress = min((it.time * 100 / duration).roundToInt(), 99)
+          runOnUiThread {
+            binding.mtvTitle.text = "正在转码视频（$progress%）"
+            binding.linearProgressIndicator.isIndeterminate = false
+            binding.linearProgressIndicator.setProgress(progress, true)
+          }
         }
       }
     )
@@ -98,6 +94,6 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
 
   companion object {
     fun start(context: Context, inputVideoPath: String) =
-      context.startActivity(Intent(context, VideoToGifVideoFallbackActivity::class.java).putExtra(MyConstants.EXTRA_VIDEO_PATH, inputVideoPath))
+      context.startActivity(Intent(context, VideoToGifVideoFallbackActivity::class.java).putExtra(EXTRA_VIDEO_PATH, inputVideoPath))
   }
 }

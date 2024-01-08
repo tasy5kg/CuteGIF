@@ -16,13 +16,13 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import me.tasy5kg.cutegif.MyConstants.EXTRA_SAVED_FILE_URI
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_IMAGE_GIF
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_VIDEO_MP4
-import me.tasy5kg.cutegif.Toolbox.deleteFile
-import me.tasy5kg.cutegif.Toolbox.fileSize
-import me.tasy5kg.cutegif.Toolbox.formatFileSize
-import me.tasy5kg.cutegif.Toolbox.mimeType
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.toast
 import me.tasy5kg.cutegif.databinding.ActivityFileSavedBinding
+import me.tasy5kg.cutegif.toolbox.FileTools.deleteFile
+import me.tasy5kg.cutegif.toolbox.FileTools.fileSize
+import me.tasy5kg.cutegif.toolbox.FileTools.formattedFileSize
+import me.tasy5kg.cutegif.toolbox.FileTools.mimeType
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 import java.util.Locale
 
 class FileSavedActivity : BaseActivity() {
@@ -67,7 +67,7 @@ class FileSavedActivity : BaseActivity() {
         throw NotImplementedError()
       }
     }
-    binding.mtvFileSize.text = "文件大小：${fileUri.fileSize().formatFileSize()}"
+    binding.mtvFileSize.text = "文件大小：${fileUri.fileSize().formattedFileSize()}"
     binding.mbDone.onClick { finish() }
     binding.mbBack.onClick { finish() }
     binding.mbDelete.onClick {

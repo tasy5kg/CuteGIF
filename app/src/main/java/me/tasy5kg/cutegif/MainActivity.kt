@@ -14,11 +14,11 @@ import me.tasy5kg.cutegif.MyConstants.INPUT_FILE_DIR
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_13
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_DOCUMENT
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_GALLERY
-import me.tasy5kg.cutegif.Toolbox.copyToInputFileDir
-import me.tasy5kg.cutegif.Toolbox.enableDropFile
-import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
-import me.tasy5kg.cutegif.Toolbox.onClick
 import me.tasy5kg.cutegif.databinding.ActivityMainBinding
+import me.tasy5kg.cutegif.toolbox.FileTools.copyToInputFileDir
+import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.Toolbox.enableDropFile
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 
 class MainActivity : BaseActivity() {
   private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }

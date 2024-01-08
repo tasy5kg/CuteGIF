@@ -174,16 +174,6 @@
     android:orientation="horizontal">
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_donate_alipay"
-      style="@style/Widget.Material3.Button.OutlinedButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:text="支付宝捐赠"
-      android:textColor="?attr/colorOnSurface"
-      android:visibility="gone" />
-
-    <com.google.android.material.button.MaterialButton
       android:id="@+id/mb_done"
       style="@style/Widget.Material3.Button"
       android:layout_width="match_parent"

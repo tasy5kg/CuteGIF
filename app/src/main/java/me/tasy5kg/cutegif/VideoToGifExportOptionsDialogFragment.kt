@@ -12,11 +12,13 @@ import androidx.fragment.app.DialogFragment
 import com.arthenica.ffmpegkit.FFmpegKit
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_EXPORT_OPTIONS_PREVIEW_DIR
-import me.tasy5kg.cutegif.Toolbox.makeDirEmpty
-import me.tasy5kg.cutegif.Toolbox.onClick
-import me.tasy5kg.cutegif.Toolbox.pathToUri
-import me.tasy5kg.cutegif.Toolbox.saveToPng
 import me.tasy5kg.cutegif.databinding.DialogFragmentVideoToGifExportOptionsBinding
+import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.MediaTools.generateTransparentBitmap
+import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoSingleFrame
+import me.tasy5kg.cutegif.toolbox.MediaTools.gifsicleLossy
+import me.tasy5kg.cutegif.toolbox.MediaTools.saveToPng
+import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import java.io.File
 
 class VideoToGifExportOptionsDialogFragment : DialogFragment() {
@@ -61,9 +63,9 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     }
 
     binding.mbClose.onClick { dismiss() }
-    frame = Toolbox.getVideoSingleFrame(pathToUri( videoToGifActivity.inputVideoPath), videoToGifActivity.videoView.currentPosition.toLong())
+    frame = getVideoSingleFrame(videoToGifActivity.inputVideoPath, videoToGifActivity.videoView.currentPosition.toLong())
     // Merge the text layer with the frame
-    Canvas(frame).drawBitmap(videoToGifActivity.textRender?.toBitmap(frame.width, frame.height) ?: Toolbox.generateTransparentBitmap(1, 1), 0f, 0f, null)
+    Canvas(frame).drawBitmap(videoToGifActivity.textRender?.toBitmap(frame.width, frame.height) ?: generateTransparentBitmap(1, 1), 0f, 0f, null)
     // Crop
     frame = Bitmap.createBitmap(
       frame,
@@ -96,7 +98,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
         }
         FFmpegKit.execute("$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i $previewImagePath_short -i $previewPalettePath_short_color -filter_complex \"[0:v][1:v] paletteuse=dither=bayer\" -y $previewImagePath_short_color")
       }
-      Toolbox.gifsicleLossy(lossy, previewImagePath_short_color, previewImagePath_short_color_lossy, false)
+     gifsicleLossy(lossy, previewImagePath_short_color, previewImagePath_short_color_lossy, false)
       previewBitmapMap["${shortLength}_${colorQualityReduced}_${lossy}"] = BitmapFactory.decodeFile(previewImagePath_short_color_lossy)
     }
     binding.acivSingleFramePreview.setImageBitmap(previewBitmapMap["${shortLength}_${colorQualityReduced}_${lossy}"])
@@ -113,10 +115,10 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
   }
 
   /** The interval between every loops, in centiseconds. (1 == 0.01 sec) */
-  fun getFinalDelayValue() = when (binding.mcbFinalDelay.isChecked) {
+  fun getFinalDelayValue() = -1/*TODO when (binding.mcbFinalDelay.isChecked) {
     true -> 50 // 0.5 sec
     false -> -1 // no final delay
-  }
+  }*/
 
   fun getImageResolutionValue() = binding.sliderResolution.value.toInt()
 
@@ -136,7 +138,8 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     else -> throw IllegalArgumentException()
   }
 
-  fun getReverseValue() = binding.mcbReverseVideo.isChecked
+  // TODO fun getReverseValue() = binding.mcbReverseVideo.isChecked
+  fun getReverseValue() = true
 
   override fun onDestroyView() {
     super.onDestroyView()

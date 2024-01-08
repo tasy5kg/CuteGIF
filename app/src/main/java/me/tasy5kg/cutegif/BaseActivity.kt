@@ -1,7 +1,6 @@
 package me.tasy5kg.cutegif
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.system.exitProcess
 
@@ -24,7 +23,6 @@ abstract class BaseActivity : AppCompatActivity() {
           exitProcess(1)
         }
       }
-      window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
       onCreateIfEulaAccepted(savedInstanceState)
     }
   }
