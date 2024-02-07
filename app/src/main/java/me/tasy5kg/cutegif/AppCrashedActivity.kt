@@ -25,9 +25,7 @@ class AppCrashedActivity : AppCompatActivity() {
     setFinishOnTouchOutside(false)
     val stackTraceString = intent.extras!!.getString(EXTRA_STACK_TRACE_STRING)!!
     val problemLog =
-      "[Exception Info]\n${stackTraceString}\n" +
-          "[System Info]\n${systemInfo()}\n" +
-          "[Application Info]\n${applicationInfo()}"
+      "[Exception Info]\n${stackTraceString}\n" + "[System Info]\n${systemInfo()}\n" + "[Application Info]\n${applicationInfo()}"
     binding.mtvProblemLog.text = problemLog
     binding.mbCopy.onClick {
       Toolbox.copyTextToClipboard(problemLog, "已复制到剪贴板")
@@ -54,11 +52,9 @@ class AppCrashedActivity : AppCompatActivity() {
   }
 
   companion object {
-    fun start(context: Context, stackTraceString: String) =
-      context.startActivity(
-        Intent(context, AppCrashedActivity::class.java)
-          .putExtra(EXTRA_STACK_TRACE_STRING, stackTraceString)
-      )
+    fun start(context: Context, stackTraceString: String) = context.startActivity(
+      Intent(context, AppCrashedActivity::class.java).putExtra(EXTRA_STACK_TRACE_STRING, stackTraceString)
+    )
 
     private fun getMemInfo(): ActivityManager.MemoryInfo {
       val memInfo = ActivityManager.MemoryInfo()
@@ -66,23 +62,12 @@ class AppCrashedActivity : AppCompatActivity() {
       return memInfo
     }
 
-    private fun systemInfo() =
-      "Android SDK Version = ${Build.VERSION.SDK_INT}\n" +
-          "Supported ABIs = ${Build.SUPPORTED_ABIS.joinToString(separator = ",")}\n" +
-          "Manufacturer = ${Build.MANUFACTURER}\n" +
-          "Brand = ${Build.BRAND}\n" +
-          "Model = ${Build.MODEL}\n" +
-          "Languages = ${appContext.resources.configuration.locales.toLanguageTags()}\n" +
-          "Current Timestamp = ${System.currentTimeMillis()}\n" +
-          "Total Memory = ${getMemInfo().totalMem}\n" +
-          "Available Memory = ${getMemInfo().availMem}\n"
+    private fun systemInfo() = "Android SDK Version = ${Build.VERSION.SDK_INT}\n" + "Supported ABIs = ${
+      Build.SUPPORTED_ABIS.joinToString(separator = ",")
+    }\n" + "Manufacturer = ${Build.MANUFACTURER}\n" + "Brand = ${Build.BRAND}\n" + "Model = ${Build.MODEL}\n" + "Languages = ${appContext.resources.configuration.locales.toLanguageTags()}\n" + "Current Timestamp = ${System.currentTimeMillis()}\n" + "Total Memory = ${getMemInfo().totalMem}\n" + "Available Memory = ${getMemInfo().availMem}\n"
 
     private fun applicationInfo() =
-      "Application ID = ${BuildConfig.APPLICATION_ID}\n" +
-          "Version Code = ${BuildConfig.VERSION_CODE}\n" +
-          "Version Name = ${BuildConfig.VERSION_NAME}\n" +
-          "Build Type = ${BuildConfig.BUILD_TYPE}\n" +
-          "Debug = ${BuildConfig.DEBUG}\n"
+      "Application ID = ${BuildConfig.APPLICATION_ID}\n" + "Version Code = ${BuildConfig.VERSION_CODE}\n" + "Version Name = ${BuildConfig.VERSION_NAME}\n" + "Build Type = ${BuildConfig.BUILD_TYPE}\n" + "Debug = ${BuildConfig.DEBUG}\n"
 
     private fun ffmpegInfo() = FFmpegKit.execute("-version").allLogsAsString
   }

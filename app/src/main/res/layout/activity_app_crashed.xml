@@ -9,7 +9,7 @@
   tools:context=".AppCrashedActivity">
 
   <com.google.android.material.appbar.MaterialToolbar
-    android:id="@+id/material_toolbar"
+    android:id="@+id/materialToolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
@@ -50,7 +50,7 @@
       android:layout_weight="1" />
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_copy"
+      android:id="@+id/mbCopy"
       style="@style/Widget.Material3.Button.OutlinedButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
     android:paddingBottom="8dp">
 
     <com.google.android.material.textview.MaterialTextView
-      android:id="@+id/mtv_problem_log"
+      android:id="@+id/mtvProblemLog"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingHorizontal="24dp"
@@ -78,7 +78,7 @@
   <include layout="@layout/view_divider_horizontal" />
 
   <com.google.android.material.textview.MaterialTextView
-    android:id="@+id/mtv_join_qq_group"
+    android:id="@+id/mtvJoinQqGroup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
@@ -93,7 +93,7 @@
   <include layout="@layout/view_divider_horizontal" />
 
   <com.google.android.material.button.MaterialButton
-    android:id="@+id/mb_exit"
+    android:id="@+id/mbExit"
     style="@style/Widget.Material3.Button.OutlinedButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

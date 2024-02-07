@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/light"
+  tools:context=".BottomSheetVideoToGifCropRatio">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/standardBottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="48dp">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:tint="@color/green_light" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:gravity="center_vertical"
+      android:minHeight="64dp"
+      android:orientation="horizontal">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="画面比例"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/mbtgCropRatio"
+        style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:padding="0dp"
+        app:checkedButton="@id/mbCropRatioFree"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mbCropRatioFree"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:text="@string/crop_free" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mbCropRatioSquare"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:text="@string/crop_square" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mbCropRatio43"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:text="@string/crop_4_3" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mbCropRatio169"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:text="@string/crop_16_9" />
+
+      </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

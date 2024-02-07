@@ -32,19 +32,13 @@ class FileSavedActivity : BaseActivity() {
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(false)
-    sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).apply { data = fileUri })
     binding.mtvXxxSavedToGallery.text = fileUri.mimeType()!!.split('/')[1].uppercase(Locale.ROOT) + " 已保存至相册"
     when (fileUri.mimeType()) {
       MIME_TYPE_IMAGE_GIF -> {
         binding.acivPreview.visibility = VISIBLE
         binding.vvPreview.visibility = GONE
-        Glide.with(this)
-          .load(fileUri)
-          .fitCenter()
-          .diskCacheStrategy(DiskCacheStrategy.NONE)
-          .skipMemoryCache(true)
-          .transition(DrawableTransitionOptions.withCrossFade())
-          .into(binding.acivPreview)
+        Glide.with(this).load(fileUri).fitCenter().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
+          .transition(DrawableTransitionOptions.withCrossFade()).into(binding.acivPreview)
       }
 
       MIME_TYPE_VIDEO_MP4 -> {
@@ -103,8 +97,7 @@ class FileSavedActivity : BaseActivity() {
   companion object {
     fun start(context: Context, fileUri: Uri) {
       context.startActivity(
-        Intent(context, FileSavedActivity::class.java)
-          .putExtra(EXTRA_SAVED_FILE_URI, fileUri)
+        Intent(context, FileSavedActivity::class.java).putExtra(EXTRA_SAVED_FILE_URI, fileUri)
       )
     }
   }

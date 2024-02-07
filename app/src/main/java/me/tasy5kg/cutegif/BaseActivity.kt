@@ -10,13 +10,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
   final override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    //  if (!MySettings.getIfEulaLicenseAcceptedLatest()) {
-    if (false) {//TODO
+    if (!MySettings.eulaAccepted) {
       /** Ask user to accept EULA */
       EulaActivity.start(this)
       finish()
+    } else if (BetaEndedActivity.testVersionRemainingDays() < 0) {
+      BetaEndedActivity.start(this)
+      finish()
     } else {
-      if (BuildConfig.DEBUG) {
+      if (BuildConfig.DEBUG || true) {
         /** Show a dialog with logs when app crashed */
         Thread.setDefaultUncaughtExceptionHandler { _, e ->
           AppCrashedActivity.start(this, e.stackTraceToString())

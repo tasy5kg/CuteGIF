@@ -8,47 +8,47 @@
   android:gravity="center_vertical"
   tools:context=".EulaActivity">
 
-  <com.google.android.material.card.MaterialCardView
-    style="@style/Widget.Material3.CardView.Elevated"
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="32dp"
-    app:cardBackgroundColor="@color/light"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="16dp">
+    android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.google.android.material.card.MaterialCardView
+      style="@style/Widget.Material3.CardView.Elevated"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:paddingTop="4dp"
-      tools:context=".EulaActivity">
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginVertical="32dp"
+      app:cardBackgroundColor="@color/light"
+      app:cardCornerRadius="8dp"
+      app:cardElevation="16dp">
 
       <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="12dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="48dp"
-          android:layout_height="48dp"
-          app:srcCompat="@mipmap/ic_launcher" />
+        android:orientation="vertical"
+        android:paddingTop="4dp"
+        tools:context=".EulaActivity">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="12dp"
+          android:layout_marginHorizontal="16dp"
+          android:layout_marginVertical="12dp"
           android:gravity="center_vertical"
-          android:orientation="vertical">
+          android:orientation="horizontal">
+
+          <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:srcCompat="@mipmap/ic_launcher" />
 
           <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
 
             <com.google.android.material.textview.MaterialTextView
               android:layout_width="wrap_content"
@@ -57,68 +57,118 @@
               android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
             <com.google.android.material.textview.MaterialTextView
-              android:id="@+id/mtv_version_info"
+              android:id="@+id/mtvVersionInfo"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
+              android:layout_marginTop="4dp"
               android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
               android:textColor="@color/grey"
               tools:ignore="HardcodedText,TextContrastCheck"
               tools:text="Version X" />
 
           </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <include layout="@layout/view_divider_horizontal" />
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:paddingHorizontal="16dp"
+          android:paddingVertical="12dp">
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="《用户协议》"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textIsSelectable="true"
+            android:textStyle="bold" />
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="欢迎您使用小萌GIF！"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textIsSelectable="true" />
 
           <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="简洁好用的 GIF 工具箱。"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+            android:text="小萌GIF是由沈科光开发的一款开源、无广告、免费使用的GIF处理软件。"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textIsSelectable="true" />
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="免责声明：本软件按原样提供，不提供任何形式的担保。作者不对由于软件使用或其他方式产生的任何损害、索赔或其他责任负责。"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textIsSelectable="true" />
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="《隐私政策》"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textIsSelectable="true"
+            android:textStyle="bold" />
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="本软件不连接网络，不需要任何权限，也不收集任何个人信息。"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textIsSelectable="true" />
+
+          <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtv_please_accept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="请您阅读并同意以上条款，即可开始使用。"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/grey"
+            android:textIsSelectable="true" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-      </androidx.appcompat.widget.LinearLayoutCompat>
 
-      <include layout="@layout/view_divider_horizontal" />
+        <include layout="@layout/view_divider_horizontal" />
 
-      <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_user_agreement_and_privacy_policy_glance"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:maxHeight="128dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp"
-        android:scrollbars="vertical"
-        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-        tools:text="@string/eula_glance_text" />
-
-      <include layout="@layout/view_divider_horizontal" />
-
-      <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp">
-
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/mb_disagree"
-          style="@style/Widget.Material3.Button.OutlinedButton"
-          android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="退出"
-          android:textColor="?attr/colorOnSurface" />
+          android:orientation="horizontal"
+          android:paddingHorizontal="16dp"
+          android:paddingVertical="8dp">
 
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/mb_agree"
-          style="@style/Widget.Material3.Button"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="8dp"
-          android:layout_weight="1"
-          android:text="同意"
-          android:textColor="?attr/colorOnSurface" />
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbDisagree"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退出"
+            android:textColor="?attr/colorOnSurface" />
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbAgree"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="同意"
+            android:textColor="?attr/colorOnSurface" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
       </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-  </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+
+  </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

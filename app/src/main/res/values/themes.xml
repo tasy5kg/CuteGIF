@@ -15,6 +15,8 @@
     <item name="iconTint">@color/dark</item>
     <item name="android:statusBarColor">#191c19</item>
     <item name="colorSurfaceVariant">@color/grey</item>
+    <item name="dialogCornerRadius">8dp</item>
+    <item name="android:windowContentTransitions">true</item>
   </style>
 
 
@@ -35,19 +37,8 @@
     <item name="android:statusBarColor">#191c19</item>
     <item name="dialogCornerRadius">8dp</item>
     <item name="colorSurfaceVariant">@color/grey</item>
+    <item name="android:windowContentTransitions">true</item>
   </style>
-
-  <style name="Theme.CuteGif.MTVCustomMenuItem" parent="Theme.CuteGif">
-    <item name="android:layout_width">0dp</item>
-    <item name="android:layout_height">match_parent</item>
-    <item name="android:layout_weight">1</item>
-    <item name="android:background">?android:attr/selectableItemBackground</item>
-    <item name="android:clickable">true</item>
-    <item name="android:focusable">true</item>
-    <item name="android:gravity">center</item>
-    <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
-  </style>
-
 
   <style name="Theme.CuteGif.SegmentedButton" parent="Widget.Material3.Button.OutlinedButton">
     <item name="android:colorBackground">@color/light</item>
@@ -66,8 +57,38 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_weight">1</item>
     <item name="android:padding">0dp</item>
+    <item name="android:checkable">true</item>
     <item name="cornerRadius">8dp</item>
-    <item name="backgroundTint">@color/button_background_color_selector</item>
+    <item name="backgroundTint">@color/button_and_chip_background_color_selector</item>
+  </style>
+
+  <style name="Theme.CuteGif.Slider">
+    <item name="thumbHeight">28dp</item>
+    <item name="trackColorInactive">@color/green_dark_quarter</item>
+    <item name="labelBehavior">floating</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="Theme.CuteGif.Chip" parent="Widget.Material3.Chip.Filter">
+    <item name="android:colorBackground">@color/light</item>
+    <item name="android:windowLightStatusBar">true</item>
+    <item name="android:textColor">@color/dark</item>
+    <item name="android:textColorHighlight">@color/green_dark</item>
+    <item name="android:textColorLink">@color/green_light</item>
+    <item name="colorPrimary">@color/green_dark</item>
+    <item name="colorOnPrimary">@color/dark</item>
+    <item name="colorSecondary">@color/green_dark</item>
+    <item name="colorOnSecondary">@color/dark</item>
+    <item name="colorOnSurface">@color/dark</item>
+    <item name="colorOutline">@color/dark</item>
+    <item name="iconTint">@color/dark</item>
+    <item name="android:checked">false</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">0dp</item>
+    <item name="cornerRadius">8dp</item>
+    <item name="chipBackgroundColor">@color/button_and_chip_background_color_selector</item>
   </style>
 
   <style name="Theme.CuteGif.MRB.ColorPicker" parent="Theme.CuteGif">
@@ -77,16 +98,6 @@
     <item name="android:checked">false</item>
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
-
   </style>
 
-  <!--  <style name="Theme.CuteGif.ACIV.Help" parent="Theme.CuteGif">
-      <item name="android:layout_width">wrap_content</item>
-      <item name="android:layout_height">wrap_content</item>
-      <item name="android:scaleX">0.75</item>
-      <item name="android:scaleY">0.75</item>
-      <item name="tint">@color/grey</item>
-      <item name="android:clickable">true</item>
-      <item name="android:focusable">true</item>
-    </style>-->
 </resources>

@@ -14,12 +14,12 @@ import me.tasy5kg.cutegif.toolbox.FileTools
 import me.tasy5kg.cutegif.toolbox.FileTools.createNewFile
 import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoDurationMsByFFmpeg
 import me.tasy5kg.cutegif.toolbox.Toolbox
+import me.tasy5kg.cutegif.toolbox.Toolbox.constraintBy
 import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import kotlin.concurrent.thread
-import kotlin.math.min
 import kotlin.math.roundToInt
 
 class GifToVideoActivity : BaseActivity() {
@@ -50,11 +50,8 @@ class GifToVideoActivity : BaseActivity() {
 
     val videoUri = createNewFile(FileTools.FileName(inputGifPath).nameWithoutExtension, "mp4")
     val command =
-      "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i $inputGifPath " +
-          "-c:v libx264 -crf 23 -preset veryslow -pix_fmt yuv420p " +
-          "-vf pad=\"width=ceil(iw/2)*2:height=ceil(ih/2)*2\" " + // reference: https://stackoverflow.com/a/53024964
-          "-movflags +faststart " +
-          FFmpegKitConfig.getSafParameter(appContext, videoUri, "w")!!
+      "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"$inputGifPath\" " + "-c:v libx264 -crf 23 -preset veryslow -pix_fmt yuv420p " + "-vf pad=\"width=ceil(iw/2)*2:height=ceil(ih/2)*2\" " + // reference: https://stackoverflow.com/a/53024964
+        FFmpegKitConfig.getSafParameterForWrite(appContext, videoUri)!!
     logRed("command", command)
     FFmpegKit.executeAsync(command, {
       when {
@@ -68,16 +65,15 @@ class GifToVideoActivity : BaseActivity() {
           finish()
         }
       }
-    },
-      {
-        logRed("logcallback", it.message.toString())
-      }, {
-        val progress = min((it.time * 100 / duration).roundToInt(), 99)
-        runOnUiThread {
-          binding.mtvTitle.text = "正在转换为视频（$progress%）"
-          binding.linearProgressIndicator.setProgress(progress, true)
-        }
-      })
+    }, {
+      logRed("logcallback", it.message.toString())
+    }, {
+      val progress = (it.time * 100 / duration).roundToInt().constraintBy(0..99)
+      runOnUiThread {
+        binding.mtvTitle.text = "正在转换为视频（$progress%）"
+        binding.linearProgressIndicator.setProgress(progress, true)
+      }
+    })
   }
 
   private fun quitOrFailed(toastText: String?) {

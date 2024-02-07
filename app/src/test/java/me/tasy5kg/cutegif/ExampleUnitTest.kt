@@ -15,12 +15,11 @@ class ExampleUnitTest {
     assertEquals("2:03.4", msToMinSecDs(123456L))
   }
 
-  private fun msToMinSecDs(ms: Long) =
-    with(ms / 1000f) {
-      "${(this / 60).toInt()}:${String.format("%02d", (this % 60).toInt())}.${
-        ((this - floor(
-          this
-        )) * 10).toInt()
-      }"
-    }
+  private fun msToMinSecDs(ms: Long) = with(ms / 1000f) {
+    "${(this / 60).toInt()}:${String.format("%02d", (this % 60).toInt())}.${
+      ((this - floor(
+        this
+      )) * 10).toInt()
+    }"
+  }
 }

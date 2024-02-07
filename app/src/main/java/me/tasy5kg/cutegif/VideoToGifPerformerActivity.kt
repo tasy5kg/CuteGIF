@@ -6,37 +6,28 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
-import me.tasy5kg.cutegif.MyConstants.ADD_TEXT_RENDER_PNG_PATH
-import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.OUTPUT_GIF_TEMP_PATH
-import me.tasy5kg.cutegif.MyConstants.PALETTE_PATH
 import me.tasy5kg.cutegif.MyConstants.TASK_BUILDER_VIDEO_TO_GIF
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifPerformerBinding
 import me.tasy5kg.cutegif.toolbox.FileTools
 import me.tasy5kg.cutegif.toolbox.FileTools.copyFile
 import me.tasy5kg.cutegif.toolbox.FileTools.createNewFile
 import me.tasy5kg.cutegif.toolbox.FileTools.formattedFileSize
-import me.tasy5kg.cutegif.toolbox.MediaTools.generateTransparentBitmap
-import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoDurationMsByFFmpeg
-import me.tasy5kg.cutegif.toolbox.MediaTools.gifsicleLossy
-import me.tasy5kg.cutegif.toolbox.MediaTools.saveToPng
-import me.tasy5kg.cutegif.toolbox.MediaTools.videoKeyFramesTimestampList
+import me.tasy5kg.cutegif.toolbox.MediaTools
 import me.tasy5kg.cutegif.toolbox.Toolbox
+import me.tasy5kg.cutegif.toolbox.Toolbox.constraintBy
 import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
-import me.tasy5kg.cutegif.toolbox.Toolbox.logRedElapsedTime
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
-import me.tasy5kg.cutegif.toolbox.Toolbox.toEmptyStringIf
 import kotlin.concurrent.thread
-import kotlin.math.ceil
 import kotlin.math.min
 
 class VideoToGifPerformerActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifPerformerBinding.inflate(layoutInflater) }
   private var taskThread: Thread? = null
   private var taskQuitOrFailed = false
-  private val taskBuilderVideoToGif by lazy {
+  private val taskBuilder by lazy {
     intent.getExtra<TaskBuilderVideoToGif>(
       TASK_BUILDER_VIDEO_TO_GIF
     )
@@ -57,114 +48,63 @@ class VideoToGifPerformerActivity : BaseActivity() {
   }
 
   private fun performPart1() {
-    with(taskBuilderVideoToGif) {
-      putProgress("正在读取视频", null, null)
-      (textRender?.toBitmap(videoWH.first, videoWH.second) ?: generateTransparentBitmap(1, 1)).saveToPng(ADD_TEXT_RENDER_PNG_PATH)
-      val trimTimeCommand = when {
-        trimTime == null -> ""
-        trimTime.first == 0 -> "-ss 0ms -to ${trimTime.second}ms "
-        else -> "-ss ${videoKeyFramesTimestampList(inputVideoPath).findLast { it <= trimTime.first }}ms -to ${trimTime.second}ms "
+    putProgress("正在读取视频", null, null)
+    val command = taskBuilder.commandCreatePalette
+    logRed("commandCreatePalette", command)
+    FFmpegKit.executeAsync(command, { completeCallback ->
+      when {
+        completeCallback.returnCode.isValueSuccess -> performPart2()
+        completeCallback.returnCode.isValueError -> quitOrFailed("出现错误")
       }
-      val commandCreatePalette =
-        "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -skip_frame nokey $trimTimeCommand" +
-            "-i $inputVideoPath " +
-            "-i $ADD_TEXT_RENDER_PNG_PATH " +
-            "-filter_complex overlay=0:0,${cropParams.toFFmpegCropCommand()}" +
-            "${resolutionParams(cropParams, resolutionShortLength)}," +
-            "palettegen=max_colors=${colorQuality}:stats_mode=diff -y $PALETTE_PATH"
-      logRed("commandCreatePalette", commandCreatePalette)
-      FFmpegKit.executeAsync(commandCreatePalette, { completeCallback ->
-        when {
-          completeCallback.returnCode.isValueSuccess -> performPart2()
-          completeCallback.returnCode.isValueError -> quitOrFailed("出现错误")
-        }
-      }, { logCallback ->
-        logRed("logcallback", logCallback.message.toString())
-      }, { _ -> })
-    }
+    }, { logCallback ->
+      logRed("logcallback", logCallback.message.toString())
+    }, { _ -> })
   }
 
   private fun performPart2() {
-    with(taskBuilderVideoToGif) {
-      val outputFramesEstimated = ceil(
-        (if (trimTime == null) getVideoDurationMsByFFmpeg(inputVideoPath)!! else (trimTime.second - trimTime.first)) * outputFps / outputSpeed / 1000f
-      ).toInt()
-      val commandVideoToGif =
-        "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN " +
-            (if (trimTime == null) "" else "-ss ${trimTime.first}ms -to ${trimTime.second}ms ") +
-            "-i $inputVideoPath -i $ADD_TEXT_RENDER_PNG_PATH -i $PALETTE_PATH " +
-            "-filter_complex \"[0:v] setpts=PTS/$outputSpeed,fps=fps=${outputFps}" +
-            "${(",reverse").toEmptyStringIf { !reverse }} [0vPreprocessed];" +
-            "[0vPreprocessed][1:v] overlay=0:0,${cropParams.toFFmpegCropCommand()}" +
-            "${resolutionParams(cropParams, resolutionShortLength)} [videoWithText]; " +
-            "[videoWithText][2:v] paletteuse=dither=bayer\" -final_delay $finalDelay -y $OUTPUT_GIF_TEMP_PATH"
-      logRed("commandVideoToGif", commandVideoToGif)
-      FFmpegKit.executeAsync(commandVideoToGif, { ffmpegVideoToGifSession ->
-        val commandVideoToGifReturnCode = ffmpegVideoToGifSession.returnCode
-        when {
-          commandVideoToGifReturnCode.isValueSuccess -> performPart3()
-          commandVideoToGifReturnCode.isValueError -> quitOrFailed("出现错误")
-        }
-      }, { log -> logRed("logcallback", log.message.toString()) }, {
-        putProgress("正在生成 GIF", it.videoFrameNumber * 100 / outputFramesEstimated, null)
-      })
-    }
+    val command = taskBuilder.commandVideoToGif
+    logRed("commandVideoToGif", command)
+    FFmpegKit.executeAsync(command, { completeCallback ->
+      val returnCode = completeCallback.returnCode
+      when {
+        returnCode.isValueSuccess -> performPart3()
+        returnCode.isValueError -> quitOrFailed("出现错误")
+      }
+    }, { log -> logRed("logcallback", log.message.toString()) }, {
+      putProgress(
+        "正在生成 GIF",
+        it.videoFrameNumber * 100 / taskBuilder.outputFramesEstimated,
+        if (taskBuilder.lossy == null) it.size else null
+      )
+    })
   }
 
   private fun performPart3() {
-    with(taskBuilderVideoToGif) {
-      putProgress("正在压缩 GIF", null, null)
-      logRedElapsedTime("gifsicleLossy") {
-        when (gifsicleLossy(lossy, OUTPUT_GIF_TEMP_PATH, null, true)) {
-          true -> {
-            if (!taskQuitOrFailed) {
-              val outputUri = createNewFile(FileTools.FileName(inputVideoPath).nameWithoutExtension, "gif")
-            copyFile(OUTPUT_GIF_TEMP_PATH, outputUri, true)
-              finish()
-              FileSavedActivity.start(this@VideoToGifPerformerActivity, outputUri)
-            }
-          }
-
-          false -> {
-            quitOrFailed("出现错误")
-          }
-        }
+    with(taskBuilder) {
+      putProgress("正在保存 GIF", null, null)
+      lossy?.let { MediaTools.gifsicleLossy(it, OUTPUT_GIF_TEMP_PATH, null, true) }
+      if (!taskQuitOrFailed) {
+        val outputUri = createNewFile(FileTools.FileName(inputVideoPath).nameWithoutExtension, "gif")
+        copyFile(OUTPUT_GIF_TEMP_PATH, outputUri, true)
+        finish()
+        FileSavedActivity.start(this@VideoToGifPerformerActivity, outputUri)
       }
     }
   }
 
-  private fun resolutionParams(cropParams: CropParams, shortLength: Int): String {
-    val short = cropParams.shortLength()
-    val pixel = min(shortLength, short)
-    return if (shortLength == 0 || shortLength >= short) {
-      ""
-    } else {
-      ",scale=" +
-          if ((cropParams.outW > cropParams.outH)) {
-            "-2:$pixel"
-          } else {
-            "$pixel:-2"
-          } + ":flags=lanczos"
-    }
-  }
 
   private fun putProgress(stateText: String, progress: Int?, fileSize: Long?) {
+    val progressNoLargerThan99 = progress?.constraintBy(0..99)
     runOnUiThread {
-      val progressNoLargerThan99 = progress?.let { min(progress, 99) }
       binding.linearProgressIndicator.apply {
-        when (progressNoLargerThan99) {
-          null -> {
-            isIndeterminate = true
-          }
-
-          else -> {
-            isIndeterminate = false
-            setProgress(min(progressNoLargerThan99, 99), true)
-          }
+        if (progressNoLargerThan99 == null) {
+          isIndeterminate = true
+        } else {
+          isIndeterminate = false
+          setProgress(min(progressNoLargerThan99, 99), true)
         }
       }
-      binding.mtvTitle.text =
-        stateText + if (fileSize == null) "..." else "（${fileSize.formattedFileSize()}）"
+      binding.mtvTitle.text = stateText + if (fileSize == null) "..." else "（${fileSize.formattedFileSize()}）"
     }
   }
 
@@ -185,6 +125,7 @@ class VideoToGifPerformerActivity : BaseActivity() {
   }
 
   companion object {
+
     fun start(context: Context, taskBuilderVideoToGif: TaskBuilderVideoToGif) =
       context.startActivity(Intent(context, VideoToGifPerformerActivity::class.java).apply {
         putExtra(TASK_BUILDER_VIDEO_TO_GIF, taskBuilderVideoToGif)

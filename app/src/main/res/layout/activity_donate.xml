@@ -14,7 +14,7 @@
     android:gravity="center_vertical">
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_back"
+      android:id="@+id/mbBack"
       style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -28,9 +28,9 @@
       android:layout_weight="1"
       android:animateLayoutChanges="true"
       android:gravity="start"
-      android:text="捐赠"
+      android:text="赞赏"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-      android:textColor="@color/grey" />
+      android:textColor="@color/dark" />
 
   </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -56,7 +56,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="如果您喜欢 小萌GIF，还请您向作者捐赠，鼓励作者开发更多好用的软件。感谢您的支持！"
+          android:text="如果您喜欢小萌GIF，还请您赞赏作者，支持作者开发更多好用的软件！"
           android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -70,7 +70,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="感谢下列捐赠用户："
+          android:text="感谢下列赞赏用户："
           android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
           android:textIsSelectable="true" />
 
@@ -86,7 +86,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="您可在付款备注处写上您的昵称，以便下次软件更新时，将您的昵称显示在捐赠名单中。"
+          android:text="您可在付款备注处写上您的昵称，以便下次软件更新时，将您的昵称显示在赞赏名单中。"
           android:textAppearance="@style/TextAppearance.Material3.BodySmall"
           android:textColor="@color/grey" />
 
@@ -105,7 +105,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-          android:id="@+id/mb_close"
+          android:id="@+id/mbClose"
           style="@style/Widget.Material3.Button.OutlinedButton"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -113,13 +113,13 @@
           android:textColor="?attr/colorOnSurface" />
 
         <com.google.android.material.button.MaterialButton
-          android:id="@+id/mb_start_donating"
+          android:id="@+id/mbStartDonating"
           style="@style/Widget.Material3.Button"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="8dp"
           android:layout_weight="1"
-          android:text="保存二维码，打开微信扫一扫捐赠"
+          android:text="保存二维码，打开微信扫一扫"
           android:textColor="?attr/colorOnSurface" />
       </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -43,8 +43,8 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
     keepScreenOn(true)
     val duration = getVideoDurationMsByFFmpeg(inputVideoPath)
     val fallbackMp4Path = "${inputVideoPath}_fallback.mp4"
-    val command = "$FFMPEG_COMMAND_PREFIX_FOR_ALL " +
-        "-i $inputVideoPath -c:v libx264 -preset:v ultrafast -crf 17 -pix_fmt yuv420p -c:a aac -b:a 128k -y $fallbackMp4Path"
+    val command =
+      "$FFMPEG_COMMAND_PREFIX_FOR_ALL " + "-i \"$inputVideoPath\" -c:v libx264 -preset:v ultrafast -crf 17 -pix_fmt yuv420p -c:a aac -b:a 128k -y \"$fallbackMp4Path\""
     logRed("command", command)
     logRed("fallbackMp4Path", fallbackMp4Path)
     FFmpegKit.executeAsync(command, {
@@ -60,20 +60,18 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
           makeDirEmpty(INPUT_FILE_DIR)
         }
       }
-    },
-      {
-        logRed("logcallback", it.message.toString())
-      }, {
-        if (duration != null) {
-          val progress = min((it.time * 100 / duration).roundToInt(), 99)
-          runOnUiThread {
-            binding.mtvTitle.text = "正在转码视频（$progress%）"
-            binding.linearProgressIndicator.isIndeterminate = false
-            binding.linearProgressIndicator.setProgress(progress, true)
-          }
+    }, {
+      logRed("logcallback", it.message.toString())
+    }, {
+      if (duration != null) {
+        val progress = min((it.time * 100 / duration).roundToInt(), 99)
+        runOnUiThread {
+          binding.mtvTitle.text = "正在转码视频（$progress%）"
+          binding.linearProgressIndicator.isIndeterminate = false
+          binding.linearProgressIndicator.setProgress(progress, true)
         }
       }
-    )
+    })
   }
 
   private fun quitOrFailed(toastText: String?) {
@@ -93,7 +91,10 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
   }
 
   companion object {
-    fun start(context: Context, inputVideoPath: String) =
-      context.startActivity(Intent(context, VideoToGifVideoFallbackActivity::class.java).putExtra(EXTRA_VIDEO_PATH, inputVideoPath))
+    fun start(context: Context, inputVideoPath: String) = context.startActivity(
+      Intent(context, VideoToGifVideoFallbackActivity::class.java).putExtra(
+        EXTRA_VIDEO_PATH, inputVideoPath
+      )
+    )
   }
 }

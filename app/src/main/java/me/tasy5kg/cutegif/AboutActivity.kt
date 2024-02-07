@@ -5,14 +5,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import me.tasy5kg.cutegif.databinding.ActivityAboutBinding
-import me.tasy5kg.cutegif.toolbox.Toolbox
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import me.tasy5kg.cutegif.toolbox.Toolbox.setupTextViewWithClickablePart
 
 class AboutActivity : BaseActivity() {
-  val binding by lazy { ActivityAboutBinding.inflate(layoutInflater) }
+  private val binding by lazy { ActivityAboutBinding.inflate(layoutInflater) }
+
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(true)
@@ -29,7 +28,7 @@ class AboutActivity : BaseActivity() {
         }
       )
       addOnButtonCheckedListener { group, checkedId, isChecked ->
-        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+        performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
         if (isChecked) {
           MySettings.fileOpenWay = when (checkedId) {
             binding.mbChooseFileWayDocument.id -> MySettings.INT_FILE_OPEN_WAY_DOCUMENT
@@ -45,14 +44,12 @@ class AboutActivity : BaseActivity() {
       finish()
     }
     binding.mtvLegalInfo.setupTextViewWithClickablePart(
-      "开源许可 | 浏览源码",
-      listOf(
-        "开源许可" to { startActivity(Intent(this, OssLicensesMenuActivity::class.java)) },
-        "浏览源码" to { Toolbox.openLink(this,"https://github.com/tasy5kg/CuteGIF") },
-        ),
-      true
-    )
-    /*  binding.mtvLegalInfo.setupTextViewWithClickablePart(
+      "新功能介绍 | 用户协议与隐私政策 | 开源许可", listOf(
+        "新功能介绍" to { WhatsNewActivity.start(this) },
+        "用户协议与隐私政策" to { EulaActivity.start(this) },
+        "开源许可" to { OpenSourceLicenseActivity.start(this) }
+      ), true
+    )/*  binding.mtvLegalInfo.setupTextViewWithClickablePart(
       "用户协议 | 隐私政策 | 开源许可",
       listOf("用户协议" to { toast("...") },
         "隐私政策" to { toast("...") },
@@ -60,9 +57,9 @@ class AboutActivity : BaseActivity() {
       true
     )*/
     binding.mtvVersionInfo.text = getString(R.string.version_X, BuildConfig.VERSION_NAME)
-    binding.mtvJoinQqGroup.onClick {
+    /*binding.mtvJoinQqGroup.onClick {
       Toolbox.cmivJoinQqGroupLambda(this@AboutActivity)
-    }
+    }*/
   }
 
   companion object {

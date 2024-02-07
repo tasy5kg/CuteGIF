@@ -14,7 +14,7 @@
     android:gravity="center_vertical">
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_back"
+      android:id="@+id/mbBack"
       style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
 
 
       <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_xxx_saved_to_gallery"
+        android:id="@+id/mtvXxxSavedToGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -40,7 +40,7 @@
         android:textColor="@color/grey" />
 
       <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_file_size"
+        android:id="@+id/mtvFileSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -61,7 +61,7 @@
     android:layout_weight="1">
 
     <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/aciv_preview"
+      android:id="@+id/acivPreview"
       android:layout_width="match_parent"
       android:layout_height="256dp"
       android:layout_centerInParent="true"
@@ -71,7 +71,7 @@
       android:animateLayoutChanges="true" />
 
     <VideoView
-      android:id="@+id/vv_preview"
+      android:id="@+id/vvPreview"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_centerInParent="true" />
@@ -87,7 +87,7 @@
     android:paddingVertical="8dp">
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_delete"
+      android:id="@+id/mbDelete"
       style="@style/Widget.Material3.Button.TextButton.Dialog"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
       android:layout_weight="1" />
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_share"
+      android:id="@+id/mbShare"
       style="@style/Widget.Material3.Button.ElevatedButton.Icon"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
       app:icon="@drawable/ic_baseline_share_24" />
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_done"
+      android:id="@+id/mbDone"
       style="@style/Widget.Material3.Button.Icon"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

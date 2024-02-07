@@ -29,7 +29,7 @@ class GifSplitActivity : BaseActivity() {
     binding.mbSliderPlus.onClick { if (binding.slider.value < binding.slider.valueTo) binding.slider.value++ }
     makeDirEmpty(OUTPUT_SPLIT_DIR)
     val mlo = mutableListOf<Bitmap>()
-    FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i $inputGifPath $OUTPUT_SPLIT_DIR%05d.png")
+    FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i \"$inputGifPath\" \"$OUTPUT_SPLIT_DIR%05d.png\"")
     var frameIndex = 1
     while (File("$OUTPUT_SPLIT_DIR${String.format("%05d", frameIndex)}.png").exists()) {
       mlo.add(BitmapFactory.decodeFile("$OUTPUT_SPLIT_DIR${String.format("%05d", frameIndex)}.png"))
@@ -65,7 +65,10 @@ class GifSplitActivity : BaseActivity() {
   }
 
   companion object {
-    fun start(context: Context, gifPath: String) =
-      context.startActivity(Intent(context, GifSplitActivity::class.java).putExtra(MyConstants.EXTRA_GIF_PATH, gifPath))
+    fun start(context: Context, gifPath: String) = context.startActivity(
+      Intent(
+        context, GifSplitActivity::class.java
+      ).putExtra(MyConstants.EXTRA_GIF_PATH, gifPath)
+    )
   }
 }

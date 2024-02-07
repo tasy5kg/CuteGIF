@@ -9,7 +9,6 @@ import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.ColorInt
 import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
@@ -17,15 +16,11 @@ import com.google.android.material.radiobutton.MaterialRadioButton
 import me.tasy5kg.cutegif.MyConstants.EXTRA_TEXT_RENDER
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_PATH
 import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_POSITION
-import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_WH
-import me.tasy5kg.cutegif.TextRender.Companion.FONT_LIST
-import me.tasy5kg.cutegif.databinding.ActivityAddText2Binding
-import me.tasy5kg.cutegif.toolbox.MediaTools.generateTransparentBitmap
+import me.tasy5kg.cutegif.databinding.ActivityAddTextBinding
 import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoSingleFrame
 import me.tasy5kg.cutegif.toolbox.Toolbox
 import me.tasy5kg.cutegif.toolbox.Toolbox.constraintBy
 import me.tasy5kg.cutegif.toolbox.Toolbox.flipVisibility
-import me.tasy5kg.cutegif.toolbox.Toolbox.getB
 import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import kotlin.math.abs
@@ -34,13 +29,16 @@ import kotlin.math.sqrt
 
 @SuppressLint("RtlHardcoded")
 class AddTextActivity : BaseActivity() {
-  private val binding by lazy { ActivityAddText2Binding.inflate(layoutInflater) }
-  private val expandableLayoutSet by lazy { setOf(binding.gridLayoutColorPicker, binding.sliderRotation) }
+  private val binding by lazy { ActivityAddTextBinding.inflate(layoutInflater) }
+  private val expandableLayoutSet by lazy {
+    setOf(
+      binding.gridLayoutColorPicker, binding.sliderRotation
+    )
+  }
   private lateinit var frame: Bitmap
   private lateinit var textRender: TextRender
   private var viewReferenceLineVerticalPerformedHapticFeedback = false
   private var viewReferenceLineHorizontalPerformedHapticFeedback = false
-  private var fontIndex = 0
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
@@ -49,13 +47,6 @@ class AddTextActivity : BaseActivity() {
     val videoPosition = intent.getExtra<Long>(EXTRA_VIDEO_POSITION)
     textRender = intent.getExtra(EXTRA_TEXT_RENDER)
     frame = getVideoSingleFrame(videoPath, videoPosition)
-    val videoWH = intent.getExtra<Pair<Int, Int>>(EXTRA_VIDEO_WH)
-    binding.acivFrame.setImageBitmap(
-      generateTransparentBitmap(
-        videoWH.first,
-        videoWH.second
-      )
-    )
     Glide.with(this).load(frame).into(binding.acivFrame)
     binding.mbClose.setOnClickListener {
       finishAfterTransition()
@@ -64,64 +55,51 @@ class AddTextActivity : BaseActivity() {
       setResult(RESULT_OK, VideoToGifActivity.intentAddTextResult(textRender))
       finishAfterTransition()
     }
-    binding.mbTextFont.apply {
-      text = textRender.font
-      onClick {
-        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
-        fontIndex++
-        if (fontIndex >= FONT_LIST.size) {
-          fontIndex = 0
-        }
-        val fontName = FONT_LIST[fontIndex].first
-        text = fontName
-        updateTextRender(font = fontName)
-      }
-    }
     binding.tiet.apply {
       setText(textRender.content)
       selectAll()
       gravity = textRender.gravity
-      addTextChangedListener { updateTextRender(content = binding.tiet.text.toString()) }
+      addTextChangedListener { updateTextRender(textRender.copy(content = binding.tiet.text.toString())) }
     }
     binding.mbTextAlign.apply {
-      setIconResource(gravityToIconPairs.getB(textRender.gravity))
+      setIconResource(gravityToIconPairs[textRender.gravity]!!)
       setOnClickListener {
-        it.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+        it.performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
         val newGravity = when (textRender.gravity) {
           Gravity.LEFT -> Gravity.CENTER
           Gravity.CENTER -> Gravity.RIGHT
           Gravity.RIGHT -> Gravity.LEFT
           else -> throw IllegalArgumentException()
         }
-        setIconResource(gravityToIconPairs.getB(newGravity))
+        setIconResource(gravityToIconPairs[newGravity]!!)
         binding.tiet.gravity = newGravity
-        updateTextRender(gravity = newGravity)
+        updateTextRender(textRender.copy(gravity = newGravity))
       }
     }
     binding.mbTextBold.apply {
       isChecked = textRender.bold
       onClick {
-        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
-        updateTextRender(bold = isChecked)
+        performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
+        updateTextRender(textRender.copy(bold = isChecked))
       }
     }
     binding.mbTextItalic.apply {
       isChecked = textRender.italic
       onClick {
-        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
-        updateTextRender(italic = isChecked)
+        performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
+        updateTextRender(textRender.copy(italic = isChecked))
       }
     }
     binding.mbRotate.onClick {
       binding.sliderRotation.showOrHide()
       onClick {
-        performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+        performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
       }
     }
     binding.sliderRotation.apply {
       setLabelFormatter { "旋转${it.toInt()}°" }
       addOnChangeListener { slider, value, fromUser ->
-        updateTextRender(rotation = value)
+        updateTextRender(textRender.copy(rotation = value))
       }
     }
     val sequenceOfMrb = binding.gridLayoutColorPicker.children.map { it as MaterialRadioButton }
@@ -132,12 +110,12 @@ class AddTextActivity : BaseActivity() {
           val checkedMrb = buttonView as MaterialRadioButton
           sequenceOfMrb.forEach { it.isChecked = (it == checkedMrb) }
           mbPickedColorBackgroundColor = checkedMrb.buttonTintList!!.defaultColor
-          updateTextRender(color = mbPickedColorBackgroundColor)
+          updateTextRender(textRender.copy(color = mbPickedColorBackgroundColor))
         }
       }
     }
     binding.mbPickedColor.onClick {
-      performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_SWITCH_TOGGLING)
+      performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
       binding.gridLayoutColorPicker.showOrHide()
     }
     mbPickedColorBackgroundColor = textRender.color
@@ -174,7 +152,7 @@ class AddTextActivity : BaseActivity() {
                 val translateX = if (abs(dx) < frame.width * 0.03f) {
                   binding.viewReferenceLineVertical.visibility = VISIBLE
                   if (!viewReferenceLineVerticalPerformedHapticFeedback) {
-                    view.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_GESTURE_END)
+                    view.performHapticFeedback(HapticFeedbackType.GESTURE_END)
                     viewReferenceLineVerticalPerformedHapticFeedback = true
                   }
                   0f
@@ -188,7 +166,7 @@ class AddTextActivity : BaseActivity() {
                 val translateY = if (abs(dy) < frame.height * 0.03f) {
                   binding.viewReferenceLineHorizontal.visibility = VISIBLE
                   if (!viewReferenceLineHorizontalPerformedHapticFeedback) {
-                    view.performHapticFeedback(MyConstants.HAPTIC_FEEDBACK_TYPE_GESTURE_END)
+                    view.performHapticFeedback(HapticFeedbackType.GESTURE_END)
                     viewReferenceLineHorizontalPerformedHapticFeedback = true
                   }
                   0f
@@ -197,7 +175,7 @@ class AddTextActivity : BaseActivity() {
                   viewReferenceLineHorizontalPerformedHapticFeedback = false
                   dy
                 }
-                updateTextRender(translateX = translateX, translateY = translateY)
+                updateTextRender(textRender.copy(translateX = translateX, translateY = translateY))
               }
             }
 
@@ -209,15 +187,15 @@ class AddTextActivity : BaseActivity() {
                 translateYActionUp = textRender.translateY
                 binding.viewReferenceLineVertical.visibility = GONE
                 binding.viewReferenceLineHorizontal.visibility = GONE
-                if (System.nanoTime() - timestampActionDown < ViewConfiguration.getLongPressTimeout() * 1000000
-                  && (event.rawX - xActionDown).pow(2) + (event.rawX - xActionDown).pow(
+                if (System.nanoTime() - timestampActionDown < ViewConfiguration.getLongPressTimeout() * 1000000 && (event.rawX - xActionDown).pow(
+                    2
+                  ) + (event.rawX - xActionDown).pow(
                     2
                   ) < 10f
                 ) {
                   binding.tiet.requestFocus()
                   getSystemService(InputMethodManager::class.java).showSoftInput(
-                    binding.tiet,
-                    InputMethodManager.SHOW_IMPLICIT
+                    binding.tiet, InputMethodManager.SHOW_IMPLICIT
                   )
                 }
               }
@@ -235,8 +213,11 @@ class AddTextActivity : BaseActivity() {
 
             MotionEvent.ACTION_MOVE -> {
               updateTextRender(
-                size = (textSizeActionPointerDown + (event.twoFigureDistance() - distanceActionPointerDown) / 10f)
-                  .constraintBy(4f..128f)
+                textRender.copy(
+                  size = (textSizeActionPointerDown + (event.twoFigureDistance() - distanceActionPointerDown) / 10f).constraintBy(
+                    4f..128f
+                  )
+                )
               )
             }
           }
@@ -258,48 +239,25 @@ class AddTextActivity : BaseActivity() {
     flipVisibility()
   }
 
-  private fun updateTextRender(
-    content: String = textRender.content,
-    size: Float = textRender.size,
-    @ColorInt color: Int = textRender.color,
-    font: String = textRender.font,
-    bold: Boolean = textRender.bold,
-    italic: Boolean = textRender.italic,
-    gravity: Int = textRender.gravity,
-    translateX: Float = textRender.translateX,
-    translateY: Float = textRender.translateY,
-    updateAcivText: Boolean = true,
-    rotation: Float = textRender.rotation,
-  ) {
-    textRender =
-      TextRender(content, size, color, font, bold, italic, gravity, translateX, translateY, rotation)
-    if (updateAcivText) {
-      binding.acivText.setImageBitmap(textRender.toBitmap(frame.width, frame.height))
-    }
+  private fun updateTextRender(textRender: TextRender? = null) {
+    if (textRender != null) this.textRender = textRender
+    binding.acivText.setImageBitmap(TextRender.render(this.textRender, frame.width, frame.height))
   }
 
   companion object {
-    private val gravityToIconPairs = setOf(
+    private val gravityToIconPairs = mapOf(
       Gravity.LEFT to R.drawable.ic_baseline_format_align_left_24,
       Gravity.CENTER to R.drawable.ic_baseline_format_align_center_24,
       Gravity.RIGHT to R.drawable.ic_baseline_format_align_right_24
     )
 
-    private fun MotionEvent.twoFigureDistance() =
-      sqrt((getX(0) - getX(1)).pow(2) + (getY(0) - getY(1)).pow(2))
+    private fun MotionEvent.twoFigureDistance() = sqrt((getX(0) - getX(1)).pow(2) + (getY(0) - getY(1)).pow(2))
 
     fun startIntent(
-      context: Context,
-      videoPath: String,
-      videoPosition: Long,
-      textRender: TextRender?,
-      videoWH: Pair<Int, Int>,
+      context: Context, videoPath: String, videoPosition: Long, textRender: TextRender?
     ): Intent {
-      return Intent(context, AddTextActivity::class.java)
-        .putExtra(EXTRA_VIDEO_PATH, videoPath)
-        .putExtra(EXTRA_VIDEO_POSITION, videoPosition)
-        .putExtra(EXTRA_TEXT_RENDER, textRender ?: TextRender.DEFAULT)
-        .putExtra(EXTRA_VIDEO_WH, videoWH)
+      return Intent(context, AddTextActivity::class.java).putExtra(EXTRA_VIDEO_PATH, videoPath)
+        .putExtra(EXTRA_VIDEO_POSITION, videoPosition).putExtra(EXTRA_TEXT_RENDER, textRender ?: TextRender.DEFAULT)
     }
   }
 }

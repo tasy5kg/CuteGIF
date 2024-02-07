@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  tools:context=".OpenSourceLicenseActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="16dp"
+      android:autoLink="web"
+      android:text="小萌 GIF 源码："
+      android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+      android:textIsSelectable="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginBottom="16dp"
+      android:autoLink="web"
+      android:text="github.com/tasy5kg/CuteGIF"
+      android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+      android:textIsSelectable="true" />
+
+    <include layout="@layout/view_divider_horizontal" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="16dp"
+      android:autoLink="web"
+      android:text="本软件使用了以下开源项目："
+      android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+      android:textIsSelectable="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginBottom="16dp"
+      android:autoLink="web"
+      android:text="github.com/androidx/androidx\ngithub.com/material-components/material-components-android\ngithub.com/bumptech/glide\ngithub.com/CanHub/Android-Image-Cropper\ngithub.com/arthenica/ffmpeg-kit\ngithub.com/Tencent/MMKV\ngithub.com/kohler/gifsicle\ngithub.com/santaevpavel/OutlineSpan"
+      android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+      android:textIsSelectable="true" />
+
+    <include layout="@layout/view_divider_horizontal" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbDone"
+      style="@style/Widget.Material3.Button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:text="@string/done"
+      android:textColor="?attr/colorOnSurface" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

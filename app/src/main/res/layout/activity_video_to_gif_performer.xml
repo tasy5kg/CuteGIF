@@ -17,14 +17,14 @@
     android:orientation="vertical">
 
     <com.google.android.material.textview.MaterialTextView
-      android:id="@+id/mtv_title"
+      android:id="@+id/mtvTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/dark" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-      android:id="@+id/linear_progress_indicator"
+      android:id="@+id/linearProgressIndicator"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
@@ -35,7 +35,7 @@
   </androidx.appcompat.widget.LinearLayoutCompat>
 
   <com.google.android.material.button.MaterialButton
-    android:id="@+id/mb_close"
+    android:id="@+id/mbClose"
     style="@style/Widget.Material3.Button.IconButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

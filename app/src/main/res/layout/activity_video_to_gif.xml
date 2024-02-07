@@ -15,7 +15,7 @@
     android:gravity="center_vertical">
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_close"
+      android:id="@+id/mbClose"
       style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -29,7 +29,6 @@
       android:layout_weight="1"
       android:orientation="vertical">
 
-
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +39,7 @@
         android:textColor="@color/grey" />
 
       <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_gif_duration_s"
+        android:id="@+id/mtvGifDurationS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -50,9 +49,8 @@
         tools:text="GIF 时长 123.4 秒" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_save"
+      android:id="@+id/mbSave"
       style="@style/Widget.Material3.Button.Icon"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -60,7 +58,6 @@
       android:animateLayoutChanges="true"
       android:text="导出"
       app:icon="@drawable/baseline_save_alt_24" />
-
   </androidx.appcompat.widget.LinearLayoutCompat>
 
   <RelativeLayout
@@ -74,7 +71,7 @@
     android:paddingVertical="12dp">
 
     <VideoView
-      android:id="@+id/video_view"
+      android:id="@+id/videoView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_centerInParent="true"
@@ -82,7 +79,7 @@
       android:transitionName="ImageVideoFrame" />
 
     <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/aciv_text"
+      android:id="@+id/acivText"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_centerInParent="true"
@@ -92,7 +89,7 @@
       android:transitionName="ImageText" />
 
     <com.canhub.cropper.CropImageView
-      android:id="@+id/crop_image_view"
+      android:id="@+id/cropImageView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_centerInParent="true"
@@ -106,10 +103,92 @@
       app:cropGuidelinesThickness="1dp"
       app:cropShowProgressBar="false"
       tools:visibility="gone" />
-
   </RelativeLayout>
 
+  <FrameLayout
+    android:id="@+id/flGroupTrimSlider"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.slider.RangeSlider
+      android:id="@+id/rangeSlider"
+      style="@style/Theme.CuteGif.Slider"
+      app:labelBehavior="gone" />
+
+    <com.google.android.material.slider.Slider
+      android:id="@+id/sliderCursor"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:enabled="false"
+      android:focusable="false"
+      app:labelBehavior="gone"
+      app:thumbColor="@color/green_light"
+      app:trackColorActive="@color/transparent"
+      app:trackColorInactive="@color/transparent" />
+  </FrameLayout>
+
   <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="8dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbTrimTimeMinus"
+      style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@color/grey_one_in_sixteen"
+      app:icon="@drawable/baseline_keyboard_arrow_left_24"
+      app:iconTint="@color/green_dark" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+      android:id="@+id/mbtgMbTrimTime"
+      style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="8dp"
+      android:layout_weight="1"
+      app:checkedButton="@id/mbTrimTimeCurrentPlaying"
+      app:selectionRequired="true"
+      app:singleSelection="true">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbTrimTimeInPoint"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:text="0:00.0"
+        android:typeface="monospace" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbTrimTimeCurrentPlaying"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:text="1:23.4"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbTrimTimeOutPoint"
+        style="@style/Theme.CuteGif.SegmentedButton"
+        android:text="9:59.9"
+        android:typeface="monospace" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbTrimTimePlus"
+      style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@color/grey_one_in_sixteen"
+      app:icon="@drawable/baseline_keyboard_arrow_right_24"
+      app:iconTint="@color/green_dark" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/llcGroupBasicOptions"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
@@ -119,125 +198,58 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
+      android:layout_marginBottom="4dp"
       android:animateLayoutChanges="true"
       android:gravity="center_vertical"
+      android:minHeight="54dp"
       android:orientation="horizontal">
 
       <com.google.android.material.button.MaterialButton
-        android:id="@+id/mb_play_pause"
-        style="@style/Widget.Material3.Button.IconButton"
+        android:id="@+id/mbPlayPause"
+        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:animateLayoutChanges="true"
+        android:backgroundTint="@color/grey_one_in_sixteen"
+        app:icon="@drawable/ic_baseline_pause_24"
+        app:iconTint="@color/green_dark" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbCropRatio"
+        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:animateLayoutChanges="true"
+        android:backgroundTint="@color/grey_one_in_sixteen"
+        android:text="画幅"
+        app:icon="@drawable/ic_baseline_crop_24" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbPlaybackSpeed"
+        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:padding="0dp"
-        app:icon="@drawable/ic_baseline_pause_24" />
+        android:backgroundTint="@color/grey_one_in_sixteen"
+        android:text="正常"
+        app:icon="@drawable/ic_baseline_speed_24" />
 
-      <FrameLayout
+      <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:animateLayoutChanges="true"
-        app:tickColor="@color/transparent"
-        app:trackColorActive="@color/transparent"
-        app:trackColorInactive="@color/transparent">
+        android:layout_weight="1" />
 
-
-        <com.google.android.material.slider.RangeSlider
-          android:id="@+id/range_slider"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:animateLayoutChanges="true"
-          app:labelBehavior="floating"
-          app:thumbColor="@color/green_dark"
-          app:tickColor="@color/green_light"
-          app:trackColorActive="@color/green_dark"
-          app:trackColorInactive="@color/white" />
-
-        <com.google.android.material.slider.Slider
-          android:id="@+id/slider_cursor"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:animateLayoutChanges="true"
-          android:enabled="false"
-          android:focusable="false"
-          app:labelBehavior="floating"
-          app:thumbColor="@color/green_light"
-          app:thumbRadius="8dp"
-          app:tickColor="@color/green_light"
-          app:trackColorActive="@color/transparent"
-          app:trackColorInactive="@color/transparent" />
-      </FrameLayout>
-
-      <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_video_current_position"
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbAddText"
+        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:animateLayoutChanges="true"
-        android:text="0:00.0"
-        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-        android:textColor="@color/grey"
-        android:textStyle="bold"
-        android:typeface="monospace" />
+        android:backgroundTint="@color/grey_one_in_sixteen"
+        android:text="文字"
+        app:icon="@drawable/ic_baseline_text_fields_24" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-      android:id="@+id/llc_group_basic_options"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:animateLayoutChanges="true"
-      android:orientation="vertical">
-
-
-      <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:animateLayoutChanges="true"
-        android:gravity="center_vertical"
-        android:minHeight="54dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
-
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/mb_crop_ratio"
-          style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="8dp"
-          android:animateLayoutChanges="true"
-          android:text="画幅"
-          app:icon="@drawable/ic_baseline_crop_24" />
-
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/mb_playback_speed"
-          style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:animateLayoutChanges="true"
-          android:text="正常"
-          app:icon="@drawable/ic_baseline_speed_24" />
-
-        <Space
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1" />
-
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/mb_add_text"
-          style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:animateLayoutChanges="true"
-          android:text="文字"
-          app:icon="@drawable/ic_baseline_text_fields_24" />
-
-
-      </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
   </androidx.appcompat.widget.LinearLayoutCompat>
-
 </androidx.appcompat.widget.LinearLayoutCompat>

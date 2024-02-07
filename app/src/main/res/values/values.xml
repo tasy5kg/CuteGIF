@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <dimen name="divider_thickness">1px</dimen>
+  <dimen name="menu_item_min_height">64dp</dimen>
+  <dimen name="small_menu_item_min_height">48dp</dimen>
 </resources>

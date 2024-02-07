@@ -31,7 +31,6 @@
   <string name="converting_s_s">Converting (%d%%, %s)</string>
   <string name="cancel">Cancel</string>
   <string name="conversion_failed">Conversion failed</string>
-  <string name="press_back_again_to_quit">Press Back again to quit</string>
   <string name="load_video_failed">Load video failed</string>
   <string name="_1_5_x">1.5x</string>
   <string name="_2_x">2x</string>

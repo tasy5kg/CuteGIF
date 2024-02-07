@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
   tools:context=".AboutActivity">
-
 
   <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="12dp"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-
-    <androidx.appcompat.widget.AppCompatImageView
-      android:layout_width="48dp"
-      android:layout_height="48dp"
-      app:srcCompat="@mipmap/ic_launcher" />
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="12dp"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginVertical="12dp"
       android:gravity="center_vertical"
-      android:orientation="vertical">
+      android:orientation="horizontal">
+
+      <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:srcCompat="@mipmap/ic_launcher" />
 
       <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="12dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
 
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="wrap_content"
@@ -40,145 +39,131 @@
           android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <com.google.android.material.textview.MaterialTextView
-          android:id="@+id/mtv_version_info"
+          android:id="@+id/mtvVersionInfo"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="8dp"
+          android:layout_marginTop="4dp"
           android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
           android:textColor="@color/grey"
           tools:ignore="HardcodedText,TextContrastCheck"
           tools:text="Version X" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="简洁好用的 GIF 工具箱"
-        android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-
     </androidx.appcompat.widget.LinearLayoutCompat>
-  </androidx.appcompat.widget.LinearLayoutCompat>
 
-  <include layout="@layout/view_divider_horizontal" />
-
-  <androidx.appcompat.widget.LinearLayoutCompat
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:animateLayoutChanges="true"
-    android:gravity="center_vertical"
-    android:minHeight="64dp"
-    android:orientation="horizontal">
+    <include layout="@layout/view_divider_horizontal" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-      android:layout_width="0dp"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
+      android:layout_marginHorizontal="16dp"
       android:animateLayoutChanges="true"
       android:gravity="center_vertical"
+      android:minHeight="64dp"
       android:orientation="horizontal">
 
-      <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mtv_image_quality"
-        android:layout_width="wrap_content"
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:animateLayoutChanges="true"
-        android:text="视频选取方式"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
+        <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/mtvImageQuality"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:animateLayoutChanges="true"
+          android:text="视频选取方式"
+          android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+      <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/mbtgChooseFileWay"
+        style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.0"
+        android:animateLayoutChanges="true"
+        android:padding="0dp"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mbChooseFileWayDocument"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="文件" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mbChooseFileWayGallery"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="相册" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/mbChooseFileWay13"
+          style="@style/Theme.CuteGif.SegmentedButton"
+          android:animateLayoutChanges="true"
+          android:text="浮窗" />
+
+
+      </com.google.android.material.button.MaterialButtonToggleGroup>
     </androidx.appcompat.widget.LinearLayoutCompat>
+    <!--
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-      android:id="@+id/mbtg_choose_file_way"
-      style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
-      android:layout_width="0dp"
+        <include layout="@layout/view_divider_horizontal" />
+
+        <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/mtvJoinQqGroup"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?android:attr/selectableItemBackground"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center_vertical"
+          android:minHeight="64dp"
+          android:paddingHorizontal="16dp"
+          android:text="加入 QQ 群，交流反馈"
+          android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <include layout="@layout/view_divider_horizontal" />-->
+
+    <include layout="@layout/view_divider_horizontal" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/mtvLegalInfo"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="2.0"
-      android:animateLayoutChanges="true"
-      android:padding="0dp"
-      app:selectionRequired="true"
-      app:singleSelection="true">
+      android:layout_marginTop="16dp"
+      android:gravity="center"
+      android:paddingHorizontal="16dp"
+      android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+      android:textColor="@color/grey"
+      tools:text="用户协议 | 隐私政策 | 开源许可" />
 
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/mb_choose_file_way_document"
-        style="@style/Theme.CuteGif.SegmentedButton"
-        android:animateLayoutChanges="true"
-        android:text="文档" />
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="6dp"
+      android:gravity="center"
+      android:paddingHorizontal="16dp"
+      android:text="开发者：沈科光 (tasy5kg@qq.com)"
+      android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+      android:textColor="@color/grey"
+      android:textIsSelectable="true" />
 
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/mb_choose_file_way_gallery"
-        style="@style/Theme.CuteGif.SegmentedButton"
-        android:animateLayoutChanges="true"
-        android:text="相册" />
-
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/mb_choose_file_way_13"
-        style="@style/Theme.CuteGif.SegmentedButton"
-        android:animateLayoutChanges="true"
-        android:text="浮窗" />
-
-
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-  </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-  <include layout="@layout/view_divider_horizontal" />
-
-  <com.google.android.material.textview.MaterialTextView
-    android:id="@+id/mtv_join_qq_group"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center_vertical"
-    android:minHeight="64dp"
-    android:paddingHorizontal="16dp"
-    android:text="加入 QQ 群，交流反馈"
-    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
-
-  <include layout="@layout/view_divider_horizontal" />
-
-  <include layout="@layout/view_divider_horizontal" />
-
-
-  <com.google.android.material.textview.MaterialTextView
-    android:id="@+id/mtv_legal_info"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:gravity="center"
-    android:paddingHorizontal="16dp"
-    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-    android:textColor="@color/grey"
-    tools:text="用户协议 | 隐私政策 | 开源许可" />
-
-  <com.google.android.material.textview.MaterialTextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:gravity="center"
-    android:paddingHorizontal="16dp"
-    android:text="开发者：沈科光 (tasy5kg@qq.com)"
-    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-    android:textColor="@color/grey"
-    android:textIsSelectable="true" />
-
-  <androidx.appcompat.widget.LinearLayoutCompat
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="16dp"
-    android:orientation="horizontal">
 
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/mb_done"
+      android:id="@+id/mbDone"
       style="@style/Widget.Material3.Button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_margin="16dp"
       android:text="@string/done"
       android:textColor="?attr/colorOnSurface" />
   </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>
