@@ -17,6 +17,7 @@
       style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:contentDescription="@string/close"
       app:icon="@drawable/ic_baseline_close_24"
       app:iconTint="@color/dark" />
 
@@ -30,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="GIF 截图"
+        android:text="@string/gif_split"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:textColor="@color/grey" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -41,7 +42,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="16dp"
-      android:text="截图"
+      android:text="@string/save_this_frame"
       app:icon="@drawable/baseline_camera_24" />
   </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -72,6 +73,7 @@
   </RelativeLayout>
 
   <androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/llc_frame_selector"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
@@ -83,6 +85,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:backgroundTint="@color/grey_one_in_sixteen"
+      android:contentDescription="@string/previous_frame"
       app:icon="@drawable/baseline_keyboard_arrow_left_24"
       app:iconTint="@color/green_dark" />
 
@@ -104,6 +107,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:backgroundTint="@color/grey_one_in_sixteen"
+      android:contentDescription="@string/next_frame"
       app:icon="@drawable/baseline_keyboard_arrow_right_24"
       app:iconTint="@color/green_dark" />
   </androidx.appcompat.widget.LinearLayoutCompat>

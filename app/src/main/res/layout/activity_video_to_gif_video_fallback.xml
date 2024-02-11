@@ -20,7 +20,7 @@
       android:id="@+id/mtvTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="正在转码视频"
+      android:text="@string/transcoding_video"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/dark" />
 

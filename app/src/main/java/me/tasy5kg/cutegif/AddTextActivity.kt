@@ -97,7 +97,7 @@ class AddTextActivity : BaseActivity() {
       }
     }
     binding.sliderRotation.apply {
-      setLabelFormatter { "旋转${it.toInt()}°" }
+      setLabelFormatter { context.getString(R.string.rotate_d_degrees, it.toInt()) }
       addOnChangeListener { slider, value, fromUser ->
         updateTextRender(textRender.copy(rotation = value))
       }

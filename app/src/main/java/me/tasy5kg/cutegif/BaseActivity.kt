@@ -18,7 +18,7 @@ abstract class BaseActivity : AppCompatActivity() {
       BetaEndedActivity.start(this)
       finish()
     } else {
-      if (BuildConfig.DEBUG || true) {
+      if (BuildConfig.DEBUG) {
         /** Show a dialog with logs when app crashed */
         Thread.setDefaultUncaughtExceptionHandler { _, e ->
           AppCrashedActivity.start(this, e.stackTraceToString())

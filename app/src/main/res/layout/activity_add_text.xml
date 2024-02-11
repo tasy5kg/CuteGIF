@@ -19,7 +19,7 @@
       style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:contentDescription="关闭"
+      android:contentDescription="@string/close"
       app:icon="@drawable/ic_baseline_close_24" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -27,7 +27,7 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:gravity="start"
-      android:text="编辑文字"
+      android:text="@string/edit_text"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/grey" />
 
@@ -37,7 +37,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
-      android:text="完成"
+      android:text="@string/done"
       app:icon="@drawable/ic_baseline_done_24" />
 
 
@@ -113,9 +113,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fadeScrollbars="false"
-
       android:gravity="center"
-      android:hint="在此输入文字"
+      android:hint="@string/input_text_here"
       android:maxLines="3"
       android:scrollbars="vertical"
       android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
@@ -140,7 +139,7 @@
       android:layout_width="48dp"
       android:layout_weight="1"
 
-      android:contentDescription="粗体"
+      android:contentDescription="@string/bold"
       app:icon="@drawable/ic_baseline_format_bold_24"
       app:iconGravity="textStart"
       app:iconPadding="0dp" />
@@ -150,7 +149,7 @@
       style="@style/Theme.CuteGif.SegmentedButton"
       android:layout_width="48dp"
       android:layout_weight="1"
-      android:contentDescription="斜体"
+      android:contentDescription="@string/italic"
       app:icon="@drawable/baseline_format_italic_24"
       app:iconGravity="textStart"
       app:iconPadding="0dp" />
@@ -161,7 +160,7 @@
       android:layout_width="48dp"
       android:layout_weight="1"
       android:checkable="false"
-      android:contentDescription="对齐方向"
+      android:contentDescription="@string/alignment_direction"
       app:backgroundTint="#40757874"
       app:icon="@drawable/ic_baseline_format_align_center_24"
       app:iconGravity="textStart"
@@ -173,7 +172,7 @@
       android:layout_width="48dp"
       android:layout_weight="1"
       android:checkable="false"
-      android:contentDescription="旋转"
+      android:contentDescription="@string/rotate"
       app:backgroundTint="#40757874"
       app:icon="@drawable/baseline_rotate_right_24"
       app:iconGravity="textStart"
@@ -186,7 +185,7 @@
       android:layout_width="48dp"
       android:layout_weight="1"
       android:checkable="false"
-      android:contentDescription="颜色"
+      android:contentDescription="@string/color"
       app:backgroundTint="#40757874"
       app:icon="@drawable/ic_baseline_color_lens_24"
       app:iconGravity="textStart"
@@ -236,7 +235,6 @@
       <com.google.android.material.radiobutton.MaterialRadioButton
         android:id="@+id/mrbColorPickerFf5353"
         style="@style/Theme.CuteGif.MRB.ColorPicker"
-
         app:buttonTint="#ff5353" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton

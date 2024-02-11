@@ -110,7 +110,7 @@
             <com.google.android.material.textview.MaterialTextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="自定义："
+              android:text="@string/custom__"
               android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -123,13 +123,15 @@
               android:inputType="number"
               android:maxLength="4"
               android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-              android:typeface="monospace" />
+              android:typeface="monospace"
+              tools:ignore="HardcodedText" />
 
             <com.google.android.material.textview.MaterialTextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="P"
-              android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+              android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+              tools:ignore="HardcodedText" />
           </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
       </androidx.appcompat.widget.LinearLayoutCompat>
@@ -149,7 +151,7 @@
           android:layout_height="wrap_content"
           android:layout_weight="2"
           android:gravity="center_vertical"
-          android:text="清晰度"
+          android:text="@string/clarity"
           android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <com.google.android.material.button.MaterialButtonToggleGroup
@@ -165,22 +167,22 @@
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityLow"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="低" />
+            android:text="@string/low" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityMid"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="中" />
+            android:text="@string/mid" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityHigh"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="高" />
+            android:text="@string/high" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityMax"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="最高" />
+            android:text="@string/max" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -214,22 +216,22 @@
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityLow"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="低" />
+            android:text="@string/low" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityMid"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="中" />
+            android:text="@string/mid" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityHigh"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="高" />
+            android:text="@string/high" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityMax"
             style="@style/Theme.CuteGif.SegmentedButton"
-            android:text="最高" />
+            android:text="@string/max" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -247,7 +249,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="2"
-          android:text="更多选项"
+          android:text="@string/more_options"
           android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -271,22 +273,22 @@
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipEnableColorKey"
                 style="@style/Theme.CuteGif.Chip"
-                android:text="抠图" />
+                android:text="@string/remove_background" />
 
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipFramerate"
                 style="@style/Theme.CuteGif.Chip"
-                android:text="帧率" />
+                android:text="@string/frame_rate" />
 
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipEnableReverse"
                 style="@style/Theme.CuteGif.Chip"
-                android:text="倒放" />
+                android:text="@string/reverse" />
 
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipEnableFinalDelay"
                 style="@style/Theme.CuteGif.Chip"
-                android:text="结尾停顿" />
+                android:text="@string/final_pause" />
             </com.google.android.material.chip.ChipGroup>
           </HorizontalScrollView>
 
@@ -327,7 +329,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="抠图"
+            android:text="@string/remove_background"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
           <androidx.appcompat.widget.LinearLayoutCompat
@@ -354,13 +356,14 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginEnd="12dp"
-                  android:text="抠去颜色"
+                  android:text="@string/color_key"
                   android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
                 <View
                   android:id="@+id/viewColorKeyIndicator"
                   android:layout_width="16dp"
                   android:layout_height="16dp"
+                  android:contentDescription="@string/selected_color"
                   android:foreground="@drawable/border"
                   android:padding="1dp" />
 
@@ -383,7 +386,7 @@
                   android:layout_height="@dimen/small_menu_item_min_height"
                   android:layout_gravity="center_horizontal"
                   android:checked="true"
-                  android:text="预览效果" />
+                  android:text="@string/preview__" />
               </FrameLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -400,7 +403,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="64dp"
-                android:text="容差"
+                android:text="@string/_similarity_"
                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
               <com.google.android.material.slider.Slider
@@ -425,7 +428,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="64dp"
-                android:text="混合"
+                android:text="@string/blend__"
                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
               <com.google.android.material.slider.Slider
@@ -488,27 +491,32 @@
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate5"
                 style="@style/Theme.CuteGif.SegmentedButton"
-                android:text="5" />
+                android:text="5"
+                tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate10"
                 style="@style/Theme.CuteGif.SegmentedButton"
-                android:text="10" />
+                android:text="10"
+                tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate16"
                 style="@style/Theme.CuteGif.SegmentedButton"
-                android:text="16" />
+                android:text="16"
+                tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate25"
                 style="@style/Theme.CuteGif.SegmentedButton"
-                android:text="25" />
+                android:text="25"
+                tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate50"
                 style="@style/Theme.CuteGif.SegmentedButton"
-                android:text="50" />
+                android:text="50"
+                tools:ignore="HardcodedText" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <com.google.android.material.textview.MaterialTextView
@@ -517,7 +525,7 @@
               android:layout_height="wrap_content"
               android:layout_marginBottom="2dp"
               android:animateLayoutChanges="true"
-              android:text="⚠️ 部分软件播放帧率大于 10 的 GIF 会掉帧"
+              android:text="@string/some_apps_do_not_support_above_10_fps"
               android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
               android:textColor="@color/grey"
               android:visibility="gone" />
@@ -541,7 +549,7 @@
           style="@style/Widget.Material3.Button.OutlinedButton"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="关闭"
+          android:text="@string/close"
           android:textColor="?attr/colorOnSurface" />
 
         <com.google.android.material.button.MaterialButton
@@ -551,7 +559,7 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="8dp"
           android:layout_weight="1"
-          android:text="导出" />
+          android:text="@string/export" />
       </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.core.widget.NestedScrollView>

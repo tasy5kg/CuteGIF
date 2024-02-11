@@ -39,27 +39,17 @@ class AboutActivity : BaseActivity() {
         }
       }
     }
-// TODO
     binding.mbDone.onClick {
       finish()
     }
     binding.mtvLegalInfo.setupTextViewWithClickablePart(
-      "新功能介绍 | 用户协议与隐私政策 | 开源许可", listOf(
-        "新功能介绍" to { WhatsNewActivity.start(this) },
-        "用户协议与隐私政策" to { EulaActivity.start(this) },
-        "开源许可" to { OpenSourceLicenseActivity.start(this) }
+      "${getString(R.string.whats_new)} | ${getString(R.string.eula_and_privacy_policy)} | ${getString(R.string.open_source_license)}", listOf(
+        getString(R.string.whats_new) to { WhatsNewActivity.start(this) },
+        getString(R.string.eula_and_privacy_policy) to { EulaActivity.start(this) },
+        getString(R.string.open_source_license) to { OpenSourceLicenseActivity.start(this) }
       ), true
-    )/*  binding.mtvLegalInfo.setupTextViewWithClickablePart(
-      "用户协议 | 隐私政策 | 开源许可",
-      listOf("用户协议" to { toast("...") },
-        "隐私政策" to { toast("...") },
-        "开源许可" to { startActivity(Intent(this, OssLicensesMenuActivity::class.java)) }),
-      true
-    )*/
+    )
     binding.mtvVersionInfo.text = getString(R.string.version_X, BuildConfig.VERSION_NAME)
-    /*binding.mtvJoinQqGroup.onClick {
-      Toolbox.cmivJoinQqGroupLambda(this@AboutActivity)
-    }*/
   }
 
   companion object {

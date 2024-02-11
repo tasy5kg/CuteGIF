@@ -1,5 +1,6 @@
 package me.tasy5kg.cutegif
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -38,23 +39,23 @@ class VideoToGifPerformerActivity : BaseActivity() {
     setFinishOnTouchOutside(false)
     onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
       override fun handleOnBackPressed() {
-        quitOrFailed("已取消")
+        quitOrFailed(getString(R.string.cancelled))
       }
     })
     binding.mbClose.onClick {
-      quitOrFailed("已取消")
+      quitOrFailed(getString(R.string.cancelled))
     }
     taskThread = thread { performPart1() }
   }
 
   private fun performPart1() {
-    putProgress("正在读取视频", null, null)
-    val command = taskBuilder.commandCreatePalette
+    putProgress(getString(R.string.loading_video), null, null)
+    val command = taskBuilder.getCommandCreatePalette()
     logRed("commandCreatePalette", command)
     FFmpegKit.executeAsync(command, { completeCallback ->
       when {
         completeCallback.returnCode.isValueSuccess -> performPart2()
-        completeCallback.returnCode.isValueError -> quitOrFailed("出现错误")
+        completeCallback.returnCode.isValueError -> quitOrFailed(getString(R.string.an_error_occurred))
       }
     }, { logCallback ->
       logRed("logcallback", logCallback.message.toString())
@@ -62,18 +63,18 @@ class VideoToGifPerformerActivity : BaseActivity() {
   }
 
   private fun performPart2() {
-    val command = taskBuilder.commandVideoToGif
+    val command = taskBuilder.getCommandVideoToGif()
     logRed("commandVideoToGif", command)
     FFmpegKit.executeAsync(command, { completeCallback ->
       val returnCode = completeCallback.returnCode
       when {
         returnCode.isValueSuccess -> performPart3()
-        returnCode.isValueError -> quitOrFailed("出现错误")
+        returnCode.isValueError -> quitOrFailed(getString(R.string.an_error_occurred))
       }
     }, { log -> logRed("logcallback", log.message.toString()) }, {
       putProgress(
-        "正在生成 GIF",
-        it.videoFrameNumber * 100 / taskBuilder.outputFramesEstimated,
+        getString(R.string.exporting_gif),
+        it.videoFrameNumber * 100 / taskBuilder.getOutputFramesEstimated(),
         if (taskBuilder.lossy == null) it.size else null
       )
     })
@@ -81,7 +82,7 @@ class VideoToGifPerformerActivity : BaseActivity() {
 
   private fun performPart3() {
     with(taskBuilder) {
-      putProgress("正在保存 GIF", null, null)
+      putProgress(getString(R.string.saving_gif), null, null)
       lossy?.let { MediaTools.gifsicleLossy(it, OUTPUT_GIF_TEMP_PATH, null, true) }
       if (!taskQuitOrFailed) {
         val outputUri = createNewFile(FileTools.FileName(inputVideoPath).nameWithoutExtension, "gif")
@@ -104,7 +105,8 @@ class VideoToGifPerformerActivity : BaseActivity() {
           setProgress(min(progressNoLargerThan99, 99), true)
         }
       }
-      binding.mtvTitle.text = stateText + if (fileSize == null) "..." else "（${fileSize.formattedFileSize()}）"
+      @SuppressLint("SetTextI18n")
+      binding.mtvTitle.text = stateText + if (fileSize == null) "…" else getString(R.string.____brackets____, fileSize.formattedFileSize())
     }
   }
 

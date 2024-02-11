@@ -45,13 +45,13 @@ class BottomSheetVideoToGifPlaybackSpeed : BottomSheetDialogFragment() {
     }
 
     private fun sliderValueToText(value: Float) = when (value.toInt()) {
-      0 -> "0.5倍速"
-      1 -> "0.75倍速"
-      2 -> "正常"
-      3 -> "1.5倍速"
-      4 -> "2倍速"
-      5 -> "3倍速"
-      6 -> "4倍速"
+      0 -> "0.5X"
+      1 -> "0.75X"
+      2 -> "1X"
+      3 -> "1.5X"
+      4 -> "2X"
+      5 -> "3X"
+      6 -> "4X"
       else -> throw IllegalArgumentException()
     }
 

@@ -33,10 +33,12 @@ class GifToVideoActivity : BaseActivity() {
     setFinishOnTouchOutside(false)
     onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
       override fun handleOnBackPressed() {
-        quitOrFailed("已取消")
+        quitOrFailed(getString(R.string.cancelled))
       }
     })
-    binding.mbClose.onClick { quitOrFailed("已取消") }
+    binding.mbClose.onClick {
+      quitOrFailed(getString(R.string.cancelled))
+    }
     taskThread = thread { performTranscode() }
   }
 
@@ -44,7 +46,7 @@ class GifToVideoActivity : BaseActivity() {
     keepScreenOn(true)
     val duration = getVideoDurationMsByFFmpeg(inputGifPath)
     if (duration == null) {
-      quitOrFailed("无法读取 GIF")
+      quitOrFailed(getString(R.string.unable_to_load_gif))
       return
     }
 
@@ -61,7 +63,7 @@ class GifToVideoActivity : BaseActivity() {
         }
 
         it.returnCode.isValueError -> {
-          runOnUiThread { Toolbox.toast("GIF 转视频失败") }
+          runOnUiThread { Toolbox.toast(getString(R.string.gif_to_video_conversion_failed)) }
           finish()
         }
       }
@@ -70,7 +72,7 @@ class GifToVideoActivity : BaseActivity() {
     }, {
       val progress = (it.time * 100 / duration).roundToInt().constraintBy(0..99)
       runOnUiThread {
-        binding.mtvTitle.text = "正在转换为视频（$progress%）"
+        binding.mtvTitle.text = getString(R.string.converting_to_video_d_percent, progress)
         binding.linearProgressIndicator.setProgress(progress, true)
       }
     })

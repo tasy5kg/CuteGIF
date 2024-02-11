@@ -35,9 +35,12 @@ import me.tasy5kg.cutegif.BuildConfig
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.MyConstants
 import me.tasy5kg.cutegif.R
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
 import java.io.Serializable
 import java.util.*
+import kotlin.Pair
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -168,7 +171,7 @@ object Toolbox {
   @Suppress("UNCHECKED_CAST", "DEPRECATION")
   fun <T> Intent.getExtra(key: String) = this.extras!!.get(key) as T
 
-  fun appGetString(@StringRes resId: Int) = appContext.getString(resId)
+  fun appGetString(@StringRes resId: Int, vararg formatArgs: Any) = appContext.getString(resId, formatArgs)
 
   fun <K, V> LinkedHashMap<K, V>.getKeyByValue(value: V): K = this.filter { it.value == value }.keys.first()
 
@@ -183,14 +186,6 @@ object Toolbox {
   fun openLink(context: Context, url: String) = try {
     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
   } catch (_: Exception) {
-  }
-
-  fun view3rdPartyOSSLicenses(context: Context) {
-    TODO("//context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))")
-  }
-
-  fun firstLocaleLikeZhHansCn() = with(appContext.resources.configuration.locales[0]) {
-    language == "zh" || script == "Hans" || country == "CN"
   }
 
   fun logRed(tag: Any?, msg: Any?) {
@@ -323,4 +318,23 @@ object Toolbox {
   fun RangeSlider.boundRange() = valueFrom..valueTo
 
   fun RangeSlider.valueRange() = values[0]..values[1]
+
+  fun exec(command: String): Triple<Int, String, String> {
+    val proc = Runtime.getRuntime().exec(command)
+    val stdInput = BufferedReader(InputStreamReader(proc.inputStream))
+    val stdError = BufferedReader(InputStreamReader(proc.errorStream))
+
+    val stdO = StringBuilder()
+    var s: String?
+    while (stdInput.readLine().also { s = it } != null) {
+      stdO.append("\n").append(s)
+    }
+
+    val stdE = StringBuilder()
+    while (stdError.readLine().also { s = it } != null) {
+      stdE.append("\n").append(s)
+    }
+
+    return Triple(proc.waitFor(), stdO.toString(), stdE.toString())
+  }
 }

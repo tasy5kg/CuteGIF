@@ -11,12 +11,12 @@ data class TaskBuilderVideoToGifForPreview(
   val colorKey: Triple<String, Int, Int>?
 ) : Serializable {
 
-  val cache_shortLength = "${MyConstants.VIDEO_TO_GIF_PREVIEW_CACHE_DIR}${shortLength}.png"
-  val cache_shortLength_colorKey = cache_shortLength + (".${
-    colorKey.toString().replace(" ", "")
-  }.png").toEmptyStringIf { colorKey == null }
-  val cache_shortLength_colorKey_palettegen = "$cache_shortLength_colorKey.${colorQuality}.png"
-  val cache_shortLength_colorKey_paletteuse = "$cache_shortLength_colorKey.${colorQuality}.gif"
-  val cache_shortLength_colorKey_paletteuse_lossy =
-    cache_shortLength_colorKey_paletteuse + (".$lossy.gif").toEmptyStringIf { lossy == null }
+  fun getCache_shortLength() = "${MyConstants.VIDEO_TO_GIF_PREVIEW_CACHE_DIR}${shortLength}.png"
+  fun getCache_shortLength_colorKey() =
+    getCache_shortLength() + (".${colorKey.toString().replace(" ", "")}.png").toEmptyStringIf { colorKey == null }
+
+  fun getCache_shortLength_colorKey_palettegen() = "${getCache_shortLength_colorKey()}.${colorQuality}.png"
+  fun getCache_shortLength_colorKey_paletteuse() = "${getCache_shortLength_colorKey()}.${colorQuality}.gif"
+  fun getCache_shortLength_colorKey_paletteuse_lossy() =
+    getCache_shortLength_colorKey_paletteuse() + (".$lossy.gif").toEmptyStringIf { lossy == null }
 }

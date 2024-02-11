@@ -17,8 +17,8 @@ class EulaActivity : AppCompatActivity() {
     binding.mtvVersionInfo.text = getString(R.string.version_X, BuildConfig.VERSION_NAME)
     if (MySettings.eulaAccepted) {
       binding.mbDisagree.visibility = View.GONE
-      binding.mbAgree.text = "关闭"
-      binding.mtvPleaseAccept.text = "您已经阅读并同意了以上协议。要撤回同意，请卸载本软件。"
+      binding.mbAgree.text = getString(R.string.close)
+      binding.mtvPleaseAccept.text = getString(R.string.you_have_read_agreed_eula_to_withdraw)
       binding.mbAgree.onClick(HapticFeedbackType.CONFIRM) {
         finish()
       }

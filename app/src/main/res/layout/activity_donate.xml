@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
+  android:layout_height="wrap_content"
   android:orientation="vertical"
   tools:context=".DonateActivity">
 
@@ -28,7 +28,7 @@
       android:layout_weight="1"
       android:animateLayoutChanges="true"
       android:gravity="start"
-      android:text="赞赏"
+      android:text="@string/donate"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/dark" />
 
@@ -56,7 +56,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="如果您喜欢小萌GIF，还请您赞赏作者，支持作者开发更多好用的软件！"
+          android:text="@string/if_you_like_cutegif_please_donate"
           android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -70,7 +70,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="感谢下列赞赏用户："
+          android:text="@string/thanks_to_the_following_donated_users"
           android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
           android:textIsSelectable="true" />
 
@@ -86,7 +86,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="您可在付款备注处写上您的昵称，以便下次软件更新时，将您的昵称显示在赞赏名单中。"
+          android:text="@string/you_can_write_your_nickname"
           android:textAppearance="@style/TextAppearance.Material3.BodySmall"
           android:textColor="@color/grey" />
 
@@ -109,7 +109,7 @@
           style="@style/Widget.Material3.Button.OutlinedButton"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="关闭"
+          android:text="@string/close"
           android:textColor="?attr/colorOnSurface" />
 
         <com.google.android.material.button.MaterialButton
@@ -119,7 +119,7 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="8dp"
           android:layout_weight="1"
-          android:text="保存二维码，打开微信扫一扫"
+          android:text="@string/save_donate_qrcode_open_wechat_scan"
           android:textColor="?attr/colorOnSurface" />
       </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

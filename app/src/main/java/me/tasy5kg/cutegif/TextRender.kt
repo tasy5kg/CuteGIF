@@ -13,6 +13,7 @@ import androidx.core.view.drawToBitmap
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
 import me.tasy5kg.cutegif.toolbox.MediaTools.generateTransparentBitmap
 import me.tasy5kg.cutegif.toolbox.OutlineSpan
+import me.tasy5kg.cutegif.toolbox.Toolbox.appGetString
 import me.tasy5kg.cutegif.toolbox.Toolbox.getContrastColor
 import me.tasy5kg.cutegif.toolbox.Toolbox.toInt
 import java.io.Serializable
@@ -76,7 +77,7 @@ data class TextRender(
     }
 
     val DEFAULT = TextRender(
-      content = "在此输入文字",
+      content = appGetString(R.string.input_text_here),
       size = 36f,
       color = Color.WHITE,
       bold = false,

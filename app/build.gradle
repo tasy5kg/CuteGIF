@@ -27,7 +27,7 @@ android {
     minSdk 29
     targetSdk 34
     compileSdk 34
-    versionCode 202401103
+    versionCode 202401310
     versionName '2024.1'
     signingConfig signingConfigs.debug
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -36,8 +36,8 @@ android {
 
   buildTypes {
     release {
-      minifyEnabled false
-      shrinkResources false
+      minifyEnabled true
+      shrinkResources true
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       debuggable false
     }
@@ -62,7 +62,6 @@ android {
 }
 
 dependencies {
-
 
   // libgifsicle.so has been imported into the jniLibs directory.
   // It was cloned and compiled from https://github.com/kohler/gifsicle on January 9, 2024.

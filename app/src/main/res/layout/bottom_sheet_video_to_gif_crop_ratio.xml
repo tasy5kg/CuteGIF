@@ -31,7 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="画面比例"
+        android:text="@string/crop_ratio__"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
       <com.google.android.material.button.MaterialButtonToggleGroup

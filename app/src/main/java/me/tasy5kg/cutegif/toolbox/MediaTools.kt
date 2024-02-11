@@ -14,7 +14,9 @@ import me.tasy5kg.cutegif.toolbox.Toolbox.swapIf
 import me.tasy5kg.cutegif.toolbox.Toolbox.toEmptyStringIf
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 import java.io.FileOutputStream
+import java.nio.charset.Charset
 import kotlin.math.roundToInt
 
 
@@ -183,4 +185,20 @@ object MediaTools {
       false
     }
   }
+
+  fun extractVideoFromMvimg(mvimg: String, video: String): Boolean {
+    try {
+      val byteArray = File(mvimg).readBytes()
+      val index = byteArray.toString(Charset.forName("ISO-8859-1")).indexOf("ftypmp42") - 4
+      if (index == -5) return false
+      FileOutputStream(video).use {
+        it.write(byteArray, index, byteArray.size - index)
+      }
+      return true
+    } catch (e: Exception) {
+      e.printStackTrace()
+      return false
+    }
+  }
+
 }

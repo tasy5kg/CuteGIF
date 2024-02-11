@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:gravity="start"
-        android:text="编辑视频"
+        android:text="@string/edit_video"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:textColor="@color/grey" />
 
@@ -56,7 +56,7 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="16dp"
       android:animateLayoutChanges="true"
-      android:text="导出"
+      android:text="@string/export"
       app:icon="@drawable/baseline_save_alt_24" />
   </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -143,6 +143,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:backgroundTint="@color/grey_one_in_sixteen"
+      android:contentDescription="@string/go_previous_0_1_seconds"
       app:icon="@drawable/baseline_keyboard_arrow_left_24"
       app:iconTint="@color/green_dark" />
 
@@ -161,20 +162,23 @@
         android:id="@+id/mbTrimTimeInPoint"
         style="@style/Theme.CuteGif.SegmentedButton"
         android:text="0:00.0"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        tools:ignore="HardcodedText" />
 
       <com.google.android.material.button.MaterialButton
         android:id="@+id/mbTrimTimeCurrentPlaying"
         style="@style/Theme.CuteGif.SegmentedButton"
         android:text="1:23.4"
         android:textStyle="bold"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        tools:ignore="HardcodedText" />
 
       <com.google.android.material.button.MaterialButton
         android:id="@+id/mbTrimTimeOutPoint"
         style="@style/Theme.CuteGif.SegmentedButton"
         android:text="9:59.9"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        tools:ignore="HardcodedText" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.button.MaterialButton
@@ -183,6 +187,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:backgroundTint="@color/grey_one_in_sixteen"
+      android:contentDescription="@string/go_next_0_1_seconds"
       app:icon="@drawable/baseline_keyboard_arrow_right_24"
       app:iconTint="@color/green_dark" />
   </androidx.appcompat.widget.LinearLayoutCompat>
@@ -223,7 +228,7 @@
         android:layout_marginEnd="8dp"
         android:animateLayoutChanges="true"
         android:backgroundTint="@color/grey_one_in_sixteen"
-        android:text="画幅"
+        android:text="@string/crop_ratio_"
         app:icon="@drawable/ic_baseline_crop_24" />
 
       <com.google.android.material.button.MaterialButton
@@ -233,8 +238,9 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:backgroundTint="@color/grey_one_in_sixteen"
-        android:text="正常"
-        app:icon="@drawable/ic_baseline_speed_24" />
+        android:text="1X"
+        app:icon="@drawable/ic_baseline_speed_24"
+        tools:ignore="HardcodedText" />
 
       <Space
         android:layout_width="0dp"
@@ -248,7 +254,7 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:backgroundTint="@color/grey_one_in_sixteen"
-        android:text="文字"
+        android:text="@string/text"
         app:icon="@drawable/ic_baseline_text_fields_24" />
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.appcompat.widget.LinearLayoutCompat>

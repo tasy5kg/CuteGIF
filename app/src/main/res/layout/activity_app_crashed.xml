@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
   tools:context=".AppCrashedActivity">
-
-  <com.google.android.material.appbar.MaterialToolbar
-    android:id="@+id/materialToolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
-    android:background="?attr/colorPrimary"
-    app:subtitle="出错了"
-    app:subtitleTextColor="@color/dark"
-    app:title="@string/app_name"
-    app:titleTextColor="@color/dark" />
 
   <com.google.android.material.textview.MaterialTextView
     android:layout_width="match_parent"
@@ -26,8 +13,9 @@
     android:layout_marginTop="12dp"
     android:layout_marginBottom="12dp"
     android:gravity="bottom"
-    android:text="非常抱歉，小萌 GIF 运行过程中出现错误。\n恳请您加入小萌 GIF QQ 群，将问题日志发送给开发者，以便我们修复此错误。"
-    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+    android:text="@string/sorry_cutegif_error"
+    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+    android:textIsSelectable="true" />
 
   <include layout="@layout/view_divider_horizontal" />
 
@@ -41,7 +29,7 @@
     <com.google.android.material.textview.MaterialTextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="问题日志"
+      android:text="@string/error_log"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
     <Space
@@ -54,7 +42,7 @@
       style="@style/Widget.Material3.Button.OutlinedButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="复制到剪贴板" />
+      android:text="@string/copy_to_clipboard" />
   </androidx.appcompat.widget.LinearLayoutCompat>
 
   <androidx.core.widget.NestedScrollView
@@ -78,7 +66,7 @@
   <include layout="@layout/view_divider_horizontal" />
 
   <com.google.android.material.textview.MaterialTextView
-    android:id="@+id/mtvJoinQqGroup"
+    android:id="@+id/mtvFollowWechat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
@@ -87,7 +75,7 @@
     android:gravity="center_vertical"
     android:minHeight="64dp"
     android:paddingHorizontal="16dp"
-    android:text="点此加入 QQ 群反馈问题"
+    android:text="@string/follow_wechat_to_feedback"
     android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
   <include layout="@layout/view_divider_horizontal" />
@@ -99,6 +87,6 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    android:text="退出"
+    android:text="@string/exit"
     android:textColor="?attr/colorOnSurface" />
 </androidx.appcompat.widget.LinearLayoutCompat>

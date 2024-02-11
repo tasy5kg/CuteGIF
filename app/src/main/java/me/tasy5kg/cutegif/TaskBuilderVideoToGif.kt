@@ -34,37 +34,28 @@ data class TaskBuilderVideoToGif(
     TextRender.render(textRender, videoWH.first, videoWH.second).saveToPng(ADD_TEXT_RENDER_PNG_PATH)
   }
 
-  val forPreviewOnly by lazy {
-    TaskBuilderVideoToGifForPreview(
-      shortLength, colorQuality, lossy, videoWH, colorKey
-    )
-  }
+  fun getForPreviewOnly() = TaskBuilderVideoToGifForPreview(
+    shortLength, colorQuality, lossy, videoWH, colorKey
+  )
 
-  val skipNoKeyFrame by lazy {
+  fun getSkipNoKeyFrame() =
     duration >= INPUT_VIDEO_TRIMMED_DURATION_MIN_TO_ENABLE_SKIP_NO_KEY_FRAME || (trimTime != null && trimTime.second - trimTime.first >= INPUT_VIDEO_TRIMMED_DURATION_MIN_TO_ENABLE_SKIP_NO_KEY_FRAME)
-  }
 
-  val trimTimeCommandForCreatePalette by lazy {
-    "-skip_frame nokey ".toEmptyStringIf { !skipNoKeyFrame } + when {
-      trimTime == null -> ""
-      trimTime.first == 0 -> "-ss 0ms -to ${trimTime.second}ms "
-      else -> when (skipNoKeyFrame) {
-        true -> "-ss ${
-          MediaTools.videoKeyFramesTimestampList(inputVideoPath).findLast { it <= trimTime.first }
-        }ms -to ${trimTime.second}ms "
+  fun getTrimTimeCommandForCreatePalette() = "-skip_frame nokey ".toEmptyStringIf { !getSkipNoKeyFrame() } + when {
+    trimTime == null -> ""
+    trimTime.first == 0 -> "-ss 0ms -to ${trimTime.second}ms "
+    else -> when (getSkipNoKeyFrame()) {
+      true -> "-ss ${
+        MediaTools.videoKeyFramesTimestampList(inputVideoPath).findLast { it <= trimTime.first }
+      }ms -to ${trimTime.second}ms "
 
-        false -> "-ss ${trimTime.first}ms -to ${trimTime.second}ms "
-      }
+      false -> "-ss ${trimTime.first}ms -to ${trimTime.second}ms "
     }
   }
 
-  val trimTimeCommandForVideoToGif by lazy {
-    trimTime?.let { "-ss ${trimTime.first}ms -to ${trimTime.second}ms " } ?: ""
-  }
+  fun getTrimTimeCommandForVideoToGif() = trimTime?.let { "-ss ${trimTime.first}ms -to ${trimTime.second}ms " } ?: ""
 
-  val outputFramesEstimated by lazy {
-    ceil((trimTime?.let { it.second - it.first } ?: duration) * outputFps / outputSpeed / 1000.0).toInt()
-  }
+  fun getOutputFramesEstimated() = ceil((trimTime?.let { it.second - it.first } ?: duration) * outputFps / outputSpeed / 1000.0).toInt()
 
   private fun resolutionParams(cropParams: CropParams, shortLength: Int): String {
     val short = cropParams.shortLength()
@@ -80,19 +71,15 @@ data class TaskBuilderVideoToGif(
     }
   }
 
-  val command_Overlay_CropParams_ResolutionParams_ColorKey by lazy {
-    "overlay=0:0," + cropParams.toFFmpegCropCommand() + resolutionParams(
-      cropParams, shortLength
-    ) + (colorKey?.let { ",colorkey=#${it.first}:${it.second / 100f}:${it.third / 100f}" } ?: "")
-  }
+  fun getCommand_Overlay_CropParams_ResolutionParams_ColorKey() = "overlay=0:0," + cropParams.toFFmpegCropCommand() + resolutionParams(
+    cropParams, shortLength
+  ) + (colorKey?.let { ",colorkey=#${it.first}:${it.second / 100f}:${it.third / 100f}" } ?: "")
 
-  val commandCreatePalette by lazy {
-    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN $trimTimeCommandForCreatePalette" + "-i \"$inputVideoPath\" -i \"$ADD_TEXT_RENDER_PNG_PATH\" " + "-filter_complex $command_Overlay_CropParams_ResolutionParams_ColorKey" + ",palettegen=max_colors=${colorQuality}:stats_mode=diff -y \"${MyConstants.PALETTE_PATH}\""
-  }
+  fun getCommandCreatePalette() =
+    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN ${getTrimTimeCommandForCreatePalette()}" + "-i \"$inputVideoPath\" -i \"$ADD_TEXT_RENDER_PNG_PATH\" " + "-filter_complex ${getCommand_Overlay_CropParams_ResolutionParams_ColorKey()}" + ",palettegen=max_colors=${colorQuality}:stats_mode=diff -y \"${MyConstants.PALETTE_PATH}\""
 
-  val commandVideoToGif by lazy {
-    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN " + trimTimeCommandForVideoToGif + "-i \"$inputVideoPath\" -i \"$ADD_TEXT_RENDER_PNG_PATH\" -i \"${MyConstants.PALETTE_PATH}\" " + "-filter_complex \"[0:v] setpts=PTS/$outputSpeed,fps=fps=$outputFps [0vPreprocessed];" + "[0vPreprocessed][1:v] $command_Overlay_CropParams_ResolutionParams_ColorKey [videoWithText]; " + "[videoWithText][2:v] paletteuse=dither=bayer" + (",reverse").toEmptyStringIf { !reverse } + "\" -final_delay $finalDelay -y \"${MyConstants.OUTPUT_GIF_TEMP_PATH}\""
-  }
+  fun getCommandVideoToGif() =
+    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN " + getTrimTimeCommandForVideoToGif() + "-i \"$inputVideoPath\" -i \"$ADD_TEXT_RENDER_PNG_PATH\" -i \"${MyConstants.PALETTE_PATH}\" " + "-filter_complex \"[0:v] setpts=PTS/$outputSpeed,fps=fps=$outputFps [0vPreprocessed];" + "[0vPreprocessed][1:v] ${getCommand_Overlay_CropParams_ResolutionParams_ColorKey()} [videoWithText]; " + "[videoWithText][2:v] paletteuse=dither=bayer" + (",reverse").toEmptyStringIf { !reverse } + "\" -final_delay $finalDelay -y \"${MyConstants.OUTPUT_GIF_TEMP_PATH}\""
 
   companion object {
     /**

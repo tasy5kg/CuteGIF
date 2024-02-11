@@ -63,7 +63,7 @@
               android:layout_marginTop="4dp"
               android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
               android:textColor="@color/grey"
-              tools:ignore="HardcodedText,TextContrastCheck"
+              tools:ignore="TextContrastCheck"
               tools:text="Version X" />
 
           </androidx.appcompat.widget.LinearLayoutCompat>
@@ -82,7 +82,7 @@
           <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="《用户协议》"
+            android:text="@string/_eula_"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textIsSelectable="true"
             android:textStyle="bold" />
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="欢迎您使用小萌GIF！"
+            android:text="@string/eula_line_1"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textIsSelectable="true" />
 
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="小萌GIF是由沈科光开发的一款开源、无广告、免费使用的GIF处理软件。"
+            android:text="@string/eula_line_2"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textIsSelectable="true" />
 
@@ -107,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="免责声明：本软件按原样提供，不提供任何形式的担保。作者不对由于软件使用或其他方式产生的任何损害、索赔或其他责任负责。"
+            android:text="@string/eula_line_3"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textIsSelectable="true" />
 
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="《隐私政策》"
+            android:text="@string/_privacy_policy_"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textIsSelectable="true"
             android:textStyle="bold" />
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="本软件不连接网络，不需要任何权限，也不收集任何个人信息。"
+            android:text="@string/privacy_policy_line_1"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textIsSelectable="true" />
 
@@ -133,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="请您阅读并同意以上条款，即可开始使用。"
+            android:text="@string/accept_license_above_to_use"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@color/grey"
             android:textIsSelectable="true" />
@@ -154,7 +154,7 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="退出"
+            android:text="@string/exit"
             android:textColor="?attr/colorOnSurface" />
 
           <com.google.android.material.button.MaterialButton
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:text="同意"
+            android:text="@string/agree"
             android:textColor="?attr/colorOnSurface" />
         </androidx.appcompat.widget.LinearLayoutCompat>
       </androidx.appcompat.widget.LinearLayoutCompat>

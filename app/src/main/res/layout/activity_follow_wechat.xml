@@ -28,7 +28,7 @@
       android:layout_weight="1"
       android:animateLayoutChanges="true"
       android:gravity="start"
-      android:text="关注微信公众号"
+      android:text="@string/follow_wechat"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/dark" />
 
@@ -56,7 +56,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="关注我的微信公众号“光光可爱小仙女”，下载、更新小萌GIF更方便。\n如有任何问题或建议，也可在公众号发消息给我，每一条留言我都会看哦。"
+          android:text="@string/follow_wechat_line_1"
           android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
           android:textIsSelectable="true" />
 
@@ -87,7 +87,7 @@
           style="@style/Widget.Material3.Button.OutlinedButton"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="关闭"
+          android:text="@string/close"
           android:textColor="?attr/colorOnSurface" />
 
         <com.google.android.material.button.MaterialButton
@@ -97,7 +97,7 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="8dp"
           android:layout_weight="1"
-          android:text="保存二维码，打开微信扫一扫"
+          android:text="@string/save_qrcode_open_wechat_scan"
           android:textColor="?attr/colorOnSurface" />
       </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

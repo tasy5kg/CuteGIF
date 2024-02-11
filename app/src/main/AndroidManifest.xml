@@ -8,9 +8,17 @@
     android:enableOnBackInvokedCallback="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
+    android:supportsRtl="true"
     android:theme="@style/Theme.CuteGif"
     android:usesCleartextTraffic="false"
     tools:targetApi="tiramisu">
+    <activity
+      android:name=".ImportMvimgActivity"
+      android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize"
+      android:exported="false"
+      android:launchMode="singleTask"
+      android:resizeableActivity="true"
+      android:theme="@style/Theme.CuteGif.Dialog" />
     <activity
       android:name=".BetaEndedActivity"
       android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize"

@@ -2,12 +2,10 @@ package me.tasy5kg.cutegif
 
 import android.content.Context
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import me.tasy5kg.cutegif.databinding.ActivityBetaEndedBinding
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
-import java.util.Locale
 
 class BetaEndedActivity : AppCompatActivity() {
   private val binding by lazy { ActivityBetaEndedBinding.inflate(layoutInflater) }
@@ -25,8 +23,8 @@ class BetaEndedActivity : AppCompatActivity() {
 
     fun start(context: Context) = context.startActivity(Intent(context, BetaEndedActivity::class.java))
 
-    fun testVersionRemainingDays() =
+    fun testVersionRemainingDays() = Int.MAX_VALUE/*
       14 - ((System.currentTimeMillis() -
-        SimpleDateFormat("yyyyMMdd", Locale.CHINA).parse("20240131")!!.time) / 86400000)
+        SimpleDateFormat("yyyyMMdd", Locale.CHINA).parse("20240131")!!.time) / 86400000)*/
   }
 }

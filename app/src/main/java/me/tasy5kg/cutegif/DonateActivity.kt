@@ -24,7 +24,7 @@ class DonateActivity : AppCompatActivity() {
           wechatQrCodeImg.copyTo(dest)
         }
       }
-      toast(if (openWeChatQrScanner()) "赞赏二维码已保存，请扫描相册内的第一张图片" else "微信扫一扫跳转失败，赞赏二维码已保存")
+      toast(if (openWeChatQrScanner()) getString(R.string.wechat_donate_qrcode_saved_please_scan_first_image) else getString(R.string.wechat_donate_qrcode_saved_wechat_launch_failed))
     }
   }
 

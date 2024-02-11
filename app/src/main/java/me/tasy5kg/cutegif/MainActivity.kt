@@ -39,6 +39,12 @@ class MainActivity : BaseActivity() {
   private val arlImportGifToVideo13 = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
     it?.data?.data?.let { uri -> GifToVideoActivity.start(this, uri.copyToInputFileDir()) }
   }
+  private val arlImportMvimgToGifDocument = registerForActivityResult(ActivityResultContracts.GetContent()) {
+    it?.let { _ -> ImportMvimgActivity.start(this, it.copyToInputFileDir()) }
+  }
+  private val arlImportMvimgToGif13 = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    it?.data?.data?.let { uri -> ImportMvimgActivity.start(this, uri.copyToInputFileDir()) }
+  }
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
@@ -65,6 +71,14 @@ class MainActivity : BaseActivity() {
       onClick { importForGifToVideo() }
       enableDropFile(this@MainActivity, "image/gif") {
         GifToVideoActivity.start(
+          this@MainActivity, it.copyToInputFileDir()
+        )
+      }
+    }
+    binding.mcvMvimgToVideo.apply {
+      onClick { importForMvimgToGif() }
+      enableDropFile(this@MainActivity, "image/jpeg") {
+        ImportMvimgActivity.start(
           this@MainActivity, it.copyToInputFileDir()
         )
       }
@@ -119,6 +133,19 @@ class MainActivity : BaseActivity() {
       })
 
       else -> importForGifToVideo(
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) INT_FILE_OPEN_WAY_13 else INT_FILE_OPEN_WAY_DOCUMENT
+      )
+    }
+  }
+
+  private fun importForMvimgToGif(intFileOpenWay: Int = MySettings.fileOpenWay) {
+    when (intFileOpenWay) {
+      INT_FILE_OPEN_WAY_DOCUMENT -> arlImportMvimgToGifDocument.launch("image/jpeg")
+      INT_FILE_OPEN_WAY_13 -> arlImportMvimgToGif13.launch(Intent(MediaStore.ACTION_PICK_IMAGES).apply {
+        type = "image/jpeg"
+      })
+
+      else -> importForMvimgToGif(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) INT_FILE_OPEN_WAY_13 else INT_FILE_OPEN_WAY_DOCUMENT
       )
     }

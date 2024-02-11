@@ -45,7 +45,7 @@ class BottomSheetVideoToGifCropRatio : BottomSheetDialogFragment() {
     const val TAG = "BottomSheetVideoToGif2CropRatio"
 
     fun cropRatioToText(ratio: Pair<Int, Int>?) = when (ratio) {
-      null -> "画幅"
+      null -> appGetString(R.string.crop_ratio_)
       (1 to 1) -> appGetString(R.string.crop_square)
       else -> "${ratio.first}:${ratio.second}"
     }

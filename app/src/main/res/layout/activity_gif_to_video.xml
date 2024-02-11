@@ -20,7 +20,7 @@
       android:id="@+id/mtvTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="正在转换为视频（0%）"
+      android:text="@string/converting_to_video_0_percent"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/dark" />
 

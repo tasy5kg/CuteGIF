@@ -45,7 +45,7 @@
           android:layout_marginTop="4dp"
           android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
           android:textColor="@color/grey"
-          tools:ignore="HardcodedText,TextContrastCheck"
+          tools:ignore="TextContrastCheck"
           tools:text="Version X" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
@@ -75,7 +75,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:animateLayoutChanges="true"
-          android:text="视频选取方式"
+          android:text="@string/video_selection_method"
           android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
@@ -95,19 +95,19 @@
           android:id="@+id/mbChooseFileWayDocument"
           style="@style/Theme.CuteGif.SegmentedButton"
           android:animateLayoutChanges="true"
-          android:text="文件" />
+          android:text="@string/files" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbChooseFileWayGallery"
           style="@style/Theme.CuteGif.SegmentedButton"
           android:animateLayoutChanges="true"
-          android:text="相册" />
+          android:text="@string/photos" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbChooseFileWay13"
           style="@style/Theme.CuteGif.SegmentedButton"
           android:animateLayoutChanges="true"
-          android:text="浮窗" />
+          android:text="@string/float_window" />
 
 
       </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -150,7 +150,7 @@
       android:layout_marginTop="6dp"
       android:gravity="center"
       android:paddingHorizontal="16dp"
-      android:text="开发者：沈科光 (tasy5kg@qq.com)"
+      android:text="@string/developer_name_email"
       android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
       android:textColor="@color/grey"
       android:textIsSelectable="true" />

@@ -27,7 +27,6 @@
       android:gravity="center_vertical"
       android:orientation="vertical">
 
-
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +40,7 @@
         android:layout_marginTop="4dp"
         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
         android:textColor="@color/grey"
-        tools:ignore="HardcodedText,TextContrastCheck"
+        tools:ignore="TextContrastCheck"
         tools:text="Version X" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -64,7 +63,7 @@
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="新功能介绍"
+        android:text="@string/whats_new"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:textIsSelectable="true"
         android:textStyle="bold" />
@@ -73,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="时间轴微调"
+        android:text="@string/whats_new_t1"
         android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
         android:textIsSelectable="true"
         android:textStyle="bold" />
@@ -82,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="裁剪视频片段时，可以将时间轴左右微调，精确到0.1秒。"
+        android:text="@string/whats_new_b1"
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textIsSelectable="true" />
 
@@ -90,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="更多 GIF 导出选项"
+        android:text="@string/whats_new_t2"
         android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
         android:textIsSelectable="true"
         android:textStyle="bold" />
@@ -99,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="现在导出 GIF 时，可以自由输入分辨率了，并且提供了更多清晰度和色彩品质的档位。"
+        android:text="@string/whats_new_b2"
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textIsSelectable="true" />
 
@@ -107,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="绿幕抠图"
+        android:text="@string/whats_new_t3"
         android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
         android:textIsSelectable="true"
         android:textStyle="bold" />
@@ -116,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="导出 GIF 界面新增了“抠图”功能，一键绿幕抠图。"
+        android:text="@string/whats_new_b3"
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textIsSelectable="true" />
 
@@ -124,7 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="性能优化和问题修复"
+        android:text="@string/whats_new_t4"
         android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
         android:textIsSelectable="true"
         android:textStyle="bold" />
@@ -133,35 +132,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="代码全面翻修，性能更快了。"
+        android:text="@string/whats_new_b4"
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textIsSelectable="true" />
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="修复了视频时长太短时，导出的 GIF 画面全黑的问题。"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-        android:textIsSelectable="true" />
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="修复了导入某些视频时，软件闪退的问题。"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-        android:textIsSelectable="true" />
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="感谢 @治疗师 和 @二次元丨硝子酱 反馈问题。"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-        android:textColor="@color/grey"
-        android:textIsSelectable="true" />
-
 
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.core.widget.NestedScrollView>
@@ -169,19 +142,13 @@
   <include layout="@layout/view_divider_horizontal" />
 
 
-  <androidx.appcompat.widget.LinearLayoutCompat
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/mbGotIt"
+    style="@style/Widget.Material3.Button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="16dp"
-    android:orientation="horizontal">
-
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/mbGotIt"
-      style="@style/Widget.Material3.Button"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="知道了"
-      android:textColor="?attr/colorOnSurface" />
-  </androidx.appcompat.widget.LinearLayoutCompat>
+    android:text="@string/got_it"
+    android:textColor="?attr/colorOnSurface" />
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -16,7 +16,7 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginTop="16dp"
       android:autoLink="web"
-      android:text="小萌 GIF 源码："
+      android:text="@string/source_code_of_cutegif_"
       android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
       android:textIsSelectable="true" />
 
@@ -26,7 +26,7 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="16dp"
       android:autoLink="web"
-      android:text="github.com/tasy5kg/CuteGIF"
+      android:text="@string/github_com_tasy5kg_cutegif"
       android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
       android:textIsSelectable="true" />
 
@@ -38,7 +38,7 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginTop="16dp"
       android:autoLink="web"
-      android:text="本软件使用了以下开源项目："
+      android:text="@string/open_source_project_used_"
       android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
       android:textIsSelectable="true" />
 
@@ -48,7 +48,7 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="16dp"
       android:autoLink="web"
-      android:text="github.com/androidx/androidx\ngithub.com/material-components/material-components-android\ngithub.com/bumptech/glide\ngithub.com/CanHub/Android-Image-Cropper\ngithub.com/arthenica/ffmpeg-kit\ngithub.com/Tencent/MMKV\ngithub.com/kohler/gifsicle\ngithub.com/santaevpavel/OutlineSpan"
+      android:text="@string/_open_source_project_used_links"
       android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
       android:textIsSelectable="true" />
 

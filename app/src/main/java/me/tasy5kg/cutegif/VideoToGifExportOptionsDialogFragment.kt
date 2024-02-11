@@ -54,7 +54,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
       vtgActivity.videoView.pause()
       VideoToGifPerformerActivity.start(vtgActivity, createTaskBuilder())
     }
-    binding.chipGroupMoreOptions.setOnCheckedStateChangeListener { group, checkedIds ->
+    binding.chipGroupMoreOptions.setOnCheckedStateChangeListener { _, checkedIds ->
       val chipEffectNeedsToBeViewedAfterExporting = listOf(
         binding.chipFramerate, binding.chipEnableReverse, binding.chipEnableFinalDelay
       )
@@ -64,7 +64,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
       } else {
         binding.mtvMoreOptionsTips.text = getString(
           R.string.effect_needs_to_be_viewed_after_exporting,
-          checkedChips.map { it.text }.joinToStringSpecial("、", "和")
+          checkedChips.map { it.text }.joinToStringSpecial(getString(R.string.language_item_separator_normal), getString(R.string.language_item_separator_last))
         )
         binding.mtvMoreOptionsTips.visibility = VISIBLE
       }
@@ -75,7 +75,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
         val invertMatrix = Matrix()
         binding.acivSingleFramePreview.imageMatrix.invert(invertMatrix)
         invertMatrix.mapPoints(eventXY)
-        val bitmap = renderPreviewImage(createTaskBuilder().forPreviewOnly.copy(colorKey = null))
+        val bitmap = renderPreviewImage(createTaskBuilder().getForPreviewOnly().copy(colorKey = null))
         logRed("(v.drawable as BitmapDrawable).bitmap", "${bitmap.width}x${bitmap.height}")
         val x = eventXY[0].toInt().constraintBy(0 until bitmap.width)
         val y = eventXY[1].toInt().constraintBy(0 until bitmap.height)
@@ -85,7 +85,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
       }
       true
     }
-    // binding.mtvFramerateOver10Warning.visibleIf { createTaskBuilder().outputFps > 10 }
+    binding.mtvFramerateOver10Warning.visibleIf { createTaskBuilder().outputFps > 10 }
     binding.chipEnableColorKey.setOnCheckedChangeListener { _, isChecked ->
       binding.llcGroupColorKey.visibleIf { isChecked }
       updatePreviewImage()
@@ -93,7 +93,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     binding.chipFramerate.setOnCheckedChangeListener { _, isChecked ->
       binding.llcGroupFramerate.visibleIf { isChecked }
     }
-    binding.viewColorKeyIndicator.onClick { Toolbox.toast("点按预览图即可取色") }
+    binding.viewColorKeyIndicator.onClick { Toolbox.toast(context.getString(R.string.click_on_the_preview_image_to_pick_an_color)) }
     binding.sliderColorKeyBlend.apply {
       setLabelFormatter { "${it.toInt()}%" }
       addOnChangeListener { _, _, _ ->
@@ -134,11 +134,11 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     }
     binding.mbtgFramerate.addOnButtonCheckedListener { group, _, isChecked ->
       if (isChecked) {
-        // binding.mtvFramerateOver10Warning.visibleIf { createTaskBuilder().outputFps > 10 }
+        binding.mtvFramerateOver10Warning.visibleIf { createTaskBuilder().outputFps > 10 }
         group.performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
       }
     }
-    binding.mcbColorKeyPreview.setOnCheckedChangeListener { buttonView, isChecked ->
+    binding.mcbColorKeyPreview.setOnCheckedChangeListener { buttonView, _ ->
       buttonView.performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
       updatePreviewImage()
     }
@@ -208,42 +208,42 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
   }
 
   private fun renderPreviewImage(taskBuilder: TaskBuilderVideoToGifForPreview) = with(taskBuilder) {
-    if (!fileExistsCache.contains(cache_shortLength_colorKey_paletteuse)) {
-      if (!fileExistsCache.contains(cache_shortLength_colorKey_palettegen)) {
-        if (!fileExistsCache.contains(cache_shortLength_colorKey)) {
-          if (!fileExistsCache.contains(cache_shortLength)) {
+    if (!fileExistsCache.contains(getCache_shortLength_colorKey_paletteuse())) {
+      if (!fileExistsCache.contains(getCache_shortLength_colorKey_palettegen())) {
+        if (!fileExistsCache.contains(getCache_shortLength_colorKey())) {
+          if (!fileExistsCache.contains(getCache_shortLength())) {
             Bitmap.createScaledBitmap(
               frame, gifOutputWH(shortLength).first, gifOutputWH(shortLength).second, true
-            ).saveToPng(cache_shortLength)
-            fileExistsCache.add(cache_shortLength)
+            ).saveToPng(getCache_shortLength())
+            fileExistsCache.add(getCache_shortLength())
           }
           colorKey?.let {
             val command =
-              "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"$cache_shortLength\" -vf colorkey=#${it.first}:${it.second / 100f}:${it.third / 100f} -y \"$cache_shortLength_colorKey\""
+              "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${getCache_shortLength()}\" -vf colorkey=#${it.first}:${it.second / 100f}:${it.third / 100f} -y \"${getCache_shortLength_colorKey()}\""
             logRed("colorKey cmd", command)
             FFmpegKit.execute(command)
           }
-          fileExistsCache.add(cache_shortLength_colorKey)
+          fileExistsCache.add(getCache_shortLength_colorKey())
         }
-        FFmpegKit.execute("$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"$cache_shortLength_colorKey\" -filter_complex palettegen=max_colors=$colorQuality:stats_mode=diff -y \"$cache_shortLength_colorKey_palettegen\"")
-        fileExistsCache.add(cache_shortLength_colorKey_palettegen)
+        FFmpegKit.execute("$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${getCache_shortLength_colorKey()}\" -filter_complex palettegen=max_colors=$colorQuality:stats_mode=diff -y \"${getCache_shortLength_colorKey_palettegen()}\"")
+        fileExistsCache.add(getCache_shortLength_colorKey_palettegen())
       }
-      FFmpegKit.execute("$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"$cache_shortLength_colorKey\" -i $cache_shortLength_colorKey_palettegen -filter_complex \"[0:v][1:v] paletteuse=dither=bayer\" -y \"$cache_shortLength_colorKey_paletteuse\"")
-      fileExistsCache.add(cache_shortLength_colorKey_paletteuse)
-      previewBitmapMap[this.copy(lossy = null)] = BitmapFactory.decodeFile(cache_shortLength_colorKey_paletteuse)
+      FFmpegKit.execute("$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${getCache_shortLength_colorKey()}\" -i ${getCache_shortLength_colorKey_palettegen()} -filter_complex \"[0:v][1:v] paletteuse=dither=bayer\" -y \"${getCache_shortLength_colorKey_paletteuse()}\"")
+      fileExistsCache.add(getCache_shortLength_colorKey_paletteuse())
+      previewBitmapMap[this.copy(lossy = null)] = BitmapFactory.decodeFile(getCache_shortLength_colorKey_paletteuse())
     }
     if (!previewBitmapMap.containsKey(this)) {
       gifsicleLossy(
-        lossy!!, cache_shortLength_colorKey_paletteuse, cache_shortLength_colorKey_paletteuse_lossy, false
+        lossy!!, getCache_shortLength_colorKey_paletteuse(), getCache_shortLength_colorKey_paletteuse_lossy(), false
       )
-      fileExistsCache.add(cache_shortLength_colorKey_paletteuse_lossy)
-      previewBitmapMap[this] = BitmapFactory.decodeFile(cache_shortLength_colorKey_paletteuse_lossy)
+      fileExistsCache.add(getCache_shortLength_colorKey_paletteuse_lossy())
+      previewBitmapMap[this] = BitmapFactory.decodeFile(getCache_shortLength_colorKey_paletteuse_lossy())
     }
     previewBitmapMap[this]!!
   }
 
   private fun updatePreviewImage() {
-    val taskBuilder = createTaskBuilder().forPreviewOnly
+    val taskBuilder = createTaskBuilder().getForPreviewOnly()
     binding.acivSingleFramePreview.setImageBitmap(
       renderPreviewImage(
         if (binding.chipEnableColorKey.isChecked && binding.mcbColorKeyPreview.isChecked) taskBuilder

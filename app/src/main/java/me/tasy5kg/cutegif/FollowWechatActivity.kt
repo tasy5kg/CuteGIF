@@ -25,7 +25,7 @@ class FollowWechatActivity : AppCompatActivity() {
           wechatQrCodeImg.copyTo(dest)
         }
       }
-      Toolbox.toast(if (openWeChatQrScanner()) "公众号二维码已保存，请扫描相册内的第一张图片" else "微信扫一扫跳转失败，公众号二维码已保存")
+      Toolbox.toast(if (openWeChatQrScanner()) context.getString(R.string.wechat_follow_qrcode_saved_please_scan_first_image) else context.getString(R.string.wechat_follow_qrcode_saved_wechat_launch_failed))
     }
   }
 

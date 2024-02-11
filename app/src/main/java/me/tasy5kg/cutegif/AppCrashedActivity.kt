@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.arthenica.ffmpegkit.FFmpegKit
 import me.tasy5kg.cutegif.MyApplication.Companion.appContext
@@ -21,34 +19,21 @@ class AppCrashedActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    setSupportActionBar(binding.materialToolbar)
     setFinishOnTouchOutside(false)
     val stackTraceString = intent.extras!!.getString(EXTRA_STACK_TRACE_STRING)!!
     val problemLog =
       "[Exception Info]\n${stackTraceString}\n" + "[System Info]\n${systemInfo()}\n" + "[Application Info]\n${applicationInfo()}"
     binding.mtvProblemLog.text = problemLog
     binding.mbCopy.onClick {
-      Toolbox.copyTextToClipboard(problemLog, "已复制到剪贴板")
+      Toolbox.copyTextToClipboard(problemLog, context.getString(R.string.copied_to_clipboard))
 
     }
     binding.mbExit.onClick {
       finish()
     }
-    binding.mtvJoinQqGroup.onClick {
-      Toolbox.cmivJoinQqGroupLambda(this@AppCrashedActivity)
+    binding.mtvFollowWechat.onClick {
+      FollowWechatActivity.start(this@AppCrashedActivity)
     }
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.toolbar_close, menu)
-    return true
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.menu_item_close -> finish()
-    }
-    return true
   }
 
   companion object {

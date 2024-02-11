@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context=".ImportMvimgActivity">
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:animateLayoutChanges="true"
+    android:gravity="center_vertical">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbBack"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      app:icon="@drawable/ic_baseline_close_24"
+      app:iconTint="@color/dark" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:animateLayoutChanges="true"
+      android:gravity="start"
+      android:text="@string/mvimg_to_gif"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+      android:textColor="@color/dark" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+
+    <VideoView
+      android:id="@+id/vvPreview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true" />
+
+    <VideoView
+      android:id="@+id/vvPreviewStabilized"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:visibility="gone" />
+  </RelativeLayout>
+
+  <include layout="@layout/view_divider_horizontal" />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+      android:id="@+id/mcbStabilization"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/stabilization" />
+
+    <Space
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbCancel"
+      style="@style/Widget.Material3.Button.OutlinedButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:text="@string/cancel"
+      android:textColor="?attr/colorOnSurface" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbImport"
+      style="@style/Widget.Material3.Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/_import"
+      android:textColor="?attr/colorOnSurface" />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

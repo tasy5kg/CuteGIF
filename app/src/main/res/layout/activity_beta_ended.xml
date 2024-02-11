@@ -46,7 +46,7 @@
           android:layout_marginTop="4dp"
           android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
           android:textColor="@color/grey"
-          tools:ignore="HardcodedText,TextContrastCheck"
+          tools:ignore="TextContrastCheck"
           tools:text="Version X" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
@@ -59,7 +59,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="16dp"
-      android:text="当前版本内测已结束，请关注微信公众号，下载正式版，即可继续使用。"
+      android:text="@string/beta_ended_please_follow_wechat"
       android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
     <include layout="@layout/view_divider_horizontal" />
@@ -77,7 +77,7 @@
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="退出"
+        android:text="@string/exit"
         android:textColor="?attr/colorOnSurface" />
 
       <com.google.android.material.button.MaterialButton
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:layout_weight="1"
-        android:text="关注微信公众号，下载正式版"
+        android:text="@string/follow_wechat_to_download_release"
         android:textColor="?attr/colorOnSurface" />
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.appcompat.widget.LinearLayoutCompat>

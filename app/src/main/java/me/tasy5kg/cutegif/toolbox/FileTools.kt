@@ -98,7 +98,7 @@ object FileTools {
   }
 
   private const val BUFFER_SIZE = 131072
-  private fun copyStream(
+  fun copyStream(
     inputStream: InputStream, outputStream: OutputStream, onCopy: ((bytesCopied: Long) -> Unit)? = null
   ) {
     var bytesCopied: Long = 0
@@ -122,9 +122,10 @@ object FileTools {
         copyStream(inputStream, outputStream) { totalBytesCopied ->
           if (System.nanoTime() - startTime > 1000000000L && !toastedPleaseWait) {
             toast(
-              "正在读取文件，大约还需${
+              Toolbox.appGetString(
+                R.string.loading_file_d_seconds_please_wait,
                 ((System.nanoTime() - startTime) * fileSize() / 1000000000f / totalBytesCopied).nextUp().toInt()
-              }秒，请稍等..."
+              )
             )
             toastedPleaseWait = true
           }

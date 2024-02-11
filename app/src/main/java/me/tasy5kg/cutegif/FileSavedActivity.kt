@@ -6,8 +6,6 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.bumptech.glide.Glide
@@ -17,6 +15,7 @@ import me.tasy5kg.cutegif.MyConstants.EXTRA_SAVED_FILE_URI
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_IMAGE_GIF
 import me.tasy5kg.cutegif.MyConstants.MIME_TYPE_VIDEO_MP4
 import me.tasy5kg.cutegif.databinding.ActivityFileSavedBinding
+import me.tasy5kg.cutegif.toolbox.FileTools
 import me.tasy5kg.cutegif.toolbox.FileTools.deleteFile
 import me.tasy5kg.cutegif.toolbox.FileTools.fileSize
 import me.tasy5kg.cutegif.toolbox.FileTools.formattedFileSize
@@ -32,7 +31,7 @@ class FileSavedActivity : BaseActivity() {
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(false)
-    binding.mtvXxxSavedToGallery.text = fileUri.mimeType()!!.split('/')[1].uppercase(Locale.ROOT) + " 已保存至相册"
+    binding.mtvXxxSavedToGallery.text = getString(R.string._ext__saved_to_gallery, FileTools.FileName(fileUri).extension.uppercase(Locale.ROOT))
     when (fileUri.mimeType()) {
       MIME_TYPE_IMAGE_GIF -> {
         binding.acivPreview.visibility = VISIBLE
@@ -61,12 +60,12 @@ class FileSavedActivity : BaseActivity() {
         throw NotImplementedError()
       }
     }
-    binding.mtvFileSize.text = "文件大小：${fileUri.fileSize().formattedFileSize()}"
+    binding.mtvFileSize.text = getString(R.string.file_size_s, fileUri.fileSize().formattedFileSize())
     binding.mbDone.onClick { finish() }
     binding.mbBack.onClick { finish() }
     binding.mbDelete.onClick {
       fileUri.deleteFile()
-      toast("文件已删除")
+      toast(context.getString(R.string.file_deleted))
       finish()
     }
     binding.mbShare.onClick {
@@ -82,16 +81,14 @@ class FileSavedActivity : BaseActivity() {
     }
   }
 
-  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.toolbar_close, menu)
-    return true
+  override fun onPause() {
+    super.onPause()
+    if (binding.vvPreview.visibility == VISIBLE) binding.vvPreview.pause()
   }
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.menu_item_close -> finish()
-    }
-    return true
+  override fun onResume() {
+    super.onResume()
+    if (binding.vvPreview.visibility == VISIBLE) binding.vvPreview.start()
   }
 
   companion object {
