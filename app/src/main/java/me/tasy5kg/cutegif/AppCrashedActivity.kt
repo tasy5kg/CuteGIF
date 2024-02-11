@@ -20,7 +20,7 @@ class AppCrashedActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     setFinishOnTouchOutside(false)
-    val stackTraceString = intent.extras!!.getString(EXTRA_STACK_TRACE_STRING)!!
+    val stackTraceString = intent.getStringExtra(EXTRA_STACK_TRACE_STRING)
     val problemLog =
       "[Exception Info]\n${stackTraceString}\n" + "[System Info]\n${systemInfo()}\n" + "[Application Info]\n${applicationInfo()}"
     binding.mtvProblemLog.text = problemLog

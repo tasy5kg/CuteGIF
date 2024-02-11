@@ -20,13 +20,14 @@ import me.tasy5kg.cutegif.toolbox.FileTools.deleteFile
 import me.tasy5kg.cutegif.toolbox.FileTools.fileSize
 import me.tasy5kg.cutegif.toolbox.FileTools.formattedFileSize
 import me.tasy5kg.cutegif.toolbox.FileTools.mimeType
+import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 import java.util.Locale
 
 class FileSavedActivity : BaseActivity() {
   private val binding by lazy { ActivityFileSavedBinding.inflate(layoutInflater) }
-  private val fileUri by lazy { intent.extras!!.get(EXTRA_SAVED_FILE_URI) as Uri }
+  private val fileUri by lazy { intent.getExtra<Uri>(EXTRA_SAVED_FILE_URI) }
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
