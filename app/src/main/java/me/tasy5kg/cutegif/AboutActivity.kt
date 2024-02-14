@@ -27,7 +27,7 @@ class AboutActivity : BaseActivity() {
           else -> throw IllegalArgumentException()
         }
       )
-      addOnButtonCheckedListener { group, checkedId, isChecked ->
+      addOnButtonCheckedListener { _, checkedId, isChecked ->
         performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
         if (isChecked) {
           MySettings.fileOpenWay = when (checkedId) {
