@@ -27,7 +27,7 @@ android {
     minSdk 29
     targetSdk 34
     compileSdk 34
-    versionCode 202401310
+    versionCode 202401311
     versionName '2024.1'
     signingConfig signingConfigs.debug
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

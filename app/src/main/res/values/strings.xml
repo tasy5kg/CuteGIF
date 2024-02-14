@@ -21,7 +21,7 @@
   <string name="gif_duration_s">GIF duration: %s seconds</string>
   <string name="effect_needs_to_be_viewed_after_exporting">ℹ️ The effects of %s needs to be viewed after exporting</string>
   <string name="beta_info">The current version is for testing purposes only and may contain bugs. \nThe internal test will end in %d days. After the end, please download the official version from my WeChat account.</string>
-  <string name="developer_name_email">Developer: 沈科光 (Shen Keguang, tasy5kg@qq.com)</string>
+  <string name="developer_name_email">Developer: 沈科光 (tasy5kg@qq.com)</string>
   <string name="files">Files</string>
   <string name="photos">Photos</string>
   <string name="float_window">Window</string>
@@ -46,7 +46,7 @@
   <string name="save_donate_qrcode_open_wechat_scan">Save the QR code</string>
   <string name="_eula_">"User Agreement"</string>
   <string name="eula_line_1">Welcome to use CuteGIF!</string>
-  <string name="eula_line_2">CuteGIF is an open source, ad-free, free-to-use GIF processing software developed by 沈科光 (Shen Keguang).</string>
+  <string name="eula_line_2">CuteGIF is an open source, ad-free, free-to-use GIF processing software developed by 沈科光.</string>
   <string name="eula_line_3">Disclaimer: This software is provided as is without warranty of any kind. The author is not responsible for any damages, claims or other liability arising out of the use or otherwise of the software.</string>
   <string name="_privacy_policy_">"Privacy Policy"</string>
   <string name="privacy_policy_line_1">This software does not connect to the Internet, does not require any permissions, and does not collect any personal information.</string>
