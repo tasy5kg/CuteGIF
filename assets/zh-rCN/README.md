@@ -34,6 +34,6 @@
 
 ## 版权
 
-开发者：沈科光（tasy5kg@qq.com）。
+沈科光（[tasy5kg@qq.com](mailto:tasy5kg@qq.com)）。2022-2024。
 
 本项目以 [GPL-3.0](/COPYING) 协议开源。
