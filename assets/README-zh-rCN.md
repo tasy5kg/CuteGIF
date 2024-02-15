@@ -1,12 +1,8 @@
 > #### [English](https://example.com) | 简体中文 | [繁體中文](https://example.com)
 
----
-
 # 小萌GIF
 
 小萌GIF 是一款简洁好用的 Android 端视频转 GIF 工具。
-
----
 
 ## 使用截图与功能特色
 
@@ -14,13 +10,9 @@
 <img src="img2-zh-rCN.webp" width="480"/>
 <img src="img3-zh-rCN.webp" width="480"/>
 
----
-
 ## 好评墙
 
 <img src="img11-zh-rCN.webp" width="480"/>
-
----
 
 ## 安装包下载
 
