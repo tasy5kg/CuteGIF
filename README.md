@@ -20,9 +20,7 @@ Latest version: `2024.1`.
 
 ## Screenshots
 
-<img src="assets/en/img1.webp" width="240"/>
-<img src="assets/en/img2.webp" width="240"/>
-<img src="assets/en/img3.webp" width="240"/>
+<img src="assets/en/img1.webp" width="240"/> <img src="assets/en/img2.webp" width="240"/> <img src="assets/en/img3.webp" width="240"/>
 
 ---
 
