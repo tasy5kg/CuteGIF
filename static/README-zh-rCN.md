@@ -2,7 +2,9 @@
 
 ---
 
-<img src="CuteGIF_icon.svg" height="64" width="64"/> # 小萌GIF
+<img src="CuteGIF_icon.svg" height="64" width="64"/>
+
+# 小萌GIF
 
 小萌GIF 是一款简洁好用的 Android 端视频转 GIF 工具。
 
