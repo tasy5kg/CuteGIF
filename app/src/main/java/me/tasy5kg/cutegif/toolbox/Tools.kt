@@ -41,6 +41,7 @@ import java.io.InputStreamReader
 import java.io.Serializable
 import java.util.*
 import kotlin.Pair
+import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -336,5 +337,14 @@ object Toolbox {
     }
 
     return Triple(proc.waitFor(), stdO.toString(), stdE.toString())
+  }
+
+  /** Example: 123456L -> "2:03.4" */
+  fun msToMinSecDs(ms: Int) = with(ms / 1000f) {
+    "${(this / 60).toInt()}:${
+      String.format(
+        "%02d", (this % 60).toInt()
+      )
+    }.${((this - floor(this)) * 10).toInt()}"
   }
 }

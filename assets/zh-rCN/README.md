@@ -1,4 +1,4 @@
-> #### [English](https://example.com) | 简体中文 | [繁體中文](https://example.com)
+> #### [English](/README.md) | 简体中文
 
 ---
 

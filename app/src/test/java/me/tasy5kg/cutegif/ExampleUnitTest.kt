@@ -1,8 +1,8 @@
 package me.tasy5kg.cutegif
 
+import me.tasy5kg.cutegif.toolbox.Toolbox.msToMinSecDs
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import kotlin.math.floor
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -11,15 +11,7 @@ import kotlin.math.floor
  */
 class ExampleUnitTest {
   @Test
-  fun addition_isCorrect() {
-    assertEquals("2:03.4", msToMinSecDs(123456L))
-  }
-
-  private fun msToMinSecDs(ms: Long) = with(ms / 1000f) {
-    "${(this / 60).toInt()}:${String.format("%02d", (this % 60).toInt())}.${
-      ((this - floor(
-        this
-      )) * 10).toInt()
-    }"
+  fun msToMinSecDs_isCorrect() {
+    assertEquals("2:03.4", msToMinSecDs(123456))
   }
 }

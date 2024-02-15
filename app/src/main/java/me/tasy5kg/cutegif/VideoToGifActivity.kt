@@ -19,6 +19,7 @@ import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoDurationByAndroidSystem
 import me.tasy5kg.cutegif.toolbox.Toolbox.boundRange
 import me.tasy5kg.cutegif.toolbox.Toolbox.constraintBy
 import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
+import me.tasy5kg.cutegif.toolbox.Toolbox.msToMinSecDs
 import me.tasy5kg.cutegif.toolbox.Toolbox.newRunnableWithSelf
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import me.tasy5kg.cutegif.toolbox.Toolbox.onSliderTouch
@@ -27,7 +28,6 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
-import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToLong
 
@@ -289,14 +289,5 @@ class VideoToGifActivity : BaseActivity() {
     )
 
     fun intentAddTextResult(textRender: TextRender) = Intent().putExtra(EXTRA_ADD_TEXT_RENDER, textRender)
-
-    /** Example: 123456L -> "2:03.4" */
-    private fun msToMinSecDs(ms: Int) = with(ms / 1000f) {
-      "${(this / 60).toInt()}:${
-        String.format(
-          "%02d", (this % 60).toInt()
-        )
-      }.${((this - floor(this)) * 10).toInt()}"
-    }
   }
 }
