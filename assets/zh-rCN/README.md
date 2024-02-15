@@ -8,7 +8,7 @@
 
 ---
 
-## 使用截图与功能特色
+### 使用截图与功能特色
 
 <img src="img1.webp" width="480"/>
 <img src="img2.webp" width="480"/>
