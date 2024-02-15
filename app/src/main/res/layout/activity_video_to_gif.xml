@@ -194,69 +194,61 @@
   </androidx.appcompat.widget.LinearLayoutCompat>
 
   <androidx.appcompat.widget.LinearLayoutCompat
-    android:id="@+id/llcGroupBasicOptions"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="4dp"
     android:animateLayoutChanges="true"
-    android:orientation="vertical">
+    android:gravity="center_vertical"
+    android:minHeight="54dp"
+    android:orientation="horizontal">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-      android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbPlayPause"
+      style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="16dp"
-      android:layout_marginBottom="4dp"
+      android:layout_marginEnd="8dp"
       android:animateLayoutChanges="true"
-      android:gravity="center_vertical"
-      android:minHeight="54dp"
-      android:orientation="horizontal">
+      android:backgroundTint="@color/grey_one_in_sixteen"
+      app:icon="@drawable/ic_baseline_pause_24"
+      app:iconTint="@color/green_dark" />
 
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/mbPlayPause"
-        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:animateLayoutChanges="true"
-        android:backgroundTint="@color/grey_one_in_sixteen"
-        app:icon="@drawable/ic_baseline_pause_24"
-        app:iconTint="@color/green_dark" />
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbCropRatio"
+      style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:animateLayoutChanges="true"
+      android:backgroundTint="@color/grey_one_in_sixteen"
+      android:text="@string/crop_ratio_"
+      app:icon="@drawable/ic_baseline_crop_24" />
 
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/mbCropRatio"
-        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:animateLayoutChanges="true"
-        android:backgroundTint="@color/grey_one_in_sixteen"
-        android:text="@string/crop_ratio_"
-        app:icon="@drawable/ic_baseline_crop_24" />
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbPlaybackSpeed"
+      style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:backgroundTint="@color/grey_one_in_sixteen"
+      android:text="1X"
+      app:icon="@drawable/ic_baseline_speed_24"
+      tools:ignore="HardcodedText" />
 
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/mbPlaybackSpeed"
-        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:backgroundTint="@color/grey_one_in_sixteen"
-        android:text="1X"
-        app:icon="@drawable/ic_baseline_speed_24"
-        tools:ignore="HardcodedText" />
+    <Space
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1" />
 
-      <Space
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/mbAddText"
-        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:backgroundTint="@color/grey_one_in_sixteen"
-        android:text="@string/text"
-        app:icon="@drawable/ic_baseline_text_fields_24" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbAddText"
+      style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:backgroundTint="@color/grey_one_in_sixteen"
+      android:text="@string/text"
+      app:icon="@drawable/ic_baseline_text_fields_24" />
   </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

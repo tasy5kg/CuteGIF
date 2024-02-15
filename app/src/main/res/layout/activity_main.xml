@@ -280,6 +280,7 @@
       <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mtvBetaInfo"
         android:visibility="gone"
+        tools:text="@string/beta_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
