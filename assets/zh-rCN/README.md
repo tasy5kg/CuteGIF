@@ -1,22 +1,30 @@
 > #### [English](https://example.com) | 简体中文 | [繁體中文](https://example.com)
 
+---
+
 # 小萌GIF
 
 小萌GIF 是一款简洁好用的 Android 端视频转 GIF 工具。
 
+---
+
 ## 使用截图与功能特色
 
-<img src="img1-zh-rCN.webp" width="480"/>
-<img src="img2-zh-rCN.webp" width="480"/>
-<img src="img3-zh-rCN.webp" width="480"/>
+<img src="img1.webp" width="480"/>
+<img src="img2.webp" width="480"/>
+<img src="img3.webp" width="480"/>
+
+---
 
 ## 好评墙
 
-<img src="img11-zh-rCN.webp" width="480"/>
+<img src="img11.webp" width="480"/>
+
+---
 
 ## 安装包下载
 
-<img src="img4-zh-rCN.webp" width="480"/>
+<img src="img4.webp" width="480"/>
 
 请微信扫码关注我的公众号 **光光可爱小仙女**，点击聊天框底部的 **小萌GIF** 菜单，即可收到下载链接。
 
@@ -28,4 +36,4 @@
 
 开发者：沈科光（tasy5kg@qq.com）。
 
-本项目以 GPL-3.0 协议开源。
+本项目以 [GPL-3.0](/COPYING) 协议开源。
