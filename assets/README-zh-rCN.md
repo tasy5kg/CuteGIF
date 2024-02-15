@@ -10,21 +10,21 @@
 
 ## 使用截图与功能特色
 
-![](img1-zh-rCN.webp)
-![](img2-zh-rCN.webp)
-![](img3-zh-rCN.webp)
+<img src="img1-zh-rCN.webp" width="480"/>
+<img src="img2-zh-rCN.webp" width="480"/>
+<img src="img3-zh-rCN.webp" width="480"/>
 
 ---
 
 ## 好评墙
 
-![](img11-zh-rCN.webp)
+<img src="img11-zh-rCN.webp" width="480"/>
 
 ---
 
 ## 安装包下载
 
-![](img4-zh-rCN.webp)
+<img src="img4-zh-rCN.webp" width="480"/>
 
 请关注我的微信公众号 **光光可爱小仙女**，点击聊天框底部的 **小萌GIF** 菜单，即可收到下载链接。
 
