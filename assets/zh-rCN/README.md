@@ -1,8 +1,6 @@
 > #### [English](/README.md) | 简体中文
 
----
-
-# 小萌GIF
+## 小萌GIF
 
 小萌GIF 是一款简洁好用的 Android 端视频转 GIF 工具。
 
@@ -16,13 +14,13 @@
 
 ---
 
-## 好评墙
+### 好评墙
 
 <img src="img11.webp" width="480"/>
 
 ---
 
-## 安装包下载
+### 安装包下载
 
 <img src="img4.webp" width="480"/>
 
@@ -34,7 +32,7 @@
 
 ---
 
-## 版权
+### 版权
 
 沈科光（[tasy5kg@qq.com](mailto:tasy5kg@qq.com)）。2022-2024。
 
