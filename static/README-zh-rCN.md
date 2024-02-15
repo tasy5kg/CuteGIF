@@ -2,7 +2,7 @@
 
 ---
 
-<img src="CuteGIF_icon.svg" height="64" width="64"/>
+<img src="CuteGIF_icon.svg" height="128" width="128"/>
 
 # 小萌GIF
 
