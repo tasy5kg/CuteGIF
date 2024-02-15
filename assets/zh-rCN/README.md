@@ -32,6 +32,8 @@
 
 当然，如果你不使用微信，也可以在 [GitHub Releases](https://github.com/tasy5kg/CuteGIF/releases) 手动下载安装包。
 
+---
+
 ## 版权
 
 沈科光（[tasy5kg@qq.com](mailto:tasy5kg@qq.com)）。2022-2024。
