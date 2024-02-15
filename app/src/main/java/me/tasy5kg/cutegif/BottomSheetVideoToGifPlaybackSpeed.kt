@@ -37,10 +37,11 @@ class BottomSheetVideoToGifPlaybackSpeed : BottomSheetDialogFragment() {
       0 -> 0.5f
       1 -> 0.75f
       2 -> 1f
-      3 -> 1.5f
-      4 -> 2f
-      5 -> 3f
-      6 -> 4f
+      3 -> 1.25f
+      4 -> 1.5f
+      5 -> 2f
+      6 -> 3f
+      7 -> 4f
       else -> throw IllegalArgumentException()
     }
 
@@ -48,10 +49,11 @@ class BottomSheetVideoToGifPlaybackSpeed : BottomSheetDialogFragment() {
       0 -> "0.5X"
       1 -> "0.75X"
       2 -> "1X"
-      3 -> "1.5X"
-      4 -> "2X"
-      5 -> "3X"
-      6 -> "4X"
+      3 -> "1.25X"
+      4 -> "1.5X"
+      5 -> "2X"
+      6 -> "3X"
+      7 -> "4X"
       else -> throw IllegalArgumentException()
     }
 
