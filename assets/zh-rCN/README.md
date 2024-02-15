@@ -4,6 +4,8 @@
 
 小萌GIF 是一款简洁好用的 Android 端视频转 GIF 工具。
 
+最新版本：2024.1。
+
 ---
 
 ## 使用截图与功能特色
@@ -36,4 +38,4 @@
 
 沈科光（[tasy5kg@qq.com](mailto:tasy5kg@qq.com)）。2022-2024。
 
-本项目以 [GPL-3.0](/COPYING) 协议开源。
+本项目以 [GPL-3.0 许可](/COPYING) 开源。
