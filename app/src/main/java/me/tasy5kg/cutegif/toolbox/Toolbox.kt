@@ -320,8 +320,8 @@ object Toolbox {
 
   fun RangeSlider.valueRange() = values[0]..values[1]
 
-  fun exec(command: String): Triple<Int, String, String> {
-    val proc = Runtime.getRuntime().exec(command)
+  fun exec(command: String, envp: Array<String>? = null): Triple<Int, String, String> {
+    val proc = if (envp == null) Runtime.getRuntime().exec(command) else Runtime.getRuntime().exec(command, envp)
     val stdInput = BufferedReader(InputStreamReader(proc.inputStream))
     val stdError = BufferedReader(InputStreamReader(proc.errorStream))
 
