@@ -141,5 +141,5 @@
   <string name="qq_group_id" translatable="false">729757909</string>
   <string name="_donated_users_list" translatable="false">\@华 @Z*g @张先森 @禽兽养殖二厂</string>
   <string name="github_com_tasy5kg_cutegif" translatable="false">github.com/tasy5kg/CuteGIF</string>
-  <string name="_open_source_project_used_links" translatable="false">github.com/androidx/androidx\ngithub.com/material-components/material-components-android\ngithub.com/bumptech/glide\ngithub.com/CanHub/Android-Image-Cropper\ngithub.com/arthenica/ffmpeg-kit\ngithub.com/Tencent/MMKV\ngithub.com/kohler/gifsicle\ngithub.com/santaevpavel/OutlineSpan</string>
+  <string name="_open_source_project_used_links" translatable="false">github.com/androidx/androidx\ngithub.com/material-components/material-components-android\ngithub.com/bumptech/glide\ngithub.com/CanHub/Android-Image-Cropper\ngithub.com/arthenica/ffmpeg-kit\ngithub.com/Tencent/MMKV\ngithub.com/kohler/gifsicle\ngithub.com/ImageOptim/gifski/\ngithub.com/santaevpavel/OutlineSpan</string>
 </resources>
