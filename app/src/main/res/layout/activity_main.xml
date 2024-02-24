@@ -160,7 +160,6 @@
         android:backgroundTint="@color/light"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="gone"
         app:strokeColor="@color/green_dark">
 
         <androidx.appcompat.widget.LinearLayoutCompat

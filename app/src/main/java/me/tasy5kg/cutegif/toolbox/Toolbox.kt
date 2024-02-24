@@ -339,6 +339,21 @@ object Toolbox {
     return Triple(proc.waitFor(), stdO.toString(), stdE.toString())
   }
 
+  fun exec(command: String, envp: Array<String>? = null, output: ((String) -> Unit)? = null, outputError: ((String) -> Unit)? = null): Int {
+    val process = if (envp == null) Runtime.getRuntime().exec(command) else Runtime.getRuntime().exec(command, envp)
+    val stdInput = BufferedReader(InputStreamReader(process.inputStream))
+    val stdError = BufferedReader(InputStreamReader(process.errorStream))
+    var stdO: String?
+    while (stdInput.readLine().also { stdO = it } != null) {
+      output?.invoke(stdO!!)
+    }
+    var stdE: String?
+    while (stdError.readLine().also { stdE = it } != null) {
+      outputError?.invoke(stdE!!)
+    }
+    return process.waitFor()
+  }
+
   /** Example: 123456L -> "2:03.4" */
   fun msToMinSecDs(ms: Int) = with(ms / 1000f) {
     "${(this / 60).toInt()}:${

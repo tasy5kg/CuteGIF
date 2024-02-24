@@ -15,7 +15,9 @@ import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_GALLERY
 import me.tasy5kg.cutegif.databinding.ActivityMainBinding
 import me.tasy5kg.cutegif.toolbox.FileTools.copyToInputFileDir
 import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.Toolbox
 import me.tasy5kg.cutegif.toolbox.Toolbox.enableDropFile
+import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 
 class MainActivity : BaseActivity() {
@@ -84,6 +86,19 @@ class MainActivity : BaseActivity() {
       }
     }
     binding.mcvDonate.onClick {
+      var s = ""
+      for (i in 1..20) {
+        s += " /data/data/me.tasy5kg.cutegif/cache/3479/frame${String.format("%04d", i)}.png"
+      }
+      val nativeLibraryDir = MyApplication.appContext.applicationInfo.nativeLibraryDir
+      Toolbox.exec(
+        "${nativeLibraryDir}/libgifski.so --fps 10 --no-sort --quality 70 -o /data/data/me.tasy5kg.cutegif/cache/ski.gif $s",
+        arrayOf("LD_LIBRARY_PATH=${nativeLibraryDir}"),
+        { logRed("stdO", it) }
+      ) {
+        logRed("stdE", it)
+
+      }
       DonateActivity.start(this@MainActivity)
     }
     binding.mcvFollowWechat.onClick {

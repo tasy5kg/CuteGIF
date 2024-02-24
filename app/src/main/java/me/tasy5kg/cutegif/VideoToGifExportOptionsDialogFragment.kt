@@ -156,19 +156,14 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
   }
 
   private fun createTaskBuilder() = with(vtgActivity) {
-    TaskBuilderVideoToGif(trimTime = with(rangeSlider) {
-      if ((values[0] * 100).toInt() == 0 && (values[1] * 100).toInt() == videoView.duration) null
-      else ((values[0] * 100).toInt() to (values[1] * 100).toInt())
-    },
+    TaskBuilderVideoToGif(
+      trimTime = with(rangeSlider) {
+        if ((values[0] * 100).toInt() == 0 && (values[1] * 100).toInt() == videoView.duration) null
+        else ((values[0] * 100).toInt() to (values[1] * 100).toInt())
+      },
       inputVideoPath = inputVideoPath,
       cropParams = cropParams,
-      shortLength = when (binding.mbtgResolution.checkedButtonId) {
-        binding.mbResolution144p.id -> 144
-        binding.mbResolution240p.id -> 240
-        binding.mbResolution320p.id -> 320
-        binding.mbResolutionCustom.id -> getUserCustomResolution()
-        else -> throw IllegalArgumentException()
-      },
+      shortLength = getSelectedShortLength(),
       outputSpeed = playbackSpeed,
       outputFps = when (binding.mbtgFramerate.checkedButtonId) {
         binding.mbFramerate5.id -> 5
@@ -254,14 +249,18 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
 
   private fun gifOutputWH(shortLength: Int) = vtgActivity.cropParams.calcScaledResolution(shortLength)
 
-  private fun getUserCustomResolution(): Int {
-    val inputValue = ("0" + binding.tietResolutionInputValue.text.toString()).toInt()
-    val result = (if (inputValue == 0) 240 else if (inputValue % 2 == 0) inputValue else inputValue + 1).constraintBy(
-      2..min(frame.width, frame.height)
-    )
-    logRed("getUserCustomResolution", result)
-    return result
-  }
+  private fun getSelectedShortLength() =
+    when (binding.mbtgResolution.checkedButtonId) {
+      binding.mbResolution144p.id -> 144
+      binding.mbResolution240p.id -> 240
+      binding.mbResolution320p.id -> 320
+      binding.mbResolutionCustom.id -> {
+        val inputValue = ("0" + binding.tietResolutionInputValue.text.toString()).toInt()
+        if (inputValue == 0) 240 else if (inputValue % 2 == 0) inputValue else inputValue + 1
+      }
+
+      else -> throw IllegalArgumentException()
+    }.constraintBy(2..min(vtgActivity.cropParams.outW, vtgActivity.cropParams.outH))
 
   override fun onDestroyView() {
     vtgActivity.savedColorKeyColor = binding.viewColorKeyIndicator.backgroundColor

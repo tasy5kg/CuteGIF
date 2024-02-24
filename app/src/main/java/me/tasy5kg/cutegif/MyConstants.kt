@@ -14,6 +14,8 @@ object MyConstants {
   val OUTPUT_SPLIT_DIR = "$CACHE_DIR_PATH/split_dir/"
   val VIDEO_TO_GIF_PREVIEW_CACHE_DIR = "$CACHE_DIR_PATH/video_to_gif_preview_cache_dir/"
   val VIDSTABDETECT_RESULT_PATH = "$CACHE_DIR_PATH/transforms.trf"
+  val VIDEO_TO_GIF_SKI_EXTRACTED_FRAMES_PATH = "$CACHE_DIR_PATH/extracted_frames/"
+  val NATIVE_LIBRARY_DIR: String = appContext.applicationInfo.nativeLibraryDir
 
   const val EXTRA_TEXT_RENDER = "EXTRA_TEXT_RENDER"
   const val EXTRA_VIDEO_WH = "EXTRA_VIDEO_WH"
@@ -46,8 +48,10 @@ object MyConstants {
   const val URL_GET_LATEST_VERSION_GITHUB = "https://github.com/tasy5kg/CuteGIF/releases/latest"
   const val URL_BROWSE_HELP_DOCUMENTATION_ZH_CN_KDOCS = "https://pub.kdocs.cn/r/paGFePg24YDlAB4"
   const val URL_OPEN_SOURCE_REPO_GITHUB = "https://github.com/tasy5kg/CuteGIF"
-  const val FFMPEG_COMMAND_PREFIX_FOR_ALL_AN = "-hide_banner -benchmark -an"
-  const val FFMPEG_COMMAND_PREFIX_FOR_ALL = "-hide_banner -benchmark"
+
+  // Specifying "-hwaccel mediacodec" may result in slower decoding than "-hwaccel auto"
+  const val FFMPEG_COMMAND_PREFIX_FOR_ALL_AN = "-hwaccel auto -hide_banner -benchmark -an"
+  const val FFMPEG_COMMAND_PREFIX_FOR_ALL = "-hwaccel auto -hide_banner -benchmark"
   const val URI_JOIN_QQ_GROUP =
     "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3D$5Frn_d8p0OxBX6NwtTAhAhDQh2FTCcI9"
 }
