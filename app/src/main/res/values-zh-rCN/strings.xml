@@ -20,7 +20,7 @@
   <string name="crop_square">方形</string>
   <string name="gif_duration_s">GIF 时长：%s 秒</string>
   <string name="effect_needs_to_be_viewed_after_exporting">ℹ️ %s的效果需在导出后查看</string>
-  <string name="beta_info">当前版本仅供测试使用，可能存在错误。\n内测将在 %d 天后结束，结束后请在微信公众号下载正式版使用。</string>
+  <string name="beta_info">当前版本仅供测试使用，可能存在漏洞。\n内测将在 %d 天后结束，结束后请在微信公众号下载正式版使用。</string>
   <string name="developer_name_email">开发者：沈科光 (tasy5kg@qq.com)</string>
   <string name="files">文件</string>
   <string name="photos">相册</string>
@@ -40,6 +40,7 @@
   <string name="beta_ended_please_follow_wechat">当前版本内测已结束，请关注微信公众号，下载正式版，即可继续使用。</string>
   <string name="follow_wechat_to_download_release">关注微信公众号，下载正式版</string>
   <string name="donate">赞赏</string>
+  <string name="donate_support">赞赏支持</string>
   <string name="if_you_like_cutegif_please_donate">如果您喜欢小萌GIF，还请您赞赏作者，支持作者开发更多好用的软件！</string>
   <string name="thanks_to_the_following_donated_users">感谢下列赞赏用户：</string>
   <string name="you_can_write_your_nickname">您可在付款备注处写上您的昵称，以便下次软件更新时，将您的昵称显示在赞赏名单中。</string>
@@ -55,6 +56,7 @@
   <string name="gif_saved_to_gallery">GIF 已保存至相册</string>
   <string name="delete">删除</string>
   <string name="follow_wechat">关注微信公众号</string>
+  <string name="follow_my_wechat">关注我的微信公众号</string>
   <string name="follow_wechat_line_1">关注我的微信公众号【光光可爱小仙女】，下载、更新小萌GIF更方便。\n如有任何问题或建议，也可在公众号发消息给我，每一条留言我都会看哦。</string>
   <string name="save_qrcode_open_wechat_scan">保存二维码，打开微信扫一扫</string>
   <string name="gif_split">GIF 拆分</string>
@@ -81,6 +83,7 @@
   <string name="transcoding_video__d_">正在转码视频（%d%%）</string>
   <string name="got_it">知道了</string>
   <string name="whats_new">新功能介绍</string>
+  <string name="whats_new_2023_3">新增 动态照片转 GIF 功能\n全面屏小白条沉浸</string>
   <string name="whats_new_t1">时间轴微调</string>
   <string name="whats_new_b1">裁剪视频片段时，可以将时间轴左右微调，精确到0.1秒。</string>
   <string name="whats_new_t2">更多 GIF 导出选项</string>
@@ -136,4 +139,5 @@
   <string name="wechat_donate_qrcode_saved_please_scan_first_image">赞赏二维码已保存，请扫描相册内的第一张图片</string>
   <string name="wechat_donate_qrcode_saved_wechat_launch_failed">微信扫一扫跳转失败，赞赏二维码已保存</string>
   <string name="wechat_follow_qrcode_saved_wechat_launch_failed">微信扫一扫跳转失败，公众号二维码已保存</string>
+  <string name="eula_line_addition">本软件供学习交流使用，不接入网络，不提供互联网信息服务。</string>
 </resources>

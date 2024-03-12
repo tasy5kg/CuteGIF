@@ -20,8 +20,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="24dp"
     android:layout_marginBottom="8dp"
-    android:gravity="center"
-    android:text="测试版导出算法的预览和抠图功能正在开发中。"
+    android:text="当前使用的是测试版 GIF 导出算法，预览和抠图功能正在开发中。欢迎通过微信公众号反馈您对新算法的体验和建议。"
     android:textColor="@color/grey" />
 
   <androidx.core.widget.NestedScrollView
@@ -168,7 +167,7 @@
           android:layout_width="0dp"
           android:layout_weight="5"
           android:stepSize="1"
-          android:value="90"
+          android:value="75"
           android:valueFrom="1"
           android:valueTo="100"
           app:labelBehavior="floating" />

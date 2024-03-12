@@ -83,12 +83,6 @@ class MainActivity : BaseActivity() {
         )
       }
     }
-    binding.mcvDonate.onClick {
-      DonateActivity.start(this@MainActivity)
-    }
-    binding.mcvFollowWechat.onClick {
-      FollowWechatActivity.start(this@MainActivity)
-    }
 
     val uriFromActionViewOrSend = intent?.extras?.getParcelable(Intent.EXTRA_STREAM) ?: intent.data
     if (uriFromActionViewOrSend != null) {

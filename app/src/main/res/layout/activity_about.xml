@@ -112,24 +112,36 @@
 
       </com.google.android.material.button.MaterialButtonToggleGroup>
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <!--
 
-        <include layout="@layout/view_divider_horizontal" />
+    <include layout="@layout/view_divider_horizontal" />
 
-        <com.google.android.material.textview.MaterialTextView
-          android:id="@+id/mtvJoinQqGroup"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="?android:attr/selectableItemBackground"
-          android:clickable="true"
-          android:focusable="true"
-          android:gravity="center_vertical"
-          android:minHeight="64dp"
-          android:paddingHorizontal="16dp"
-          android:text="加入 QQ 群，交流反馈"
-          android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/mtvFollowWechat"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:gravity="center_vertical"
+      android:minHeight="64dp"
+      android:paddingHorizontal="16dp"
+      android:text="@string/follow_my_wechat"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
-        <include layout="@layout/view_divider_horizontal" />-->
+    <include layout="@layout/view_divider_horizontal" />
+
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/mtvDonate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:gravity="center_vertical"
+      android:minHeight="64dp"
+      android:paddingHorizontal="16dp"
+      android:text="@string/donate_support"
+      android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
     <include layout="@layout/view_divider_horizontal" />
 

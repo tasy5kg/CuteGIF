@@ -15,6 +15,12 @@ class AboutActivity : BaseActivity() {
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(true)
+    binding.mtvDonate.onClick {
+      DonateActivity.start(this@AboutActivity)
+    }
+    binding.mtvFollowWechat.onClick {
+      FollowWechatActivity.start(this@AboutActivity)
+    }
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
       binding.mbChooseFileWay13.visibility = View.GONE
     }

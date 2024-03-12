@@ -27,8 +27,8 @@ android {
     minSdk 29
     targetSdk 34
     compileSdk 34
-    versionCode 202401312
-    versionName '2024.1'
+    versionCode 202403010
+    versionName '2024.3'
     signingConfig signingConfigs.debug
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     setProperty "archivesBaseName", "CuteGIF_${versionName}_${versionCode}"

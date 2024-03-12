@@ -40,6 +40,7 @@
   <string name="beta_ended_please_follow_wechat">The internal testing of the current version has ended. Please follow my WeChat official account and download the official version to continue using it.</string>
   <string name="follow_wechat_to_download_release">Follow my WeChat account</string>
   <string name="donate">Donate</string>
+  <string name="donate_support">Donate</string>
   <string name="if_you_like_cutegif_please_donate">If you like CuteGIF, please donate to me to support me in developing more useful Apps!</string>
   <string name="thanks_to_the_following_donated_users">Thanks to the following donated users:</string>
   <string name="you_can_write_your_nickname">You can write your nickname in the payment remark so that your nickname will be displayed in this list when this software is updated.</string>
@@ -55,6 +56,7 @@
   <string name="gif_saved_to_gallery">GIF saved to gallery</string>
   <string name="delete">Delete</string>
   <string name="follow_wechat">Follow my WeChat public account</string>
+  <string name="follow_my_wechat">Follow my WeChat public account</string>
   <string name="follow_wechat_line_1">Follow my WeChat public account [光光可爱小仙女] to download and update CuteGIF more conveniently. \nIf you have any questions or suggestions, you can also send me a message on the official account. I will read every message.</string>
   <string name="save_qrcode_open_wechat_scan">Save the QR code</string>
   <string name="gif_split">GIF Split</string>
@@ -81,6 +83,7 @@
   <string name="transcoding_video__d_">Transcoding video (%d%%)</string>
   <string name="got_it">Got it</string>
   <string name="whats_new">What\'s new</string>
+  <string name="whats_new_2023_3">Motion Photo to GIF function</string>
   <string name="whats_new_t1">Timeline fine-tuning</string>
   <string name="whats_new_b1">When cropping video clips, you can fine-tune the timeline left and right, accurate to 0.1 seconds.</string>
   <string name="whats_new_t2">More GIF export options</string>
@@ -142,4 +145,5 @@
   <string name="_donated_users_list" translatable="false">\@华 @Z*g @张先森 @禽兽养殖二厂</string>
   <string name="github_com_tasy5kg_cutegif" translatable="false">github.com/tasy5kg/CuteGIF</string>
   <string name="_open_source_project_used_links" translatable="false">github.com/androidx/androidx\ngithub.com/material-components/material-components-android\ngithub.com/bumptech/glide\ngithub.com/CanHub/Android-Image-Cropper\ngithub.com/arthenica/ffmpeg-kit\ngithub.com/Tencent/MMKV\ngithub.com/kohler/gifsicle\ngithub.com/ImageOptim/gifski/\ngithub.com/santaevpavel/OutlineSpan</string>
+  <string name="eula_line_addition">This software is for learning and communication purposes. It does not access the network and does not provide Internet information services.</string>
 </resources>

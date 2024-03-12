@@ -2,7 +2,11 @@ package me.tasy5kg.cutegif.toolbox
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.*
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
@@ -39,7 +43,7 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
 import java.io.Serializable
-import java.util.*
+import java.util.Date
 import kotlin.Pair
 import kotlin.math.floor
 import kotlin.math.max
@@ -135,7 +139,7 @@ object Toolbox {
   @get:ColorInt
   var View.backgroundColor
     get() = (background as ColorDrawable).color
-    set(@ColorInt colorInt: Int) = setBackgroundColor(colorInt)
+    set(@ColorInt colorInt) = setBackgroundColor(colorInt)
 
   enum class ColorStringType { ARGB, RGBA, RGB }
 
@@ -176,7 +180,7 @@ object Toolbox {
 
   fun <K, V> LinkedHashMap<K, V>.getKeyByValue(value: V): K = this.filter { it.value == value }.keys.first()
 
-  fun pathToUri(path: String) = Uri.fromFile(File(path))
+  fun pathToUri(path: String): Uri? = Uri.fromFile(File(path))
 
   @SuppressLint("SimpleDateFormat")
   fun getTimeYMDHMS(): String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date(System.currentTimeMillis()))

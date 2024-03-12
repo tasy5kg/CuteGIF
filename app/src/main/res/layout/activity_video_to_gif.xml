@@ -65,7 +65,8 @@
     android:layout_width="wrap_content"
     android:layout_height="@dimen/small_menu_item_min_height"
     android:layout_gravity="center_horizontal"
-    android:checked="true"
+    android:checked="false"
+    android:visibility="gone"
     android:text="使用测试版导出算法" />
 
   <RelativeLayout

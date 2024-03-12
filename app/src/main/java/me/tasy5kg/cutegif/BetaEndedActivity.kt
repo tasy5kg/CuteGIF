@@ -23,8 +23,8 @@ class BetaEndedActivity : AppCompatActivity() {
 
     fun start(context: Context) = context.startActivity(Intent(context, BetaEndedActivity::class.java))
 
-    fun testVersionRemainingDays() = Int.MAX_VALUE/*
-      14 - ((System.currentTimeMillis() -
-        SimpleDateFormat("yyyyMMdd", Locale.CHINA).parse("20240131")!!.time) / 86400000)*/
+    fun testVersionRemainingDays() = Int.MAX_VALUE /*
+      28 - ((System.currentTimeMillis() -
+        SimpleDateFormat("yyyyMMdd", Locale.CHINA).parse("20240224")!!.time) / 86400000) */
   }
 }

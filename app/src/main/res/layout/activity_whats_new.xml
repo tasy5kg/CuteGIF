@@ -72,6 +72,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:text="@string/whats_new_2023_3"
+        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+        android:textIsSelectable="true" />
+      <!--<com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/whats_new_t1"
         android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
         android:textIsSelectable="true"
@@ -135,7 +142,7 @@
         android:text="@string/whats_new_b4"
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textIsSelectable="true" />
-
+-->
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.core.widget.NestedScrollView>
 

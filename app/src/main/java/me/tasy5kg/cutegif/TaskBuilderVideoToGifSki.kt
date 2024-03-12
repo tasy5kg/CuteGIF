@@ -37,9 +37,6 @@ data class TaskBuilderVideoToGifSki(
       (colorKey?.let { ",colorkey=#${it.first}:${it.second / 100f}:${it.third / 100f}" } ?: "") + (",reverse").toEmptyStringIf { !reverse } +
       "\" \"${VIDEO_TO_GIF_SKI_EXTRACTED_FRAMES_PATH}%05d.png\""
 
-
-  fun getCommandGifski() = ""
-
   fun getOutputFramesEstimated() = ceil((trimTime?.let { it.second - it.first } ?: duration) * outputFps / outputSpeed / 1000.0).toInt()
 
 }
