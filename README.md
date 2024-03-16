@@ -15,12 +15,13 @@ Latest version: `2024.3`.
 - Custom GIF resolution, clarity, color quality, frame rate & more
 - Preview the effect before exporting
 - GIF split and GIF to Video supported
+- Motion Photo to GIF
 
 ---
 
 ## Screenshots
 
-<img src="assets/en/img1.webp" width="240"/> <img src="assets/en/img2.webp" width="240"/> <img src="assets/en/img3.webp" width="240"/>
+<img src="assets/en/img1.webp" width="240"/> <img src="assets/en/img2.webp" width="240"/> <img src="assets/en/img3.webp" width="240"/> <img src="assets/en/img6.webp" width="240"/>
 
 ---
 

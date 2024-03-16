@@ -16,6 +16,8 @@
 
 <img src="img3.webp" width="480"/>
 
+<img src="img6.webp" width="480"/>
+
 ---
 
 ## 好评墙
