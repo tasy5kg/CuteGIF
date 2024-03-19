@@ -135,4 +135,6 @@
   <string name="github_com_tasy5kg_cutegif" translatable="false">github.com/tasy5kg/CuteGIF</string>
   <string name="_open_source_project_used_links" translatable="false">github.com/androidx/androidx\ngithub.com/material-components/material-components-android\ngithub.com/bumptech/glide\ngithub.com/CanHub/Android-Image-Cropper\ngithub.com/arthenica/ffmpeg-kit\ngithub.com/Tencent/MMKV\ngithub.com/kohler/gifsicle\ngithub.com/santaevpavel/OutlineSpan</string>
   <string name="eula_line_addition">This software is for learning and communication purposes. It does not access the network and does not provide Internet information services.</string>
+  <string name="_my_wechat_public_account_name" translatable="false">光光可爱小仙女</string>
+  <string name="buy_me_a_cup_of_coffee">Buy me a cup of coffee</string>
 </resources>

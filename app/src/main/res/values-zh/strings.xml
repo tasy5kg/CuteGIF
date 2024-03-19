@@ -129,4 +129,5 @@
   <string name="wechat_donate_qrcode_saved_wechat_launch_failed">微信扫一扫跳转失败，赞赏二维码已保存</string>
   <string name="wechat_follow_qrcode_saved_wechat_launch_failed">微信扫一扫跳转失败，公众号二维码已保存</string>
   <string name="eula_line_addition">本软件供学习交流使用，不接入网络，不提供互联网信息服务。</string>
+  <string name="buy_me_a_cup_of_coffee">给我买杯奶茶吧</string>
 </resources>

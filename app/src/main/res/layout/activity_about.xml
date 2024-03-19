@@ -135,7 +135,7 @@
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="光光可爱小仙女"
+        android:text="@string/_my_wechat_public_account_name"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textColor="@color/grey" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -163,7 +163,7 @@
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="给我买杯奶茶吧"
+        android:text="@string/buy_me_a_cup_of_coffee"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textColor="@color/grey" />
     </androidx.appcompat.widget.LinearLayoutCompat>
