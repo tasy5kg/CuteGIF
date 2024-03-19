@@ -36,7 +36,6 @@ class VideoToGifActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifBinding.inflate(layoutInflater) }
   private val bottomSheetVideoToGif2PlaybackSpeed by lazy { BottomSheetVideoToGifPlaybackSpeed() }
   private val videoToGifExportOptionsDialogFragment by lazy { VideoToGifExportOptionsDialogFragment() }
-  private val videoToGifExportOptionsSkiDialogFragment by lazy { VideoToGifExportOptionsSkiDialogFragment() }
   private val bottomSheetVideoToGifCropRatio by lazy { BottomSheetVideoToGifCropRatio() }
   private val videoDuration by lazy { getVideoDurationByAndroidSystem(inputVideoPath) }
 
@@ -118,15 +117,9 @@ class VideoToGifActivity : BaseActivity() {
     binding.mbClose.setOnClickListener { finish() }
     binding.mbSave.onClick(HapticFeedbackType.CONFIRM) {
       videoView.pause()
-      if (binding.mcbUseSkiExportMethod.isChecked) {
-        supportFragmentManager.beginTransaction()
-          .add(videoToGifExportOptionsSkiDialogFragment, VideoToGifExportOptionsSkiDialogFragment.TAG)
-          .commit()
-      } else {
-        supportFragmentManager.beginTransaction()
-          .add(videoToGifExportOptionsDialogFragment, VideoToGifExportOptionsDialogFragment.TAG)
-          .commit()
-      }
+      supportFragmentManager.beginTransaction()
+        .add(videoToGifExportOptionsDialogFragment, VideoToGifExportOptionsDialogFragment.TAG)
+        .commit()
     }
     binding.mbTrimTimeMinus.updateTrimTimeOnTouch(-100)
     binding.mbTrimTimePlus.updateTrimTimeOnTouch(+100)

@@ -10,7 +10,6 @@ import com.arthenica.ffmpegkit.FFprobeKit
 import com.arthenica.ffmpegkit.MediaInformation
 import me.tasy5kg.cutegif.MyApplication
 import me.tasy5kg.cutegif.MyConstants
-import me.tasy5kg.cutegif.MyConstants.NATIVE_LIBRARY_DIR
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.swapIf
 import me.tasy5kg.cutegif.toolbox.Toolbox.toEmptyStringIf
@@ -187,52 +186,6 @@ object MediaTools {
       false
     }
   }
-
-  /**
-   * pngPaths="${VIDEO_TO_GIF_SKI_EXTRACTED_FRAMES_PATH}00001.png ${VIDEO_TO_GIF_SKI_EXTRACTED_FRAMES_PATH}00002.png ${VIDEO_TO_GIF_SKI_EXTRACTED_FRAMES_PATH}00003.png "
-   *
-   * quality [1..100]: default=90
-   *
-   *
-   * extra: 50% slower encoding, but 1% better quality
-   *
-   * motionQuality [1..100]: lower values reduce motion
-   * lossyQuality [1..100]: lower values introduce noise and streaks
-   *
-   * return true if success
-   * statistics: frameNumberCurrent, frameNumberTotal, fileSizeTotalEstimated
-   * */
-  fun gifski(
-    pngPaths: String,
-    fps: Int,
-    quality: Int,
-    width: Int,
-    height: Int,
-    outputPath: String,
-    extra: Boolean = false,
-    motionQuality: Int? = null,
-    lossyQuality: Int? = null,
-    statistics: ((Triple<Int?, Int?, String?>) -> Unit)? = null
-  ) =
-    Toolbox.exec(
-      "${NATIVE_LIBRARY_DIR}/libgifski.so --fps $fps --width $width --height $height --quality $quality --no-sort " +
-        "${"--extra ".toEmptyStringIf { !extra }} ${motionQuality?.let { "--motion-quality $it " } ?: ""}${lossyQuality?.let { "--lossy-quality $it " } ?: ""}" +
-        "--output $outputPath $pngPaths",
-      arrayOf("LD_LIBRARY_PATH=$NATIVE_LIBRARY_DIR"), {
-        logRed("gifskiOutput", it)
-        var fileSizeTotalEstimated: String? = null
-        if (it.contains(" GIF")) {
-          fileSizeTotalEstimated = it.split(" GIF")[0]
-        }
-        var frameNumberCurrent: Int? = null
-        var frameNumberTotal: Int? = null
-        if (it.contains("Frame ")) {
-          val output = it.split("Frame ")[1].split(" ")
-          frameNumberCurrent = output[0].toInt()
-          frameNumberTotal = output[2].toInt()
-        }
-        statistics?.invoke(Triple(frameNumberCurrent, frameNumberTotal, fileSizeTotalEstimated))
-      }, { logRed("gifskiOutputError", it) }) == 0
 
   fun extractVideoFromMvimg(mvimg: String, video: String): Boolean {
     try {

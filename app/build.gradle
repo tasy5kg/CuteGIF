@@ -66,9 +66,6 @@ dependencies {
   // libgifsicle.so has been imported into the jniLibs directory.
   // It was cloned and compiled from https://github.com/kohler/gifsicle on January 9, 2024.
 
-  // libgifski.so has been imported into the jniLibs directory.
-  // It was cloned and compiled from https://github.com/ImageOptim/gifski/ on February 23, 2024.
-
   // OutlineSpan.kt was cloned from https://github.com/santaevpavel/OutlineSpan on February 1, 2024.
 
   implementation 'androidx.core:core-ktx:1.12.0'

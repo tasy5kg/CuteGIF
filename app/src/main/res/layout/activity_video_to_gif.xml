@@ -60,15 +60,6 @@
       app:icon="@drawable/baseline_save_alt_24" />
   </androidx.appcompat.widget.LinearLayoutCompat>
 
-  <com.google.android.material.checkbox.MaterialCheckBox
-    android:id="@+id/mcbUseSkiExportMethod"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/small_menu_item_min_height"
-    android:layout_gravity="center_horizontal"
-    android:checked="false"
-    android:visibility="gone"
-    android:text="使用测试版导出算法" />
-
   <RelativeLayout
     android:id="@+id/rl"
     android:layout_width="match_parent"
