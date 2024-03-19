@@ -130,8 +130,8 @@
   <string name="enabling_stabilization">Enabling stabilization…</string>
   <string name="seems_not_a_mvimg">This doesn\'t seem to be a Motion Photo. Try another photo.</string>
   <string name="an_error_occurred">An error occurred</string>
-  <string name="saving_gif">Saving GIF</string>
-  <string name="exporting_gif">Exporting GIF</string>
+  <string name="compressing_gif_raw_size">Compressing GIF…(Raw size: %s)</string>
+  <string name="exporting_gif_">Exporting GIF…</string>
   <string name="loading_video">Loading video</string>
   <string name="unable_to_load_gif">Unable to load GIF</string>
   <string name="gif_to_video_conversion_failed">GIF to video conversion failed</string>

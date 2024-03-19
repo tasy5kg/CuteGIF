@@ -1,6 +1,5 @@
 package me.tasy5kg.cutegif
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +8,7 @@ import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
 import me.tasy5kg.cutegif.MyConstants.OUTPUT_GIF_TEMP_PATH
 import me.tasy5kg.cutegif.MyConstants.TASK_BUILDER_VIDEO_TO_GIF
+import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifPerformerBinding
 import me.tasy5kg.cutegif.toolbox.FileTools
 import me.tasy5kg.cutegif.toolbox.FileTools.copyFile
@@ -22,17 +22,14 @@ import me.tasy5kg.cutegif.toolbox.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import kotlin.concurrent.thread
-import kotlin.math.min
+import kotlin.math.max
 
-class VideoToGifPerformerActivity : BaseActivity() {
+class VideoToGifPerformerActivityOptimization : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifPerformerBinding.inflate(layoutInflater) }
   private var taskThread: Thread? = null
   private var taskQuitOrFailed = false
-  private val taskBuilder by lazy {
-    intent.getExtra<TaskBuilderVideoToGif>(
-      TASK_BUILDER_VIDEO_TO_GIF
-    )
-  }
+  private val taskBuilder by lazy { intent.getExtra<TaskBuilderVideoToGif>(TASK_BUILDER_VIDEO_TO_GIF) }
+  private var previousUpdatedFileSize = 0L
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
@@ -49,9 +46,10 @@ class VideoToGifPerformerActivity : BaseActivity() {
   }
 
   private fun performPart1() {
-    putProgress(getString(R.string.loading_video), null, null)
-    val command = taskBuilder.getCommandCreatePalette()
-    logRed("commandCreatePalette", command)
+    putProgress(0, getString(R.string.exporting_gif_))
+    FileTools.makeDirEmpty(VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH)
+    val command = taskBuilder.getCommandExtractFrame()
+    logRed("CommandExtractFrame", command)
     FFmpegKit.executeAsync(command, { completeCallback ->
       when {
         completeCallback.returnCode.isValueSuccess -> performPart2()
@@ -59,54 +57,68 @@ class VideoToGifPerformerActivity : BaseActivity() {
       }
     }, { logCallback ->
       logRed("logcallback", logCallback.message.toString())
-    }, { _ -> })
-  }
-
-  private fun performPart2() {
-    val command = taskBuilder.getCommandVideoToGif()
-    logRed("commandVideoToGif", command)
-    FFmpegKit.executeAsync(command, { completeCallback ->
-      val returnCode = completeCallback.returnCode
-      when {
-        returnCode.isValueSuccess -> performPart3()
-        returnCode.isValueError -> quitOrFailed(getString(R.string.an_error_occurred))
-      }
-    }, { log -> logRed("logcallback", log.message.toString()) }, {
+    }, { statistics ->
       putProgress(
-        getString(R.string.exporting_gif),
-        it.videoFrameNumber * 100 / taskBuilder.getOutputFramesEstimated(),
-        if (taskBuilder.lossy == null) it.size else null
+        (statistics.videoFrameNumber * 80 / taskBuilder.getOutputFramesEstimated()).constraintBy(0..80), getString(R.string.exporting_gif_)
       )
     })
   }
 
+  private fun performPart2() {
+    val command = taskBuilder.getCommandCreatePalette()
+    logRed("commandCreatePalette", command)
+    FFmpegKit.executeAsync(command, { completeCallback ->
+      when {
+        completeCallback.returnCode.isValueSuccess -> performPart3()
+        completeCallback.returnCode.isValueError -> quitOrFailed(getString(R.string.an_error_occurred))
+      }
+    }, { log -> logRed("logcallback", log.message.toString()) }, {})
+  }
+
   private fun performPart3() {
+    putProgress(90, getString(R.string.exporting_gif_))
+    val command = taskBuilder.getCommandVideoToGif()
+    logRed("commandVideoToGif", command)
+    FFmpegKit.executeAsync(command, { completeCallback ->
+      when {
+        completeCallback.returnCode.isValueSuccess -> performPart4()
+        completeCallback.returnCode.isValueError -> quitOrFailed(getString(R.string.an_error_occurred))
+      }
+    }, { log -> logRed("logcallback", log.message.toString()) }, { statistics ->
+      previousUpdatedFileSize = max(previousUpdatedFileSize, statistics.size)
+      putProgress(
+        (90 + statistics.videoFrameNumber * 10 / taskBuilder.getOutputFramesEstimated()).constraintBy(90..100),
+        getString(R.string.exporting_gif_) + getString(R.string.____brackets____, statistics.size.formattedFileSize())
+      )
+    })
+  }
+
+  private fun performPart4() {
     with(taskBuilder) {
-      putProgress(getString(R.string.saving_gif), null, null)
-      lossy?.let { MediaTools.gifsicleLossy(it, OUTPUT_GIF_TEMP_PATH, null, true) }
+      lossy?.let {
+        putProgress(null, getString(R.string.compressing_gif_raw_size, previousUpdatedFileSize.formattedFileSize()))
+        MediaTools.gifsicleLossy(it, OUTPUT_GIF_TEMP_PATH, null, true)
+      }
       if (!taskQuitOrFailed) {
         val outputUri = createNewFile(FileTools.FileName(inputVideoPath).nameWithoutExtension, "gif")
         copyFile(OUTPUT_GIF_TEMP_PATH, outputUri, true)
         finish()
-        FileSavedActivity.start(this@VideoToGifPerformerActivity, outputUri)
+        FileSavedActivity.start(this@VideoToGifPerformerActivityOptimization, outputUri)
       }
     }
   }
 
-
-  private fun putProgress(stateText: String, progress: Int?, fileSize: Long?) {
-    val progressNoLargerThan99 = progress?.constraintBy(0..99)
+  private fun putProgress(progress: Int?, text: String) {
     runOnUiThread {
       binding.linearProgressIndicator.apply {
-        if (progressNoLargerThan99 == null) {
+        if (progress == null) {
           isIndeterminate = true
         } else {
           isIndeterminate = false
-          setProgress(min(progressNoLargerThan99, 99), true)
+          setProgress(progress.constraintBy(0..100), true)
         }
       }
-      @SuppressLint("SetTextI18n")
-      binding.mtvTitle.text = stateText + if (fileSize == null) "…" else getString(R.string.____brackets____, fileSize.formattedFileSize())
+      binding.mtvTitle.text = text
     }
   }
 
@@ -127,9 +139,8 @@ class VideoToGifPerformerActivity : BaseActivity() {
   }
 
   companion object {
-
     fun start(context: Context, taskBuilderVideoToGif: TaskBuilderVideoToGif) =
-      context.startActivity(Intent(context, VideoToGifPerformerActivity::class.java).apply {
+      context.startActivity(Intent(context, VideoToGifPerformerActivityOptimization::class.java).apply {
         putExtra(TASK_BUILDER_VIDEO_TO_GIF, taskBuilderVideoToGif)
       })
   }

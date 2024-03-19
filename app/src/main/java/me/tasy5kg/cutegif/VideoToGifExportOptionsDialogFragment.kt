@@ -52,7 +52,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     vtgActivity.videoView.pause()
     binding.mbSave.onClick {
       vtgActivity.videoView.pause()
-      VideoToGifPerformerActivity.start(vtgActivity, createTaskBuilder())
+      VideoToGifPerformerActivityOptimization.start(vtgActivity, createTaskBuilder())
     }
     binding.chipGroupMoreOptions.setOnCheckedStateChangeListener { _, checkedIds ->
       val chipEffectNeedsToBeViewedAfterExporting = listOf(
@@ -94,13 +94,6 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
       binding.llcGroupFramerate.visibleIf { isChecked }
     }
     binding.viewColorKeyIndicator.onClick { Toolbox.toast(context.getString(R.string.click_on_the_preview_image_to_pick_an_color)) }
-    binding.sliderColorKeyBlend.apply {
-      setLabelFormatter { "${it.toInt()}%" }
-      addOnChangeListener { _, _, _ ->
-        performHapticFeedback(HapticFeedbackConstants.TEXT_HANDLE_MOVE)
-        updatePreviewImage()
-      }
-    }
     binding.sliderColorKeySimilarity.apply {
       setLabelFormatter { "${it.toInt()}%" }
       addOnChangeListener { _, _, _ ->
@@ -193,11 +186,8 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
       duration = videoView.duration,
       finalDelay = if (binding.chipEnableFinalDelay.isChecked) 50 else -1,
       colorKey = with(binding) {
-        if (chipEnableColorKey.isChecked) Triple(
-          viewColorKeyIndicator.backgroundColor.colorIntToHex(),
-          sliderColorKeySimilarity.value.toInt(),
-          sliderColorKeyBlend.value.toInt()
-        )
+        if (chipEnableColorKey.isChecked)
+          (viewColorKeyIndicator.backgroundColor.colorIntToHex() to sliderColorKeySimilarity.value.toInt())
         else null
       })
   }
@@ -207,14 +197,12 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
       if (!fileExistsCache.contains(getCache_shortLength_colorKey_palettegen())) {
         if (!fileExistsCache.contains(getCache_shortLength_colorKey())) {
           if (!fileExistsCache.contains(getCache_shortLength())) {
-            Bitmap.createScaledBitmap(
-              frame, gifOutputWH(shortLength).first, gifOutputWH(shortLength).second, true
-            ).saveToPng(getCache_shortLength())
+            Bitmap.createScaledBitmap(frame, gifOutputWH(shortLength).first, gifOutputWH(shortLength).second, true).saveToPng(getCache_shortLength())
             fileExistsCache.add(getCache_shortLength())
           }
           colorKey?.let {
             val command =
-              "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${getCache_shortLength()}\" -vf colorkey=#${it.first}:${it.second / 100f}:${it.third / 100f} -y \"${getCache_shortLength_colorKey()}\""
+              "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${getCache_shortLength()}\" -vf colorkey=#${it.first}:${it.second / 100f}:0 -y \"${getCache_shortLength_colorKey()}\""
             logRed("colorKey cmd", command)
             FFmpegKit.execute(command)
           }

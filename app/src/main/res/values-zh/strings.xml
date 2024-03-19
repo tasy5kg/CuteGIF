@@ -130,8 +130,8 @@
   <string name="enabling_stabilization">正在减轻画面抖动…</string>
   <string name="seems_not_a_mvimg">这似乎不是一张动态照片，换张照片试试吧</string>
   <string name="an_error_occurred">出现错误</string>
-  <string name="saving_gif">正在保存 GIF</string>
-  <string name="exporting_gif">正在生成 GIF</string>
+  <string name="compressing_gif_raw_size">正在压缩 GIF…（压缩前：%s）</string>
+  <string name="exporting_gif_">正在生成 GIF…</string>
   <string name="loading_video">正在读取视频</string>
   <string name="unable_to_load_gif">无法读取 GIF</string>
   <string name="gif_to_video_conversion_failed">GIF 转视频失败</string>

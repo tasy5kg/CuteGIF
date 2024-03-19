@@ -76,14 +76,7 @@
       android:resizeableActivity="true"
       android:theme="@style/Theme.CuteGif.Dialog" />
     <activity
-      android:name=".VideoToGifPerformerActivity"
-      android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize"
-      android:exported="false"
-      android:launchMode="singleTask"
-      android:resizeableActivity="true"
-      android:theme="@style/Theme.CuteGif.Dialog" />
-    <activity
-      android:name=".VideoToGifPerformerSkiActivity"
+      android:name=".VideoToGifPerformerActivityOptimization"
       android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize"
       android:exported="false"
       android:launchMode="singleTask"

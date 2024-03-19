@@ -84,6 +84,7 @@ class MainActivity : BaseActivity() {
       }
     }
 
+    @Suppress("DEPRECATION")
     val uriFromActionViewOrSend = intent?.extras?.getParcelable(Intent.EXTRA_STREAM) ?: intent.data
     if (uriFromActionViewOrSend != null) {
       VideoToGifActivity.start(this, uriFromActionViewOrSend.copyToInputFileDir())

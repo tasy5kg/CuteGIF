@@ -6,7 +6,7 @@
   android:layout_height="wrap_content"
   android:orientation="horizontal"
   android:paddingVertical="8dp"
-  tools:context=".VideoToGifPerformerActivity">
+  tools:context=".VideoToGifPerformerActivityOptimization">
 
   <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="0dp"
@@ -28,7 +28,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:indeterminate="true"
+      android:indeterminate="false"
+      android:progress="0"
       app:indicatorColor="@color/green_dark"
       app:trackColor="@color/white" />
 

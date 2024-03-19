@@ -115,8 +115,8 @@
 
     <include layout="@layout/view_divider_horizontal" />
 
-    <com.google.android.material.textview.MaterialTextView
-      android:id="@+id/mtvFollowWechat"
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/llcFollowWechat"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="?android:attr/selectableItemBackground"
@@ -124,14 +124,27 @@
       android:focusable="true"
       android:gravity="center_vertical"
       android:minHeight="64dp"
-      android:paddingHorizontal="16dp"
-      android:text="@string/follow_my_wechat"
-      android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+      android:orientation="vertical"
+      android:paddingHorizontal="16dp">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/follow_my_wechat"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="光光可爱小仙女"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="@color/grey" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include layout="@layout/view_divider_horizontal" />
 
-    <com.google.android.material.textview.MaterialTextView
-      android:id="@+id/mtvDonate"
+    <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/llcDonate"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="?android:attr/selectableItemBackground"
@@ -139,9 +152,22 @@
       android:focusable="true"
       android:gravity="center_vertical"
       android:minHeight="64dp"
-      android:paddingHorizontal="16dp"
-      android:text="@string/donate_support"
-      android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+      android:orientation="vertical"
+      android:paddingHorizontal="16dp">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/donate_support"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+      <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="给我买杯奶茶吧"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="@color/grey" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include layout="@layout/view_divider_horizontal" />
 

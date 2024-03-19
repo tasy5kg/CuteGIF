@@ -15,10 +15,10 @@ class AboutActivity : BaseActivity() {
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     setFinishOnTouchOutside(true)
-    binding.mtvDonate.onClick {
+    binding.llcDonate.onClick {
       DonateActivity.start(this@AboutActivity)
     }
-    binding.mtvFollowWechat.onClick {
+    binding.llcFollowWechat.onClick {
       FollowWechatActivity.start(this@AboutActivity)
     }
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {

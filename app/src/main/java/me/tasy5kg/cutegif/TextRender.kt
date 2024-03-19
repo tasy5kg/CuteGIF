@@ -1,7 +1,10 @@
 package me.tasy5kg.cutegif
 
 import android.annotation.SuppressLint
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
 import android.text.SpannableString
 import android.text.Spanned
 import android.view.Gravity
@@ -17,7 +20,6 @@ import me.tasy5kg.cutegif.toolbox.Toolbox.appGetString
 import me.tasy5kg.cutegif.toolbox.Toolbox.getContrastColor
 import me.tasy5kg.cutegif.toolbox.Toolbox.toInt
 import java.io.Serializable
-import java.util.*
 
 @SuppressLint("InflateParams")
 data class TextRender(

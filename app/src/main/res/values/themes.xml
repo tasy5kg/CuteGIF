@@ -2,7 +2,7 @@
 
   <style name="Theme.CuteGif" parent="Theme.Material3.Dark.NoActionBar">
     <item name="android:colorBackground">@color/light</item>
-    <item name="android:windowLightStatusBar">true</item>
+    <item name="android:windowLightStatusBar">false</item>
     <item name="android:textColor">@color/dark</item>
     <item name="android:textColorHighlight">@color/green_dark</item>
     <item name="android:textColorLink">@color/green_light</item>

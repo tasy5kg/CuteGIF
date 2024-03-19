@@ -409,36 +409,12 @@
               <com.google.android.material.slider.Slider
                 android:id="@+id/sliderColorKeySimilarity"
                 style="@style/Theme.CuteGif.Slider"
-                android:stepSize="2"
-                android:value="15"
+                android:stepSize="1"
+                android:value="10"
                 android:valueFrom="1"
-                android:valueTo="99" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <include layout="@layout/view_divider_horizontal" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_vertical"
-              android:minHeight="48dp"
-              android:orientation="horizontal">
-
-              <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="64dp"
-                android:text="@string/blend__"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
-
-              <com.google.android.material.slider.Slider
-                android:id="@+id/sliderColorKeyBlend"
-                style="@style/Theme.CuteGif.Slider"
-                android:stepSize="2"
-                android:value="2"
-                android:valueFrom="0"
                 android:valueTo="100" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
           </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
