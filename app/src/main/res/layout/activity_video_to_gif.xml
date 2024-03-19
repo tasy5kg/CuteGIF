@@ -106,7 +106,6 @@
   </RelativeLayout>
 
   <FrameLayout
-    android:id="@+id/flGroupTrimSlider"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp">

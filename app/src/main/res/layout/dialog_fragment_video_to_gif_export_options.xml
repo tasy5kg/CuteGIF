@@ -22,7 +22,6 @@
     android:layout_weight="1">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-      android:id="@+id/llc"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:animateLayoutChanges="true"

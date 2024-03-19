@@ -70,7 +70,6 @@
   <string name="cancel">Cancel</string>
   <string name="_import">Import</string>
   <string name="gif_to_video">GIF to Video</string>
-  <string name="follow">Follow</string>
   <string name="source_code_of_cutegif_">CuteGIF source code:</string>
   <string name="open_source_project_used_">This software uses the following open source projects:</string>
   <string name="edit_video">Edit video</string>
@@ -84,14 +83,6 @@
   <string name="got_it">Got it</string>
   <string name="whats_new">What\'s new</string>
   <string name="whats_new_2023_3">Motion Photo to GIF function</string>
-  <string name="whats_new_t1">Timeline fine-tuning</string>
-  <string name="whats_new_b1">When cropping video clips, you can fine-tune the timeline left and right, accurate to 0.1 seconds.</string>
-  <string name="whats_new_t2">More GIF export options</string>
-  <string name="whats_new_b2">When exporting GIFs, you can now freely select the resolution and choose more levels of clarity and color quality.</string>
-  <string name="whats_new_t3">Remove background function</string>
-  <string name="whats_new_b3">A new "Remove background" function has been added to the GIF export interface.</string>
-  <string name="whats_new_t4">Performance optimization and bug fixes</string>
-  <string name="whats_new_b4">The code has been completely overhauled and the performance is faster. \nFixed the issue where the exported GIF screen would be completely black when the video duration was too short. \nFixed the problem of the software crashing when importing some videos.</string>
   <string name="crop_ratio__">Crop ratio</string>
   <string name="custom__">Customize:</string>
   <string name="clarity">Clarity</string>
@@ -107,7 +98,6 @@
   <string name="selected_color">Selected color</string>
   <string name="preview__">Preview</string>
   <string name="_similarity_">Similarity</string>
-  <string name="blend__">Blend</string>
   <string name="some_apps_do_not_support_above_10_fps">⚠️ Some software will drop frames when playing GIFs with a frame rate greater than 10</string>
   <string name="loading_file_d_seconds_please_wait">Loading file, it may take about %d seconds, please wait…</string>
   <string name="open_source_license">Open source license</string>
@@ -132,7 +122,6 @@
   <string name="an_error_occurred">An error occurred</string>
   <string name="compressing_gif_raw_size">Compressing GIF…(Raw size: %s)</string>
   <string name="exporting_gif_">Exporting GIF…</string>
-  <string name="loading_video">Loading video</string>
   <string name="unable_to_load_gif">Unable to load GIF</string>
   <string name="gif_to_video_conversion_failed">GIF to video conversion failed</string>
   <string name="wechat_follow_qrcode_saved_please_scan_first_image">My Wechat account QR code has been saved, please scan the first picture in your gallery</string>

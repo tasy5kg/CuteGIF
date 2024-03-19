@@ -8,7 +8,6 @@
   tools:context=".BottomSheetVideoToGifCropRatio">
 
   <androidx.appcompat.widget.LinearLayoutCompat
-    android:id="@+id/standardBottomSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -35,7 +34,6 @@
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
       <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/mbtgCropRatio"
         style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

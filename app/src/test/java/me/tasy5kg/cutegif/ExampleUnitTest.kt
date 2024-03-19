@@ -2,7 +2,7 @@ package me.tasy5kg.cutegif
 
 import me.tasy5kg.cutegif.toolbox.Toolbox.msToMinSecDs
 import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 /**
  * Example local unit test, which will execute on the development machine (host).

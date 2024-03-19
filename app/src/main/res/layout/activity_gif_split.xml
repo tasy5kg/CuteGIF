@@ -73,7 +73,7 @@
   </RelativeLayout>
 
   <androidx.appcompat.widget.LinearLayoutCompat
-    android:id="@+id/llc_frame_selector"
+    android:id="@+id/llcFrameSelector"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"

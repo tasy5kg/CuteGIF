@@ -137,7 +137,7 @@
             android:textIsSelectable="true" />
 
           <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_please_accept"
+            android:id="@+id/mtvPleaseAccept"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
