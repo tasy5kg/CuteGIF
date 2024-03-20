@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
+import me.tasy5kg.cutegif.MyConstants.EXTRA_TASK_BUILDER_VIDEO_TO_GIF
 import me.tasy5kg.cutegif.MyConstants.OUTPUT_GIF_TEMP_PATH
-import me.tasy5kg.cutegif.MyConstants.TASK_BUILDER_VIDEO_TO_GIF
 import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifPerformerBinding
 import me.tasy5kg.cutegif.toolbox.FileTools
@@ -24,11 +24,11 @@ import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import kotlin.concurrent.thread
 import kotlin.math.max
 
-class VideoToGifPerformerActivityOptimization : BaseActivity() {
+class VideoToGifPerformerActivity : BaseActivity() {
   private val binding by lazy { ActivityVideoToGifPerformerBinding.inflate(layoutInflater) }
   private var taskThread: Thread? = null
   private var taskQuitOrFailed = false
-  private val taskBuilder by lazy { intent.getExtra<TaskBuilderVideoToGif>(TASK_BUILDER_VIDEO_TO_GIF) }
+  private val taskBuilder by lazy { intent.getExtra<TaskBuilderVideoToGif>(EXTRA_TASK_BUILDER_VIDEO_TO_GIF) }
   private var previousUpdatedFileSize = 0L
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class VideoToGifPerformerActivityOptimization : BaseActivity() {
 
   private fun performPart1() {
     putProgress(0, getString(R.string.exporting_gif_))
-    FileTools.makeDirEmpty(VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH)
+    FileTools.resetDirectory(VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH)
     val command = taskBuilder.getCommandExtractFrame()
     logRed("CommandExtractFrame", command)
     FFmpegKit.executeAsync(command, { completeCallback ->
@@ -103,7 +103,7 @@ class VideoToGifPerformerActivityOptimization : BaseActivity() {
         val outputUri = createNewFile(FileTools.FileName(inputVideoPath).nameWithoutExtension, "gif")
         copyFile(OUTPUT_GIF_TEMP_PATH, outputUri, true)
         finish()
-        FileSavedActivity.start(this@VideoToGifPerformerActivityOptimization, outputUri)
+        FileSavedActivity.start(this@VideoToGifPerformerActivity, outputUri)
       }
     }
   }
@@ -140,8 +140,8 @@ class VideoToGifPerformerActivityOptimization : BaseActivity() {
 
   companion object {
     fun start(context: Context, taskBuilderVideoToGif: TaskBuilderVideoToGif) =
-      context.startActivity(Intent(context, VideoToGifPerformerActivityOptimization::class.java).apply {
-        putExtra(TASK_BUILDER_VIDEO_TO_GIF, taskBuilderVideoToGif)
+      context.startActivity(Intent(context, VideoToGifPerformerActivity::class.java).apply {
+        putExtra(EXTRA_TASK_BUILDER_VIDEO_TO_GIF, taskBuilderVideoToGif)
       })
   }
 }

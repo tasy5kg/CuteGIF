@@ -13,7 +13,7 @@ import me.tasy5kg.cutegif.MyConstants.OUTPUT_SPLIT_DIR
 import me.tasy5kg.cutegif.databinding.ActivityGifSplitBinding
 import me.tasy5kg.cutegif.toolbox.FileTools.copyFile
 import me.tasy5kg.cutegif.toolbox.FileTools.createNewFile
-import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.FileTools.resetDirectory
 import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 import me.tasy5kg.cutegif.toolbox.Toolbox.toast
@@ -28,7 +28,7 @@ class GifSplitActivity : BaseActivity() {
     binding.mbClose.onClick { finish() }
     binding.mbSliderMinus.onClick { if (binding.slider.value > binding.slider.valueFrom) binding.slider.value-- }
     binding.mbSliderPlus.onClick { if (binding.slider.value < binding.slider.valueTo) binding.slider.value++ }
-    makeDirEmpty(OUTPUT_SPLIT_DIR)
+    resetDirectory(OUTPUT_SPLIT_DIR)
     val mlo = mutableListOf<Bitmap>()
     FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i \"$inputGifPath\" \"$OUTPUT_SPLIT_DIR%05d.png\"")
     var frameIndex = 1
@@ -66,7 +66,7 @@ class GifSplitActivity : BaseActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-    makeDirEmpty(OUTPUT_SPLIT_DIR)
+    resetDirectory(OUTPUT_SPLIT_DIR)
   }
 
   companion object {

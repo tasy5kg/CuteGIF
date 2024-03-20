@@ -19,7 +19,7 @@ import com.arthenica.ffmpegkit.FFmpegKit
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.VIDEO_TO_GIF_PREVIEW_CACHE_DIR
 import me.tasy5kg.cutegif.databinding.DialogFragmentVideoToGifExportOptionsBinding
-import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.FileTools.resetDirectory
 import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoSingleFrame
 import me.tasy5kg.cutegif.toolbox.MediaTools.gifsicleLossy
 import me.tasy5kg.cutegif.toolbox.MediaTools.saveToPng
@@ -52,7 +52,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     vtgActivity.videoView.pause()
     binding.mbSave.onClick {
       vtgActivity.videoView.pause()
-      VideoToGifPerformerActivityOptimization.start(vtgActivity, createTaskBuilder())
+      VideoToGifPerformerActivity.start(vtgActivity, createTaskBuilder())
     }
     binding.chipGroupMoreOptions.setOnCheckedStateChangeListener { _, checkedIds ->
       val chipEffectNeedsToBeViewedAfterExporting = listOf(
@@ -255,14 +255,14 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     super.onDestroyView()
     _binding = null
     previewBitmapMap.clear()
-    makeDirEmpty(VIDEO_TO_GIF_PREVIEW_CACHE_DIR)
+    resetDirectory(VIDEO_TO_GIF_PREVIEW_CACHE_DIR)
     vtgActivity.videoView.start()
   }
 
   private fun clearPreviewImageCache() {
     previewBitmapMap.clear()
     fileExistsCache.clear()
-    makeDirEmpty(VIDEO_TO_GIF_PREVIEW_CACHE_DIR)
+    resetDirectory(VIDEO_TO_GIF_PREVIEW_CACHE_DIR)
   }
 
   companion object {

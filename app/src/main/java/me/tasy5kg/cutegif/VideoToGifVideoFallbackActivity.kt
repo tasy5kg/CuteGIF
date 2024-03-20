@@ -10,7 +10,7 @@ import me.tasy5kg.cutegif.MyConstants.EXTRA_VIDEO_PATH
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL
 import me.tasy5kg.cutegif.MyConstants.INPUT_FILE_DIR
 import me.tasy5kg.cutegif.databinding.ActivityVideoToGifVideoFallbackBinding
-import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
+import me.tasy5kg.cutegif.toolbox.FileTools.resetDirectory
 import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoDurationMsByFFmpeg
 import me.tasy5kg.cutegif.toolbox.Toolbox
 import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
@@ -57,7 +57,7 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
         it.returnCode.isValueError -> {
           runOnUiThread { Toolbox.toast(getString(R.string.unable_to_read_video)) }
           finish()
-          makeDirEmpty(INPUT_FILE_DIR)
+          resetDirectory(INPUT_FILE_DIR)
         }
       }
     }, {

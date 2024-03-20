@@ -8,13 +8,11 @@ import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import me.tasy5kg.cutegif.MyConstants.INPUT_FILE_DIR
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_13
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_DOCUMENT
 import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_GALLERY
 import me.tasy5kg.cutegif.databinding.ActivityMainBinding
 import me.tasy5kg.cutegif.toolbox.FileTools.copyToInputFileDir
-import me.tasy5kg.cutegif.toolbox.FileTools.makeDirEmpty
 import me.tasy5kg.cutegif.toolbox.Toolbox.enableDropFile
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
 
@@ -156,11 +154,6 @@ class MainActivity : BaseActivity() {
       R.id.menu_item_about -> AboutActivity.start(this)
     }
     return true
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    makeDirEmpty(INPUT_FILE_DIR)
   }
 
   companion object {

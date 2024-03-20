@@ -2,6 +2,8 @@ package me.tasy5kg.cutegif
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.arthenica.ffmpegkit.FFmpegKit
+import me.tasy5kg.cutegif.toolbox.FileTools
 import kotlin.system.exitProcess
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -10,6 +12,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
   final override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    ActivityCollector.addActivity(this)
     if (!MySettings.eulaAccepted) {
       /** Ask user to accept EULA */
       EulaActivity.start(this)
@@ -28,4 +31,14 @@ abstract class BaseActivity : AppCompatActivity() {
       onCreateIfEulaAccepted(savedInstanceState)
     }
   }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    ActivityCollector.removeActivity(this)
+    if (ActivityCollector.isEmpty()) {
+      FFmpegKit.cancel()
+      FileTools.resetDirectory(MyConstants.CACHE_DIR_PATH)
+    }
+  }
+
 }

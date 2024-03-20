@@ -113,7 +113,7 @@ object FileTools {
   }
 
   fun Uri.copyToInputFileDir(): String {
-    makeDirEmpty(MyConstants.INPUT_FILE_DIR)
+    resetDirectory(MyConstants.INPUT_FILE_DIR)
     val inputFilePath = MyConstants.INPUT_FILE_DIR + FileName(this).name
     MyApplication.appContext.contentResolver.openInputStream(this)!!.use { inputStream ->
       FileOutputStream(inputFilePath).use { outputStream ->
@@ -135,10 +135,13 @@ object FileTools {
     return inputFilePath
   }
 
-  fun makeDirEmpty(dir: String) = File(dir).apply {
-    mkdirs()
-    deleteRecursively()
-    mkdirs()
+  fun resetDirectory(vararg dirs: String) {
+    for (dir in dirs) {
+      File(dir).apply {
+        if (exists()) deleteRecursively()
+        mkdirs()
+      }
+    }
   }
 
   fun Uri.deleteFile() {

@@ -6,7 +6,7 @@
   android:layout_height="wrap_content"
   android:orientation="horizontal"
   android:paddingVertical="8dp"
-  tools:context=".VideoToGifPerformerActivityOptimization">
+  tools:context=".VideoToGifPerformerActivity">
 
   <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="0dp"
