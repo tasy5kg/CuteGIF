@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MotionEvent
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewConfiguration
@@ -33,11 +32,6 @@ import kotlin.math.sqrt
 @SuppressLint("RtlHardcoded")
 class AddTextActivity : BaseActivity() {
   private val binding by lazy { ActivityAddTextBinding.inflate(layoutInflater) }
-  private val expandableLayoutSet by lazy {
-    setOf(
-      binding.gridLayoutColorPicker, binding.sliderRotation
-    )
-  }
   private lateinit var frame: Bitmap
   private lateinit var textRender: TextRender
   private var viewReferenceLineVerticalPerformedHapticFeedback = false
@@ -94,10 +88,14 @@ class AddTextActivity : BaseActivity() {
       }
     }
     binding.mbRotate.onClick {
-      binding.sliderRotation.showOrHide()
-      onClick {
-        performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
-      }
+      performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
+      binding.sliderRotation.flipVisibility()
+      binding.llcColorPicker.visibility = GONE
+    }
+    binding.mbPickedColor.onClick {
+      performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
+      binding.llcColorPicker.flipVisibility()
+      binding.sliderRotation.visibility = GONE
     }
     binding.sliderRotation.apply {
       setLabelFormatter { context.getString(R.string.rotate_d_degrees, it.toInt()) }
@@ -105,7 +103,7 @@ class AddTextActivity : BaseActivity() {
         updateTextRender(textRender.copy(rotation = value))
       }
     }
-    val sequenceOfMrb = binding.gridLayoutColorPicker.children.map { it as MaterialRadioButton }
+    val sequenceOfMrb = binding.llcColorPicker.children.map { it as MaterialRadioButton }
     sequenceOfMrb.forEach { aMrb ->
       aMrb.isChecked = (aMrb.buttonTintList!!.defaultColor == textRender.color)
       aMrb.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -116,10 +114,6 @@ class AddTextActivity : BaseActivity() {
           updateTextRender(textRender.copy(color = mbPickedColorBackgroundColor))
         }
       }
-    }
-    binding.mbPickedColor.onClick {
-      performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
-      binding.gridLayoutColorPicker.showOrHide()
     }
     mbPickedColorBackgroundColor = textRender.color
     setupAcivText()
@@ -236,11 +230,6 @@ class AddTextActivity : BaseActivity() {
       binding.mbPickedColor.iconTint =
         Toolbox.createColorStateListFromColorParsed(arrayOf(android.R.attr.state_enabled to value))
     }
-
-  private fun View.showOrHide() {
-    expandableLayoutSet.forEach { if (it != this) it.visibility = GONE }
-    flipVisibility()
-  }
 
   private fun updateTextRender(textRender: TextRender? = null) {
     if (textRender != null) this.textRender = textRender

@@ -215,7 +215,7 @@
     android:animateLayoutChanges="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-      android:id="@+id/gridLayoutColorPicker"
+      android:id="@+id/llcColorPicker"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:animateLayoutChanges="true"

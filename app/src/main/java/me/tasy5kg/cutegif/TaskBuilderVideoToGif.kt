@@ -24,7 +24,7 @@ data class TaskBuilderVideoToGif(
   val lossy: Int?,
   val videoWH: Pair<Int, Int>,
   val duration: Int,
-  /** The interval between every loops, in centiseconds. (1 == 0.01 sec) */
+  /** The interval between every loops, in centi seconds. (1 == 0.01 sec) */
   val finalDelay: Int,
   /** Color(RRGGBB), Similarity * 100 */
   val colorKey: Pair<String, Int>?
@@ -58,11 +58,11 @@ data class TaskBuilderVideoToGif(
       "[0vPreprocessed][1:v] overlay=0:0," + cropParams.toFFmpegCropCommand() + resolutionParams(
       cropParams, shortLength
     ) + (colorKey?.let { ",colorkey=#${it.first}:${it.second / 100f}:0" } ?: "") + (",reverse").toEmptyStringIf { !reverse } +
-      "\" \"${MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH}%06d.png\""
+      "\" \"${MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH}%06d.bmp\""
 
   fun getCommandCreatePalette() =
-    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH}%06d.png\" " + "-vf palettegen=max_colors=${colorQuality}:stats_mode=diff -y \"${MyConstants.PALETTE_PATH}\""
+    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH}%06d.bmp\" " + "-vf palettegen=max_colors=${colorQuality}:stats_mode=diff -y \"${MyConstants.PALETTE_PATH}\""
 
   fun getCommandVideoToGif() =
-    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -framerate $outputFps -i \"${MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH}%06d.png\" -i \"${MyConstants.PALETTE_PATH}\" " + "-filter_complex paletteuse=dither=bayer -final_delay $finalDelay -y \"$OUTPUT_GIF_TEMP_PATH\""
+    "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -framerate $outputFps -i \"${MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH}%06d.bmp\" -i \"${MyConstants.PALETTE_PATH}\" " + "-filter_complex paletteuse=dither=bayer -final_delay $finalDelay -y \"$OUTPUT_GIF_TEMP_PATH\""
 }

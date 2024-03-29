@@ -401,7 +401,6 @@
               <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="64dp"
                 android:text="@string/_similarity_"
                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
