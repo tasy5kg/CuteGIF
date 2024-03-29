@@ -14,34 +14,48 @@ import me.tasy5kg.cutegif.MySettings.INT_FILE_OPEN_WAY_GALLERY
 import me.tasy5kg.cutegif.databinding.ActivityMainBinding
 import me.tasy5kg.cutegif.toolbox.FileTools.copyToInputFileDir
 import me.tasy5kg.cutegif.toolbox.Toolbox.enableDropFile
+import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 
 class MainActivity : BaseActivity() {
   private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
+  private fun importFileTryCatch(function: () -> Unit) {
+    try {
+      function.invoke()
+    } catch (e: Exception) {
+      logRed("importFileFailed", e)
+      e.printStackTrace()
+      runOnUiThread { toast(getString(R.string.import_file_failed_please_try)) }
+    }
+  }
+
   private val arlImportVideoToGifDocument = registerForActivityResult(ActivityResultContracts.GetContent()) {
-    it?.let { _ -> VideoToGifActivity.start(this, it.copyToInputFileDir()) }
+    it?.let { _ -> importFileTryCatch { VideoToGifActivity.start(this, it.copyToInputFileDir()) } }
   }
   private val arlImportVideoToGifElse = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-    it?.data?.data?.let { uri -> VideoToGifActivity.start(this, uri.copyToInputFileDir()) }
+    it?.data?.data?.let { uri -> importFileTryCatch { VideoToGifActivity.start(this, uri.copyToInputFileDir()) } }
   }
+
+
   private val arlImportGifSplitDocument = registerForActivityResult(ActivityResultContracts.GetContent()) {
-    it?.let { _ -> GifSplitActivity.start(this, it.copyToInputFileDir()) }
+    it?.let { _ -> importFileTryCatch { GifSplitActivity.start(this, it.copyToInputFileDir()) } }
   }
   private val arlImportGifSplit13 = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-    it?.data?.data?.let { uri -> GifSplitActivity.start(this, uri.copyToInputFileDir()) }
+    it?.data?.data?.let { uri -> importFileTryCatch { GifSplitActivity.start(this, uri.copyToInputFileDir()) } }
   }
   private val arlImportGifToVideoDocument = registerForActivityResult(ActivityResultContracts.GetContent()) {
-    it?.let { _ -> GifToVideoActivity.start(this, it.copyToInputFileDir()) }
+    it?.let { _ -> importFileTryCatch { GifToVideoActivity.start(this, it.copyToInputFileDir()) } }
   }
   private val arlImportGifToVideo13 = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-    it?.data?.data?.let { uri -> GifToVideoActivity.start(this, uri.copyToInputFileDir()) }
+    it?.data?.data?.let { uri -> importFileTryCatch { GifToVideoActivity.start(this, uri.copyToInputFileDir()) } }
   }
   private val arlImportMvimgToGifDocument = registerForActivityResult(ActivityResultContracts.GetContent()) {
-    it?.let { _ -> ImportMvimgActivity.start(this, it.copyToInputFileDir()) }
+    it?.let { _ -> importFileTryCatch { ImportMvimgActivity.start(this, it.copyToInputFileDir()) } }
   }
   private val arlImportMvimgToGif13 = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-    it?.data?.data?.let { uri -> ImportMvimgActivity.start(this, uri.copyToInputFileDir()) }
+    it?.data?.data?.let { uri -> importFileTryCatch { ImportMvimgActivity.start(this, uri.copyToInputFileDir()) } }
   }
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {

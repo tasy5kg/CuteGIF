@@ -115,7 +115,7 @@
   <string name="saved_this_frame_to_gallery">This frame has been saved</string>
   <string name="unable_to_read_video">Unable to load video</string>
   <string name="____brackets____">(%s)</string>
-  <string name="video_selection_method">Video selector</string>
+  <string name="file_selector">File selector</string>
   <string name="failed_to_enable_stabilization">Failed to enable stabilization</string>
   <string name="enabling_stabilization">Enabling stabilization…</string>
   <string name="seems_not_a_mvimg">This doesn\'t seem to be a Motion Photo. Try another photo.</string>
@@ -137,4 +137,5 @@
   <string name="eula_line_addition">This software is for learning and communication purposes. It does not access the network and does not provide Internet information services.</string>
   <string name="_my_wechat_public_account_name" translatable="false">光光可爱小仙女</string>
   <string name="buy_me_a_cup_of_coffee">Buy me a cup of coffee</string>
+  <string name="import_file_failed_please_try">File read failed, please try switching the file picker in the menu</string>
 </resources>

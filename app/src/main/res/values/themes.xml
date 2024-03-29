@@ -70,6 +70,7 @@
     <item name="labelBehavior">floating</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
+    <item name="tickColorActive">@color/green_light</item>
   </style>
 
   <style name="Theme.CuteGif.Chip" parent="Widget.Material3.Chip.Filter">

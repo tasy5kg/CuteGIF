@@ -115,7 +115,7 @@
   <string name="saved_this_frame_to_gallery">已保存本帧至相册</string>
   <string name="unable_to_read_video">无法读取视频</string>
   <string name="____brackets____">（%s）</string>
-  <string name="video_selection_method">视频选取方式</string>
+  <string name="file_selector">文件选取器</string>
   <string name="failed_to_enable_stabilization">启用防抖失败</string>
   <string name="enabling_stabilization">正在减轻画面抖动…</string>
   <string name="seems_not_a_mvimg">这似乎不是一张动态照片，换张照片试试吧</string>
@@ -130,4 +130,5 @@
   <string name="wechat_follow_qrcode_saved_wechat_launch_failed">微信扫一扫跳转失败，公众号二维码已保存</string>
   <string name="eula_line_addition">本软件供学习交流使用，不接入网络，不提供互联网信息服务。</string>
   <string name="buy_me_a_cup_of_coffee">给我买杯奶茶吧</string>
+  <string name="import_file_failed_please_try">文件读取失败，请尝试在菜单中切换文件选取器</string>
 </resources>

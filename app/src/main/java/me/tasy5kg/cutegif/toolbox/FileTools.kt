@@ -20,6 +20,8 @@ import kotlin.math.nextUp
 
 object FileTools {
 
+  private const val BUFFER_SIZE = 131072
+
   enum class FileSizeUnit(val unitName: String, val multiple: Double) {
     B("B", 1.0), KB("KB", 1024.0), MB("MB", 1048576.0), GB("GB", 1073741824.0);
   }
@@ -97,7 +99,6 @@ object FileTools {
     }
   }
 
-  private const val BUFFER_SIZE = 131072
   fun copyStream(
     inputStream: InputStream, outputStream: OutputStream, onCopy: ((bytesCopied: Long) -> Unit)? = null
   ) {

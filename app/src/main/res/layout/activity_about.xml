@@ -74,7 +74,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:animateLayoutChanges="true"
-          android:text="@string/video_selection_method"
+          android:text="@string/file_selector"
           android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
