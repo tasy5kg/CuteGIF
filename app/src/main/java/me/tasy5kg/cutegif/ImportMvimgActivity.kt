@@ -12,6 +12,7 @@ import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL
 import me.tasy5kg.cutegif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import me.tasy5kg.cutegif.MyConstants.VIDSTABDETECT_RESULT_PATH
 import me.tasy5kg.cutegif.databinding.ActivityImportMvimgBinding
+import me.tasy5kg.cutegif.toolbox.FileTools
 import me.tasy5kg.cutegif.toolbox.MediaTools
 import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
@@ -78,6 +79,13 @@ class ImportMvimgActivity : BaseActivity() {
       } else {
         binding.vvPreviewStabilized.visibility = GONE
       }
+    }
+    binding.mbSaveAsVideo.onClick {
+      val outputUri = FileTools.createNewFile(FileTools.FileName(extractedVideoPath).nameWithoutExtension, "mp4")
+      FileTools.copyFile(extractedVideoPath, outputUri, false)
+      isEnabled = false
+      setTextColor(getColor(R.color.grey))
+      text = getString(R.string.video_saved_to_gallery)
     }
   }
 

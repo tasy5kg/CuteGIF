@@ -16,9 +16,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 202403010,
-      "versionName": "2024.3",
-      "outputFile": "CuteGIF_2024.3_202403010-x86_64-release.apk"
+      "versionCode": 202404010,
+      "versionName": "2024.4",
+      "outputFile": "CuteGIF_2024.4_202404010-x86_64-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -29,10 +29,29 @@
         }
       ],
       "attributes": [],
-      "versionCode": 202403010,
-      "versionName": "2024.3",
-      "outputFile": "CuteGIF_2024.3_202403010-arm64-v8a-release.apk"
+      "versionCode": 202404010,
+      "versionName": "2024.4",
+      "outputFile": "CuteGIF_2024.4_202404010-arm64-v8a-release.apk"
     }
   ],
-  "elementType": "File"
+  "elementType": "File",
+  "baselineProfiles": [
+    {
+      "minApi": 28,
+      "maxApi": 30,
+      "baselineProfiles": [
+        "baselineProfiles/1/CuteGIF_2024.4_202404010-x86_64-release.dm",
+        "baselineProfiles/1/CuteGIF_2024.4_202404010-arm64-v8a-release.dm"
+      ]
+    },
+    {
+      "minApi": 31,
+      "maxApi": 2147483647,
+      "baselineProfiles": [
+        "baselineProfiles/0/CuteGIF_2024.4_202404010-x86_64-release.dm",
+        "baselineProfiles/0/CuteGIF_2024.4_202404010-arm64-v8a-release.dm"
+      ]
+    }
+  ],
+  "minSdkVersionForDexing": 29
 }

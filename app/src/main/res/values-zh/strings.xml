@@ -54,6 +54,7 @@
   <string name="accept_license_above_to_use">请您阅读并同意以上条款，即可开始使用。</string>
   <string name="agree">同意</string>
   <string name="gif_saved_to_gallery">GIF 已保存至相册</string>
+  <string name="video_saved_to_gallery">视频已保存至相册</string>
   <string name="delete">删除</string>
   <string name="follow_wechat">关注微信公众号</string>
   <string name="follow_my_wechat">关注我的微信公众号</string>
@@ -81,8 +82,10 @@
   <string name="transcoding_video">正在转码视频</string>
   <string name="transcoding_video__d_">正在转码视频（%d%%）</string>
   <string name="got_it">知道了</string>
-  <string name="whats_new">新功能介绍</string>
-  <string name="whats_new_2023_3">新增 动态照片转 GIF 功能\n全面屏小白条沉浸</string>
+  <string name="whats_new_t1">新版本介绍</string>
+  <string name="whats_new_p1">新增动态照片另存为视频功能\n性能优化，导出 GIF 提速 10~40%\n多处界面细节优化</string>
+  <string name="whats_new_t2">问题修复</string>
+  <string name="whats_new_p2">修复了状态栏颜色不正常的问题\n修复了添加文字页面点击按钮没有反应的问题\n修复了某些情况下闪退的问题\n修复了某些情况下导出的 GIF 色彩失真的问题</string>
   <string name="crop_ratio__">画面比例</string>
   <string name="custom__">自定义：</string>
   <string name="clarity">清晰度</string>
@@ -131,4 +134,6 @@
   <string name="eula_line_addition">本软件供学习交流使用，不接入网络，不提供互联网信息服务。</string>
   <string name="buy_me_a_cup_of_coffee">给我买杯奶茶吧</string>
   <string name="import_file_failed_please_try">文件读取失败，请尝试在菜单中切换文件选取器</string>
+  <string name="save_as_video">另存为视频</string>
+  <string name="speed_warning_slower">ℹ️ 由于性能原因，当前预览画面的播放速度慢于您选择的速度。稍后导出时，将会按照您选择的速度生成 GIF。</string>
 </resources>

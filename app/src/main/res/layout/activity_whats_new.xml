@@ -63,7 +63,7 @@
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/whats_new"
+        android:text="@string/whats_new_t1"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:textIsSelectable="true"
         android:textStyle="bold" />
@@ -71,78 +71,28 @@
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/whats_new_2023_3"
+        android:layout_marginTop="4dp"
+        android:text="@string/whats_new_p1"
         android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-        android:textIsSelectable="true" />
-      <!--<com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/whats_new_t1"
-        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-        android:textIsSelectable="true"
-        android:textStyle="bold" />
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/whats_new_b1"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textIsSelectable="true" />
 
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/whats_new_t2"
-        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:textIsSelectable="true"
         android:textStyle="bold" />
 
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/whats_new_b2"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-        android:textIsSelectable="true" />
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/whats_new_t3"
+        android:layout_marginTop="4dp"
+        android:text="@string/whats_new_p2"
         android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-        android:textIsSelectable="true"
-        android:textStyle="bold" />
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/whats_new_b3"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         android:textIsSelectable="true" />
 
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/whats_new_t4"
-        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-        android:textIsSelectable="true"
-        android:textStyle="bold" />
-
-      <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/whats_new_b4"
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-        android:textIsSelectable="true" />
--->
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.core.widget.NestedScrollView>
 

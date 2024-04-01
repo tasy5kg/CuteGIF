@@ -59,7 +59,7 @@ class VideoToGifPerformerActivity : BaseActivity() {
       logRed("logcallback", logCallback.message.toString())
     }, { statistics ->
       putProgress(
-        (statistics.videoFrameNumber * 80 / taskBuilder.getOutputFramesEstimated()).constraintBy(0..80), getString(R.string.exporting_gif_)
+        (statistics.videoFrameNumber * 40 / taskBuilder.getOutputFramesEstimated()).constraintBy(0..40), getString(R.string.exporting_gif_)
       )
     })
   }
@@ -76,7 +76,7 @@ class VideoToGifPerformerActivity : BaseActivity() {
   }
 
   private fun performPart3() {
-    putProgress(90, getString(R.string.exporting_gif_))
+    putProgress(60, getString(R.string.exporting_gif_))
     val command = taskBuilder.getCommandVideoToGif()
     logRed("commandVideoToGif", command)
     FFmpegKit.executeAsync(command, { completeCallback ->
@@ -87,7 +87,7 @@ class VideoToGifPerformerActivity : BaseActivity() {
     }, { log -> logRed("logcallback", log.message.toString()) }, { statistics ->
       previousUpdatedFileSize = max(previousUpdatedFileSize, statistics.size)
       putProgress(
-        (90 + statistics.videoFrameNumber * 10 / taskBuilder.getOutputFramesEstimated()).constraintBy(90..100),
+        (60 + statistics.videoFrameNumber * 40 / taskBuilder.getOutputFramesEstimated()).constraintBy(60..100),
         getString(R.string.exporting_gif_) + getString(R.string.____brackets____, statistics.size.formattedFileSize())
       )
     })
@@ -97,7 +97,9 @@ class VideoToGifPerformerActivity : BaseActivity() {
     with(taskBuilder) {
       lossy?.let {
         putProgress(null, getString(R.string.compressing_gif_raw_size, previousUpdatedFileSize.formattedFileSize()))
+        logRed("gifsicleLossy", "start rtime")
         MediaTools.gifsicleLossy(it, OUTPUT_GIF_TEMP_PATH, null, true)
+        logRed("gifsicleLossy", "end rtime")
       }
       if (!taskQuitOrFailed) {
         val outputUri = createNewFile(FileTools.FileName(inputVideoPath).nameWithoutExtension, "gif")

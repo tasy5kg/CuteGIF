@@ -48,6 +48,19 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/mtv_speed_warning"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:layout_marginVertical="2dp"
+      android:animateLayoutChanges="true"
+      android:text="@string/speed_warning_slower"
+      android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+      android:textColor="@color/grey"
+      android:visibility="gone"
+      tools:visibility="visible" />
+
   </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

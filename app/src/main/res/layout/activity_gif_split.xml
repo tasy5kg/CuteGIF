@@ -33,7 +33,7 @@
         android:gravity="start"
         android:text="@string/gif_split"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        android:textColor="@color/grey" />
+        android:textColor="@color/dark" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.button.MaterialButton

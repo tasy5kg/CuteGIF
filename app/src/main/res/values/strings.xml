@@ -54,6 +54,7 @@
   <string name="accept_license_above_to_use">Please read and agree to the above terms to start using it.</string>
   <string name="agree">Agree</string>
   <string name="gif_saved_to_gallery">GIF saved to gallery</string>
+  <string name="video_saved_to_gallery">Video saved to gallery</string>
   <string name="delete">Delete</string>
   <string name="follow_wechat">Follow my WeChat public account</string>
   <string name="follow_my_wechat">Follow my WeChat public account</string>
@@ -81,8 +82,10 @@
   <string name="transcoding_video">Transcoding video</string>
   <string name="transcoding_video__d_">Transcoding video (%d%%)</string>
   <string name="got_it">Got it</string>
-  <string name="whats_new">What\'s new</string>
-  <string name="whats_new_2023_3">Motion Photo to GIF function</string>
+  <string name="whats_new_t1">New version introduction</string>
+  <string name="whats_new_p1">Added save motion photo as video function\nPerformance optimization, saving 10~40% of time when exporting GIF\nInterface details optimized</string>
+  <string name="whats_new_t2">Bug fixes</string>
+  <string name="whats_new_p2">Fixed the issue of abnormal status bar color\nFixed the problem of no response when clicking the button on the add text page\nFixed crash issue in some cases\nFixed an issue with exported GIF colors being distorted in some cases</string>
   <string name="crop_ratio__">Crop ratio</string>
   <string name="custom__">Customize:</string>
   <string name="clarity">Clarity</string>
@@ -131,11 +134,13 @@
   <string name="crop_4_3" translatable="false">4:3</string>
   <string name="crop_16_9" translatable="false">16:9</string>
   <string name="qq_group_id" translatable="false">729757909</string>
-  <string name="_donated_users_list" translatable="false">\@华 @Z*g @张先森 @禽兽养殖二厂</string>
+  <string name="_donated_users_list" translatable="false">\@小二哥哥 @杨啊楊 @华 @Z*g @张先森 @禽兽养殖二厂</string>
   <string name="github_com_tasy5kg_cutegif" translatable="false">github.com/tasy5kg/CuteGIF</string>
   <string name="_open_source_project_used_links" translatable="false">github.com/androidx/androidx\ngithub.com/material-components/material-components-android\ngithub.com/bumptech/glide\ngithub.com/CanHub/Android-Image-Cropper\ngithub.com/arthenica/ffmpeg-kit\ngithub.com/Tencent/MMKV\ngithub.com/kohler/gifsicle\ngithub.com/santaevpavel/OutlineSpan</string>
   <string name="eula_line_addition">This software is for learning and communication purposes. It does not access the network and does not provide Internet information services.</string>
   <string name="_my_wechat_public_account_name" translatable="false">光光可爱小仙女</string>
   <string name="buy_me_a_cup_of_coffee">Buy me a cup of coffee</string>
   <string name="import_file_failed_please_try">File read failed, please try switching the file picker in the menu</string>
+  <string name="save_as_video">Save as video</string>
+  <string name="speed_warning_slower">ℹ️ For performance reasons, the current preview plays slower than the speed you selected. When exported later, the GIF will be generated at the speed you selected.</string>
 </resources>

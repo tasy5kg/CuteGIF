@@ -38,7 +38,7 @@
         android:gravity="start"
         android:text="@string/gif_saved_to_gallery"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        android:textColor="@color/grey" />
+        android:textColor="@color/dark" />
 
       <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mtvFileSize"
@@ -85,7 +85,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingVertical="8dp">
+    android:layout_marginVertical="8dp">
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbDelete"
@@ -104,23 +104,21 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbShare"
-      style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+      style="@style/Widget.Material3.Button.OutlinedButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
       android:text="@string/share"
-      android:textColor="?attr/colorOnSurface"
-      app:icon="@drawable/ic_baseline_share_24" />
+      android:textColor="?attr/colorOnSurface" />
 
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbDone"
-      style="@style/Widget.Material3.Button.Icon"
+      style="@style/Widget.Material3.Button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
       android:text="@string/done"
-      android:textColor="?attr/colorOnSurface"
-      app:icon="@drawable/ic_baseline_done_24" />
+      android:textColor="?attr/colorOnSurface" />
   </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

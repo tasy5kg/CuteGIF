@@ -36,7 +36,7 @@
         android:gravity="start"
         android:text="@string/edit_video"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        android:textColor="@color/grey" />
+        android:textColor="@color/dark" />
 
       <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mtvGifDurationS"

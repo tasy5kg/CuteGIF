@@ -260,16 +260,20 @@ class VideoToGifActivity : BaseActivity() {
     videoView.postDelayed(loopRunnable, 50)
   }
 
-  fun setPlaybackSpeed(speed: Float, text: String) {
+  fun setPlaybackSpeed(speed: Float, text: String): Boolean {
     binding.mbPlaybackSpeed.text = text
     playbackSpeed = speed
     // set playback speed too high may cause exceptions
+    var result: Boolean
     try {
       mMediaPlayer.playbackParams = mMediaPlayer.playbackParams.setSpeed(playbackSpeed)
+      result = true
     } catch (e: Exception) {
       e.printStackTrace()
+      result = false
     }
     updateGifDuration()
+    return result
   }
 
   fun setCropRatio(ratio: Pair<Int, Int>?) {

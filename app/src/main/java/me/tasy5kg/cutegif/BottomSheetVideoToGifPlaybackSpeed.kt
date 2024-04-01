@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import me.tasy5kg.cutegif.databinding.BottomSheetVideoToGifPlaybackSpeedBinding
+import me.tasy5kg.cutegif.toolbox.Toolbox.visibleIf
 
 class BottomSheetVideoToGifPlaybackSpeed : BottomSheetDialogFragment() {
   private var _binding: BottomSheetVideoToGifPlaybackSpeedBinding? = null
@@ -18,7 +19,7 @@ class BottomSheetVideoToGifPlaybackSpeed : BottomSheetDialogFragment() {
     binding.sliderSpeed.apply {
       setLabelFormatter { sliderValueToText(it) }
       addOnChangeListener { slider, value, _ ->
-        videoToGifActivity.setPlaybackSpeed(sliderValueToSpeed(value), sliderValueToText(value))
+        binding.mtvSpeedWarning.visibleIf { !(videoToGifActivity.setPlaybackSpeed(sliderValueToSpeed(value), sliderValueToText(value))) }
         slider.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
       }
     }
