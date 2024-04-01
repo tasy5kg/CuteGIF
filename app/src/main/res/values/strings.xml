@@ -82,7 +82,8 @@
   <string name="transcoding_video">Transcoding video</string>
   <string name="transcoding_video__d_">Transcoding video (%d%%)</string>
   <string name="got_it">Got it</string>
-  <string name="whats_new_t1">New version introduction</string>
+  <string name="whats_new">What\'s new</string>
+  <string name="whats_new_t1">What\'s new</string>
   <string name="whats_new_p1">Added save motion photo as video function\nPerformance optimization, saving 10~40% of time when exporting GIF\nInterface details optimized</string>
   <string name="whats_new_t2">Bug fixes</string>
   <string name="whats_new_p2">Fixed the issue of abnormal status bar color\nFixed the problem of no response when clicking the button on the add text page\nFixed crash issue in some cases\nFixed an issue with exported GIF colors being distorted in some cases</string>

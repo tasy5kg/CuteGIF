@@ -82,6 +82,7 @@
   <string name="transcoding_video">正在转码视频</string>
   <string name="transcoding_video__d_">正在转码视频（%d%%）</string>
   <string name="got_it">知道了</string>
+  <string name="whats_new">新版本介绍</string>
   <string name="whats_new_t1">新版本介绍</string>
   <string name="whats_new_p1">新增动态照片另存为视频功能\n性能优化，导出 GIF 提速 10~40%\n多处界面细节优化</string>
   <string name="whats_new_t2">问题修复</string>
