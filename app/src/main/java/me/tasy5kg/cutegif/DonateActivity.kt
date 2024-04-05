@@ -24,7 +24,7 @@ class DonateActivity : AppCompatActivity() {
           wechatQrCodeImg.copyTo(dest)
         }
       }
-      toast(if (openWeChatQrScanner()) getString(R.string.wechat_donate_qrcode_saved_please_scan_first_image) else getString(R.string.wechat_donate_qrcode_saved_wechat_launch_failed))
+      toast(if (openWeChatQrScanner()) R.string.wechat_donate_qrcode_saved_please_scan_first_image else R.string.wechat_donate_qrcode_saved_wechat_launch_failed)
     }
   }
 

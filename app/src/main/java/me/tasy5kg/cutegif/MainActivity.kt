@@ -27,7 +27,7 @@ class MainActivity : BaseActivity() {
     } catch (e: Exception) {
       logRed("importFileFailed", e)
       e.printStackTrace()
-      runOnUiThread { toast(getString(R.string.import_file_failed_please_try)) }
+      runOnUiThread { toast(R.string.import_file_failed_please_try) }
     }
   }
 

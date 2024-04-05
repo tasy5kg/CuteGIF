@@ -19,6 +19,7 @@ import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 import kotlin.concurrent.thread
 import kotlin.math.roundToInt
 
@@ -63,7 +64,7 @@ class GifToVideoActivity : BaseActivity() {
         }
 
         it.returnCode.isValueError -> {
-          runOnUiThread { Toolbox.toast(getString(R.string.gif_to_video_conversion_failed)) }
+          runOnUiThread { toast(R.string.gif_to_video_conversion_failed) }
           finish()
         }
       }
@@ -81,7 +82,7 @@ class GifToVideoActivity : BaseActivity() {
   private fun quitOrFailed(toastText: String?) {
     runOnUiThread {
       taskQuitOrFailed = true
-      toastText?.let { Toolbox.toast(it) }
+      toastText?.let { toast(it) }
       FFmpegKit.cancel()
       FFmpegKitConfig.clearSessions()
       taskThread?.interrupt()

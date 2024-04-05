@@ -54,7 +54,7 @@ class GifSplitActivity : BaseActivity() {
         "$OUTPUT_SPLIT_DIR${String.format("%05d", binding.slider.value.toInt())}.png",
         createNewFile(inputGifPath, "png")
       )
-      toast(context.getString(R.string.saved_this_frame_to_gallery))
+      toast(R.string.saved_this_frame_to_gallery)
       binding.view.apply {
         visibility = View.VISIBLE
         postDelayed({

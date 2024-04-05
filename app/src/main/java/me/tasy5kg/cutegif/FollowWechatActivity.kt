@@ -25,7 +25,7 @@ class FollowWechatActivity : AppCompatActivity() {
           wechatQrCodeImg.copyTo(dest)
         }
       }
-      Toolbox.toast(if (openWeChatQrScanner()) context.getString(R.string.wechat_follow_qrcode_saved_please_scan_first_image) else context.getString(R.string.wechat_follow_qrcode_saved_wechat_launch_failed))
+      Toolbox.toast(if (openWeChatQrScanner()) R.string.wechat_follow_qrcode_saved_please_scan_first_image else R.string.wechat_follow_qrcode_saved_wechat_launch_failed)
     }
   }
 

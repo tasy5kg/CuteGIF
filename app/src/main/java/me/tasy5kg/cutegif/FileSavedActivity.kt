@@ -66,7 +66,7 @@ class FileSavedActivity : BaseActivity() {
     binding.mbBack.onClick { finish() }
     binding.mbDelete.onClick {
       fileUri.deleteFile()
-      toast(context.getString(R.string.file_deleted))
+      toast(R.string.file_deleted)
       finish()
     }
     binding.mbShare.onClick {

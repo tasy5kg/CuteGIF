@@ -34,7 +34,7 @@ class ImportMvimgActivity : BaseActivity() {
     binding.mbBack.onClick { stablizeVideoCancel() }
     val extractSuccess = MediaTools.extractVideoFromMvimg(inputMvimgPath, extractedVideoPath)
     if (!extractSuccess) {
-      toast(getString(R.string.seems_not_a_mvimg))
+      toast(R.string.seems_not_a_mvimg)
       finish()
       return
     }

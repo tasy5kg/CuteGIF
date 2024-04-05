@@ -203,6 +203,8 @@ object Toolbox {
 
   fun toast(text: String) = Toast.makeText(appContext, text, Toast.LENGTH_LONG).show()
 
+  fun toast(@StringRes resId: Int) = Toast.makeText(appContext, resId, Toast.LENGTH_LONG).show()
+
 
   /**
    *  Usage example:

@@ -17,6 +17,7 @@ import me.tasy5kg.cutegif.toolbox.Toolbox.getExtra
 import me.tasy5kg.cutegif.toolbox.Toolbox.keepScreenOn
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 import kotlin.concurrent.thread
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -55,7 +56,7 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
         }
 
         it.returnCode.isValueError -> {
-          runOnUiThread { Toolbox.toast(getString(R.string.unable_to_read_video)) }
+          runOnUiThread { toast(R.string.unable_to_read_video) }
           finish()
           resetDirectory(INPUT_FILE_DIR)
         }
@@ -77,7 +78,7 @@ class VideoToGifVideoFallbackActivity : BaseActivity() {
   private fun quitOrFailed(toastText: String?) {
     runOnUiThread {
       taskQuitOrFailed = true
-      toastText?.let { Toolbox.toast(it) }
+      toastText?.let { toast(it) }
       FFmpegKit.cancel()
       FFmpegKitConfig.clearSessions()
       taskThread?.interrupt()

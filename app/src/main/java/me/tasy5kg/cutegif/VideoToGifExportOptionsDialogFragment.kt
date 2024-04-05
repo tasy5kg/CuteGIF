@@ -23,13 +23,13 @@ import me.tasy5kg.cutegif.toolbox.FileTools.resetDirectory
 import me.tasy5kg.cutegif.toolbox.MediaTools.getVideoSingleFrame
 import me.tasy5kg.cutegif.toolbox.MediaTools.gifsicleLossy
 import me.tasy5kg.cutegif.toolbox.MediaTools.saveToPng
-import me.tasy5kg.cutegif.toolbox.Toolbox
 import me.tasy5kg.cutegif.toolbox.Toolbox.backgroundColor
 import me.tasy5kg.cutegif.toolbox.Toolbox.colorIntToHex
 import me.tasy5kg.cutegif.toolbox.Toolbox.constraintBy
 import me.tasy5kg.cutegif.toolbox.Toolbox.joinToStringSpecial
 import me.tasy5kg.cutegif.toolbox.Toolbox.logRed
 import me.tasy5kg.cutegif.toolbox.Toolbox.onClick
+import me.tasy5kg.cutegif.toolbox.Toolbox.toast
 import me.tasy5kg.cutegif.toolbox.Toolbox.visibleIf
 import kotlin.math.min
 
@@ -93,7 +93,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     binding.chipFramerate.setOnCheckedChangeListener { _, isChecked ->
       binding.llcGroupFramerate.visibleIf { isChecked }
     }
-    binding.viewColorKeyIndicator.onClick { Toolbox.toast(context.getString(R.string.click_on_the_preview_image_to_pick_an_color)) }
+    binding.viewColorKeyIndicator.onClick { toast(R.string.click_on_the_preview_image_to_pick_an_color) }
     binding.sliderColorKeySimilarity.apply {
       setLabelFormatter { "${it.toInt()}%" }
       addOnChangeListener { _, _, _ ->
