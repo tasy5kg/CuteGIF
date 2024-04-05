@@ -2,7 +2,6 @@ package me.tasy5kg.cutegif
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -29,13 +28,14 @@ class GifSplitActivity : BaseActivity() {
     binding.mbSliderMinus.onClick { if (binding.slider.value > binding.slider.valueFrom) binding.slider.value-- }
     binding.mbSliderPlus.onClick { if (binding.slider.value < binding.slider.valueTo) binding.slider.value++ }
     resetDirectory(OUTPUT_SPLIT_DIR)
-    val mlo = mutableListOf<Bitmap>()
-    FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i \"$inputGifPath\" \"$OUTPUT_SPLIT_DIR%05d.png\"")
-    var frameIndex = 1
-    while (File("$OUTPUT_SPLIT_DIR${String.format("%05d", frameIndex)}.png").exists()) {
-      mlo.add(BitmapFactory.decodeFile("$OUTPUT_SPLIT_DIR${String.format("%05d", frameIndex)}.png"))
-      frameIndex++
+    FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i \"$inputGifPath\" \"$OUTPUT_SPLIT_DIR%06d.png\"")
+    val frameCount = File(OUTPUT_SPLIT_DIR).listFiles()?.size
+    if (frameCount == null) {
+      toast(R.string.unable_to_load_gif)
+      finish()
+      return
     }
+    val mlo = (1..frameCount).map { BitmapFactory.decodeFile(OUTPUT_SPLIT_DIR + String.format("%06d", it) + ".png")!! }
     if (mlo.size == 1) {
       binding.llcFrameSelector.visibility = GONE
     } else {
@@ -51,7 +51,7 @@ class GifSplitActivity : BaseActivity() {
     binding.aciv.setImageBitmap(mlo[0])
     binding.mbSave.onClick {
       copyFile(
-        "$OUTPUT_SPLIT_DIR${String.format("%05d", binding.slider.value.toInt())}.png",
+        "$OUTPUT_SPLIT_DIR${String.format("%06d", binding.slider.value.toInt())}.png",
         createNewFile(inputGifPath, "png")
       )
       toast(R.string.saved_this_frame_to_gallery)
