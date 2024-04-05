@@ -35,7 +35,7 @@ class BottomSheetVideoToGifPlaybackSpeed : BottomSheetDialogFragment() {
   }
 
   companion object {
-    const val TAG = "BottomSheetVideoToGif2PlaybackSpeed"
+    const val TAG = "BottomSheetVideoToGifPlaybackSpeed"
 
     private fun sliderValueToSpeed(value: Float) = when (value.toInt()) {
       0 -> 0.5f
