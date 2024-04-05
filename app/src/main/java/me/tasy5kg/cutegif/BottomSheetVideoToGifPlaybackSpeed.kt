@@ -5,6 +5,8 @@ import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import me.tasy5kg.cutegif.databinding.BottomSheetVideoToGifPlaybackSpeedBinding
 import me.tasy5kg.cutegif.toolbox.Toolbox.visibleIf
@@ -16,6 +18,7 @@ class BottomSheetVideoToGifPlaybackSpeed : BottomSheetDialogFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     _binding = BottomSheetVideoToGifPlaybackSpeedBinding.inflate(layoutInflater, container, false)
+    (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
     binding.sliderSpeed.apply {
       setLabelFormatter { sliderValueToText(it) }
       addOnChangeListener { slider, value, _ ->

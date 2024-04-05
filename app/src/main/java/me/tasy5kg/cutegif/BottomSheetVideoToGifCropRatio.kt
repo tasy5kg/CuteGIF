@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import me.tasy5kg.cutegif.databinding.BottomSheetVideoToGifCropRatioBinding
 import me.tasy5kg.cutegif.toolbox.Toolbox.appGetString
@@ -14,12 +16,12 @@ class BottomSheetVideoToGifCropRatio : BottomSheetDialogFragment() {
   private var _binding: BottomSheetVideoToGifCropRatioBinding? = null
   private val binding get() = _binding!!
   private val videoToGifActivity get() = activity as VideoToGifActivity
-
   private var lastCropRatio: Pair<Int, Int>? = null
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-  ): View {
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     _binding = BottomSheetVideoToGifCropRatioBinding.inflate(layoutInflater, container, false)
+    // make BottomSheetDialogFragment always fully expanded
+    (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
     val mbCropRatiosToRatio = setOf(
       binding.mbCropRatioFree to null,
       binding.mbCropRatioSquare to (1 to 1),
