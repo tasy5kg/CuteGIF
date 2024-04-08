@@ -6,7 +6,7 @@
   <string name="close">Close</string>
   <string name="color_quality">Color quality</string>
   <string name="frame_rate">Frame rate</string>
-  <string name="playback_speed">Playback speed</string>
+  <string name="playback_speed">Speed</string>
   <string name="resolution">Resolution</string>
   <string name="done">Done</string>
   <string name="share">Share</string>
@@ -87,7 +87,7 @@
   <string name="whats_new_p1">Added save motion photo as video function\nPerformance optimization, saving 10~40% of time when exporting GIF\nInterface details optimized</string>
   <string name="whats_new_t2">Bug fixes</string>
   <string name="whats_new_p2">Fixed the issue of abnormal status bar color\nFixed the problem of no response when clicking the button on the add text page\nFixed crash issue in some cases\nFixed an issue with exported GIF colors being distorted in some cases</string>
-  <string name="crop_ratio__">Crop ratio</string>
+  <string name="crop_ratio__">Ratio</string>
   <string name="custom__">Customize:</string>
   <string name="clarity">Clarity</string>
   <string name="low">Low</string>

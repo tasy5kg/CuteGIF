@@ -6,7 +6,7 @@
   <string name="close">关闭</string>
   <string name="color_quality">色彩品质</string>
   <string name="frame_rate">帧率</string>
-  <string name="playback_speed">播放速度</string>
+  <string name="playback_speed">速度</string>
   <string name="resolution">分辨率</string>
   <string name="done">完成</string>
   <string name="share">分享</string>
@@ -87,7 +87,7 @@
   <string name="whats_new_p1">新增动态照片另存为视频功能\n性能优化，导出 GIF 提速 10~40%\n多处界面细节优化</string>
   <string name="whats_new_t2">问题修复</string>
   <string name="whats_new_p2">修复了状态栏颜色不正常的问题\n修复了添加文字页面点击按钮没有反应的问题\n修复了某些情况下闪退的问题\n修复了某些情况下导出的 GIF 色彩失真的问题</string>
-  <string name="crop_ratio__">画面比例</string>
+  <string name="crop_ratio__">比例</string>
   <string name="custom__">自定义：</string>
   <string name="clarity">清晰度</string>
   <string name="low">低</string>
