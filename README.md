@@ -4,7 +4,7 @@
 
 CuteGIF is a simple and easy-to-use video to GIF tool for Android.
 
-Latest version: `2024.4`.
+Latest version: `2024.3`.
 
 ---
 
