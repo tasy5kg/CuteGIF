@@ -14,7 +14,7 @@ data class TaskBuilderVideoToGif(
   /** 1 == 1ms , do not use IntRange because it is not serializable */
   val trimTime: Pair<Int, Int>?,
   val cropParams: CropParams,
-  /** 输出时短边的分辨率 */
+  /** the resolution of the short side when outputting */
   val shortLength: Int,
   val outputSpeed: Float,
   val outputFps: Int,
