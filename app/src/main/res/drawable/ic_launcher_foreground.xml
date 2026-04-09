@@ -1,16 +1,31 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
   android:width="108dp"
   android:height="108dp"
-  android:tint="@color/launcher_foreground"
   android:viewportWidth="108"
   android:viewportHeight="108">
-  <group
-    android:scaleX="2.1924"
-    android:scaleY="2.1924"
-    android:translateX="27.6912"
-    android:translateY="27.6912">
-    <path
-      android:fillColor="@android:color/white"
-      android:pathData="M4,6L2,6v14c0,1.1 0.9,2 2,2h14v-2L4,20L4,6zM20,2L8,2c-1.1,0 -2,0.9 -2,2v12c0,1.1 0.9,2 2,2h12c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM12,14.5v-9l6,4.5 -6,4.5z" />
-  </group>
+  <!-- Back Frame -->
+  <path
+    android:fillColor="@color/launcher_foreground"
+    android:fillAlpha="0.3"
+    android:pathData="M42,34h32c2.2,0 4,1.8 4,4v32c0,2.2 -1.8,4 -4,4h-32c-2.2,0 -4,-1.8 -4,-4v-32C38,35.8 39.8,34 42,34z" />
+  <!-- Middle Frame -->
+  <path
+    android:fillColor="@color/launcher_foreground"
+    android:fillAlpha="0.6"
+    android:pathData="M38,38h32c2.2,0 4,1.8 4,4v32c0,2.2 -1.8,4 -4,4h-32c-2.2,0 -4,-1.8 -4,-4v-32C34,39.8 35.8,38 38,38z" />
+  <!-- Top Frame -->
+  <path
+    android:fillColor="@color/launcher_foreground"
+    android:pathData="M34,42h32c2.2,0 4,1.8 4,4v32c0,2.2 -1.8,4 -4,4h-32c-2.2,0 -4,-1.8 -4,-4v-32C30,43.8 31.8,42 34,42z" />
+  <!--
+      Play triangle: vertices (44,54) (44,70) (58,62) — unchanged.
+      Plus symbol: shifted +4 right, –4 up vs _1 (was M56,50, now M60,46).
+        Vertical bar: x=60–64, y=46–58
+        Horizontal bar: x=56–68, y=50–54
+        Nearest point to triangle top edge (at x=56): plus is at y=50–54,
+        triangle top edge at x=56 is y≈60.9 — ~7dp clear gap.
+  -->
+  <path
+    android:fillColor="@color/launcher_background"
+    android:pathData="M44,54l0,16l14,-8z M60,46h4v4h4v4h-4v4h-4v-4h-4v-4h4z" />
 </vector>
