@@ -58,7 +58,7 @@ android {
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17.toString()
   }
-  namespace 'me.tasy5kg.cutegif'
+  namespace 'com.nht.gif'
 }
 
 dependencies {
