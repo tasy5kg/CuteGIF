@@ -92,19 +92,19 @@
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbChooseFileWayDocument"
-          style="@style/Theme.CuteGif.SegmentedButton"
+          style="@style/Theme.EasyGif.SegmentedButton"
           android:animateLayoutChanges="true"
           android:text="@string/files" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbChooseFileWayGallery"
-          style="@style/Theme.CuteGif.SegmentedButton"
+          style="@style/Theme.EasyGif.SegmentedButton"
           android:animateLayoutChanges="true"
           android:text="@string/photos" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbChooseFileWay13"
-          style="@style/Theme.CuteGif.SegmentedButton"
+          style="@style/Theme.EasyGif.SegmentedButton"
           android:animateLayoutChanges="true"
           android:text="@string/float_window" />
 

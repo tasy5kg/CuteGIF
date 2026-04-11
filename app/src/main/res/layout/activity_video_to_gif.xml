@@ -112,7 +112,7 @@
 
     <com.google.android.material.slider.RangeSlider
       android:id="@+id/rangeSlider"
-      style="@style/Theme.CuteGif.Slider"
+      style="@style/Theme.EasyGif.Slider"
       app:labelBehavior="gone" />
 
     <com.google.android.material.slider.Slider
@@ -160,14 +160,14 @@
 
       <com.google.android.material.button.MaterialButton
         android:id="@+id/mbTrimTimeInPoint"
-        style="@style/Theme.CuteGif.SegmentedButton"
+        style="@style/Theme.EasyGif.SegmentedButton"
         android:text="0:00.0"
         android:typeface="monospace"
         tools:ignore="HardcodedText" />
 
       <com.google.android.material.button.MaterialButton
         android:id="@+id/mbTrimTimeCurrentPlaying"
-        style="@style/Theme.CuteGif.SegmentedButton"
+        style="@style/Theme.EasyGif.SegmentedButton"
         android:text="1:23.4"
         android:textStyle="bold"
         android:typeface="monospace"
@@ -175,7 +175,7 @@
 
       <com.google.android.material.button.MaterialButton
         android:id="@+id/mbTrimTimeOutPoint"
-        style="@style/Theme.CuteGif.SegmentedButton"
+        style="@style/Theme.EasyGif.SegmentedButton"
         android:text="9:59.9"
         android:typeface="monospace"
         tools:ignore="HardcodedText" />

@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "me.tasy5kg.cutegif",
+  "applicationId": "com.nht.gif",
   "variantName": "release",
   "elements": [
     {
@@ -18,7 +18,7 @@
       "attributes": [],
       "versionCode": 202404010,
       "versionName": "2024.4",
-      "outputFile": "CuteGIF_2024.4_202404010-x86_64-release.apk"
+      "outputFile": "EasyGIF_2024.4_202404010-x86_64-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -31,7 +31,7 @@
       "attributes": [],
       "versionCode": 202404010,
       "versionName": "2024.4",
-      "outputFile": "CuteGIF_2024.4_202404010-arm64-v8a-release.apk"
+      "outputFile": "EasyGIF_2024.4_202404010-arm64-v8a-release.apk"
     }
   ],
   "elementType": "File",
@@ -40,16 +40,16 @@
       "minApi": 28,
       "maxApi": 30,
       "baselineProfiles": [
-        "baselineProfiles/1/CuteGIF_2024.4_202404010-x86_64-release.dm",
-        "baselineProfiles/1/CuteGIF_2024.4_202404010-arm64-v8a-release.dm"
+        "baselineProfiles/1/EasyGIF_2024.4_202404010-x86_64-release.dm",
+        "baselineProfiles/1/EasyGIF_2024.4_202404010-arm64-v8a-release.dm"
       ]
     },
     {
       "minApi": 31,
       "maxApi": 2147483647,
       "baselineProfiles": [
-        "baselineProfiles/0/CuteGIF_2024.4_202404010-x86_64-release.dm",
-        "baselineProfiles/0/CuteGIF_2024.4_202404010-arm64-v8a-release.dm"
+        "baselineProfiles/0/EasyGIF_2024.4_202404010-x86_64-release.dm",
+        "baselineProfiles/0/EasyGIF_2024.4_202404010-arm64-v8a-release.dm"
       ]
     }
   ],

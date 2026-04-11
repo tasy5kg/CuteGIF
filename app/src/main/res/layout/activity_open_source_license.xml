@@ -16,7 +16,7 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginTop="16dp"
       android:autoLink="web"
-      android:text="@string/source_code_of_cutegif_"
+      android:text="@string/source_code_of_easygif_"
       android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
       android:textIsSelectable="true" />
 
@@ -26,7 +26,7 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="16dp"
       android:autoLink="web"
-      android:text="@string/github_com_tasy5kg_cutegif"
+      android:text="@string/github_com_tasy5kg_easygif"
       android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
       android:textIsSelectable="true" />
 

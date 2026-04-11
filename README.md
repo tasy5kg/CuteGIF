@@ -1,8 +1,8 @@
-> #### English | [简体中文](/assets/zh-rCN/README.md)
+> #### English
 
-# CuteGIF
+# EasyGIF
 
-CuteGIF is a simple and easy-to-use video to GIF tool for Android.
+EasyGIF is a simple and easy-to-use video to GIF tool for Android.
 
 Latest version: `2024.3`.
 
@@ -33,17 +33,10 @@ Latest version: `2024.3`.
 
 ---
 
-## APK download
-
-Please download APK file at [GitHub Releases](https://github.com/tasy5kg/CuteGIF/releases/latest).
-
-Furthermore, if you use WeChat, please consider following my official account `光光可爱小仙女`. In this way, you can receive push notifications when new
-versions of CuteGIF are available.
-
----
-
 ## Copyright
 
 沈科光 ([tasy5kg@qq.com](mailto:tasy5kg@qq.com)). 2022-2024.
 
 This project is licensed under the [GPL-3.0 license](/COPYING).
+
+Modified by Tuan Nguyen ([tuancoltech@gmail.com](mailto:tuancoltech@gmail.com)) on 2026

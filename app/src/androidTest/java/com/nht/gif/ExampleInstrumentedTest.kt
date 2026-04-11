@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
   fun useAppContext() {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    assertEquals("me.tasy5kg.cutegif", appContext.packageName)
+    assertEquals("'com.nht.gif", appContext.packageName)
   }
 }

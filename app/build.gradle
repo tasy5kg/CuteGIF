@@ -23,7 +23,7 @@ android {
   }
 
   defaultConfig {
-    applicationId "me.tasy5kg.cutegif"
+    applicationId "com.nht.gif"
     minSdk 29
     targetSdk 34
     compileSdk 34
@@ -31,7 +31,7 @@ android {
     versionName '2024.4'
     signingConfig signingConfigs.debug
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    setProperty "archivesBaseName", "CuteGIF_${versionName}_${versionCode}"
+    setProperty "archivesBaseName", "EasyGIF_${versionName}_${versionCode}"
   }
 
   buildTypes {

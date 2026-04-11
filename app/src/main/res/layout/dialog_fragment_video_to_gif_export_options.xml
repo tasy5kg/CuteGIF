@@ -69,22 +69,22 @@
 
                 <com.google.android.material.button.MaterialButton
                   android:id="@+id/mbResolution144p"
-                  style="@style/Theme.CuteGif.SegmentedButton"
+                  style="@style/Theme.EasyGif.SegmentedButton"
                   android:text="@string/_144p" />
 
                 <com.google.android.material.button.MaterialButton
                   android:id="@+id/mbResolution240p"
-                  style="@style/Theme.CuteGif.SegmentedButton"
+                  style="@style/Theme.EasyGif.SegmentedButton"
                   android:text="@string/_240p" />
 
                 <com.google.android.material.button.MaterialButton
                   android:id="@+id/mbResolution320p"
-                  style="@style/Theme.CuteGif.SegmentedButton"
+                  style="@style/Theme.EasyGif.SegmentedButton"
                   android:text="@string/_320p" />
 
                 <com.google.android.material.button.MaterialButton
                   android:id="@+id/mbResolutionCustom"
-                  style="@style/Theme.CuteGif.SegmentedButton"
+                  style="@style/Theme.EasyGif.SegmentedButton"
                   android:layout_width="48dp"
                   android:layout_height="wrap_content"
                   android:layout_weight="0"
@@ -166,22 +166,22 @@
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityLow"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/low" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityMid"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/mid" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityHigh"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/high" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbImageQualityMax"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/max" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
@@ -215,22 +215,22 @@
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityLow"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/low" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityMid"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/mid" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityHigh"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/high" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbColorQualityMax"
-            style="@style/Theme.CuteGif.SegmentedButton"
+            style="@style/Theme.EasyGif.SegmentedButton"
             android:text="@string/max" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
@@ -272,22 +272,22 @@
 
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipEnableColorKey"
-                style="@style/Theme.CuteGif.Chip"
+                style="@style/Theme.EasyGif.Chip"
                 android:text="@string/remove_background" />
 
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipFramerate"
-                style="@style/Theme.CuteGif.Chip"
+                style="@style/Theme.EasyGif.Chip"
                 android:text="@string/frame_rate" />
 
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipEnableReverse"
-                style="@style/Theme.CuteGif.Chip"
+                style="@style/Theme.EasyGif.Chip"
                 android:text="@string/reverse" />
 
               <com.google.android.material.chip.Chip
                 android:id="@+id/chipEnableFinalDelay"
-                style="@style/Theme.CuteGif.Chip"
+                style="@style/Theme.EasyGif.Chip"
                 android:text="@string/final_pause" />
             </com.google.android.material.chip.ChipGroup>
           </HorizontalScrollView>
@@ -407,7 +407,7 @@
 
               <com.google.android.material.slider.Slider
                 android:id="@+id/sliderColorKeySimilarity"
-                style="@style/Theme.CuteGif.Slider"
+                style="@style/Theme.EasyGif.Slider"
                 android:stepSize="1"
                 android:value="10"
                 android:valueFrom="1"
@@ -465,31 +465,31 @@
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate5"
-                style="@style/Theme.CuteGif.SegmentedButton"
+                style="@style/Theme.EasyGif.SegmentedButton"
                 android:text="5"
                 tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate10"
-                style="@style/Theme.CuteGif.SegmentedButton"
+                style="@style/Theme.EasyGif.SegmentedButton"
                 android:text="10"
                 tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate16"
-                style="@style/Theme.CuteGif.SegmentedButton"
+                style="@style/Theme.EasyGif.SegmentedButton"
                 android:text="16"
                 tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate25"
-                style="@style/Theme.CuteGif.SegmentedButton"
+                style="@style/Theme.EasyGif.SegmentedButton"
                 android:text="25"
                 tools:ignore="HardcodedText" />
 
               <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbFramerate50"
-                style="@style/Theme.CuteGif.SegmentedButton"
+                style="@style/Theme.EasyGif.SegmentedButton"
                 android:text="50"
                 tools:ignore="HardcodedText" />
             </com.google.android.material.button.MaterialButtonToggleGroup>

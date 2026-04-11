@@ -1,6 +1,6 @@
 <resources>
 
-  <style name="Theme.CuteGif" parent="Theme.Material3.Dark.NoActionBar">
+  <style name="Theme.EasyGif" parent="Theme.Material3.Dark.NoActionBar">
     <item name="android:colorBackground">@color/light</item>
     <item name="android:windowLightStatusBar">false</item>
     <item name="android:textColor">@color/dark</item>
@@ -21,7 +21,7 @@
   </style>
 
 
-  <style name="Theme.CuteGif.Dialog" parent="Theme.Material3.Dark.Dialog.MinWidth">
+  <style name="Theme.EasyGif.Dialog" parent="Theme.Material3.Dark.Dialog.MinWidth">
     <item name="android:colorBackground">@color/light</item>
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:textColor">@color/dark</item>
@@ -42,7 +42,7 @@
     <item name="android:navigationBarColor">#00000000</item>
   </style>
 
-  <style name="Theme.CuteGif.SegmentedButton" parent="Widget.Material3.Button.OutlinedButton">
+  <style name="Theme.EasyGif.SegmentedButton" parent="Widget.Material3.Button.OutlinedButton">
     <item name="android:colorBackground">@color/light</item>
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:textColor">@color/dark</item>
@@ -64,7 +64,7 @@
     <item name="backgroundTint">@color/button_and_chip_background_color_selector</item>
   </style>
 
-  <style name="Theme.CuteGif.Slider">
+  <style name="Theme.EasyGif.Slider">
     <item name="thumbHeight">28dp</item>
     <item name="trackColorInactive">@color/green_dark_quarter</item>
     <item name="labelBehavior">floating</item>
@@ -73,7 +73,7 @@
     <item name="tickColorActive">@color/green_light</item>
   </style>
 
-  <style name="Theme.CuteGif.Chip" parent="Widget.Material3.Chip.Filter">
+  <style name="Theme.EasyGif.Chip" parent="Widget.Material3.Chip.Filter">
     <item name="android:colorBackground">@color/light</item>
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:textColor">@color/dark</item>
@@ -94,7 +94,7 @@
     <item name="chipBackgroundColor">@color/button_and_chip_background_color_selector</item>
   </style>
 
-  <style name="Theme.CuteGif.MRB.ColorPicker" parent="Theme.CuteGif">
+  <style name="Theme.EasyGif.MRB.ColorPicker" parent="Theme.EasyGif">
     <item name="android:layout_gravity">center</item>
     <item name="android:minWidth">0dp</item>
     <item name="android:minHeight">0dp</item>

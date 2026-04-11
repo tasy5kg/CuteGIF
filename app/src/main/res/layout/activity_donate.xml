@@ -56,7 +56,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/if_you_like_cutegif_please_donate"
+          android:text="@string/if_you_like_easygif_please_donate"
           android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
         <androidx.appcompat.widget.AppCompatImageView

@@ -46,22 +46,22 @@
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbCropRatioFree"
-          style="@style/Theme.CuteGif.SegmentedButton"
+          style="@style/Theme.EasyGif.SegmentedButton"
           android:text="@string/crop_free" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbCropRatioSquare"
-          style="@style/Theme.CuteGif.SegmentedButton"
+          style="@style/Theme.EasyGif.SegmentedButton"
           android:text="@string/crop_square" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbCropRatio43"
-          style="@style/Theme.CuteGif.SegmentedButton"
+          style="@style/Theme.EasyGif.SegmentedButton"
           android:text="@string/crop_4_3" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/mbCropRatio169"
-          style="@style/Theme.CuteGif.SegmentedButton"
+          style="@style/Theme.EasyGif.SegmentedButton"
           android:text="@string/crop_16_9" />
 
 

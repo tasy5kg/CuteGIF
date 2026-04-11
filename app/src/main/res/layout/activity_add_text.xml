@@ -135,7 +135,7 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbTextBold"
-      style="@style/Theme.CuteGif.SegmentedButton"
+      style="@style/Theme.EasyGif.SegmentedButton"
       android:layout_width="48dp"
       android:layout_weight="1"
 
@@ -146,7 +146,7 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbTextItalic"
-      style="@style/Theme.CuteGif.SegmentedButton"
+      style="@style/Theme.EasyGif.SegmentedButton"
       android:layout_width="48dp"
       android:layout_weight="1"
       android:contentDescription="@string/italic"
@@ -156,7 +156,7 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbTextAlign"
-      style="@style/Theme.CuteGif.SegmentedButton"
+      style="@style/Theme.EasyGif.SegmentedButton"
       android:layout_width="48dp"
       android:layout_weight="1"
       android:checkable="false"
@@ -168,7 +168,7 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbRotate"
-      style="@style/Theme.CuteGif.SegmentedButton"
+      style="@style/Theme.EasyGif.SegmentedButton"
       android:layout_width="48dp"
       android:layout_weight="1"
       android:checkable="false"
@@ -181,7 +181,7 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbPickedColor"
-      style="@style/Theme.CuteGif.SegmentedButton"
+      style="@style/Theme.EasyGif.SegmentedButton"
       android:layout_width="48dp"
       android:layout_weight="1"
       android:checkable="false"
@@ -227,116 +227,116 @@
       tools:visibility="visible">
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         android:checked="true"
         app:buttonTint="#ffffff" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#ff5353" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#ffeb3c" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#01c853" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#00affe" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#d500fa" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#8c6e63" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#000000" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#a62714" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#ee8100" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#548b2e" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#00579c" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#8e24aa" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#4d342f" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#90a4ad" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#ff4181" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#ff6e41" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#aeea00" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#304fff" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#7c4dff" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#1de9b6" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#cfd8dd" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#f9bbd0" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#ffccbb" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#f0f4c2" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#9ea8db" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#d0c4e8" />
 
       <com.google.android.material.radiobutton.MaterialRadioButton
-        style="@style/Theme.CuteGif.MRB.ColorPicker"
+        style="@style/Theme.EasyGif.MRB.ColorPicker"
         app:buttonTint="#b2dfdc" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

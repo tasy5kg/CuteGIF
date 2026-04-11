@@ -92,7 +92,7 @@
 
     <com.google.android.material.slider.Slider
       android:id="@+id/slider"
-      style="@style/Theme.CuteGif.Slider"
+      style="@style/Theme.EasyGif.Slider"
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="1"
