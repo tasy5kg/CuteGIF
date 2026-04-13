@@ -38,6 +38,12 @@
 
 ---
 
+## Star 数据历史
+
+[![Star History Chart](https://api.star-history.com/chart?repos=tasy5kg/CuteGIF&type=date&legend=top-left)](https://www.star-history.com/?repos=tasy5kg%2FCuteGIF&type=date&legend=top-left)
+
+---
+
 ## 版权
 
 沈科光（[tasy5kg@qq.com](mailto:tasy5kg@qq.com)）。2022-2024。
