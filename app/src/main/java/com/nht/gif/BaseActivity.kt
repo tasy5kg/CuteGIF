@@ -12,6 +12,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
   final override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    SystemInsetsUtils.adjustSystemBarsInsets(window)
+    SystemInsetsUtils.setLightSystemBars(window, this@BaseActivity)
     ActivityCollector.addActivity(this)
     if (!MySettings.eulaAccepted) {
       /** Ask user to accept EULA */
