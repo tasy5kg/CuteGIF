@@ -32,7 +32,7 @@
   <string name="rotate">Rotate</string>
   <string name="color">Color</string>
   <string name="input_text_here">Input text here</string>
-  <string name="sorry_easygif_error">Sorry, there was an error while running EasyGIF. \nI hope you can send the problem log to the developer\'s email [tuancoltech@gmail.com] so that this error can be fixed.</string>
+  <string name="sorry_easygif_error">Sorry, there was an error while running Easy GIF. \nI hope you can send the problem log to the developer\'s email [tuancoltech@gmail.com] so that this error can be fixed.</string>
   <string name="error_log">Error log</string>
   <string name="copy_to_clipboard">Copy to clipboard</string>
   <string name="follow_wechat_to_feedback">Follow my WeChat public account [光光可爱小仙女] to provide feedback</string>
@@ -41,13 +41,13 @@
   <string name="follow_wechat_to_download_release">Follow my WeChat account</string>
   <string name="donate">Donate</string>
   <string name="donate_support">Donate</string>
-  <string name="if_you_like_easygif_please_donate">If you like EasyGIF, please donate to me to support me in developing more useful Apps!</string>
+  <string name="if_you_like_easygif_please_donate">If you like Easy GIF, please donate to me to support me in developing more useful Apps!</string>
   <string name="thanks_to_the_following_donated_users">Thanks to the following donated users:</string>
   <string name="you_can_write_your_nickname">You can write your nickname in the payment remark so that your nickname will be displayed in this list when this software is updated.</string>
   <string name="save_donate_qrcode_buy_me_a_coffee">Save the QR code</string>
   <string name="_eula_">"User Agreement"</string>
-  <string name="eula_line_1">Welcome to use EasyGIF!</string>
-  <string name="eula_line_2">EasyGIF is an open source, ad-free, free-to-use GIF processing software developed by Tuan Nguyen.</string>
+  <string name="eula_line_1">Welcome to use Easy GIF!</string>
+  <string name="eula_line_2">Easy GIF is an open source, ad-free, free-to-use GIF processing software developed by Tuan Nguyen.</string>
   <string name="eula_line_3">Disclaimer: This software is provided as is without warranty of any kind. The author is not responsible for any damages, claims or other liability arising out of the use or otherwise of the software.</string>
   <string name="_privacy_policy_">"Privacy Policy"</string>
   <string name="privacy_policy_line_1">This software does not connect to the Internet, does not require any permissions, and does not collect any personal information.</string>
