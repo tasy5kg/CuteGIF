@@ -1,6 +1,6 @@
 plugins {
-  id 'com.android.application'
-  id 'org.jetbrains.kotlin.android'
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -68,21 +68,21 @@ dependencies {
 
   // OutlineSpan.kt was cloned from https://github.com/santaevpavel/OutlineSpan on February 1, 2024.
 
-  implementation 'androidx.core:core-ktx:1.18.0'
-  implementation 'androidx.appcompat:appcompat:1.7.1'
-  implementation 'androidx.draganddrop:draganddrop:1.0.0'
-  implementation 'com.google.android.material:material:1.14.0-beta01'
-  implementation 'com.github.bumptech.glide:glide:4.16.0'
-  implementation "com.vanniktech:android-image-cropper:4.5.0"
+  implementation libs.androidx.core.ktx
+  implementation libs.androidx.appcompat
+  implementation libs.androidx.draganddrop
+  implementation libs.material
+  implementation libs.glide
+  implementation libs.android.image.cropper
   implementation(files("libs/ffmpeg-kit.aar"))
   // This dependency is mandatory to avoid "SmartException" errors
-  implementation 'com.arthenica:smart-exception-java:0.2.1'
-  implementation 'com.tencent:mmkv:2.4.0'
+  implementation libs.smart.exception.java
+  implementation libs.mmkv
 
-  annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+  annotationProcessor libs.glide.compiler
 
-  testImplementation 'junit:junit:4.13.2'
+  testImplementation libs.junit
 
-  androidTestImplementation 'androidx.test.ext:junit:1.3.0'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+  androidTestImplementation libs.androidx.test.junit
+  androidTestImplementation libs.espresso.core
 }
