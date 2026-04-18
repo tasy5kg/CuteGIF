@@ -19,7 +19,7 @@ class AboutActivity : BaseActivity() {
       DonateActivity.start(this@AboutActivity)
     }
     binding.llcFollowWechat.onClick {
-      FollowWechatActivity.start(this@AboutActivity)
+      DonateCryptoActivity.start(this@AboutActivity)
     }
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
       binding.mbChooseFileWay13.visibility = View.GONE

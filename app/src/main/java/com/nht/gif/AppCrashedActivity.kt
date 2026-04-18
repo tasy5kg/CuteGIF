@@ -32,7 +32,7 @@ class AppCrashedActivity : AppCompatActivity() {
       finish()
     }
     binding.mtvFollowWechat.onClick {
-      FollowWechatActivity.start(this@AppCrashedActivity)
+      DonateCryptoActivity.start(this@AppCrashedActivity)
     }
   }
 

@@ -21,7 +21,7 @@
   <string name="gif_duration_s">GIF 时长：%s 秒</string>
   <string name="effect_needs_to_be_viewed_after_exporting">ℹ️ %s的效果需在导出后查看</string>
   <string name="beta_info">当前版本仅供测试使用，可能存在漏洞。\n内测将在 %d 天后结束，结束后请在微信公众号下载正式版使用。</string>
-  <string name="developer_name_email">开发者：沈科光 (tasy5kg@qq.com)</string>
+  <string name="developer_name_email">开发者：Tuan Nguyen (tuancoltech@gmail.com)</string>
   <string name="files">文件</string>
   <string name="photos">相册</string>
   <string name="float_window">浮窗</string>
@@ -32,7 +32,7 @@
   <string name="rotate">旋转</string>
   <string name="color">颜色</string>
   <string name="input_text_here">在此输入文字</string>
-  <string name="sorry_easygif_error">非常抱歉，小萌 GIF 运行过程中出现错误。\n希望您能将问题日志发送给开发者的微信公众号【光光可爱小仙女】，以便修复此错误。</string>
+  <string name="sorry_easygif_error">非常抱歉，小萌 GIF 运行过程中出现错误。\n希望您能将问题日志发送至开发者邮箱 [tuancoltech@gmail.com]，以便修复此错误。</string>
   <string name="error_log">问题日志</string>
   <string name="copy_to_clipboard">复制到剪贴板</string>
   <string name="follow_wechat_to_feedback">关注公众号【光光可爱小仙女】反馈问题</string>
@@ -44,7 +44,7 @@
   <string name="if_you_like_easygif_please_donate">如果您喜欢小萌GIF，还请您赞赏作者，支持作者开发更多好用的软件！</string>
   <string name="thanks_to_the_following_donated_users">感谢下列赞赏用户：</string>
   <string name="you_can_write_your_nickname">您可在付款备注处写上您的昵称，以便下次软件更新时，将您的昵称显示在赞赏名单中。</string>
-  <string name="save_donate_qrcode_open_wechat_scan">保存二维码，打开微信扫一扫</string>
+  <string name="save_donate_qrcode_buy_me_a_coffee">保存二维码，打开微信扫一扫</string>
   <string name="_eula_">《用户协议》</string>
   <string name="eula_line_1">欢迎您使用小萌GIF！</string>
   <string name="eula_line_2">小萌GIF是由沈科光开发的一款开源、无广告、免费使用的GIF处理软件。</string>
@@ -56,10 +56,9 @@
   <string name="gif_saved_to_gallery">GIF 已保存至相册</string>
   <string name="video_saved_to_gallery">视频已保存至相册</string>
   <string name="delete">删除</string>
-  <string name="follow_wechat">关注微信公众号</string>
-  <string name="follow_my_wechat">关注我的微信公众号</string>
-  <string name="follow_wechat_line_1">关注我的微信公众号【光光可爱小仙女】，下载、更新小萌GIF更方便。\n如有任何问题或建议，也可在公众号发消息给我，每一条留言我都会看哦。</string>
-  <string name="save_qrcode_open_wechat_scan">保存二维码，打开微信扫一扫</string>
+  <string name="donate_with_crypto">使用加密货币赞助</string>
+  <string name="donate_with_crypto_line_1">如果您觉得这个应用有帮助，欢迎通过加密货币赞助支持作者，鼓励持续开发更多有价值的功能。\n请仅向下方地址发送 Ethereum / ERC-20 支持的资产。在不受支持的网络上进行的转账可能无法找回。</string>
+  <string name="save_qrcode">保存二维码</string>
   <string name="gif_split">GIF 拆分</string>
   <string name="save_this_frame">保存本帧</string>
   <string name="previous_frame">前一帧</string>
@@ -128,11 +127,10 @@
   <string name="exporting_gif_">正在生成 GIF…</string>
   <string name="unable_to_load_gif">无法读取 GIF</string>
   <string name="gif_to_video_conversion_failed">GIF 转视频失败</string>
-  <string name="wechat_follow_qrcode_saved_please_scan_first_image">公众号二维码已保存，请扫描相册内的第一张图片</string>
-  <string name="wechat_donate_qrcode_saved_please_scan_first_image">赞赏二维码已保存，请扫描相册内的第一张图片</string>
-  <string name="wechat_donate_qrcode_saved_wechat_launch_failed">微信扫一扫跳转失败，赞赏二维码已保存</string>
-  <string name="wechat_follow_qrcode_saved_wechat_launch_failed">微信扫一扫跳转失败，公众号二维码已保存</string>
+  <string name="donation_erc20_qrcode_saved_please_scan_first_image">ERC20 赞助二维码已保存，请扫描相册中的第一张图片</string>
+  <string name="donate_qrcode_saved_please_scan_first_image">赞助二维码已保存，请扫描相册中的第一张图片</string>
   <string name="eula_line_addition">本软件供学习交流使用，不接入网络，不提供互联网信息服务。</string>
+  <string name="donation_crypto_supported_chain">支持的链：Ethereum / ERC-20 代币</string>
   <string name="buy_me_a_cup_of_coffee">给我买杯奶茶吧</string>
   <string name="import_file_failed_please_try">文件读取失败，请尝试在菜单中切换文件选取器</string>
   <string name="save_as_video">另存为视频</string>

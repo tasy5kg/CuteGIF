@@ -15,7 +15,7 @@ class BetaEndedActivity : AppCompatActivity() {
     binding.mtvVersionInfo.text = getString(R.string.version_X, BuildConfig.VERSION_NAME)
     binding.mbClose.onClick { finish() }
     binding.mbStartFollowing.onClick {
-      FollowWechatActivity.start(this@BetaEndedActivity)
+      DonateCryptoActivity.start(this@BetaEndedActivity)
     }
   }
 

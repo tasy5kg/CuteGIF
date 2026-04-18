@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
-  tools:context=".FollowWechatActivity">
+  tools:context=".DonateCryptoActivity">
 
   <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
@@ -28,7 +28,7 @@
       android:layout_weight="1"
       android:animateLayoutChanges="true"
       android:gravity="start"
-      android:text="@string/follow_wechat"
+      android:text="@string/donate_with_crypto"
       android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
       android:textColor="@color/dark" />
 
@@ -56,7 +56,7 @@
         <com.google.android.material.textview.MaterialTextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/follow_wechat_line_1"
+          android:text="@string/donate_with_crypto_line_1"
           android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
           android:textIsSelectable="true" />
 
@@ -66,7 +66,7 @@
           android:layout_centerInParent="true"
           android:layout_gravity="center"
           android:layout_marginTop="12dp"
-          app:srcCompat="@raw/follow_wechat" />
+          app:srcCompat="@raw/donate_erc20_address" />
 
       </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -97,7 +97,7 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="8dp"
           android:layout_weight="1"
-          android:text="@string/save_qrcode_open_wechat_scan"
+          android:text="@string/save_qrcode"
           android:textColor="?attr/colorOnSurface" />
       </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

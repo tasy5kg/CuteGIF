@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nht.gif.databinding.ActivityDonateBinding
 import com.nht.gif.toolbox.FileTools.createNewFile
 import com.nht.gif.toolbox.Toolbox.onClick
-import com.nht.gif.toolbox.Toolbox.openWeChatQrScanner
 import com.nht.gif.toolbox.Toolbox.toast
 
 class DonateActivity : AppCompatActivity() {
@@ -19,12 +18,12 @@ class DonateActivity : AppCompatActivity() {
     binding.mbClose.onClick { finish() }
     binding.mbBack.onClick { finish() }
     binding.mbStartDonating.onClick {
-      resources.openRawResource(R.raw.donate_wechat).use { wechatQrCodeImg ->
+      resources.openRawResource(R.raw.donate_buymeacoffee).use { wechatQrCodeImg ->
         contentResolver.openOutputStream(createNewFile("donate_wechat", "png"))!!.use { dest ->
           wechatQrCodeImg.copyTo(dest)
         }
       }
-      toast(if (openWeChatQrScanner()) R.string.wechat_donate_qrcode_saved_please_scan_first_image else R.string.wechat_donate_qrcode_saved_wechat_launch_failed)
+      toast(R.string.donate_qrcode_saved_please_scan_first_image)
     }
   }
 

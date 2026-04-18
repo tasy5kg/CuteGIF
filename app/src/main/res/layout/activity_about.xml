@@ -129,13 +129,13 @@
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/follow_my_wechat"
+        android:text="@string/donate_with_crypto"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
       <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/_my_wechat_public_account_name"
+        android:text="@string/donation_crypto_supported_chain"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textColor="@color/grey" />
     </androidx.appcompat.widget.LinearLayoutCompat>

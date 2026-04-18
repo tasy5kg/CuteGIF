@@ -76,6 +76,7 @@
     android:minHeight="64dp"
     android:paddingHorizontal="16dp"
     android:text="@string/follow_wechat_to_feedback"
+    android:visibility="gone"
     android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
   <include layout="@layout/view_divider_horizontal" />
