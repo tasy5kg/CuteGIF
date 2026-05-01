@@ -76,6 +76,7 @@ dependencies {
   // This dependency is mandatory to avoid "SmartException" errors
   implementation libs.smart.exception.java
   implementation libs.mmkv
+  implementation libs.kotlinx.coroutines.android
 
   annotationProcessor libs.glide.compiler
 

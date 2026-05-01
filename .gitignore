@@ -19,3 +19,5 @@ captures/
 .cxx/
 *.apk
 output.json
+AGENTS.md
+CLAUDE.md
