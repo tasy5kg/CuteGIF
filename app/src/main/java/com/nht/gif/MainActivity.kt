@@ -101,7 +101,6 @@ class MainActivity : BaseActivity() {
     if (uriFromActionViewOrSend != null) {
       VideoToGifActivity.start(this, uriFromActionViewOrSend.copyToInputFileDir())
     }
-    if (!MySettings.whatsNewRead) WhatsNewActivity.start(this)
   }
 
   private fun importVideoToGif() {

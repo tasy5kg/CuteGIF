@@ -49,8 +49,7 @@ class AboutActivity : BaseActivity() {
       finish()
     }
     binding.mtvLegalInfo.setupTextViewWithClickablePart(
-      "${getString(R.string.whats_new)} | ${getString(R.string.eula_and_privacy_policy)} | ${getString(R.string.open_source_license)}", listOf(
-        getString(R.string.whats_new) to { WhatsNewActivity.start(this) },
+      "${getString(R.string.eula_and_privacy_policy)} | ${getString(R.string.open_source_license)}", listOf(
         getString(R.string.eula_and_privacy_policy) to { EulaActivity.start(this) },
         getString(R.string.open_source_license) to { OpenSourceLicenseActivity.start(this) }
       ), true
