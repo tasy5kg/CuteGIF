@@ -39,6 +39,47 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="2"
+          android:text="@string/output_format"
+          android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+          android:id="@+id/mbtgOutputFormat"
+          style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="5"
+          app:checkedButton="@id/mbOutputFormatGif"
+          app:selectionRequired="true"
+          app:singleSelection="true">
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbOutputFormatGif"
+            style="@style/Theme.EasyGif.SegmentedButton"
+            android:text="GIF"
+            tools:ignore="HardcodedText" />
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbOutputFormatWebp"
+            style="@style/Theme.EasyGif.SegmentedButton"
+            android:text="WebP"
+            tools:ignore="HardcodedText" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+      <include layout="@layout/view_divider_horizontal" />
+
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/menu_item_min_height"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="2"
           android:text="@string/resolution"
           android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
@@ -139,6 +180,7 @@
       <include layout="@layout/view_divider_horizontal" />
 
       <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llcRowGifImageQuality"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
@@ -186,9 +228,10 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
 
-      <include layout="@layout/view_divider_horizontal" />
+      <include android:id="@+id/dividerGifControls" layout="@layout/view_divider_horizontal" />
 
       <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llcRowGifColorQuality"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
@@ -235,7 +278,7 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
 
-      <include layout="@layout/view_divider_horizontal" />
+      <include android:id="@+id/dividerAfterGifControls" layout="@layout/view_divider_horizontal" />
 
       <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

@@ -8,6 +8,7 @@
   <string name="frame_rate">帧率</string>
   <string name="playback_speed">速度</string>
   <string name="resolution">分辨率</string>
+  <string name="output_format">格式</string>
   <string name="done">完成</string>
   <string name="share">分享</string>
   <string name="version_X">%s 版</string>

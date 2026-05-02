@@ -15,7 +15,14 @@ import android.view.ViewGroup
 import androidx.core.graphics.get
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 import com.arthenica.ffmpegkit.FFmpegKit
+import com.nht.gif.model.OutputFormat
+import com.nht.gif.ui.videotogif.VideoToGifExportOptionsViewModel
 import com.nht.gif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import com.nht.gif.MyConstants.VIDEO_TO_GIF_PREVIEW_CACHE_DIR
 import com.nht.gif.databinding.DialogFragmentVideoToGifExportOptionsBinding
@@ -39,6 +46,9 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
   private val previewBitmapMap = mutableMapOf<TaskBuilderVideoToGifForPreview, Bitmap>()
   private val vtgActivity get() = activity as VideoToGifActivity
   private lateinit var frame: Bitmap
+  private val viewModel: VideoToGifExportOptionsViewModel by lazy {
+    ViewModelProvider(this)[VideoToGifExportOptionsViewModel::class.java]
+  }
 
   /** Determining whether a Key exists in a Map/Set is fast, while determining whether a file exists is much slower */
   private val fileExistsCache = mutableSetOf<String>()
@@ -53,6 +63,23 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     binding.mbSave.onClick {
       vtgActivity.videoView.pause()
       VideoToGifPerformerActivity.start(vtgActivity, createTaskBuilder())
+    }
+    binding.mbtgOutputFormat.addOnButtonCheckedListener { _, checkedId, isChecked ->
+      if (isChecked) {
+        val format = if (checkedId == binding.mbOutputFormatWebp.id) OutputFormat.ANIMATED_WEBP else OutputFormat.GIF
+        viewModel.setOutputFormat(format)
+      }
+    }
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.outputFormat.collect { format ->
+          val isGif = format == OutputFormat.GIF
+          binding.llcRowGifImageQuality.visibleIf { isGif }
+          binding.dividerGifControls.root.visibleIf { isGif }
+          binding.llcRowGifColorQuality.visibleIf { isGif }
+          binding.dividerAfterGifControls.root.visibleIf { isGif }
+        }
+      }
     }
     binding.chipGroupMoreOptions.setOnCheckedStateChangeListener { _, checkedIds ->
       val chipEffectNeedsToBeViewedAfterExporting = listOf(

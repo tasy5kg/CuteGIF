@@ -8,6 +8,7 @@
   <string name="frame_rate">Frame rate</string>
   <string name="playback_speed">Speed</string>
   <string name="resolution">Resolution</string>
+  <string name="output_format">Format</string>
   <string name="done">Done</string>
   <string name="share">Share</string>
   <string name="version_X">Version %s</string>

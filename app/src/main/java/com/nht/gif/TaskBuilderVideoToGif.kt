@@ -1,6 +1,7 @@
 package com.nht.gif
 
 import com.nht.gif.MyConstants.ADD_TEXT_RENDER_PNG_PATH
+import com.nht.gif.model.OutputFormat
 import com.nht.gif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import com.nht.gif.MyConstants.OUTPUT_GIF_TEMP_PATH
 import com.nht.gif.toolbox.MediaTools.saveToPng
@@ -27,7 +28,8 @@ data class TaskBuilderVideoToGif(
   /** The interval between every loops, in centi seconds. (1 == 0.01 sec) */
   val finalDelay: Int,
   /** Color(RRGGBB), Similarity * 100 */
-  val colorKey: Pair<String, Int>?
+  val colorKey: Pair<String, Int>?,
+  val outputFormat: OutputFormat = OutputFormat.GIF,
 ) : Serializable {
 
   init {
