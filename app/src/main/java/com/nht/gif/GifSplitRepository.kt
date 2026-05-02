@@ -29,8 +29,8 @@ class GifSplitRepository(private val ioDispatcher: CoroutineDispatcher = Dispatc
     resetDirectory(OUTPUT_SPLIT_DIR)
     FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i \"$gifPath\" \"$OUTPUT_SPLIT_DIR%06d.png\"")
     val frameCount = File(OUTPUT_SPLIT_DIR).listFiles()?.size ?: return@withContext null
-    (1..frameCount).map {
-      BitmapFactory.decodeFile(OUTPUT_SPLIT_DIR + String.format("%06d", it) + ".png")!!
+    (1..frameCount).mapNotNull {
+      BitmapFactory.decodeFile(OUTPUT_SPLIT_DIR + String.format("%06d", it) + ".png")
     }
   }
 
