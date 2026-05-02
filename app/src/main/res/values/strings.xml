@@ -88,6 +88,9 @@
   <string name="mid">Mid</string>
   <string name="high">High</string>
   <string name="max">Max</string>
+  <string name="best">Best</string>
+  <string name="webp_quality">WebP Quality</string>
+  <string name="lossless_warning">Lossless files may be larger than GIF.</string>
   <string name="more_options">More options</string>
   <string name="remove_background">Remove background</string>
   <string name="reverse">Reverse</string>

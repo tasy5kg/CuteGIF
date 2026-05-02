@@ -22,6 +22,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.nht.gif.model.OutputFormat
+import com.nht.gif.model.WebpQuality
 import com.nht.gif.ui.videotogif.VideoToGifExportOptionsViewModel
 import com.nht.gif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import com.nht.gif.MyConstants.VIDEO_TO_GIF_PREVIEW_CACHE_DIR
@@ -72,13 +73,45 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     }
     viewLifecycleOwner.lifecycleScope.launch {
       viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-        viewModel.outputFormat.collect { format ->
-          val isGif = format == OutputFormat.GIF
-          binding.llcRowGifImageQuality.visibleIf { isGif }
-          binding.dividerGifControls.root.visibleIf { isGif }
-          binding.llcRowGifColorQuality.visibleIf { isGif }
-          binding.dividerAfterGifControls.root.visibleIf { isGif }
+        launch {
+          viewModel.outputFormat.collect { format ->
+            val isGif = format == OutputFormat.GIF
+            binding.llcRowGifImageQuality.visibleIf { isGif }
+            binding.dividerGifControls.root.visibleIf { isGif }
+            binding.llcRowGifColorQuality.visibleIf { isGif }
+            binding.llcWebpQualitySection.visibleIf { !isGif }
+          }
         }
+        launch {
+          viewModel.webpQuality.collect { quality ->
+            val targetId = when (quality) {
+              WebpQuality.SMALL -> binding.mbWebpQualitySmall.id
+              WebpQuality.MEDIUM -> binding.mbWebpQualityMedium.id
+              WebpQuality.HIGH -> binding.mbWebpQualityHigh.id
+              WebpQuality.LOSSLESS -> binding.mbWebpQualityLossless.id
+            }
+            if (binding.mbtgWebpQuality.checkedButtonId != targetId) {
+              binding.mbtgWebpQuality.check(targetId)
+            }
+          }
+        }
+        launch {
+          viewModel.showLosslessWarning.collect { show ->
+            binding.mtvLosslessWarning.visibleIf { show }
+          }
+        }
+      }
+    }
+    binding.mbtgWebpQuality.addOnButtonCheckedListener { _, checkedId, isChecked ->
+      if (isChecked) {
+        val quality = when (checkedId) {
+          binding.mbWebpQualitySmall.id -> WebpQuality.SMALL
+          binding.mbWebpQualityMedium.id -> WebpQuality.MEDIUM
+          binding.mbWebpQualityHigh.id -> WebpQuality.HIGH
+          binding.mbWebpQualityLossless.id -> WebpQuality.LOSSLESS
+          else -> return@addOnButtonCheckedListener
+        }
+        if (viewModel.webpQuality.value != quality) viewModel.setWebpQuality(quality)
       }
     }
     binding.chipGroupMoreOptions.setOnCheckedStateChangeListener { _, checkedIds ->
@@ -216,7 +249,10 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
         if (chipEnableColorKey.isChecked)
           (viewColorKeyIndicator.backgroundColor.colorIntToHex() to sliderColorKeySimilarity.value.toInt())
         else null
-      })
+      },
+      outputFormat = viewModel.outputFormat.value,
+      webpQuality = if (viewModel.outputFormat.value == OutputFormat.ANIMATED_WEBP) viewModel.webpQuality.value else null,
+    )
   }
 
   private fun renderPreviewImage(taskBuilder: TaskBuilderVideoToGifForPreview) = with(taskBuilder) {

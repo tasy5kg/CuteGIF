@@ -278,7 +278,76 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
 
-      <include android:id="@+id/dividerAfterGifControls" layout="@layout/view_divider_horizontal" />
+      <!-- WebP quality section: shown when outputFormat == ANIMATED_WEBP -->
+      <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llcWebpQualitySection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="24dp"
+          android:gravity="center_vertical"
+          android:minHeight="@dimen/menu_item_min_height"
+          android:orientation="horizontal">
+
+          <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/webp_quality"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+          <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/mbtgWebpQuality"
+            style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            app:checkedButton="@id/mbWebpQualityMedium"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/mbWebpQualitySmall"
+              style="@style/Theme.EasyGif.SegmentedButton"
+              android:text="@string/low" />
+
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/mbWebpQualityMedium"
+              style="@style/Theme.EasyGif.SegmentedButton"
+              android:text="@string/mid" />
+
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/mbWebpQualityHigh"
+              style="@style/Theme.EasyGif.SegmentedButton"
+              android:text="@string/high" />
+
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/mbWebpQualityLossless"
+              style="@style/Theme.EasyGif.SegmentedButton"
+              android:text="@string/best" />
+          </com.google.android.material.button.MaterialButtonToggleGroup>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- Lossless warning: shown only when webpQuality == LOSSLESS -->
+        <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/mtvLosslessWarning"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="24dp"
+          android:layout_marginTop="4dp"
+          android:layout_marginBottom="4dp"
+          android:text="@string/lossless_warning"
+          android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+          android:visibility="gone" />
+
+      </androidx.appcompat.widget.LinearLayoutCompat>
+
+      <include layout="@layout/view_divider_horizontal" />
 
       <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

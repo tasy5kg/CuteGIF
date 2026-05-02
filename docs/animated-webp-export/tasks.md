@@ -16,7 +16,7 @@
 ## US-1 — Format Selection
 
 **Spec ref:** [spec.md § US-1](spec.md#us-1--format-selection)
-**Status:** ⬜ Not Started
+**Status:** ✅ Complete
 
 ### Data Model
 
@@ -45,33 +45,33 @@
 ## US-2 — WebP Quality Presets
 
 **Spec ref:** [spec.md § US-2](spec.md#us-2--webp-quality-presets)
-**Status:** ⬜ Not Started
+**Status:** ✅ Complete
 
 ### Data Model
 
-- [ ] **T2.1** Define `WebpQuality` enum with fields `ffmpegQuality: Int?` and `lossless: Boolean`, and four values: `SMALL(50, false)`, `MEDIUM(75, false)`, `HIGH(90, false)`, `LOSSLESS(null, true)`.
-- [ ] **T2.2** Add `webpQuality: WebpQuality?` field to `TaskBuilderVideoToGif` — `null` when `outputFormat == GIF`, `MEDIUM` when `outputFormat == ANIMATED_WEBP`.
+- [x] **T2.1** Define `WebpQuality` enum with fields `ffmpegQuality: Int?` and `lossless: Boolean`, and four values: `SMALL(50, false)`, `MEDIUM(75, false)`, `HIGH(90, false)`, `LOSSLESS(null, true)`.
+- [x] **T2.2** Add `webpQuality: WebpQuality?` field to `TaskBuilderVideoToGif` — `null` when `outputFormat == GIF`, `MEDIUM` when `outputFormat == ANIMATED_WEBP`.
 
 ### UI Layout
 
-- [ ] **T2.3** Add WebP quality section to `dialog_fragment_video_to_gif_export_options.xml`: a "WebP Quality" label and a `MaterialButtonToggleGroup` with buttons **Small** | **Medium** | **High** | **Lossless**. Section is hidden by default (shown only when WebP is selected — see T1.6/T1.7).
-- [ ] **T2.4** Add a lossless warning `TextView` ("Lossless files may be larger than GIF.") below the quality toggle in the layout. Hidden by default.
+- [x] **T2.3** Add WebP quality section to `dialog_fragment_video_to_gif_export_options.xml`: a "WebP Quality" label and a `MaterialButtonToggleGroup` with buttons **Small** | **Medium** | **High** | **Lossless**. Section is hidden by default (shown only when WebP is selected — see T1.6/T1.7).
+- [x] **T2.4** Add a lossless warning `TextView` ("Lossless files may be larger than GIF.") below the quality toggle in the layout. Hidden by default.
 
 ### Logic & Wiring
 
-- [ ] **T2.5** Add `webpQuality: WebpQuality` to the export options ViewModel state with default `MEDIUM`.
-- [ ] **T2.6** Wire the quality preset toggle's selection callback to update `webpQuality` in the ViewModel.
-- [ ] **T2.7** When `outputFormat` switches to `ANIMATED_WEBP`, set `webpQuality` to `MEDIUM` and reflect the default selection in the toggle UI.
-- [ ] **T2.8** Observe `webpQuality` in the dialog fragment: show the lossless warning text when `LOSSLESS` is selected; hide it for all other presets.
+- [x] **T2.5** Add `webpQuality: WebpQuality` to the export options ViewModel state with default `MEDIUM`.
+- [x] **T2.6** Wire the quality preset toggle's selection callback to update `webpQuality` in the ViewModel.
+- [x] **T2.7** When `outputFormat` switches to `ANIMATED_WEBP`, set `webpQuality` to `MEDIUM` and reflect the default selection in the toggle UI.
+- [x] **T2.8** Observe `webpQuality` in the dialog fragment: show the lossless warning text when `LOSSLESS` is selected; hide it for all other presets.
 
 ### Tests
 
-- [ ] **T2.9** Unit test — `SMALL` preset: `ffmpegQuality == 50`, `lossless == false`.
-- [ ] **T2.10** Unit test — `MEDIUM` preset: `ffmpegQuality == 75`, `lossless == false`.
-- [ ] **T2.11** Unit test — `HIGH` preset: `ffmpegQuality == 90`, `lossless == false`.
-- [ ] **T2.12** Unit test — `LOSSLESS` preset: `ffmpegQuality == null`, `lossless == true`.
-- [ ] **T2.13** Unit test — `webpQuality` defaults to `MEDIUM` when `outputFormat` switches to `ANIMATED_WEBP`.
-- [ ] **T2.14** Unit test — ViewModel state exposes lossless warning as visible only when `webpQuality == LOSSLESS`.
+- [x] **T2.9** Unit test — `SMALL` preset: `ffmpegQuality == 50`, `lossless == false`.
+- [x] **T2.10** Unit test — `MEDIUM` preset: `ffmpegQuality == 75`, `lossless == false`.
+- [x] **T2.11** Unit test — `HIGH` preset: `ffmpegQuality == 90`, `lossless == false`.
+- [x] **T2.12** Unit test — `LOSSLESS` preset: `ffmpegQuality == null`, `lossless == true`.
+- [x] **T2.13** Unit test — `webpQuality` defaults to `MEDIUM` when `outputFormat` switches to `ANIMATED_WEBP`.
+- [x] **T2.14** Unit test — ViewModel state exposes lossless warning as visible only when `webpQuality == LOSSLESS`.
 
 ---
 
