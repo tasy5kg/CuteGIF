@@ -1,5 +1,13 @@
 <resources>
 
+  <!-- Selected format size label: BodyMedium + bold -->
+  <style name="TextAppearance.App.EstSize.Active" parent="TextAppearance.Material3.BodyMedium">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <!-- Unselected format size label: LabelMedium, no bold -->
+  <style name="TextAppearance.App.EstSize.Inactive" parent="TextAppearance.Material3.LabelMedium" />
+
   <style name="Theme.EasyGif" parent="Theme.Material3.Dark.NoActionBar">
     <item name="android:colorBackground">@color/light</item>
     <item name="android:windowLightStatusBar">false</item>

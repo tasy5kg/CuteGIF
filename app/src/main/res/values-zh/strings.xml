@@ -91,6 +91,7 @@
   <string name="best">最佳</string>
   <string name="webp_quality">WebP 质量</string>
   <string name="lossless_warning">无损文件可能比 GIF 更大。</string>
+  <string name="estimated_size">估算大小</string>
   <string name="more_options">更多选项</string>
   <string name="remove_background">抠图</string>
   <string name="reverse">倒放</string>

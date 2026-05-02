@@ -347,6 +347,74 @@
 
       </androidx.appcompat.widget.LinearLayoutCompat>
 
+      <!-- Estimated file size row (flat ConstraintLayout for performance) -->
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:minHeight="@dimen/menu_item_min_height">
+
+        <!-- Replicates weight-2/weight-5 split used by every other row (2/7 ≈ 28.6%) -->
+        <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/glEstSizeLabelEnd"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.286" />
+
+        <com.google.android.material.textview.MaterialTextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="@string/estimated_size"
+          android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/glEstSizeLabelEnd"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Spinner: visible by default, hidden once estimation resolves -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+          android:id="@+id/cpiEstimation"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminate="true"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toEndOf="@id/glEstSizeLabelEnd"
+          app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- GIF size: top of vertical chain; bold + active colour when GIF is selected -->
+        <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/mtvEstimatedGifSize"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="GIF —"
+          android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+          android:textStyle="bold"
+          android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@id/mtvEstimatedWebpSize"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/glEstSizeLabelEnd"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_chainStyle="packed"
+          tools:ignore="HardcodedText" />
+
+        <!-- WebP size: bottom of vertical chain; smaller + grey when GIF is selected -->
+        <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/mtvEstimatedWebpSize"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:text="WebP —"
+          android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/glEstSizeLabelEnd"
+          app:layout_constraintTop_toBottomOf="@id/mtvEstimatedGifSize"
+          tools:ignore="HardcodedText" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
       <include layout="@layout/view_divider_horizontal" />
 
       <androidx.appcompat.widget.LinearLayoutCompat

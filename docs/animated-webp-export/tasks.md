@@ -78,44 +78,44 @@
 ## US-3 — File Size Comparison
 
 **Spec ref:** [spec.md § US-3](spec.md#us-3--file-size-comparison)
-**Status:** ⬜ Not Started
+**Status:** ✅ Complete
 
 ### Data Model
 
-- [ ] **T3.1** Define `EstimationState` sealed class: `Loading`, `Ready(gifSizeBytes: Long, webpSizeBytes: Long)`, `Error`.
-- [ ] **T3.2** Implement `formatEstimatedSize(bytes: Long): String` helper: returns `~X KB` when `bytes < 1_048_576`, otherwise `~X.X MB` (1 decimal place).
+- [x] **T3.1** Define `EstimationState` sealed class: `Loading`, `Ready(gifSizeBytes: Long, webpSizeBytes: Long)`, `Error`.
+- [x] **T3.2** Implement `formatEstimatedSize(bytes: Long): String` helper: returns `~X KB` when `bytes < 1_048_576`, otherwise `~X.X MB` (1 decimal place).
 
 ### Core Logic
 
-- [ ] **T3.3** Implement `FileSizeEstimator`: takes current export settings, encodes a GIF and WebP sample using `min(duration, 1000ms)` of the clip at current settings into a temp directory, measures both output file sizes, and extrapolates each: `estimatedSize = sampleSize × (fullDuration / sampleDuration)`.
-- [ ] **T3.4** Implement temp file cleanup in `FileSizeEstimator`: delete temp directory after estimation completes (success or error).
+- [x] **T3.3** Implement `FileSizeEstimator`: takes current export settings, encodes a GIF and WebP sample using `min(duration, 1000ms)` of the clip at current settings into a temp directory, measures both output file sizes, and extrapolates each: `estimatedSize = sampleSize × (fullDuration / sampleDuration)`.
+- [x] **T3.4** Implement temp file cleanup in `FileSizeEstimator`: delete temp directory after estimation completes (success or error).
 
 ### ViewModel
 
-- [ ] **T3.5** Add `estimationState: StateFlow<EstimationState>` to the export options ViewModel (initial value: `Loading`).
-- [ ] **T3.6** Implement estimation trigger in ViewModel: launch estimation coroutine on `Dispatchers.IO` using `FileSizeEstimator`; update `estimationState` with the result.
-- [ ] **T3.7** Apply 300ms debounce to the estimation trigger — cancel any in-progress estimation job before launching a new one.
-- [ ] **T3.8** Re-trigger estimation whenever `outputFormat`, `webpQuality`, resolution, or FPS changes in ViewModel state.
-- [ ] **T3.9** Cancel in-progress estimation job and clean up temp files when the dialog is dismissed (ViewModel cleared or explicit cancel hook).
+- [x] **T3.5** Add `estimationState: StateFlow<EstimationState>` to the export options ViewModel (initial value: `Loading`).
+- [x] **T3.6** Implement estimation trigger in ViewModel: launch estimation coroutine on `Dispatchers.IO` using `FileSizeEstimator`; update `estimationState` with the result.
+- [x] **T3.7** Apply 300ms debounce to the estimation trigger — cancel any in-progress estimation job before launching a new one.
+- [x] **T3.8** Re-trigger estimation whenever `outputFormat`, `webpQuality`, resolution, or FPS changes in ViewModel state.
+- [x] **T3.9** Cancel in-progress estimation job and clean up temp files when the dialog is dismissed (ViewModel cleared or explicit cancel hook).
 
 ### UI Layout
 
-- [ ] **T3.10** Add a size estimate row to `dialog_fragment_video_to_gif_export_options.xml`: two `TextView`s (or chips) side by side for GIF and WebP sizes, plus a `CircularProgressIndicator` that overlays or replaces the values while estimating.
+- [x] **T3.10** Add a size estimate row to `dialog_fragment_video_to_gif_export_options.xml`: flat `ConstraintLayout` with `CircularProgressIndicator` (loading) and two `TextView`s for GIF/WebP sizes (ready/error).
 
 ### UI Wiring
 
-- [ ] **T3.11** Observe `estimationState` in the dialog fragment: show `CircularProgressIndicator` on `Loading`; show formatted size strings on `Ready`; show a fallback label (e.g. "—") on `Error`.
-- [ ] **T3.12** Visually highlight the size label of the currently selected format (driven by `outputFormat` state).
+- [x] **T3.11** Observe `estimationState` in the dialog fragment: show `CircularProgressIndicator` on `Loading`; show formatted size strings on `Ready`; show a fallback label (e.g. "—") on `Error`.
+- [x] **T3.12** Visually highlight the size label of the currently selected format (driven by `outputFormat` state).
 
 ### Tests
 
-- [ ] **T3.13** Unit test — `formatEstimatedSize` with value below 1 MB returns `~X KB` format.
-- [ ] **T3.14** Unit test — `formatEstimatedSize` with value ≥ 1 MB returns `~X.X MB` format.
-- [ ] **T3.15** Unit test — `formatEstimatedSize` output always starts with `~`.
-- [ ] **T3.16** Unit test — extrapolation formula: given `sampleSize`, `sampleDuration`, `fullDuration`, returns `sampleSize × (fullDuration / sampleDuration)`.
-- [ ] **T3.17** Unit test — ViewModel transitions `estimationState` from `Loading` to `Ready` on successful estimation.
-- [ ] **T3.18** Unit test — ViewModel transitions `estimationState` from `Loading` to `Error` when `FileSizeEstimator` throws.
-- [ ] **T3.19** Unit test — changing a setting within 300ms cancels the previous estimation job and does not emit a stale `Ready` result.
+- [x] **T3.13** Unit test — `formatEstimatedSize` with value below 1 MB returns `~X KB` format.
+- [x] **T3.14** Unit test — `formatEstimatedSize` with value ≥ 1 MB returns `~X.X MB` format.
+- [x] **T3.15** Unit test — `formatEstimatedSize` output always starts with `~`.
+- [x] **T3.16** Unit test — extrapolation formula: given `sampleSize`, `sampleDuration`, `fullDuration`, returns `sampleSize × (fullDuration / sampleDuration)`.
+- [x] **T3.17** Unit test — ViewModel transitions `estimationState` from `Loading` to `Ready` on successful estimation.
+- [x] **T3.18** Unit test — ViewModel transitions `estimationState` from `Loading` to `Error` when `FileSizeEstimator` throws.
+- [x] **T3.19** Unit test — changing a setting within 300ms cancels the previous estimation job and does not emit a stale `Ready` result.
 
 ---
 

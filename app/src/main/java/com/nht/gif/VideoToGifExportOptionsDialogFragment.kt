@@ -12,7 +12,9 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.get
+import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
@@ -21,8 +23,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 import com.arthenica.ffmpegkit.FFmpegKit
+import com.nht.gif.model.EstimationState
 import com.nht.gif.model.OutputFormat
 import com.nht.gif.model.WebpQuality
+import com.nht.gif.model.formatEstimatedSize
 import com.nht.gif.ui.videotogif.VideoToGifExportOptionsViewModel
 import com.nht.gif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import com.nht.gif.MyConstants.VIDEO_TO_GIF_PREVIEW_CACHE_DIR
@@ -48,7 +52,15 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
   private val vtgActivity get() = activity as VideoToGifActivity
   private lateinit var frame: Bitmap
   private val viewModel: VideoToGifExportOptionsViewModel by lazy {
-    ViewModelProvider(this)[VideoToGifExportOptionsViewModel::class.java]
+    ViewModelProvider(
+      this,
+      VideoToGifExportOptionsViewModel.factory(
+        inputVideoPath = vtgActivity.inputVideoPath,
+        duration = vtgActivity.videoView.duration,
+        cropParams = vtgActivity.cropParams,
+        outputSpeed = vtgActivity.playbackSpeed,
+      )
+    )[VideoToGifExportOptionsViewModel::class.java]
   }
 
   /** Determining whether a Key exists in a Map/Set is fast, while determining whether a file exists is much slower */
@@ -80,6 +92,16 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
             binding.dividerGifControls.root.visibleIf { isGif }
             binding.llcRowGifColorQuality.visibleIf { isGif }
             binding.llcWebpQualitySection.visibleIf { !isGif }
+            val activeColor = ContextCompat.getColor(requireContext(), R.color.green_dark)
+            val inactiveColor = ContextCompat.getColor(requireContext(), R.color.grey)
+            TextViewCompat.setTextAppearance(binding.mtvEstimatedGifSize,
+              if (isGif) R.style.TextAppearance_App_EstSize_Active
+              else R.style.TextAppearance_App_EstSize_Inactive)
+            binding.mtvEstimatedGifSize.setTextColor(if (isGif) activeColor else inactiveColor)
+            TextViewCompat.setTextAppearance(binding.mtvEstimatedWebpSize,
+              if (isGif) R.style.TextAppearance_App_EstSize_Inactive
+              else R.style.TextAppearance_App_EstSize_Active)
+            binding.mtvEstimatedWebpSize.setTextColor(if (isGif) inactiveColor else activeColor)
           }
         }
         launch {
@@ -98,6 +120,15 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
         launch {
           viewModel.showLosslessWarning.collect { show ->
             binding.mtvLosslessWarning.visibleIf { show }
+          }
+        }
+        launch {
+          viewModel.estimationState.collect { state ->
+            val isLoading = state is EstimationState.Loading
+            binding.cpiEstimation.visibleIf { isLoading }
+            binding.mtvEstimatedGifSize.visibleIf { !isLoading }
+            binding.mtvEstimatedWebpSize.visibleIf { !isLoading }
+            if (!isLoading) updateSizeText(state)
           }
         }
       }
@@ -163,11 +194,20 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     }
     binding.tietResolutionInputValue.doAfterTextChanged {
       updatePreviewImage()
+      viewModel.setShortLength(getSelectedShortLength())
     }
-    binding.mbtgColorQuality.addOnButtonCheckedListener { group, _, isChecked ->
+    binding.mbtgColorQuality.addOnButtonCheckedListener { group, checkedId, isChecked ->
       if (isChecked) {
         updatePreviewImage()
         group.performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
+        val colorQuality = when (checkedId) {
+          binding.mbColorQualityLow.id -> 32
+          binding.mbColorQualityMid.id -> 64
+          binding.mbColorQualityHigh.id -> 128
+          binding.mbColorQualityMax.id -> 256
+          else -> return@addOnButtonCheckedListener
+        }
+        viewModel.setColorQuality(colorQuality)
       }
     }
 
@@ -177,18 +217,36 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
         binding.llcGroupResolutionInput.visibleIf { checkedId == binding.mbResolutionCustom.id }
         if (checkedId == binding.mbResolutionCustom.id) binding.tietResolutionInputValue.requestFocus()
         updatePreviewImage()
+        viewModel.setShortLength(getSelectedShortLength())
       }
     }
-    binding.mbtgImageQuality.addOnButtonCheckedListener { group, _, isChecked ->
+    binding.mbtgImageQuality.addOnButtonCheckedListener { group, checkedId, isChecked ->
       if (isChecked) {
         updatePreviewImage()
         group.performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
+        val lossy = when (checkedId) {
+          binding.mbImageQualityLow.id -> 200
+          binding.mbImageQualityMid.id -> 70
+          binding.mbImageQualityHigh.id -> 30
+          binding.mbImageQualityMax.id -> null
+          else -> return@addOnButtonCheckedListener
+        }
+        viewModel.setLossy(lossy)
       }
     }
-    binding.mbtgFramerate.addOnButtonCheckedListener { group, _, isChecked ->
+    binding.mbtgFramerate.addOnButtonCheckedListener { group, checkedId, isChecked ->
       if (isChecked) {
         binding.mtvFramerateOver10Warning.visibleIf { createTaskBuilder().outputFps > 10 }
         group.performHapticFeedback(HapticFeedbackType.SWITCH_TOGGLING)
+        val fps = when (checkedId) {
+          binding.mbFramerate5.id -> 5
+          binding.mbFramerate10.id -> 10
+          binding.mbFramerate16.id -> 16
+          binding.mbFramerate25.id -> 25
+          binding.mbFramerate50.id -> 50
+          else -> return@addOnButtonCheckedListener
+        }
+        viewModel.setFps(fps)
       }
     }
     binding.mcbColorKeyPreview.setOnCheckedChangeListener { buttonView, _ ->
@@ -312,6 +370,39 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
 
       else -> throw IllegalArgumentException()
     }.constraintBy(2..min(vtgActivity.cropParams.outW, vtgActivity.cropParams.outH))
+
+  /**
+   * Sets the text of both size labels, appending a quality qualifier to the inactive format's
+   * label because its quality controls are hidden when the other format is selected.
+   */
+  private fun updateSizeText(state: EstimationState) {
+    val isGif = viewModel.outputFormat.value == OutputFormat.GIF
+    val (gifText, webpText) = when (state) {
+      is EstimationState.Ready ->
+        "GIF ${formatEstimatedSize(state.gifSizeBytes)}" to
+          "WebP ${formatEstimatedSize(state.webpSizeBytes)}"
+      else -> "GIF —" to "WebP —"
+    }
+    binding.mtvEstimatedGifSize.text =
+      if (!isGif) "$gifText · ${clarityLabel()}" else gifText
+    binding.mtvEstimatedWebpSize.text =
+      if (isGif) "$webpText · ${webpQualityLabel()}" else webpText
+  }
+
+  private fun webpQualityLabel() = when (viewModel.webpQuality.value) {
+    WebpQuality.SMALL -> getString(R.string.low)
+    WebpQuality.MEDIUM -> getString(R.string.mid)
+    WebpQuality.HIGH -> getString(R.string.high)
+    WebpQuality.LOSSLESS -> getString(R.string.best)
+  }
+
+  private fun clarityLabel() = when (viewModel.lossy.value) {
+    200 -> getString(R.string.low)
+    70 -> getString(R.string.mid)
+    30 -> getString(R.string.high)
+    null -> getString(R.string.max)
+    else -> getString(R.string.high)
+  }
 
   override fun onDestroyView() {
     vtgActivity.savedColorKeyColor = binding.viewColorKeyIndicator.backgroundColor
