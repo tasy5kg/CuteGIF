@@ -2,98 +2,108 @@ package com.nht.gif
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import android.view.View.GONE
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.arthenica.ffmpegkit.FFmpegKit
-import com.nht.gif.MyConstants.OUTPUT_SPLIT_DIR
+import androidx.lifecycle.repeatOnLifecycle
 import com.nht.gif.databinding.ActivityGifSplitBinding
-import com.nht.gif.toolbox.FileTools.copyFile
-import com.nht.gif.toolbox.FileTools.createNewFile
-import com.nht.gif.toolbox.FileTools.resetDirectory
 import com.nht.gif.toolbox.Toolbox.getExtra
 import com.nht.gif.toolbox.Toolbox.onClick
 import com.nht.gif.toolbox.Toolbox.toast
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.File
 
+/**
+ * Pure View layer for the GIF Split screen.
+ * All business logic lives in [GifSplitViewModel]; this class only renders state and forwards
+ * user actions.
+ */
 class GifSplitActivity : BaseActivity() {
+
   private val binding by lazy { ActivityGifSplitBinding.inflate(layoutInflater) }
   private val inputGifPath by lazy { intent.getExtra<String>(MyConstants.EXTRA_GIF_PATH) }
+  private val viewModel: GifSplitViewModel by lazy {
+    ViewModelProvider(this, GifSplitViewModel.factory(inputGifPath))[GifSplitViewModel::class.java]
+  }
+
+  /**
+   * True once the frame section (slider + initial image) has been initialized for this
+   * Activity instance. Prevents re-initialization on [isSaving] state changes while correctly
+   * re-initializing after rotation (new Activity instance resets this flag).
+   */
+  private var framesSectionInitialized = false
 
   override fun onCreateIfEulaAccepted(savedInstanceState: Bundle?) {
     setContentView(binding.root)
     binding.mbClose.onClick { finish() }
     binding.mbSliderMinus.onClick { if (binding.slider.value > binding.slider.valueFrom) binding.slider.value-- }
     binding.mbSliderPlus.onClick { if (binding.slider.value < binding.slider.valueTo) binding.slider.value++ }
-    setControlsEnabled(false)
+    binding.mbSave.onClick { viewModel.saveFrame(binding.slider.value.toInt()) }
 
     lifecycleScope.launch {
-      val frames = withContext(Dispatchers.IO) {
-        resetDirectory(OUTPUT_SPLIT_DIR)
-        FFmpegKit.execute("${MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN} -i \"$inputGifPath\" \"$OUTPUT_SPLIT_DIR%06d.png\"")
-        val frameCount = File(OUTPUT_SPLIT_DIR).listFiles()?.size ?: return@withContext null
-        (1..frameCount).map { BitmapFactory.decodeFile(OUTPUT_SPLIT_DIR + String.format("%06d", it) + ".png")!! }
+      repeatOnLifecycle(Lifecycle.State.STARTED) {
+        launch { viewModel.uiState.collect { render(it) } }
+        launch { viewModel.events.collect { handle(it) } }
       }
+    }
+  }
 
-      if (frames == null) {
-        toast(R.string.unable_to_load_gif)
-        finish()
-        return@launch
-      }
-
-      if (frames.size == 1) {
-        binding.llcFrameSelector.visibility = GONE
-      } else {
-        binding.slider.apply {
-          valueTo = frames.size.toFloat()
-          setLabelFormatter { "${it.toInt()}/${valueTo.toInt()}" }
-          addOnChangeListener { slider, value, _ ->
-            slider.performHapticFeedback(HapticFeedbackConstants.TEXT_HANDLE_MOVE)
-            binding.aciv.setImageBitmap(frames[value.toInt() - 1])
-          }
+  private fun render(state: GifSplitViewModel.UiState) {
+    when (state) {
+      GifSplitViewModel.UiState.Loading -> setControlsEnabled(false)
+      is GifSplitViewModel.UiState.FramesReady -> {
+        if (!framesSectionInitialized) {
+          framesSectionInitialized = true
+          initFrameSection(state)
         }
+        setControlsEnabled(!state.isSaving)
       }
-      binding.aciv.setImageBitmap(frames[0])
-      setControlsEnabled(true)
-
-      binding.mbSave.onClick {
-        lifecycleScope.launch {
-          setControlsEnabled(false)
-          val frameIndex = binding.slider.value.toInt()
-          withContext(Dispatchers.IO) {
-            copyFile(
-              "$OUTPUT_SPLIT_DIR${String.format("%06d", frameIndex)}.png",
-              createNewFile(inputGifPath, "png")
-            )
-          }
-          toast(R.string.saved_this_frame_to_gallery)
-          binding.view.apply {
-            visibility = View.VISIBLE
-            postDelayed({ visibility = View.INVISIBLE }, 50)
-          }
-          setControlsEnabled(true)
+      GifSplitViewModel.UiState.Error -> {
+        if (!isFinishing) {
+          toast(R.string.unable_to_load_gif)
+          finish()
         }
       }
     }
   }
 
-  /** Enables or disables all interactive controls as a group to prevent concurrent operations. */
+  private fun initFrameSection(state: GifSplitViewModel.UiState.FramesReady) {
+    if (state.frames.size == 1) {
+      binding.llcFrameSelector.visibility = GONE
+    } else {
+      binding.slider.apply {
+        valueTo = state.frames.size.toFloat()
+        setLabelFormatter { "${it.toInt()}/${valueTo.toInt()}" }
+        addOnChangeListener { slider, value, _ ->
+          slider.performHapticFeedback(HapticFeedbackConstants.TEXT_HANDLE_MOVE)
+          binding.aciv.setImageBitmap(state.frames[value.toInt() - 1])
+        }
+      }
+    }
+    binding.aciv.setImageBitmap(state.frames[0])
+  }
+
+  private fun handle(event: GifSplitViewModel.Event) {
+    when (event) {
+      GifSplitViewModel.Event.SaveSuccess -> {
+        toast(R.string.saved_this_frame_to_gallery)
+        binding.view.apply {
+          visibility = View.VISIBLE
+          postDelayed({ visibility = View.INVISIBLE }, 50)
+        }
+      }
+    }
+  }
+
+  /** Toggles Save, Slider, and ± buttons as a group to prevent concurrent operations. */
   private fun setControlsEnabled(enabled: Boolean) {
     binding.mbSave.isEnabled = enabled
     binding.mbSliderMinus.isEnabled = enabled
     binding.mbSliderPlus.isEnabled = enabled
     binding.slider.isEnabled = enabled
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    resetDirectory(OUTPUT_SPLIT_DIR)
   }
 
   companion object {

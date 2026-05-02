@@ -77,10 +77,13 @@ dependencies {
   implementation libs.smart.exception.java
   implementation libs.mmkv
   implementation libs.kotlinx.coroutines.android
+  implementation libs.lifecycle.viewmodel.ktx
 
   annotationProcessor libs.glide.compiler
 
   testImplementation libs.junit
+  testImplementation libs.mockk
+  testImplementation libs.kotlinx.coroutines.test
 
   androidTestImplementation libs.androidx.test.junit
   androidTestImplementation libs.espresso.core
