@@ -45,8 +45,12 @@ class GifSplitViewModel(
 
   private fun loadFrames() {
     viewModelScope.launch {
-      val frames = repository.extractFrames(gifPath)
-      _uiState.value = if (frames != null) UiState.FramesReady(frames) else UiState.Error
+      _uiState.value = try {
+        val frames = repository.extractFrames(gifPath)
+        if (frames != null) UiState.FramesReady(frames) else UiState.Error
+      } catch (_: Throwable) {
+        UiState.Error
+      }
     }
   }
 

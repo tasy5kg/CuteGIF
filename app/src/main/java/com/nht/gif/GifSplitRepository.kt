@@ -8,7 +8,9 @@ import com.nht.gif.toolbox.FileTools.copyFile
 import com.nht.gif.toolbox.FileTools.createNewFile
 import com.nht.gif.toolbox.FileTools.resetDirectory
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
@@ -43,6 +45,12 @@ class GifSplitRepository(private val ioDispatcher: CoroutineDispatcher = Dispatc
     )
   }
 
-  /** Wipes and recreates [OUTPUT_SPLIT_DIR]. Called from [GifSplitViewModel.onCleared]. */
-  fun cleanup() = resetDirectory(OUTPUT_SPLIT_DIR)
+  /**
+   * Wipes and recreates [OUTPUT_SPLIT_DIR]. Called from [GifSplitViewModel.onCleared].
+   * Launches its own coroutine on [ioDispatcher] because [viewModelScope] is already canceled
+   * by the time [ViewModel.onCleared] runs, making it unusable for dispatching this work.
+   */
+  fun cleanup() {
+    CoroutineScope(ioDispatcher).launch { resetDirectory(OUTPUT_SPLIT_DIR) }
+  }
 }
