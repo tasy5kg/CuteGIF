@@ -117,9 +117,11 @@ class VideoToGifActivity : BaseActivity() {
     binding.mbClose.setOnClickListener { finish() }
     binding.mbSave.onClick(HapticFeedbackType.CONFIRM) {
       videoView.pause()
-      supportFragmentManager.beginTransaction()
-        .add(videoToGifExportOptionsDialogFragment, VideoToGifExportOptionsDialogFragment.TAG)
-        .commit()
+      if (!videoToGifExportOptionsDialogFragment.isAdded) {
+        supportFragmentManager.beginTransaction()
+          .add(videoToGifExportOptionsDialogFragment, VideoToGifExportOptionsDialogFragment.TAG)
+          .commit()
+      }
     }
     binding.mbTrimTimeMinus.updateTrimTimeOnTouch(-100)
     binding.mbTrimTimePlus.updateTrimTimeOnTouch(+100)

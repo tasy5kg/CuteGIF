@@ -5,6 +5,7 @@ import com.nht.gif.model.OutputFormat
 import com.nht.gif.model.WebpQuality
 import com.nht.gif.MyConstants.FFMPEG_COMMAND_PREFIX_FOR_ALL_AN
 import com.nht.gif.MyConstants.OUTPUT_GIF_TEMP_PATH
+import com.nht.gif.MyConstants.OUTPUT_WEBP_TEMP_PATH
 import com.nht.gif.toolbox.MediaTools.saveToPng
 import com.nht.gif.toolbox.Toolbox.toEmptyStringIf
 import java.io.Serializable
@@ -70,4 +71,20 @@ data class TaskBuilderVideoToGif(
 
   fun getCommandVideoToGif() =
     "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -framerate $outputFps -i \"${MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH}%06d.bmp\" -i \"${MyConstants.PALETTE_PATH}\" " + "-filter_complex paletteuse=dither=bayer -final_delay $finalDelay -y \"$OUTPUT_GIF_TEMP_PATH\""
+
+  fun getCommandVideoToWebp(): String = buildWebpCommand(
+    framesPath = MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH,
+    outputPath = OUTPUT_WEBP_TEMP_PATH,
+    fps = outputFps,
+    quality = checkNotNull(webpQuality) { "webpQuality must be set when outputFormat == ANIMATED_WEBP" },
+  )
+
+  companion object {
+    /** Pure command builder — extracted so it can be tested without Android context. */
+    internal fun buildWebpCommand(framesPath: String, outputPath: String, fps: Int, quality: WebpQuality): String {
+      val qualityFlags = if (quality.lossless) "-lossless 1" else "-quality ${quality.ffmpegQuality}"
+      return "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -framerate $fps " +
+        "-i \"${framesPath}%06d.bmp\" $qualityFlags -compression_level 6 -loop 0 -y \"$outputPath\""
+    }
+  }
 }

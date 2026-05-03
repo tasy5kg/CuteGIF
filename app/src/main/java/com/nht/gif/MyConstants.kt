@@ -10,6 +10,7 @@ object MyConstants {
   val ADD_TEXT_RENDER_PNG_PATH = "$CACHE_DIR_PATH/add_text.png"
   val GET_VIDEO_SINGLE_FRAME_WITH_FFMPEG_TEMP_PATH = "$CACHE_DIR_PATH/get_video_single_frame_with_ffmpeg_temp_path.jpg"
   val OUTPUT_GIF_TEMP_PATH = "$CACHE_DIR_PATH/output_temp.gif"
+  val OUTPUT_WEBP_TEMP_PATH = "$CACHE_DIR_PATH/output_temp.webp"
   val OUTPUT_SPLIT_DIR = "$CACHE_DIR_PATH/split_dir/"
   val VIDEO_TO_GIF_PREVIEW_CACHE_DIR = "$CACHE_DIR_PATH/video_to_gif_preview_cache_dir/"
   val VIDSTABDETECT_RESULT_PATH = "$CACHE_DIR_PATH/transforms.trf"
@@ -27,6 +28,7 @@ object MyConstants {
   const val EXTRA_SAVED_FILE_URI = "EXTRA_SAVED_FILE_URI"
 
   const val MIME_TYPE_IMAGE_GIF = "image/gif"
+  const val MIME_TYPE_IMAGE_WEBP = "image/webp"
   const val MIME_TYPE_VIDEO_MP4 = "video/mp4"
 
   // Specifying "-hwaccel mediacodec" may result in slower decoding than "-hwaccel auto"

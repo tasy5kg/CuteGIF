@@ -68,7 +68,7 @@ object FileTools {
           )
         })
 
-      "gif", "png" -> MyApplication.appContext.contentResolver.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
+      "gif", "png", "webp" -> MyApplication.appContext.contentResolver.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
         ContentValues().apply {
           put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
           put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/${appName}")

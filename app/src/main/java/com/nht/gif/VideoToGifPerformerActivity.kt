@@ -8,7 +8,9 @@ import com.arthenica.ffmpegkit.FFmpegKit
 import com.arthenica.ffmpegkit.FFmpegKitConfig
 import com.nht.gif.MyConstants.EXTRA_TASK_BUILDER_VIDEO_TO_GIF
 import com.nht.gif.MyConstants.OUTPUT_GIF_TEMP_PATH
+import com.nht.gif.MyConstants.OUTPUT_WEBP_TEMP_PATH
 import com.nht.gif.MyConstants.VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH
+import com.nht.gif.model.OutputFormat
 import com.nht.gif.databinding.ActivityVideoToGifPerformerBinding
 import com.nht.gif.toolbox.FileTools
 import com.nht.gif.toolbox.FileTools.copyFile
@@ -46,22 +48,47 @@ class VideoToGifPerformerActivity : BaseActivity() {
   }
 
   private fun performPart1() {
-    putProgress(0, getString(R.string.exporting_gif_))
+    val label = if (taskBuilder.outputFormat == OutputFormat.ANIMATED_WEBP)
+      getString(R.string.exporting_webp_) else getString(R.string.exporting_gif_)
+    putProgress(0, label)
     FileTools.resetDirectory(VIDEO_TO_GIF_EXTRACTED_FRAMES_PATH)
     val command = taskBuilder.getCommandExtractFrame()
     logRed("CommandExtractFrame", command)
     FFmpegKit.executeAsync(command, { completeCallback ->
       when {
-        completeCallback.returnCode.isValueSuccess -> performPart2()
+        completeCallback.returnCode.isValueSuccess ->
+          if (taskBuilder.outputFormat == OutputFormat.ANIMATED_WEBP) performWebpEncoding()
+          else performPart2()
         completeCallback.returnCode.isValueError -> quitOrFailed(getString(R.string.an_error_occurred))
       }
     }, { logCallback ->
       logRed("logcallback", logCallback.message.toString())
     }, { statistics ->
       putProgress(
-        (statistics.videoFrameNumber * 40 / taskBuilder.getOutputFramesEstimated()).constraintBy(0..40), getString(R.string.exporting_gif_)
+        (statistics.videoFrameNumber * 40 / taskBuilder.getOutputFramesEstimated()).constraintBy(0..40), label
       )
     })
+  }
+
+  private fun performWebpEncoding() {
+    putProgress(null, getString(R.string.exporting_webp_))
+    val command = taskBuilder.getCommandVideoToWebp()
+    logRed("commandVideoToWebp", command)
+    FFmpegKit.executeAsync(command, { completeCallback ->
+      when {
+        completeCallback.returnCode.isValueSuccess -> performWebpSave()
+        completeCallback.returnCode.isValueError -> quitOrFailed(getString(R.string.an_error_occurred))
+      }
+    }, { log -> logRed("logcallback", log.message.toString()) }, {})
+  }
+
+  private fun performWebpSave() {
+    if (!taskQuitOrFailed) {
+      val outputUri = createNewFile(FileTools.FileName(taskBuilder.inputVideoPath).nameWithoutExtension, "webp")
+      copyFile(OUTPUT_WEBP_TEMP_PATH, outputUri, true)
+      finish()
+      FileSavedActivity.start(this@VideoToGifPerformerActivity, outputUri)
+    }
   }
 
   private fun performPart2() {

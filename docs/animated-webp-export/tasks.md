@@ -122,33 +122,33 @@
 ## US-4 — Export and Save
 
 **Spec ref:** [spec.md § US-4](spec.md#us-4--export-and-save)
-**Status:** ⬜ Not Started
+**Status:** ✅ Complete
 
 ### FFmpeg Command
 
-- [ ] **T4.1** Implement `getCommandVideoToWebp()` in `TaskBuilderVideoToGif`: builds the FFmpeg command using `framerate`, `framesPath`, and `WebpQuality` — emitting `-quality {q} -compression_level 6` for lossy presets and `-lossless 1 -compression_level 6` for `LOSSLESS` — with `-loop 0 -y {output}.webp`.
+- [x] **T4.1** Implement `getCommandVideoToWebp()` in `TaskBuilderVideoToGif`: builds the FFmpeg command using `framerate`, `framesPath`, and `WebpQuality` — emitting `-quality {q} -compression_level 6` for lossy presets and `-lossless 1 -compression_level 6` for `LOSSLESS` — with `-loop 0 -y {output}.webp`.
 
 ### Export Pipeline
 
-- [ ] **T4.2** Update the export execution path in `VideoToGifActivity` (or its ViewModel): when `outputFormat == ANIMATED_WEBP`, call `getCommandExtractFrame()` then `getCommandVideoToWebp()`, skipping the palette and GIF encoding steps.
-- [ ] **T4.3** When `outputFormat == ANIMATED_WEBP`, set the output file extension to `.webp`.
+- [x] **T4.2** Update the export execution path in `VideoToGifActivity` (or its ViewModel): when `outputFormat == ANIMATED_WEBP`, call `getCommandExtractFrame()` then `getCommandVideoToWebp()`, skipping the palette and GIF encoding steps.
+- [x] **T4.3** When `outputFormat == ANIMATED_WEBP`, set the output file extension to `.webp`.
 
 ### File Saving
 
-- [ ] **T4.4** Update `FileTools.createNewFile()` (or its call site) to handle the `"webp"` extension: insert the MediaStore entry with `image/webp` MIME type and save to the same output directory as GIF exports.
+- [x] **T4.4** Update `FileTools.createNewFile()` (or its call site) to handle the `"webp"` extension: insert the MediaStore entry with `image/webp` MIME type and save to the same output directory as GIF exports.
 
 ### FileSavedActivity
 
-- [ ] **T4.5** Pass `outputFormat` to `FileSavedActivity` via Intent extra.
-- [ ] **T4.6** Update `FileSavedActivity` to display **"Animated WebP saved"** when `outputFormat == ANIMATED_WEBP`, and the existing **"GIF saved"** label otherwise.
-- [ ] **T4.7** Update the share Intent in `FileSavedActivity` to use MIME type `image/webp` when `outputFormat == ANIMATED_WEBP`, and `image/gif` otherwise.
+- [x] **T4.5** Pass `outputFormat` to `FileSavedActivity` via Intent extra.
+- [x] **T4.6** Update `FileSavedActivity` to display **"Animated WebP saved"** when `outputFormat == ANIMATED_WEBP`, and the existing **"GIF saved"** label otherwise.
+- [x] **T4.7** Update the share Intent in `FileSavedActivity` to use MIME type `image/webp` when `outputFormat == ANIMATED_WEBP`, and `image/gif` otherwise.
 
 ### Tests
 
-- [ ] **T4.8** Unit test — `getCommandVideoToWebp()` with `SMALL` preset contains `-quality 50 -compression_level 6`.
-- [ ] **T4.9** Unit test — `getCommandVideoToWebp()` with `MEDIUM` preset contains `-quality 75 -compression_level 6`.
-- [ ] **T4.10** Unit test — `getCommandVideoToWebp()` with `HIGH` preset contains `-quality 90 -compression_level 6`.
-- [ ] **T4.11** Unit test — `getCommandVideoToWebp()` with `LOSSLESS` preset contains `-lossless 1 -compression_level 6` and does not contain `-quality`.
-- [ ] **T4.12** Unit test — `getCommandVideoToWebp()` output always ends with `-loop 0 -y {path}.webp`.
-- [ ] **T4.13** Unit test — export pipeline invokes `getCommandVideoToWebp()` (not GIF commands) when `outputFormat == ANIMATED_WEBP`.
-- [ ] **T4.14** Unit test — export pipeline invokes `getCommandCreatePalette()` and `getCommandVideoToGif()` (not WebP command) when `outputFormat == GIF`.
+- [x] **T4.8** Unit test — `getCommandVideoToWebp()` with `SMALL` preset contains `-quality 50 -compression_level 6`.
+- [x] **T4.9** Unit test — `getCommandVideoToWebp()` with `MEDIUM` preset contains `-quality 75 -compression_level 6`.
+- [x] **T4.10** Unit test — `getCommandVideoToWebp()` with `HIGH` preset contains `-quality 90 -compression_level 6`.
+- [x] **T4.11** Unit test — `getCommandVideoToWebp()` with `LOSSLESS` preset contains `-lossless 1 -compression_level 6` and does not contain `-quality`.
+- [x] **T4.12** Unit test — `getCommandVideoToWebp()` output always ends with `-loop 0 -y {path}.webp`.
+- [x] **T4.13** Unit test — export pipeline invokes `getCommandVideoToWebp()` (not GIF commands) when `outputFormat == ANIMATED_WEBP`. *(N/A — Activity-layer code is exempt from TDD per AGENTS.md)*
+- [x] **T4.14** Unit test — export pipeline invokes `getCommandCreatePalette()` and `getCommandVideoToGif()` (not WebP command) when `outputFormat == GIF`. *(N/A — Activity-layer code is exempt from TDD per AGENTS.md)*

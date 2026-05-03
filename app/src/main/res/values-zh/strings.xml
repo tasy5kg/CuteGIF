@@ -124,6 +124,7 @@
   <string name="an_error_occurred">出现错误</string>
   <string name="compressing_gif_raw_size">正在压缩 GIF…（压缩前：%s）</string>
   <string name="exporting_gif_">正在生成 GIF…</string>
+  <string name="exporting_webp_">正在生成 WebP…</string>
   <string name="unable_to_load_gif">无法读取 GIF</string>
   <string name="gif_to_video_conversion_failed">GIF 转视频失败</string>
   <string name="donation_erc20_qrcode_saved_please_scan_first_image">ERC20 赞助二维码已保存，请扫描相册中的第一张图片</string>
