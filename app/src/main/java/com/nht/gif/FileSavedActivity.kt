@@ -46,11 +46,15 @@ class FileSavedActivity : BaseActivity() {
         binding.vvPreview.visibility = GONE
         if (fileUri.mimeType() == MIME_TYPE_IMAGE_WEBP) {
           lifecycleScope.launch {
-            val drawable = withContext(Dispatchers.IO) {
-              ImageDecoder.decodeDrawable(ImageDecoder.createSource(contentResolver, fileUri))
+            runCatching { withContext(Dispatchers.IO) {
+                ImageDecoder.decodeDrawable(ImageDecoder.createSource(contentResolver, fileUri))
+            }}.onSuccess { drawable ->
+                binding.acivPreview.setImageDrawable(drawable)
+                (drawable as? AnimatedImageDrawable)?.start()
+            }.onFailure {
+              toast(R.string.an_error_occurred)
+              finish()
             }
-            binding.acivPreview.setImageDrawable(drawable)
-            (drawable as? AnimatedImageDrawable)?.start()
           }
         } else {
           Glide.with(this).load(fileUri).fitCenter().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
