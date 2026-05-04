@@ -8,6 +8,7 @@ import com.nht.gif.model.OutputFormat
 import com.nht.gif.model.WebpQuality
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -145,5 +146,40 @@ class VideoToGifExportOptionsViewModelTest {
     // Only 1 estimation ran; the first (cancelled) job never reached estimate()
     assertEquals(1, callCount)
     assertTrue(viewModel.estimationState.value is EstimationState.Ready)
+  }
+
+  // T3.20 — regression for rapid quality switch producing ~0 KB WebP estimate.
+  // Root cause: quality change after debounce fires (while estimation is in flight) must
+  // cancel the in-flight job and re-run with the new settings.
+  @Test
+  fun `quality switch while estimation is in flight re-runs with updated settings`() = runTest {
+    var callCount = 0
+    var lastSettings: EstimationSettings? = null
+    val estimator = mockk<FileSizeEstimator>()
+    coEvery { estimator.estimate(any()) } coAnswers {
+      callCount++
+      lastSettings = firstArg()
+      if (callCount == 1) {
+        delay(500) // simulate slow in-flight estimation (e.g. FFmpeg running)
+        1L to 2L
+      } else {
+        10L to 20L
+      }
+    }
+
+    val viewModel = createViewModel(estimator)
+
+    // First debounce fires — estimation 1 starts (blocked on delay above)
+    advanceTimeBy(301)
+
+    // Switch quality while estimation 1 is still in progress
+    viewModel.setWebpQuality(WebpQuality.SMALL)
+
+    // Settle: estimation 1 is cancelled, debounce 2 fires, estimation 2 completes
+    advanceUntilIdle()
+
+    assertEquals(2, callCount)
+    assertEquals(WebpQuality.SMALL, lastSettings?.webpQuality)
+    assertEquals(EstimationState.Ready(10L, 20L), viewModel.estimationState.value)
   }
 }

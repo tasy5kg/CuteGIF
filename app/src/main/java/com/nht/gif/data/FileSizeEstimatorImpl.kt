@@ -11,38 +11,45 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.util.concurrent.atomic.AtomicLong
 import kotlin.math.min
 
 /**
  * Encodes a short sample clip as both GIF and WebP into a private temp directory,
  * measures each output file size, and extrapolates to the full clip duration.
- * The temp directory is deleted after each estimation (success or failure).
+ *
+ * Each [estimate] call gets its own uniquely-numbered subdirectory under
+ * `<cache>/estimation/<runId>/`, so concurrent or overlapping invocations
+ * (e.g. rapid quality switches before prior FFmpeg calls finish) never
+ * corrupt each other's files. The directory is deleted in [estimate]'s
+ * finally block regardless of success or failure.
  */
 class FileSizeEstimatorImpl(
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : FileSizeEstimator {
 
-  private val tempDir = "$CACHE_DIR_PATH/estimation/"
-  private val framesDir = "${tempDir}frames/"
-  private val palettePath = "${tempDir}palette.png"
-  private val gifPath = "${tempDir}sample.gif"
-  private val webpPath = "${tempDir}sample.webp"
+  private val runCounter = AtomicLong()
 
   override suspend fun estimate(settings: EstimationSettings): Pair<Long, Long> =
     withContext(ioDispatcher) {
+      val runDir = "$CACHE_DIR_PATH/estimation/${runCounter.getAndIncrement()}/"
+      val framesDir = "${runDir}frames/"
+      val palettePath = "${runDir}palette.png"
+      val gifPath = "${runDir}sample.gif"
+      val webpPath = "${runDir}sample.webp"
       try {
         resetDirectory(framesDir)
-        extractFrames(settings)
-        val gifSize = encodeGif(settings)
-        val webpSize = encodeWebp(settings)
+        extractFrames(settings, framesDir)
+        val gifSize = encodeGif(settings, framesDir, palettePath, gifPath)
+        val webpSize = encodeWebp(settings, framesDir, webpPath)
         extrapolateSize(gifSize, settings.sampleDurationMs, settings.fullDurationMs) to
           extrapolateSize(webpSize, settings.sampleDurationMs, settings.fullDurationMs)
       } finally {
-        File(tempDir).deleteRecursively()
+        File(runDir).deleteRecursively()
       }
     }
 
-  private fun extractFrames(s: EstimationSettings) {
+  private fun extractFrames(s: EstimationSettings, framesDir: String) {
     val scale = scaleParam(s.cropParams, s.shortLength)
     FFmpegKit.execute(
       "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -to ${s.sampleDurationMs}ms -i \"${s.inputVideoPath}\" " +
@@ -51,7 +58,7 @@ class FileSizeEstimatorImpl(
     )
   }
 
-  private fun encodeGif(s: EstimationSettings): Long {
+  private fun encodeGif(s: EstimationSettings, framesDir: String, palettePath: String, gifPath: String): Long {
     FFmpegKit.execute(
       "$FFMPEG_COMMAND_PREFIX_FOR_ALL_AN -i \"${framesDir}%06d.bmp\" " +
         "-vf \"palettegen=max_colors=${s.colorQuality}:stats_mode=diff\" -y \"$palettePath\""
@@ -64,7 +71,7 @@ class FileSizeEstimatorImpl(
     return File(gifPath).length()
   }
 
-  private fun encodeWebp(s: EstimationSettings): Long {
+  private fun encodeWebp(s: EstimationSettings, framesDir: String, webpPath: String): Long {
     val qualityFlags = if (s.webpQuality.lossless) "-lossless 1"
     else "-quality ${s.webpQuality.ffmpegQuality}"
     FFmpegKit.execute(

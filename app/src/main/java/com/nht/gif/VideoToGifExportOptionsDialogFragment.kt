@@ -91,6 +91,7 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
             binding.llcRowGifImageQuality.visibleIf { isGif }
             binding.dividerGifControls.root.visibleIf { isGif }
             binding.llcRowGifColorQuality.visibleIf { isGif }
+            binding.chipEnableFinalDelay.visibleIf { isGif }
             binding.llcWebpQualitySection.visibleIf { !isGif }
             val activeColor = ContextCompat.getColor(requireContext(), R.color.green_dark)
             val inactiveColor = ContextCompat.getColor(requireContext(), R.color.grey)

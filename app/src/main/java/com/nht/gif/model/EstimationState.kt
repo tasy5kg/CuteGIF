@@ -20,4 +20,8 @@ fun formatEstimatedSize(bytes: Long): String =
  * Formula: sampleSizeBytes × (fullDurationMs / sampleDurationMs)
  */
 fun extrapolateSize(sampleSizeBytes: Long, sampleDurationMs: Long, fullDurationMs: Long): Long =
-  sampleSizeBytes * fullDurationMs / sampleDurationMs
+  if (fullDurationMs <= 0L) 0L
+  else {
+    require(sampleDurationMs > 0L) { "sampleDurationMs must be > 0" }
+    sampleSizeBytes * fullDurationMs / sampleDurationMs
+  }

@@ -9,6 +9,8 @@
   <string name="playback_speed">Speed</string>
   <string name="resolution">Resolution</string>
   <string name="output_format">Format</string>
+  <string name="output_format_gif" translatable="false">GIF</string>
+  <string name="output_format_webp" translatable="false">WebP</string>
   <string name="done">Done</string>
   <string name="share">Share</string>
   <string name="version_X">Version %s</string>

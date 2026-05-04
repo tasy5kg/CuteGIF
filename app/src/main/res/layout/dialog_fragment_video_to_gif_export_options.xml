@@ -55,14 +55,12 @@
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbOutputFormatGif"
             style="@style/Theme.EasyGif.SegmentedButton"
-            android:text="GIF"
-            tools:ignore="HardcodedText" />
+            android:text="@string/output_format_gif" />
 
           <com.google.android.material.button.MaterialButton
             android:id="@+id/mbOutputFormatWebp"
             style="@style/Theme.EasyGif.SegmentedButton"
-            android:text="WebP"
-            tools:ignore="HardcodedText" />
+            android:text="@string/output_format_webp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
       </androidx.appcompat.widget.LinearLayoutCompat>
 

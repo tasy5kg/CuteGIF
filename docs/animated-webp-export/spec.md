@@ -147,7 +147,7 @@ enum class WebpQuality(val ffmpegQuality: Int?, val lossless: Boolean) {
 
 A new method `getCommandVideoToWebp()` produces the FFmpeg command to encode the extracted BMP frames into an Animated WebP file, reusing the same frame extraction output as the GIF pipeline.
 
-```
+```bash
 ffmpeg -framerate {fps} -i {frames}%06d.bmp
   [-quality {q} | -lossless 1]
   -compression_level 6
