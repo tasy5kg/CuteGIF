@@ -143,4 +143,9 @@
   <string name="import_file_failed_please_try">File read failed, please try switching the file picker in the menu</string>
   <string name="save_as_video">Save as video</string>
   <string name="speed_warning_slower">ℹ️ For performance reasons, the current preview plays slower than the speed you selected. When exported later, the GIF will be generated at the speed you selected.</string>
+  <string name="settings">Settings</string>
+  <string name="notifications_blocked_snackbar">Notifications are blocked. Tap Settings to enable them.</string>
+  <string name="notification_channel_file_saved_name">File saved</string>
+  <string name="notification_file_saved_title">%1$s saved</string>
+  <string name="notification_file_saved_body">Tap to open or share</string>
 </resources>

@@ -135,4 +135,9 @@
   <string name="import_file_failed_please_try">文件读取失败，请尝试在菜单中切换文件选取器</string>
   <string name="save_as_video">另存为视频</string>
   <string name="speed_warning_slower">ℹ️ 由于性能原因，当前预览画面的播放速度慢于您选择的速度。稍后导出时，将会按照您选择的速度生成 GIF。</string>
+  <string name="settings">设置</string>
+  <string name="notifications_blocked_snackbar">通知已被屏蔽，点按「设置」以开启。</string>
+  <string name="notification_channel_file_saved_name">文件已保存</string>
+  <string name="notification_file_saved_title">%1$s 已保存</string>
+  <string name="notification_file_saved_body">点击打开或分享</string>
 </resources>

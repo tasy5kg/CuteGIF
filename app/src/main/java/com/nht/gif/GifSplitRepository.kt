@@ -2,6 +2,7 @@ package com.nht.gif
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import com.arthenica.ffmpegkit.FFmpegKit
 import com.nht.gif.MyConstants.OUTPUT_SPLIT_DIR
 import com.nht.gif.toolbox.FileTools.copyFile
@@ -37,12 +38,12 @@ class GifSplitRepository(private val ioDispatcher: CoroutineDispatcher = Dispatc
   /**
    * Copies the PNG at [OUTPUT_SPLIT_DIR]/[frameIndex].png to a new gallery entry.
    * [frameIndex] is 1-based, matching the slider value.
+   * Returns the [Uri] of the saved file so callers can post a share notification.
    */
-  suspend fun saveFrame(gifPath: String, frameIndex: Int) = withContext(ioDispatcher) {
-    copyFile(
-      "$OUTPUT_SPLIT_DIR${String.format("%06d", frameIndex)}.png",
-      createNewFile(gifPath, "png")
-    )
+  suspend fun saveFrame(gifPath: String, frameIndex: Int): Uri = withContext(ioDispatcher) {
+    val outputUri = createNewFile(gifPath, "png")
+    copyFile("$OUTPUT_SPLIT_DIR${String.format("%06d", frameIndex)}.png", outputUri)
+    outputUri
   }
 
   /**

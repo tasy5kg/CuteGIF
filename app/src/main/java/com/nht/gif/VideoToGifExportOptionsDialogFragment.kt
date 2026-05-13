@@ -71,6 +71,16 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
     _binding = DialogFragmentVideoToGifExportOptionsBinding.inflate(layoutInflater, container, false)
+
+    // The system can restore this dialog fragment (e.g. after a permission-revoke restart) before
+    // VideoToGifActivity.mediaPlayerReady() has been called. At that point the rangeSlider has only
+    // its XML-default single-value list, so createTaskBuilder() would crash on values[1].
+    // Dismiss immediately and let the user re-open the dialog once the activity is fully ready.
+    if (!vtgActivity.isVideoReady) {
+      dismissAllowingStateLoss()
+      return binding.root
+    }
+
     clearPreviewImageCache()
     vtgActivity.videoView.pause()
     binding.mbSave.onClick {
@@ -411,7 +421,9 @@ class VideoToGifExportOptionsDialogFragment : DialogFragment() {
     _binding = null
     previewBitmapMap.clear()
     resetDirectory(VIDEO_TO_GIF_PREVIEW_CACHE_DIR)
-    vtgActivity.videoView.start()
+    // Only resume playback if the video was actually prepared; if we dismissed early due to the
+    // activity not being ready, starting playback here would be premature.
+    if (vtgActivity.isVideoReady) vtgActivity.videoView.start()
   }
 
   private fun clearPreviewImageCache() {

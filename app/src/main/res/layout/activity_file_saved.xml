@@ -89,11 +89,10 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbDelete"
-      style="@style/Widget.Material3.Button.TextButton.Dialog"
+      style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/delete"
-      android:textColor="?attr/colorError"
+      android:contentDescription="@string/delete"
       app:icon="@drawable/ic_baseline_delete_forever_24"
       app:iconTint="?attr/colorError" />
 
@@ -104,13 +103,19 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbShare"
-      style="@style/Widget.Material3.Button.OutlinedButton"
+      style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:text="@string/share"
-      android:textColor="?attr/colorOnSurface" />
+      android:contentDescription="@string/share"
+      app:icon="@drawable/ic_baseline_share_24" />
 
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/mbCopy"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/copy_to_clipboard"
+      app:icon="@drawable/ic_baseline_content_copy_24" />
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/mbDone"
@@ -118,7 +123,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
-      android:text="@string/done"
-      android:textColor="?attr/colorOnSurface" />
+      android:text="@string/done" />
   </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

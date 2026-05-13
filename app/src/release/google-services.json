@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "432937966636",
+    "project_id": "easy-gif-cacf0",
+    "storage_bucket": "easy-gif-cacf0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432937966636:android:d8582af108ab21a8e60589",
+        "android_client_info": {
+          "package_name": "com.nht.gif"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3f3o6rGOYSMpNWPxel9WDnMa3zQMkNpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

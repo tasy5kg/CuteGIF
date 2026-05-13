@@ -73,4 +73,10 @@ object MySettings {
   var whatsNewRead
     get() = INT_WHATS_NEW_VERSION_LATEST == getInt(KEY_INT_WHATS_NEW_READ_VERSION)
     set(value) = setInt(KEY_INT_WHATS_NEW_READ_VERSION, if (value) INT_WHATS_NEW_VERSION_LATEST else null)
+
+  /** True once the POST_NOTIFICATIONS runtime permission dialog has been shown at least once. */
+  private const val KEY_BOOL_NOTIFICATION_PERMISSION_REQUESTED = "bool_notification_permission_requested"
+  var notificationPermissionRequested: Boolean
+    get() = getBoolean(KEY_BOOL_NOTIFICATION_PERMISSION_REQUESTED) ?: false
+    set(value) = setBoolean(KEY_BOOL_NOTIFICATION_PERMISSION_REQUESTED, value)
 }

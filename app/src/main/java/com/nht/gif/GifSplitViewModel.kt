@@ -1,6 +1,7 @@
 package com.nht.gif
 
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -30,7 +31,8 @@ class GifSplitViewModel(
 
   /** One-shot UI events that do not belong in persistent state. */
   sealed class Event {
-    object SaveSuccess : Event()
+    /** Emitted when a frame is successfully saved to the gallery. Carries the saved file [uri]. */
+    data class SaveSuccess(val uri: Uri) : Event()
   }
 
   private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
@@ -62,9 +64,9 @@ class GifSplitViewModel(
     val current = _uiState.value as? UiState.FramesReady ?: return
     viewModelScope.launch {
       _uiState.value = current.copy(isSaving = true)
-      repository.saveFrame(gifPath, frameIndex)
+      val savedUri = repository.saveFrame(gifPath, frameIndex)
       _uiState.value = current.copy(isSaving = false)
-      _events.emit(Event.SaveSuccess)
+      _events.emit(Event.SaveSuccess(savedUri))
     }
   }
 

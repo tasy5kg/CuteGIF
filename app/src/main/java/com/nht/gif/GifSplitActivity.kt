@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.nht.gif.databinding.ActivityGifSplitBinding
+import com.nht.gif.toolbox.FileTools
+import com.nht.gif.toolbox.NotificationHelper
 import com.nht.gif.toolbox.Toolbox.getExtra
 import com.nht.gif.toolbox.Toolbox.onClick
 import com.nht.gif.toolbox.Toolbox.toast
@@ -88,12 +90,15 @@ class GifSplitActivity : BaseActivity() {
 
   private fun handle(event: GifSplitViewModel.Event) {
     when (event) {
-      GifSplitViewModel.Event.SaveSuccess -> {
+      is GifSplitViewModel.Event.SaveSuccess -> {
         toast(R.string.saved_this_frame_to_gallery)
         binding.view.apply {
           visibility = View.VISIBLE
           postDelayed({ visibility = View.INVISIBLE }, 50)
         }
+        NotificationHelper.showShareNotification(
+          this, event.uri, MyConstants.MIME_TYPE_IMAGE_PNG, FileTools.FileName(event.uri).name
+        )
       }
     }
   }

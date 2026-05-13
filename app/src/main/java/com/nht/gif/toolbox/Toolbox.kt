@@ -138,7 +138,7 @@ object Toolbox {
   /** ColorInt */
   @get:ColorInt
   var View.backgroundColor
-    get() = (background as ColorDrawable).color
+    get() = (background as? ColorDrawable)?.color ?: 0
     set(@ColorInt colorInt) = setBackgroundColor(colorInt)
 
   enum class ColorStringType { ARGB, RGBA, RGB }

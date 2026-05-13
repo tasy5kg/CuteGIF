@@ -55,6 +55,9 @@ class VideoToGifActivity : BaseActivity() {
   lateinit var videoWH: Pair<Int, Int>
   private lateinit var mMediaPlayer: MediaPlayer
 
+  /** True once [mediaPlayerReady] has run and the rangeSlider has been initialized with 2 values. */
+  val isVideoReady: Boolean get() = ::mMediaPlayer.isInitialized
+
   private val loopRunnable by lazy {
     newRunnableWithSelf { self ->
       try {
@@ -115,6 +118,7 @@ class VideoToGifActivity : BaseActivity() {
       setVideoPath(inputVideoPath)
     }
     binding.mbClose.setOnClickListener { finish() }
+    binding.mbSave.isEnabled = false
     binding.mbSave.onClick(HapticFeedbackType.CONFIRM) {
       videoView.pause()
     if (supportFragmentManager.findFragmentByTag(VideoToGifExportOptionsDialogFragment.TAG) == null) {
@@ -238,6 +242,7 @@ class VideoToGifActivity : BaseActivity() {
         )
       }
       binding.mbPlayPause.setOnClickListener { mMediaPlayer.apply { if (isPlaying) pause() else start() } }
+      binding.mbSave.isEnabled = true
     }
   }
 

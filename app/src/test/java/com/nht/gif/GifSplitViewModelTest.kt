@@ -1,6 +1,7 @@
 package com.nht.gif
 
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -26,6 +27,7 @@ class GifSplitViewModelTest {
 
   private val testDispatcher = StandardTestDispatcher()
   private val repository: GifSplitRepository = mockk(relaxed = true)
+  private val fakeSavedUri: Uri = mockk()
   private val gifPath = "/data/test.gif"
   private val fakeBitmap: Bitmap = mockk()
   private val fakeFrames = listOf(fakeBitmap, fakeBitmap, fakeBitmap)
@@ -70,7 +72,7 @@ class GifSplitViewModelTest {
   @Test
   fun `saveFrame sets isSaving true then false and emits SaveSuccess`() = runTest {
     coEvery { repository.extractFrames(gifPath) } returns fakeFrames
-    coEvery { repository.saveFrame(any(), any()) } returns Unit
+    coEvery { repository.saveFrame(any(), any()) } returns fakeSavedUri
     val viewModel = createViewModel()
     advanceUntilIdle()
 
@@ -85,7 +87,7 @@ class GifSplitViewModelTest {
 
     val finalState = viewModel.uiState.value as GifSplitViewModel.UiState.FramesReady
     assertFalse(finalState.isSaving)
-    assertTrue(events.contains(GifSplitViewModel.Event.SaveSuccess))
+    assertEquals(GifSplitViewModel.Event.SaveSuccess(fakeSavedUri), events.first())
     coVerify { repository.saveFrame(gifPath, 2) }
     collectJob.cancel()
   }

@@ -29,7 +29,11 @@ object MyConstants {
 
   const val MIME_TYPE_IMAGE_GIF = "image/gif"
   const val MIME_TYPE_IMAGE_WEBP = "image/webp"
+  const val MIME_TYPE_IMAGE_PNG = "image/png"
   const val MIME_TYPE_VIDEO_MP4 = "video/mp4"
+
+  const val NOTIFICATION_CHANNEL_FILE_SAVED = "easy_gif_file_saved"
+  const val NOTIFICATION_ID_FILE_SAVED_BASE = 1000
 
   // Specifying "-hwaccel mediacodec" may result in slower decoding than "-hwaccel auto"
   const val FFMPEG_COMMAND_PREFIX_FOR_ALL_AN = "-hwaccel auto -hide_banner -benchmark -an"
